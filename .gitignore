@@ -16,6 +16,7 @@ bin/
 gen/
 out/
 
+
 # Gradle files
 .gradle/
 build/
@@ -167,6 +168,8 @@ fabric.properties
 .idea
 **/node_modules/*
 **/.firebaserc
+app/google-services.json
+
 ### macOS ###
 *.DS_Store
 .AppleDouble
