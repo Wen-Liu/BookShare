@@ -35,15 +35,8 @@ public class GetBookIdTask extends AsyncTask<Void, String, String> {
         String bookUrl = null;
 
         try {
-
-            Log.d(Constants.TAG_GET_BOOK_ID_TASK, "=================================");
-            bookUrl = ApiHelper.getBookIdByIsbn(mIsbn);
-
-//            // Write a message to the database
-//            FirebaseDatabase database = FirebaseDatabase.getInstance();
-//            DatabaseReference myRef = database.getReference("google");
-//
-//            myRef.child(searchResult.getItems().get(0).getId()).setValue(searchResult);
+            Log.d(Constants.TAG_GET_BOOK_ID_TASK, "========== GetBookIdTask ==========");
+            bookUrl = GoogleApiHelper.getBookIdByIsbn(mIsbn);
 
         } catch (IOException e) {
             mErrorMessage = e.getMessage();

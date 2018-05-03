@@ -4,6 +4,8 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.wenliu.bookshare.Constants;
+import com.wenliu.bookshare.GetBookCoverUrl;
+import com.wenliu.bookshare.object.Book;
 import com.wenliu.bookshare.object.GoogleBook.Item;
 
 import org.json.JSONArray;
@@ -29,15 +31,38 @@ public class ShareBookParser {
         return beanGetBookId;
     }
 
-    public static Item parseBookData(String jsonString) {
-        Item beanGetBookId;
+    public static Book parseBookData(String jsonString) {
+        Item googleBookData;
+        Book book;
 
         Gson gson = new Gson();
-        beanGetBookId = gson.fromJson(jsonString, Item.class);
+        googleBookData = gson.fromJson(jsonString, Item.class);
 
+        new FirebaseApiHelper().uploadGoogleBook(googleBookData.getId(),googleBookData);
+
+        book = parseBook(googleBookData);
         Log.d(Constants.TAG_SHARE_BOOK_PARSER, "parseBookData");
 
-        return beanGetBookId;
+        return book;
+    }
+
+
+    public static Book parseBook(Item item) {
+        Book oBook = new Book();
+
+        oBook.setBookSource("google");
+        oBook.setId(item.getId());
+        oBook.setTitle(item.getVolumeInfo().getTitle());
+        oBook.setSubtitle(item.getVolumeInfo().getSubtitle());
+        oBook.setAuthor(item.getVolumeInfo().getAuthors());
+        oBook.setIsbn10(item.getVolumeInfo().getIndustryIdentifiers().get(0).getIdentifier());
+        oBook.setIsbn13(item.getVolumeInfo().getIndustryIdentifiers().get(1).getIdentifier());
+        oBook.setPublisher(item.getVolumeInfo().getPublisher());
+        oBook.setPublishDate(item.getVolumeInfo().getPublishedDate());
+        oBook.setLanguage(item.getVolumeInfo().getLanguage());
+        oBook.setImage(GetBookCoverUrl.GetUrl(item.getVolumeInfo().getIndustryIdentifiers().get(1).getIdentifier()));
+
+        return oBook;
     }
 
 

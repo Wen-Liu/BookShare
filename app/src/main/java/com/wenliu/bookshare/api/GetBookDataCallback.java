@@ -1,5 +1,6 @@
 package com.wenliu.bookshare.api;
 
+import com.wenliu.bookshare.object.Book;
 import com.wenliu.bookshare.object.GoogleBook.Item;
 
 /**
@@ -7,6 +8,6 @@ import com.wenliu.bookshare.object.GoogleBook.Item;
  */
 
 public interface GetBookDataCallback {
-    public void onCompleted(Item bookData);
+    public void onCompleted(Book book);
     public void onError(String errorMessage);
 }

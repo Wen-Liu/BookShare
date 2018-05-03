@@ -1,5 +1,8 @@
 package com.wenliu.bookshare.object;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by wen on 2018/5/3.
  */
@@ -9,7 +12,7 @@ public class Book {
     private String mId;
     private String mTitle;
     private String mSubtitle;
-    private String mAuthor;
+    private List<String> mAuthor;
     private String mIsbn10;
     private String mIsbn13;
     private String mPublisher;
@@ -18,20 +21,18 @@ public class Book {
     private String mImage;
 
 
-    public Book(String bookSource, String id, String title, String subtitle, String author,
-                String isbn10, String isbn13, String publisher, String publishDate, String language,
-                String image) {
-        mBookSource = bookSource;
-        mId = id;
-        mTitle = title;
-        mSubtitle = subtitle;
-        mAuthor = author;
-        mIsbn10 = isbn10;
-        mIsbn13 = isbn13;
-        mPublisher = publisher;
-        mPublishDate = publishDate;
-        mLanguage = language;
-        mImage = image;
+    public Book() {
+        mBookSource = "";
+        mId = "";
+        mTitle = "";
+        mSubtitle = "";
+        mAuthor = new ArrayList<>();
+        mIsbn10 = "";
+        mIsbn13 = "";
+        mPublisher = "";
+        mPublishDate = "";
+        mLanguage = "";
+        mImage = "";
     }
 
     public String getBookSource() {
@@ -66,11 +67,11 @@ public class Book {
         mSubtitle = subtitle;
     }
 
-    public String getAuthor() {
+    public List<String> getAuthor() {
         return mAuthor;
     }
 
-    public void setAuthor(String author) {
+    public void setAuthor(List<String> author) {
         mAuthor = author;
     }
 

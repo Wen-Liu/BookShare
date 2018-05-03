@@ -1,6 +1,5 @@
 package com.wenliu.bookshare;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -20,17 +19,17 @@ import android.widget.Toast;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.squareup.picasso.Picasso;
+import com.wenliu.bookshare.api.FirebaseApiHelper;
 import com.wenliu.bookshare.api.GetBookDataCallback;
 import com.wenliu.bookshare.api.GetBookDataTask;
 import com.wenliu.bookshare.api.GetBookIdCallback;
 import com.wenliu.bookshare.api.GetBookIdTask;
-import com.wenliu.bookshare.object.GoogleBook.Item;
+import com.wenliu.bookshare.object.Book;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.ButterKnife;
 
-import static android.support.v4.util.Preconditions.checkNotNull;
 
 public class MainActivity extends AppCompatActivity implements ShareBookContract.View {
     @BindView(R.id.editText_isbn)
@@ -39,8 +38,8 @@ public class MainActivity extends AppCompatActivity implements ShareBookContract
     Button mBtnSendISBN;
     @BindView(R.id.imageView)
     ImageView mImageView;
-    @BindView(R.id.btn_barcode_sacnner)
-    Button mBtnBarcodeSacnner;
+    @BindView(R.id.btn_barcode_scanner)
+    Button mBtnBarcodeScanner;
     @BindView(R.id.tv_book_title)
     TextView mTvBookTitle;
 
@@ -97,10 +96,10 @@ public class MainActivity extends AppCompatActivity implements ShareBookContract
     }
 
 
-    @OnClick({R.id.btn_barcode_sacnner, R.id.btn_sendISBN})
+    @OnClick({R.id.btn_barcode_scanner, R.id.btn_sendISBN})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.btn_barcode_sacnner:
+            case R.id.btn_barcode_scanner:
 
                 scanIntegrator = new IntentIntegrator(MainActivity.this);
                 scanIntegrator.setPrompt("請掃描");
@@ -113,33 +112,27 @@ public class MainActivity extends AppCompatActivity implements ShareBookContract
             case R.id.btn_sendISBN:
                 mIsbn = String.valueOf(mEditTextIsbn.getText());
                 String bookCoverUrl = GetBookCoverUrl.GetUrl(mIsbn);
-                Log.d(Constants.TAG_MAIN_ACTIVITY, "Book Cover Url: " + bookCoverUrl);
-
-                // 設定圖檔
-                Picasso.get()
-                        .load(bookCoverUrl)
-                        .into(mImageView);
 
                 new GetBookIdTask(mIsbn, new GetBookIdCallback() {
                     @Override
                     public void onCompleted(String id) {
-                        Log.d(Constants.TAG_MAIN_ACTIVITY, "GetBookIdTask onCompleted =================================");
+                        Log.d(Constants.TAG_MAIN_ACTIVITY, "========== GetBookIdTask onCompleted ==========");
 
-                         new GetBookDataTask(id, new GetBookDataCallback() {
-                             @Override
-                             public void onCompleted(Item bookData) {
-                                 Log.d(Constants.TAG_MAIN_ACTIVITY, "GetBookDataTask onCompleted =================================");
-                                 mBookTitle = bookData.getVolumeInfo().getTitle();
-                                 mBookAuthor = bookData.getVolumeInfo().getAuthors().get(0);
+                        new GetBookDataTask(id, new GetBookDataCallback() {
+                            @Override
+                            public void onCompleted(Book book) {
+                                Log.d(Constants.TAG_MAIN_ACTIVITY, "========== GetBookDataTask onCompleted ==========");
 
-                                 setText(mBookTitle);
-                             }
+                                new FirebaseApiHelper().uploadBooks(mIsbn,book);
+                                setText(book.getTitle());
+                                setImage(book.getImage());
+                            }
 
-                             @Override
-                             public void onError(String errorMessage) {
+                            @Override
+                            public void onError(String errorMessage) {
 
-                             }
-                         }).execute();
+                            }
+                        }).execute();
                     }
 
                     @Override
@@ -175,9 +168,15 @@ public class MainActivity extends AppCompatActivity implements ShareBookContract
         mTvBookTitle.setText(text);
     }
 
-    @SuppressLint("RestrictedApi")
+    @Override
+    public void setImage(String image) {
+        Picasso.get()
+                .load(image)
+                .into(mImageView);
+    }
+
     @Override
     public void setPresenter(ShareBookContract.Presenter presenter) {
-        mPresenter = checkNotNull(presenter);
+
     }
 }

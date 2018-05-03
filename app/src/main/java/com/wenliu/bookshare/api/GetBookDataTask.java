@@ -4,7 +4,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.wenliu.bookshare.Constants;
-import com.wenliu.bookshare.object.GoogleBook.Item;
+import com.wenliu.bookshare.object.Book;
 
 import java.io.IOException;
 
@@ -12,7 +12,7 @@ import java.io.IOException;
  * Created by wen on 2018/5/3.
  */
 
-public class GetBookDataTask extends AsyncTask<Void, String, Item> {
+public class GetBookDataTask extends AsyncTask<Void, String, Book> {
     private String mBookUrl;
     private GetBookDataCallback mCallback;
     private String mErrorMessage;
@@ -23,12 +23,12 @@ public class GetBookDataTask extends AsyncTask<Void, String, Item> {
     }
 
     @Override
-    protected Item doInBackground(Void... voids) {
-        Item bookData = null;
+    protected Book doInBackground(Void... voids) {
+        Book bookData = null;
 
         try {
-            Log.d(Constants.TAG_GET_BOOK_DATA_TASK, "=================================");
-            bookData = ApiHelper.getBookDataById(mBookUrl);
+            Log.d(Constants.TAG_GET_BOOK_DATA_TASK, "========== GetBookDataTask ==========");
+            bookData = GoogleApiHelper.getBookDataById(mBookUrl);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -37,12 +37,12 @@ public class GetBookDataTask extends AsyncTask<Void, String, Item> {
     }
 
     @Override
-    protected void onPostExecute(Item item) {
-        super.onPostExecute(item);
+    protected void onPostExecute(Book book) {
+        super.onPostExecute(book);
 
-        if(item !=null){
+        if(book !=null){
             Log.d(Constants.TAG_GET_BOOK_DATA_TASK, "onPostExecute");
-            mCallback.onCompleted(item);
+            mCallback.onCompleted(book);
 
         } else if (!mErrorMessage.equals("")) {
             mCallback.onError(mErrorMessage);

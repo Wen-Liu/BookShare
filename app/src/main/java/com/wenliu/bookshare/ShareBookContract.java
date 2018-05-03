@@ -8,6 +8,7 @@ public interface ShareBookContract {
 
     interface View extends BaseView<Presenter> {
         void setText(String text);
+        void setImage(String image);
 
 
     }
