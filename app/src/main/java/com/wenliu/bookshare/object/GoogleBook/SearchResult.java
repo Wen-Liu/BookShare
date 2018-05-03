@@ -1,4 +1,4 @@
-package com.wenliu.bookshare.Object;
+package com.wenliu.bookshare.object.GoogleBook;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -8,14 +8,16 @@ import java.util.List;
 /**
  * Created by wen on 2018/5/2.
  */
-public class BookData {
+public class SearchResult {
 
     @SerializedName("kind")
     @Expose
     private String kind;
+
     @SerializedName("totalItems")
     @Expose
     private Integer totalItems;
+
     @SerializedName("items")
     @Expose
     private List<Item> items = null;
