@@ -36,19 +36,9 @@ public class GetBookIdTask extends AsyncTask<Void, String, String> {
 
         try {
 
-            Log.d(Constants.TAG_GET_BOOK_DATA_TASK, " ");
+            Log.d(Constants.TAG_GET_BOOK_ID_TASK, "=================================");
             bookUrl = ApiHelper.getBookIdByIsbn(mIsbn);
 
-//            String id = new JSONObject(mBookData).getJSONArray("items").getJSONObject(0).getString("id");
-//            Log.d(Constants.TAG_GET_BOOK_DATA_TASK, "id: " + id);
-//
-//            Gson gson = new Gson();
-//            SearchResult searchResult = gson.fromJson(mBookData, SearchResult.class);
-//
-//            Title = searchResult.getItems().get(0).getVolumeInfo().getTitle().toString();
-//            Log.d(Constants.TAG_GET_BOOK_DATA_TASK, "Title = " + Title);
-//
-//
 //            // Write a message to the database
 //            FirebaseDatabase database = FirebaseDatabase.getInstance();
 //            DatabaseReference myRef = database.getReference("google");
@@ -58,27 +48,25 @@ public class GetBookIdTask extends AsyncTask<Void, String, String> {
         } catch (IOException e) {
             mErrorMessage = e.getMessage();
             e.printStackTrace();
-//        } catch (JSONException e) {
-//            e.printStackTrace();
         }
-            Log.d(Constants.TAG_GET_BOOK_DATA_TASK, "bookUrl: " + bookUrl);
+            Log.d(Constants.TAG_GET_BOOK_ID_TASK, "bookUrl: " + bookUrl);
 
         return bookUrl;
     }
 
     @Override
-    protected void onPostExecute(String s) {
-        super.onPostExecute(s);
+    protected void onPostExecute(String bookUrl) {
+        super.onPostExecute(bookUrl);
 
-        if(s !=null){
-            Log.d(Constants.TAG_GET_BOOK_DATA_TASK, "onPostExecute");
-            mCallback.onCompleted(s);
+        if(bookUrl !=null){
+            Log.d(Constants.TAG_GET_BOOK_ID_TASK, "onPostExecute");
+            mCallback.onCompleted(bookUrl);
 
         } else if (!mErrorMessage.equals("")) {
             mCallback.onError(mErrorMessage);
 
         } else {
-            Log.d(Constants.TAG_GET_BOOK_DATA_TASK, "GetBook fail");
+            Log.d(Constants.TAG_GET_BOOK_ID_TASK, "GetBookId fail");
         }
     }
 }

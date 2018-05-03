@@ -24,6 +24,7 @@ import com.wenliu.bookshare.api.GetBookDataCallback;
 import com.wenliu.bookshare.api.GetBookDataTask;
 import com.wenliu.bookshare.api.GetBookIdCallback;
 import com.wenliu.bookshare.api.GetBookIdTask;
+import com.wenliu.bookshare.object.GoogleBook.Item;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,7 +46,8 @@ public class MainActivity extends AppCompatActivity implements ShareBookContract
 
     private String mIsbn;
     private final String mUrl = "http://api.findbook.tw/book/cover/";
-    private String mBookdata;
+    private String mBookTitle;
+    private String mBookAuthor;
     private IntentIntegrator scanIntegrator;
     private ShareBookContract.Presenter mPresenter;
 
@@ -121,21 +123,23 @@ public class MainActivity extends AppCompatActivity implements ShareBookContract
                 new GetBookIdTask(mIsbn, new GetBookIdCallback() {
                     @Override
                     public void onCompleted(String id) {
-                        Log.d(Constants.TAG_MAIN_ACTIVITY, "GetBookIdTask onCompleted");
+                        Log.d(Constants.TAG_MAIN_ACTIVITY, "GetBookIdTask onCompleted =================================");
 
-//                         new GetBookDataTask(id, new GetBookDataCallback() {
-//                             @Override
-//                             public void onCompleted(String bookId) {
-//
-//                             }
-//
-//                             @Override
-//                             public void onError(String errorMessage) {
-//
-//                             }
-//                         }).execute();
+                         new GetBookDataTask(id, new GetBookDataCallback() {
+                             @Override
+                             public void onCompleted(Item bookData) {
+                                 Log.d(Constants.TAG_MAIN_ACTIVITY, "GetBookDataTask onCompleted =================================");
+                                 mBookTitle = bookData.getVolumeInfo().getTitle();
+                                 mBookAuthor = bookData.getVolumeInfo().getAuthors().get(0);
 
-                        setText(id);
+                                 setText(mBookTitle);
+                             }
+
+                             @Override
+                             public void onError(String errorMessage) {
+
+                             }
+                         }).execute();
                     }
 
                     @Override

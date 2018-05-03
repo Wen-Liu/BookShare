@@ -10,80 +10,73 @@ import java.util.List;
  */
 public class VolumeInfo {
 
-    @SerializedName("title")
-    @Expose
-    private String mTitle;
-
-    @SerializedName("subtitle")
-    @Expose
-    private String subtitle;
-
     @SerializedName("authors")
     @Expose
     private List<String> authors = null;
-
-    @SerializedName("publishedDate")
-    @Expose
-    private String publishedDate;
-
-    @SerializedName("industryIdentifiers")
-    @Expose
-    private List<IndustryIdentifier> industryIdentifiers = null;
-
-    @SerializedName("readingModes")
-    @Expose
-    private ReadingModes readingModes;
 
     @SerializedName("pageCount")
     @Expose
     private Integer pageCount;
 
-    @SerializedName("printType")
-    @Expose
-    private String printType;
-
     @SerializedName("categories")
     @Expose
     private List<String> categories = null;
 
+    @SerializedName("title")
+    @Expose
+    private String title;
+    @SerializedName("subtitle")
+    @Expose
+    private String subtitle;
+    @SerializedName("publisher")
+    @Expose
+    private String publisher;
+    @SerializedName("publishedDate")
+    @Expose
+    private String publishedDate;
+    @SerializedName("industryIdentifiers")
+    @Expose
+    private List<IndustryIdentifier> industryIdentifiers = null;
+    @SerializedName("readingModes")
+    @Expose
+    private ReadingModes readingModes;
+    @SerializedName("dimensions")
+    @Expose
+    private Dimensions dimensions;
+    @SerializedName("printType")
+    @Expose
+    private String printType;
     @SerializedName("maturityRating")
     @Expose
     private String maturityRating;
-
     @SerializedName("allowAnonLogging")
     @Expose
     private Boolean allowAnonLogging;
-
     @SerializedName("contentVersion")
     @Expose
     private String contentVersion;
-
     @SerializedName("panelizationSummary")
     @Expose
     private PanelizationSummary panelizationSummary;
-
     @SerializedName("language")
     @Expose
     private String language;
-
     @SerializedName("previewLink")
     @Expose
     private String previewLink;
-
     @SerializedName("infoLink")
     @Expose
     private String infoLink;
-
     @SerializedName("canonicalVolumeLink")
     @Expose
     private String canonicalVolumeLink;
 
     public String getTitle() {
-        return mTitle;
+        return title;
     }
 
     public void setTitle(String title) {
-        this.mTitle = title;
+        this.title = title;
     }
 
     public String getSubtitle() {
@@ -94,12 +87,12 @@ public class VolumeInfo {
         this.subtitle = subtitle;
     }
 
-    public List<String> getAuthors() {
-        return authors;
+    public String getPublisher() {
+        return publisher;
     }
 
-    public void setAuthors(List<String> authors) {
-        this.authors = authors;
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
     }
 
     public String getPublishedDate() {
@@ -126,12 +119,12 @@ public class VolumeInfo {
         this.readingModes = readingModes;
     }
 
-    public Integer getPageCount() {
-        return pageCount;
+    public Dimensions getDimensions() {
+        return dimensions;
     }
 
-    public void setPageCount(Integer pageCount) {
-        this.pageCount = pageCount;
+    public void setDimensions(Dimensions dimensions) {
+        this.dimensions = dimensions;
     }
 
     public String getPrintType() {
@@ -140,14 +133,6 @@ public class VolumeInfo {
 
     public void setPrintType(String printType) {
         this.printType = printType;
-    }
-
-    public List<String> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(List<String> categories) {
-        this.categories = categories;
     }
 
     public String getMaturityRating() {
@@ -213,5 +198,31 @@ public class VolumeInfo {
     public void setCanonicalVolumeLink(String canonicalVolumeLink) {
         this.canonicalVolumeLink = canonicalVolumeLink;
     }
+
+    public List<String> getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(List<String> authors) {
+        this.authors = authors;
+    }
+
+    public Integer getPageCount() {
+        return pageCount;
+    }
+
+    public void setPageCount(Integer pageCount) {
+        this.pageCount = pageCount;
+    }
+
+    public List<String> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<String> categories) {
+        this.categories = categories;
+    }
+
+
 
 }

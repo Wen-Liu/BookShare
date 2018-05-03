@@ -2,7 +2,9 @@ package com.wenliu.bookshare.api;
 
 import android.util.Log;
 
+import com.google.gson.Gson;
 import com.wenliu.bookshare.Constants;
+import com.wenliu.bookshare.object.GoogleBook.Item;
 
 import java.io.IOException;
 
@@ -17,7 +19,7 @@ public class ApiHelper {
         Log.d(Constants.TAG_API_HELPER, "getBookIdByIsbn");
 
         try {
-            return ShareBookParser.parseGetBookId(new ShareBookClient().get(GOOGLE_BOOK_SEARCH_BASE_URL + isbn));
+            return ShareBookParser.parseBookId(new ShareBookClient().get(GOOGLE_BOOK_SEARCH_BASE_URL + isbn));
 
         } catch (IOException e) {
             throw new IOException(e.getMessage());
@@ -25,11 +27,11 @@ public class ApiHelper {
     }
 
 
-    public static String getBookDataById(String id) throws IOException {
+    public static Item getBookDataById(String id) throws IOException {
         Log.d(Constants.TAG_API_HELPER, "getBookDataById");
 
         try {
-            return ShareBookParser.parseGetBookId(new ShareBookClient().get(id));
+            return ShareBookParser.parseBookData(new ShareBookClient().get(id));
 
         } catch (IOException e) {
             throw new IOException(e.getMessage());

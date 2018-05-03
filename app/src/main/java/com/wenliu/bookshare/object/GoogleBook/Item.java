@@ -11,27 +11,21 @@ public class Item {
     @SerializedName("kind")
     @Expose
     private String kind;
-
     @SerializedName("id")
     @Expose
     private String id;
-
     @SerializedName("etag")
     @Expose
     private String etag;
-
     @SerializedName("selfLink")
     @Expose
     private String selfLink;
-
     @SerializedName("volumeInfo")
     @Expose
     private VolumeInfo volumeInfo;
-
     @SerializedName("saleInfo")
     @Expose
     private SaleInfo saleInfo;
-
     @SerializedName("accessInfo")
     @Expose
     private AccessInfo accessInfo;
