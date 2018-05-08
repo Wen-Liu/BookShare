@@ -6,12 +6,13 @@
 
     <!-- Blue Series-->
     <color name="colorP_light">#b6ffff</color>
-    <color name="colorLightBlue400">#81d4fa</color>
+    <color name="colorLightBlue200">#81d4fa</color>
     <color name="colorP_Dark">#4ba3c7</color>
 
     <!-- Brown Series-->
-    <color name="colorBrown_200">#BCAAA4</color>
-    <color name="colorBrown_700">#5D4037</color>
+    <color name="colorBrown_light">#be9c91</color>
+    <color name="colorBrown_400">#8d6e63</color>
+    <color name="colorBrown_dark">#5f4339</color>
 
 
 </resources>

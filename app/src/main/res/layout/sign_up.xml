@@ -21,8 +21,8 @@
         android:paddingHorizontal="12dp"
         android:paddingVertical="6dp"
         android:singleLine="true"
-        android:textColor="@color/colorBrown_700"
-        android:textColorHint="@color/colorBrown_200"
+        android:textColor="@color/colorBrown_dark"
+        android:textColorHint="@color/colorBrown_light"
         android:textSize="18sp" />
 
     <EditText
@@ -38,8 +38,8 @@
         android:paddingHorizontal="12dp"
         android:paddingVertical="6dp"
         android:singleLine="true"
-        android:textColor="@color/colorBrown_700"
-        android:textColorHint="@color/colorBrown_200"
+        android:textColor="@color/colorBrown_dark"
+        android:textColorHint="@color/colorBrown_light"
         android:textSize="18sp" />
 
     <EditText
@@ -55,8 +55,8 @@
         android:paddingHorizontal="12dp"
         android:paddingVertical="6dp"
         android:singleLine="true"
-        android:textColor="@color/colorBrown_700"
-        android:textColorHint="@color/colorBrown_200"
+        android:textColor="@color/colorBrown_dark"
+        android:textColorHint="@color/colorBrown_light"
         android:textSize="18sp" />
 
     <EditText
@@ -72,8 +72,8 @@
         android:paddingHorizontal="12dp"
         android:paddingVertical="6dp"
         android:singleLine="true"
-        android:textColor="@color/colorBrown_700"
-        android:textColorHint="@color/colorBrown_200"
+        android:textColor="@color/colorBrown_dark"
+        android:textColorHint="@color/colorBrown_light"
         android:textSize="18sp" />
 
     <LinearLayout
