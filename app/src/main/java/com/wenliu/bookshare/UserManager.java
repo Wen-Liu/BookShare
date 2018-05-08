@@ -2,6 +2,17 @@ package com.wenliu.bookshare;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
+import android.util.Log;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.wenliu.bookshare.api.FirebaseApiHelper;
+import com.wenliu.bookshare.api.SignUpCallback;
+import com.wenliu.bookshare.object.User;
 
 /**
  * Created by wen on 2018/5/7.
@@ -43,8 +54,40 @@ public class UserManager {
         return mUserData.getString(Constants.USER_IMAGE, null);
     }
 
-//    public String getFbToken() {
-//        return mUserData.getString(Constants.USER_ID, null);
-//    }
+
+    public void signUpByEmail(final LoginActivity activity, final FirebaseAuth auth, String email, String password, final SignUpCallback callback) {
+        Log.d(Constants.TAG_USERMANAGER, "signUpByEmail ");
+
+        auth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(Constants.TAG_USERMANAGER, "createUserWithEmail success!");
+
+                            FirebaseUser firebaseUser = auth.getCurrentUser();
+
+                            mUserData.edit()
+                                    .putString(Constants.USER_EMAIL, firebaseUser.getEmail())
+                                    .putString(Constants.USER_ID, firebaseUser.getUid())
+                                    .commit();
+
+                            User user = new User();
+                            user.setEmail(firebaseUser.getEmail());
+                            user.setId(firebaseUser.getUid());
+
+                            new FirebaseApiHelper().uploadUser(user, callback);
+
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.e(Constants.TAG_USERMANAGER, "createUserWithEmail fail! Error message: " + task.getException().getLocalizedMessage());
+                            callback.onError(task.getException().getLocalizedMessage());
+                        }
+                    }
+                });
+    }
+
+
 
 }

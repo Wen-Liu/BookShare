@@ -19,6 +19,7 @@ public class Constants {
     public final static String TAG_GET_BOOKS_TASK = "wen-GetBooksTask";
 
     public final static String TAG_FIREBASE_API_HELPER = "wen-FirebaseApiHelper";
+    public final static String TAG_USERMANAGER = "wen-UserManager";
     public final static String TAG_GOOGLE_API_HELPER = "wen-GoogleApiHelper";
     public final static String TAG_SHARE_BOOK_CLIENT = "wen-ShareBookClient";
     public final static String TAG_SHARE_BOOK_PARSER = "wen-ShareBookParser";
@@ -26,6 +27,7 @@ public class Constants {
     // Firebase
     public final static String FIREBASE_BOOKS = "Books";
     public final static String FIREBASE_GOOGLE_BOOKS = "GoogleBooks";
+    public final static String FIREBASE_USERS = "users";
 
     // User Manager
     public final static String USER_DATA = "user_data";

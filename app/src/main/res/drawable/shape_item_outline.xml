@@ -13,7 +13,7 @@
     <solid android:color="#ffffff" />
 
     <size
-        android:width="200dp"
+        android:width="20dp"
         android:height="20dp"></size>
 
     <!-- 圓角，Layout佈局圓角幅度設定值 -->
