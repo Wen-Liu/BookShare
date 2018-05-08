@@ -72,11 +72,15 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
-        initView();
+        if (UserManager.getInstance().isLoginStatus()) {
+            transToShareBookActivity();
 
-        mAuth = FirebaseAuth.getInstance();
-        mPresenter = new LoginPresenter(this);
-        mPresenter.start();
+        } else {
+            initView();
+            mAuth = FirebaseAuth.getInstance();
+            mPresenter = new LoginPresenter(this);
+            mPresenter.start();
+        }
     }
 
 
