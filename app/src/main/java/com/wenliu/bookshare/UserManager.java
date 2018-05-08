@@ -55,6 +55,11 @@ public class UserManager {
         return mUserData.getString(Constants.USER_IMAGE, null);
     }
 
+    public boolean isLoginStatus() {
+        Log.d(Constants.TAG_USERMANAGER, "isLoginStatus(): " + ((getUserId() == null) ? false : true));
+        return (getUserId() == null) ? false : true;
+    }
+
 
     public void signUpByEmail(final LoginActivity activity, final FirebaseAuth auth, String email, String password, final String name, final SignUpCallback callback) {
         Log.d(Constants.TAG_USERMANAGER, "signUpByEmail ");
