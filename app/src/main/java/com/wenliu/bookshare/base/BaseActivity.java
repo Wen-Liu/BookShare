@@ -1,4 +1,4 @@
-package com.wenliu.bookshare;
+package com.wenliu.bookshare.base;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -10,6 +10,9 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.wenliu.bookshare.Constants;
+import com.wenliu.bookshare.UserManager;
+
 public class BaseActivity extends AppCompatActivity {
 
     protected Context mContext;
@@ -18,6 +21,7 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Log.d(Constants.TAG_BASE_ACTIVITY, "onCreate");
         this.mContext = this;
         setStatusBar();
     }

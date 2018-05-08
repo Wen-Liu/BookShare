@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/linearlayout_sign_up"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+
+    <EditText
+        android:id="@+id/editText_signUp_name"
+        android:layout_width="@dimen/login_activity_edittext_width"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/login_activity_gap"
+        android:background="@drawable/shape_item_outline"
+        android:hint="@string/prompt_name"
+        android:imeOptions="actionNext"
+        android:inputType="textEmailAddress"
+        android:maxLines="1"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="6dp"
+        android:singleLine="true"
+        android:textColor="@color/colorBrown_700"
+        android:textColorHint="@color/colorBrown_200"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/editText_signUp_email"
+        android:layout_width="@dimen/login_activity_edittext_width"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/login_activity_gap"
+        android:background="@drawable/shape_item_outline"
+        android:hint="@string/prompt_email"
+        android:imeOptions="actionNext"
+        android:inputType="textEmailAddress"
+        android:maxLines="1"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="6dp"
+        android:singleLine="true"
+        android:textColor="@color/colorBrown_700"
+        android:textColorHint="@color/colorBrown_200"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/editText_signUp_password"
+        android:layout_width="@dimen/login_activity_edittext_width"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/login_activity_gap"
+        android:background="@drawable/shape_item_outline"
+        android:hint="@string/prompt_password"
+        android:imeActionId="6"
+        android:inputType="textPassword"
+        android:maxLines="1"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="6dp"
+        android:singleLine="true"
+        android:textColor="@color/colorBrown_700"
+        android:textColorHint="@color/colorBrown_200"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/editText_signUp_password_confirm"
+        android:layout_width="@dimen/login_activity_edittext_width"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/login_activity_gap"
+        android:background="@drawable/shape_item_outline"
+        android:hint="@string/prompt_password_confirm"
+        android:imeActionId="6"
+        android:inputType="textPassword"
+        android:maxLines="1"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="6dp"
+        android:singleLine="true"
+        android:textColor="@color/colorBrown_700"
+        android:textColorHint="@color/colorBrown_200"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_register_cancel"
+            android:layout_width="@dimen/login_activity_button_width"
+            android:layout_height="30dp"
+            android:layout_marginEnd="10dp"
+            android:background="@color/colorP_Dark"
+            android:text="@string/action_cancel"
+            android:textAllCaps="false"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_register_email"
+            android:layout_width="@dimen/login_activity_button_width"
+            android:layout_height="30dp"
+            android:background="@color/colorP_Dark"
+            android:text="@string/action_send"
+            android:textAllCaps="false"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

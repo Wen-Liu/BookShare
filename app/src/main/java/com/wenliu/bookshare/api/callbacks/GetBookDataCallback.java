@@ -1,4 +1,4 @@
-package com.wenliu.bookshare.api;
+package com.wenliu.bookshare.api.callbacks;
 
 import com.wenliu.bookshare.object.Book;
 import com.wenliu.bookshare.object.GoogleBook.Item;

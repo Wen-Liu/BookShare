@@ -1,15 +1,7 @@
 package com.wenliu.bookshare.api;
 
-import android.app.Activity;
-import android.support.annotation.NonNull;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -17,9 +9,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.wenliu.bookshare.Constants;
-import com.wenliu.bookshare.LoginActivity;
-import com.wenliu.bookshare.ShareBook;
-import com.wenliu.bookshare.ShareBookActivity;
+import com.wenliu.bookshare.api.callbacks.GetBooksCallback;
+import com.wenliu.bookshare.api.callbacks.SignInCallback;
+import com.wenliu.bookshare.api.callbacks.SignUpCallback;
 import com.wenliu.bookshare.object.Book;
 import com.wenliu.bookshare.object.GoogleBook.Item;
 import com.wenliu.bookshare.object.User;

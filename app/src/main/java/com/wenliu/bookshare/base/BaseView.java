@@ -1,4 +1,4 @@
-package com.wenliu.bookshare;
+package com.wenliu.bookshare.base;
 
 /**
  * Created by wen on 2018/5/2.

@@ -1,73 +1,113 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/library_1021724_640"
-    android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:paddingHorizontal="@dimen/activity_horizontal_margin"
-    android:paddingVertical="@dimen/activity_vertical_margin"
+    android:background="@android:color/white"
     tools:context="com.wenliu.bookshare.LoginActivity">
 
-    <!-- Login progress -->
-    <ProgressBar
-        android:id="@+id/login_progress"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:visibility="gone" />
-
-    <LinearLayout
-        android:id="@+id/email_login_form"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraint_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="320dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/library_1021724_640"
         android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:paddingHorizontal="@dimen/activity_horizontal_margin"
+        android:paddingVertical="@dimen/activity_vertical_margin">
 
-
-        <EditText
-            android:id="@+id/email"
-            android:layout_width="@dimen/login_activity_width"
+        <!-- Login progress -->
+        <ProgressBar
+            android:id="@+id/login_progress"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/shape_item_outline"
-            android:hint="@string/prompt_email"
-            android:imeOptions="actionNext"
-            android:inputType="textEmailAddress"
-            android:maxLines="1"
-            android:paddingHorizontal="12dp"
-            android:paddingVertical="6dp"
-            android:singleLine="true"
-            android:textColor="@color/colorBrown_700"
-            android:textColorHint="@color/colorBrown_200"
-            android:textSize="18sp" />
+            android:layout_marginTop="300dp"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
-        <EditText
-            android:id="@+id/password"
-            android:layout_width="@dimen/login_activity_width"
+        <LinearLayout
+            android:id="@+id/linearlayout_sign_in"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/shape_item_outline"
-            android:hint="@string/prompt_password"
-            android:imeActionId="6"
-            android:inputType="textPassword"
-            android:maxLines="1"
-            android:paddingHorizontal="12dp"
-            android:paddingVertical="6dp"
-            android:singleLine="true"
-            android:textColor="@color/colorBrown_700"
-            android:textColorHint="@color/colorBrown_200"
-            android:textSize="18sp" />
+            android:layout_marginBottom="180dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent">
 
-        <Button
-            android:id="@+id/email_sign_in_button"
-            style="?android:textAppearanceSmall"
-            android:layout_width="@dimen/login_activity_width"
+            <EditText
+                android:id="@+id/editText_signIn_email"
+                android:layout_width="@dimen/login_activity_edittext_width"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/shape_item_outline"
+                android:hint="@string/prompt_email"
+                android:imeOptions="actionNext"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="6dp"
+                android:singleLine="true"
+                android:textColor="@color/colorBrown_700"
+                android:textColorHint="@color/colorBrown_200"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/editText_signIn_password"
+                android:layout_width="@dimen/login_activity_edittext_width"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/shape_item_outline"
+                android:hint="@string/prompt_password"
+                android:imeActionId="6"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="6dp"
+                android:singleLine="true"
+                android:textColor="@color/colorBrown_700"
+                android:textColorHint="@color/colorBrown_200"
+                android:textSize="18sp" />
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_go_to_register"
+                    android:layout_width="@dimen/login_activity_button_width"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@color/colorP_Dark"
+                    android:text="@string/action_register"
+                    android:textAllCaps="false"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+
+                <Button
+                    android:id="@+id/btn_signIn_email"
+                    android:layout_width="@dimen/login_activity_button_width"
+                    android:layout_height="30dp"
+                    android:background="@color/colorP_Dark"
+                    android:text="@string/action_sign_in"
+                    android:textAllCaps="false"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <include
+            layout="@layout/sign_up"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/action_sign_in"
-            android:textStyle="bold" />
+            android:layout_marginBottom="180dp"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
-    </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
 </LinearLayout>

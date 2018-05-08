@@ -3,7 +3,7 @@ package com.wenliu.bookshare.main;
 import android.util.Log;
 
 import com.wenliu.bookshare.Constants;
-import com.wenliu.bookshare.api.GetBooksCallback;
+import com.wenliu.bookshare.api.callbacks.GetBooksCallback;
 import com.wenliu.bookshare.api.GetBooksTask;
 import com.wenliu.bookshare.object.Book;
 

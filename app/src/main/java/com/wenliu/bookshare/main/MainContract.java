@@ -1,7 +1,7 @@
 package com.wenliu.bookshare.main;
 
-import com.wenliu.bookshare.BasePresenter;
-import com.wenliu.bookshare.BaseView;
+import com.wenliu.bookshare.base.BasePresenter;
+import com.wenliu.bookshare.base.BaseView;
 import com.wenliu.bookshare.object.Book;
 
 import java.util.ArrayList;

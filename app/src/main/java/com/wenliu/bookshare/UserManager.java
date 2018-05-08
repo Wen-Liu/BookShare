@@ -11,7 +11,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.wenliu.bookshare.api.FirebaseApiHelper;
-import com.wenliu.bookshare.api.SignUpCallback;
+import com.wenliu.bookshare.api.callbacks.SignInCallback;
+import com.wenliu.bookshare.api.callbacks.SignUpCallback;
 import com.wenliu.bookshare.object.User;
 
 /**
@@ -55,7 +56,7 @@ public class UserManager {
     }
 
 
-    public void signUpByEmail(final LoginActivity activity, final FirebaseAuth auth, String email, String password, final SignUpCallback callback) {
+    public void signUpByEmail(final LoginActivity activity, final FirebaseAuth auth, String email, String password, final String name, final SignUpCallback callback) {
         Log.d(Constants.TAG_USERMANAGER, "signUpByEmail ");
 
         auth.createUserWithEmailAndPassword(email, password)
@@ -71,11 +72,13 @@ public class UserManager {
                             mUserData.edit()
                                     .putString(Constants.USER_EMAIL, firebaseUser.getEmail())
                                     .putString(Constants.USER_ID, firebaseUser.getUid())
+                                    .putString(Constants.USER_NAME, name)
                                     .commit();
 
                             User user = new User();
                             user.setEmail(firebaseUser.getEmail());
                             user.setId(firebaseUser.getUid());
+                            user.setName(name);
 
                             new FirebaseApiHelper().uploadUser(user, callback);
 
@@ -88,6 +91,26 @@ public class UserManager {
                 });
     }
 
+
+    public void signInByEmail(LoginActivity activity, final FirebaseAuth auth, String email, String password, final SignInCallback callback) {
+
+        auth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(Constants.TAG_USERMANAGER, "signInWithEmailAndPassword success!");
+                            FirebaseUser user = auth.getCurrentUser();
+
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.e(Constants.TAG_USERMANAGER, "signInWithEmailAndPassword fail! Error message: " + task.getException().getLocalizedMessage());
+                            callback.onError(task.getException().getLocalizedMessage());
+                        }
+                    }
+                });
+    }
 
 
 }

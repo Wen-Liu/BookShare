@@ -1,5 +1,8 @@
 package com.wenliu.bookshare;
 
+import com.wenliu.bookshare.base.BasePresenter;
+import com.wenliu.bookshare.base.BaseView;
+
 /**
  * Created by wen on 2018/5/2.
  */

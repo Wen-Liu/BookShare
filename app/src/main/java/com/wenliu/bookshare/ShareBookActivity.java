@@ -1,6 +1,5 @@
 package com.wenliu.bookshare;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -10,24 +9,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
-import com.squareup.picasso.Picasso;
-import com.wenliu.bookshare.api.FirebaseApiHelper;
-import com.wenliu.bookshare.api.GetBookDataCallback;
-import com.wenliu.bookshare.api.GetBookDataTask;
-import com.wenliu.bookshare.api.GetBookIdCallback;
-import com.wenliu.bookshare.api.GetBookIdTask;
-import com.wenliu.bookshare.object.Book;
 
-import butterknife.BindView;
-import butterknife.OnClick;
 import butterknife.ButterKnife;
 
 

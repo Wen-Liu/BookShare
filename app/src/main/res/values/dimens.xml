@@ -4,7 +4,10 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
-    <dimen name="login_activity_width">280dp</dimen>
+    <!-- Strings related to login -->
+    <dimen name="login_activity_edittext_width">280dp</dimen>
+    <dimen name="login_activity_button_width">120dp</dimen>
+    <dimen name="login_activity_gap">10dp</dimen>
 
 
 

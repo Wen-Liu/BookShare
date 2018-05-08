@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.wenliu.bookshare.Constants;
+import com.wenliu.bookshare.api.callbacks.GetBookIdCallback;
 
 import java.io.IOException;
 
