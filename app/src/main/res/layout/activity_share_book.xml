@@ -43,6 +43,6 @@
         android:layout_height="60dp"
         android:layout_gravity="right|bottom"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/ic_action_name" />
+        android:src="@drawable/ic_add_white_24dp" />
 
 </android.support.design.widget.CoordinatorLayout>

@@ -1,5 +1,6 @@
 package com.wenliu.bookshare;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,13 +10,20 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
+import com.wenliu.bookshare.dialog.InputIsbnDialog;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 public class ShareBookActivity extends AppCompatActivity implements ShareBookContract.View {
+    @BindView(R.id.fab)
+    FloatingActionButton mFab;
 //    @BindView(R.id.editText_isbn)
 //    EditText mEditTextIsbn;
 //    @BindView(R.id.btn_sendISBN)
@@ -33,6 +41,7 @@ public class ShareBookActivity extends AppCompatActivity implements ShareBookCon
     private String mBookAuthor;
     private IntentIntegrator scanIntegrator;
     private ShareBookContract.Presenter mPresenter;
+    private InputIsbnDialog mInputIsbnDialog;
 
 
     @Override
@@ -46,15 +55,6 @@ public class ShareBookActivity extends AppCompatActivity implements ShareBookCon
 
 //        mImageView = (ImageView) findViewById(R.id.imageView);
 
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
     }
 
 
@@ -90,7 +90,7 @@ public class ShareBookActivity extends AppCompatActivity implements ShareBookCon
         return super.onOptionsItemSelected(item);
     }
 
-
+//
 //    @OnClick({R.id.btn_barcode_scanner, R.id.btn_sendISBN})
 //    public void onViewClicked(View view) {
 //        switch (view.getId()) {
@@ -138,24 +138,25 @@ public class ShareBookActivity extends AppCompatActivity implements ShareBookCon
 //                break;
 //        }
 //    }
-//
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
-//
-//        IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
-//        if (scanningResult != null) {
-//            if (scanningResult.getContents() != null) {
-//                String scanContent = scanningResult.getContents();
-//                if (!scanContent.equals("")) {
-//                    Toast.makeText(getApplicationContext(), "掃描內容: " + scanContent.toString(), Toast.LENGTH_LONG).show();
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        Log.d(Constants.TAG_MAIN_ACTIVITY, "onActivityResult");
+
+        IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
+        if (scanningResult != null) {
+            if (scanningResult.getContents() != null) {
+                String scanContent = scanningResult.getContents();
+                if (!scanContent.equals("")) {
+                    Toast.makeText(getApplicationContext(), "掃描內容: " + scanContent.toString(), Toast.LENGTH_LONG).show();
 //                    mEditTextIsbn.setText(scanContent.toString());
-//                }
-//            }
-//        } else {
-//            super.onActivityResult(requestCode, resultCode, intent);
-//            Toast.makeText(getApplicationContext(), "發生錯誤", Toast.LENGTH_LONG).show();
-//        }
-//    }
+                }
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, intent);
+            Toast.makeText(getApplicationContext(), "發生錯誤", Toast.LENGTH_LONG).show();
+        }
+    }
 
 
     @Override
@@ -173,5 +174,14 @@ public class ShareBookActivity extends AppCompatActivity implements ShareBookCon
     @Override
     public void setPresenter(ShareBookContract.Presenter presenter) {
 
+    }
+
+    @OnClick(R.id.fab)
+    public void onViewClicked() {
+//        Snackbar.make(mFab, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                .setAction("Action", null).show();
+
+        mInputIsbnDialog = new InputIsbnDialog(this, this);
+        mInputIsbnDialog.show();
     }
 }
