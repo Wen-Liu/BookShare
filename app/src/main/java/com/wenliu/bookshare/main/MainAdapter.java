@@ -47,6 +47,22 @@ public class MainAdapter extends RecyclerView.Adapter {
         Picasso.get().load(mBooks.get(position).getImage()).into(((MainViewHolder) holder).getImVMainBookCover());
         // Book title
         ((MainViewHolder) holder).getTvMainTitle().setText(mBooks.get(position).getTitle());
+        // Book subTitle
+        if (mBooks.get(position).getSubtitle().length() > 0) {
+            ((MainViewHolder) holder).getTvMainSubtitle().setText(mBooks.get(position).getSubtitle());
+        } else {
+            ((MainViewHolder) holder).getTvMainSubtitle().setVisibility(View.GONE);
+        }
+
+        // Book Author
+        Log.d(Constants.TAG_MAIN_ADAPTER, "getAuthor= " + mBooks.get(position).getAuthor());
+//        List<String> authors = mBooks.get(position).getAuthor();
+        if (mBooks.get(position).getAuthor().size() > 0) {
+            ((MainViewHolder) holder).getTvMainAuthor().setText(mBooks.get(position).getAuthor().get(0));
+        } else {
+            ((MainViewHolder) holder).getTvMainAuthor().setVisibility(View.GONE);
+        }
+
 
     }
 

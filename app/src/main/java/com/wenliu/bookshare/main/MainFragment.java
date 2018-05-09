@@ -1,6 +1,7 @@
 package com.wenliu.bookshare.main;
 
 import android.app.Fragment;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DividerItemDecoration;
@@ -58,7 +59,14 @@ public class MainFragment extends Fragment implements MainContract.View {
 
         Log.d(Constants.TAG_MAIN_FRAGMENT, "onCreateView");
         mRecycviewMain.setLayoutManager(new LinearLayoutManager(ShareBook.getAppContext()));
-        mRecycviewMain.addItemDecoration(new DividerItemDecoration(ShareBook.getAppContext(), DividerItemDecoration.VERTICAL));
+        mRecycviewMain.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+                super.getItemOffsets(outRect, view, parent, state);
+                int space = ShareBook.getAppContext().getResources().getDimensionPixelSize(R.dimen.space_item);
+                outRect.top = space;
+            }
+        });
         mRecycviewMain.setAdapter(mMainAdapter);
 
         return layout;

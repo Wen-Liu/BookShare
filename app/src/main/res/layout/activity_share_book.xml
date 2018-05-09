@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     tools:context="com.wenliu.bookshare.ShareBookActivity">
 
 
@@ -31,19 +32,17 @@
         <FrameLayout
             android:id="@+id/frame_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></FrameLayout>
+            android:layout_height="match_parent"
+            android:background="@android:color/darker_gray"></FrameLayout>
 
     </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
-        android:layout_width="59dp"
-        android:layout_height="42dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="right|bottom"
         android:layout_margin="@dimen/fab_margin"
-        android:backgroundTint="@color/colorBrown_400"
-        app:rippleColor="@color/colorBrown_light"
-        app:srcCompat="@drawable/ic_add_white_24dp"
-        tools:layout_editor_absoluteX="30dp"
-        tools:layout_editor_absoluteY="30dp" />
+        android:src="@drawable/ic_action_name" />
 
 </android.support.design.widget.CoordinatorLayout>

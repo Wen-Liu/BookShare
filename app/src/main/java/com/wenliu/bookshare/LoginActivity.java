@@ -138,17 +138,17 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-            showProgress(true,mLinearlayoutSignIn);
+            showProgress(true, mLinearlayoutSignIn);
             mPresenter.loginTask(this, mAuth, email, password, new SignInCallback() {
                 @Override
                 public void onCompleted() {
-                    showProgress(false,mLinearlayoutSignIn);
+                    showProgress(false, mLinearlayoutSignIn);
                     transToShareBookActivity();
                 }
 
                 @Override
                 public void onError(String errorMessage) {
-                    showProgress(false,mLinearlayoutSignIn);
+                    showProgress(false, mLinearlayoutSignIn);
                     mEditTextSignInEmail.setError(errorMessage);
                     focusView = mEditTextSignInEmail;
                     cancel = true;
@@ -206,11 +206,11 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-            showProgress(true,mLinearlayoutSignUp);
+            showProgress(true, mLinearlayoutSignUp);
             mPresenter.register(this, mAuth, email, password, name, new SignUpCallback() {
                 @Override
                 public void onCompleted() {
-                    showProgress(false,mLinearlayoutSignUp);
+                    showProgress(false, mLinearlayoutSignUp);
                     transToShareBookActivity();
                 }
 
@@ -230,7 +230,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
      * Shows the progress UI and hides the login form.
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-    private void showProgress(final boolean show, final View view ) {
+    private void showProgress(final boolean show, final View view) {
         // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
         // for very easy animations. If available, use these APIs to fade-in
         // the progress spinner.

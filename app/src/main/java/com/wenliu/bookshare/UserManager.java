@@ -107,6 +107,7 @@ public class UserManager {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(Constants.TAG_USERMANAGER, "signInWithEmailAndPassword success!");
                             FirebaseUser user = auth.getCurrentUser();
+                            callback.onCompleted();
 
                         } else {
                             // If sign in fails, display a message to the user.

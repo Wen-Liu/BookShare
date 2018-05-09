@@ -9,6 +9,7 @@
     <dimen name="login_activity_button_width">120dp</dimen>
     <dimen name="login_activity_gap">10dp</dimen>
 
-
+    <!-- Strings related to main fragment -->
+    <dimen name="space_item">12dp</dimen>
 
 </resources>
