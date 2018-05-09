@@ -20,18 +20,15 @@ public class ShareBookPresenter implements ShareBookContract.Presenter {
 
     public static final String MAIN = "MAIN";
 
-
     public ShareBookPresenter(ShareBookContract.View shareBookView, FragmentManager fragmentManager) {
         mShareBookView = shareBookView;
         mFragmentManager = fragmentManager;
     }
 
-
     @Override
     public void start() {
         transToMain();
     }
-
 
     @Override
     public void transToMain() {
@@ -50,5 +47,14 @@ public class ShareBookPresenter implements ShareBookContract.Presenter {
             mMainPresenter = new MainPresenter(mMainFragment);
         }
 
+    }
+
+    @Override
+    public void checkIsbnValid(String isbn) {
+        if (isbn.length() == 10 || isbn.length() == 13) {
+            mShareBookView.setEditText(isbn);
+        } else {
+            mShareBookView.setEditTextError("不符合格式");
+        }
     }
 }

@@ -13,6 +13,7 @@ public class Constants {
     public final static String TAG_MAIN_FRAGMENT = "wen-MainFragment";
     public final static String TAG_MAIN_PRESENTER = "wen-MainPresenter";
     public final static String TAG_MAIN_ADAPTER = "wen-MainAdapter";
+    public final static String TAG_INPUT_ISBN_DIALOG = "wen-InputIsbnDialog";
 
     public final static String TAG_GET_BOOK_DATA_TASK = "wen-GetBookDataTask";
     public final static String TAG_GET_BOOK_ID_TASK = "wen-GetBookIdTask";

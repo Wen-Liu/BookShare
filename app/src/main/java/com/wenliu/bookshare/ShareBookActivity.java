@@ -1,5 +1,7 @@
 package com.wenliu.bookshare;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -7,9 +9,13 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -149,7 +155,7 @@ public class ShareBookActivity extends AppCompatActivity implements ShareBookCon
                 String scanContent = scanningResult.getContents();
                 if (!scanContent.equals("")) {
                     Toast.makeText(getApplicationContext(), "掃描內容: " + scanContent.toString(), Toast.LENGTH_LONG).show();
-//                    mEditTextIsbn.setText(scanContent.toString());
+                    mPresenter.checkIsbnValid(scanContent.toString());
                 }
             }
         } else {
@@ -160,16 +166,15 @@ public class ShareBookActivity extends AppCompatActivity implements ShareBookCon
 
 
     @Override
-    public void setText(String text) {
-//        mTvBookTitle.setText(text);
+    public void setEditText(String isbn) {
+        mInputIsbnDialog.setEditTextIsbn(isbn);
     }
 
     @Override
-    public void setImage(String image) {
-//        Picasso.get()
-//                .load(image)
-//                .into(mImageView);
+    public void setEditTextError(String error) {
+        mInputIsbnDialog.setEditTextError(error);
     }
+
 
     @Override
     public void setPresenter(ShareBookContract.Presenter presenter) {
@@ -181,7 +186,7 @@ public class ShareBookActivity extends AppCompatActivity implements ShareBookCon
 //        Snackbar.make(mFab, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                .setAction("Action", null).show();
 
-        mInputIsbnDialog = new InputIsbnDialog(this, this);
+        mInputIsbnDialog = new InputIsbnDialog(this, this, mPresenter);
         mInputIsbnDialog.show();
     }
 }

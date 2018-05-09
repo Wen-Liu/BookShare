@@ -10,14 +10,16 @@ import com.wenliu.bookshare.base.BaseView;
 public interface ShareBookContract {
 
     interface View extends BaseView<Presenter> {
-        void setText(String text);
+        void setEditText(String isbn);
 
-        void setImage(String image);
+        void setEditTextError(String error);
     }
 
 
     interface Presenter extends BasePresenter {
         void transToMain();
+
+        void checkIsbnValid(String isbn);
 
     }
 
