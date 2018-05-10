@@ -93,6 +93,7 @@ public class InputIsbnDialog extends Dialog {
                                 public void onCompleted(Book book) {
                                     Log.d(Constants.TAG_INPUT_ISBN_DIALOG, "========== GetBookDataTask onCompleted ==========");
                                     new FirebaseApiHelper().uploadBooks(mIsbn, book);
+                                    dismiss();
                                 }
 
                                 @Override
