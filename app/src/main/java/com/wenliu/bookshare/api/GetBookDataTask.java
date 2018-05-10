@@ -29,7 +29,7 @@ public class GetBookDataTask extends AsyncTask<Void, String, Book> {
 
         try {
             Log.d(Constants.TAG_GET_BOOK_DATA_TASK, "========== GetBookDataTask ==========");
-            bookData = GoogleApiHelper.getBookDataById(mBookUrl);
+            bookData = GoogleApiHelper.getBookDataByUrl(mBookUrl);
         } catch (IOException e) {
             e.printStackTrace();
         }

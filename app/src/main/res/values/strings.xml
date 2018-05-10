@@ -25,4 +25,12 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+
+    <!-- Strings related to ISBN / google API -->
+    <string name="scan_a_barcode">Please scan a ISBN barcode</string>
+    <string name="error_invalid_isbn">This ISBN is invalid</string>
+    <string name="error_cannot_get_book_data">Oops! It seems this book too rare to find data. Please try another one.</string>
+
+
+
 </resources>

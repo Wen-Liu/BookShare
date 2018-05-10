@@ -50,11 +50,16 @@ public class ShareBookPresenter implements ShareBookContract.Presenter {
     }
 
     @Override
-    public void checkIsbnValid(String isbn) {
-        if (isbn.length() == 10 || isbn.length() == 13) {
+    public boolean isIsbnValid(String isbn) {
+        return isbn.length() == 10 || isbn.length() == 13;
+    }
+
+    @Override
+    public void checkIsbnValid(boolean isIsbnValid, String isbn) {
+        if (isIsbnValid) {
             mShareBookView.setEditText(isbn);
         } else {
-            mShareBookView.setEditTextError("不符合格式");
+            mShareBookView.setEditTextError(ShareBook.getAppContext().getString(R.string.error_invalid_isbn));
         }
     }
 }

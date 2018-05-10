@@ -16,7 +16,7 @@ public class Constants {
     public final static String TAG_INPUT_ISBN_DIALOG = "wen-InputIsbnDialog";
 
     public final static String TAG_GET_BOOK_DATA_TASK = "wen-GetBookDataTask";
-    public final static String TAG_GET_BOOK_ID_TASK = "wen-GetBookIdTask";
+    public final static String TAG_GET_BOOK_URL_TASK = "wen-GetBookUrlTask";
     public final static String TAG_GET_BOOKS_TASK = "wen-GetBooksTask";
 
     public final static String TAG_FIREBASE_API_HELPER = "wen-FirebaseApiHelper";
@@ -35,7 +35,6 @@ public class Constants {
     public final static String USER_NAME = "user_name";
     public final static String USER_EMAIL = "user_email";
     public final static String USER_IMAGE = "user_image";
-    public final static String USER_TOKEN = "user_token";
     public final static String USER_ID = "user_id";
 
 

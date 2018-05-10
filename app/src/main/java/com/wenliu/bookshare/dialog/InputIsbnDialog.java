@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.wenliu.bookshare.Constants;
@@ -19,9 +18,9 @@ import com.wenliu.bookshare.ShareBookActivity;
 import com.wenliu.bookshare.ShareBookContract;
 import com.wenliu.bookshare.api.FirebaseApiHelper;
 import com.wenliu.bookshare.api.GetBookDataTask;
-import com.wenliu.bookshare.api.GetBookIdTask;
+import com.wenliu.bookshare.api.GetBookUrlTask;
 import com.wenliu.bookshare.api.callbacks.GetBookDataCallback;
-import com.wenliu.bookshare.api.callbacks.GetBookIdCallback;
+import com.wenliu.bookshare.api.callbacks.GetBookUrlCallback;
 import com.wenliu.bookshare.object.Book;
 
 import butterknife.BindView;
@@ -35,7 +34,7 @@ import butterknife.OnClick;
 public class InputIsbnDialog extends Dialog {
 
 
-    @BindView(R.id.edittext_isbn)
+    @BindView(R.id.editText_isbn)
     EditText mEdittextIsbn;
     @BindView(R.id.imageView_scanner)
     ImageView mImageViewScanner;
@@ -54,6 +53,8 @@ public class InputIsbnDialog extends Dialog {
         setContentView(R.layout.dialog_input_isbn);
         ButterKnife.bind(this);
 
+        Log.d(Constants.TAG_INPUT_ISBN_DIALOG, "InputIsbnDialog constructor");
+
         mContext = context;
         mShareBookActivity = activity;
         mPresenter = presenter;
@@ -63,59 +64,71 @@ public class InputIsbnDialog extends Dialog {
     @OnClick({R.id.imageView_scanner, R.id.btn_send})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-
             case R.id.imageView_scanner:
+                setRequestFocusNull();
                 scanIntegrator = new IntentIntegrator(mShareBookActivity);
-                scanIntegrator.setPrompt("請掃描");
+                scanIntegrator.setPrompt(ShareBook.getAppContext().getString(R.string.scan_a_barcode));
                 scanIntegrator.setTimeout(300000);
                 scanIntegrator.setOrientationLocked(false);
                 scanIntegrator.initiateScan();
-
+                Log.d(Constants.TAG_INPUT_ISBN_DIALOG, "open scanner");
                 break;
 
 
             case R.id.btn_send:
 
+                setRequestFocusNull();
                 mIsbn = String.valueOf(mEdittextIsbn.getText());
-                String bookCoverUrl = GetBookCoverUrl.GetUrl(mIsbn);
 
-                new GetBookIdTask(mIsbn, new GetBookIdCallback() {
-                    @Override
-                    public void onCompleted(String id) {
-                        Log.d(Constants.TAG_INPUT_ISBN_DIALOG, "========== GetBookIdTask onCompleted ==========");
+                if (mPresenter.isIsbnValid(mIsbn)) {
+                    String bookCoverUrl = GetBookCoverUrl.GetUrl(mIsbn);
 
-                        new GetBookDataTask(id, new GetBookDataCallback() {
-                            @Override
-                            public void onCompleted(Book book) {
-                                Log.d(Constants.TAG_INPUT_ISBN_DIALOG, "========== GetBookDataTask onCompleted ==========");
+                    new GetBookUrlTask(mIsbn, new GetBookUrlCallback() {
+                        @Override
+                        public void onCompleted(String id) {
+                            Log.d(Constants.TAG_INPUT_ISBN_DIALOG, "========== GetBookUrlTask onCompleted ==========");
 
-                                new FirebaseApiHelper().uploadBooks(mIsbn, book);
-                            }
+                            new GetBookDataTask(id, new GetBookDataCallback() {
+                                @Override
+                                public void onCompleted(Book book) {
+                                    Log.d(Constants.TAG_INPUT_ISBN_DIALOG, "========== GetBookDataTask onCompleted ==========");
+                                    new FirebaseApiHelper().uploadBooks(mIsbn, book);
+                                }
 
-                            @Override
-                            public void onError(String errorMessage) {
+                                @Override
+                                public void onError(String errorMessage) {
+                                    Log.d(Constants.TAG_INPUT_ISBN_DIALOG, "GetBookDataTask onError");
+                                }
+                            }).execute();
+                        }
 
-                            }
-                        }).execute();
-                    }
-
-                    @Override
-                    public void onError(String errorMessage) {
-                        Log.d(Constants.TAG_INPUT_ISBN_DIALOG, "GetBookIdTask onError");
-                    }
-                }).execute();
-
+                        @Override
+                        public void onError(String errorMessage) {
+                            Log.d(Constants.TAG_INPUT_ISBN_DIALOG, "GetBookUrlTask onError");
+                            setEditTextError(errorMessage);
+                        }
+                    }).execute();
+                } else {
+                    setEditTextError(mShareBookActivity.getString(R.string.error_invalid_isbn));
+                }
                 break;
         }
     }
 
-    public void setEditTextIsbn(String isbn){
+    public void setEditTextIsbn(String isbn) {
         mEdittextIsbn.setText(isbn);
     }
 
-    public void setEditTextError(String error){
+    public void setEditTextError(String error) {
         mEdittextIsbn.setError(error);
         mEdittextIsbn.requestFocus();
+    }
+
+    public void setRequestFocusNull() {
+        if (mEdittextIsbn.hasFocus()) {
+            mEdittextIsbn.setError(null);
+            mEdittextIsbn.clearFocus();
+        }
     }
 
 }

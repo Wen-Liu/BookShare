@@ -14,22 +14,22 @@ import java.io.IOException;
 public class GoogleApiHelper {
     private static final String GOOGLE_BOOK_SEARCH_BASE_URL = "https://www.googleapis.com/books/v1/volumes?q=isbn:";
 
-    public static String getBookIdByIsbn(String isbn) throws IOException {
-        Log.d(Constants.TAG_GOOGLE_API_HELPER, "getBookIdByIsbn");
+    public static String getBookDetailUrlByIsbn(String isbn) throws IOException {
+        Log.d(Constants.TAG_GOOGLE_API_HELPER, "getBookUrlByIsbn");
 
         try {
-            return ShareBookParser.parseBookId(new ShareBookClient().get(GOOGLE_BOOK_SEARCH_BASE_URL + isbn));
+            return ShareBookParser.parseBookDetailUrl(new ShareBookClient().get(GOOGLE_BOOK_SEARCH_BASE_URL + isbn));
 
         } catch (IOException e) {
             throw new IOException(e.getMessage());
         }
     }
 
-    public static Book getBookDataById(String id) throws IOException {
-        Log.d(Constants.TAG_GOOGLE_API_HELPER, "getBookDataById");
+    public static Book getBookDataByUrl(String url) throws IOException {
+        Log.d(Constants.TAG_GOOGLE_API_HELPER, "getBookDataByUrl");
 
         try {
-            return ShareBookParser.parseBookData(new ShareBookClient().get(id));
+            return ShareBookParser.parseBookData(new ShareBookClient().get(url));
 
         } catch (IOException e) {
             throw new IOException(e.getMessage());

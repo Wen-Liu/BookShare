@@ -19,7 +19,9 @@ public interface ShareBookContract {
     interface Presenter extends BasePresenter {
         void transToMain();
 
-        void checkIsbnValid(String isbn);
+        boolean isIsbnValid(String isbn);
+
+        void checkIsbnValid(boolean isIsbnValid, String isbn);
 
     }
 

@@ -2,10 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/dialog_input_isbn"
-
-    android:layout_width="wrap_content"
+    android:layout_width="320dp"
     android:layout_height="wrap_content"
     android:background="@android:color/white"
+    android:gravity="center"
+    android:layout_gravity="center"
     android:orientation="vertical"
     android:padding="16dp">
 
@@ -16,10 +17,10 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal"
-        android:padding="6dp">
+      >
 
         <EditText
-            android:id="@+id/edittext_isbn"
+            android:id="@+id/editText_isbn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -46,17 +47,17 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:orientation="horizontal">
 
-        <Button
-            android:layout_width="100dp"
-            android:layout_height="30dp"
-            android:layout_marginEnd="18dp"
-            android:layout_weight="1"
-            android:background="@color/colorBrown_400"
-            android:text="no func"
-            android:textSize="18sp" />
+        <!--<Button-->
+            <!--android:layout_width="100dp"-->
+            <!--android:layout_height="30dp"-->
+            <!--android:layout_marginEnd="18dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="@color/colorBrown_400"-->
+            <!--android:text="no func"-->
+            <!--android:textSize="18sp" />-->
 
         <Button
             android:id="@+id/btn_send"

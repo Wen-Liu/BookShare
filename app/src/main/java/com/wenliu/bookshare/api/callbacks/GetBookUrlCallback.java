@@ -6,7 +6,7 @@ import com.wenliu.bookshare.api.GetBooks;
  * Created by wen on 2018/5/3.
  */
 
-public interface GetBookIdCallback {
+public interface GetBookUrlCallback {
     public void onCompleted(String bookid);
     public void onError(String errorMessage);
 }

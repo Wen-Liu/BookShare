@@ -60,7 +60,6 @@ public class ShareBookActivity extends AppCompatActivity implements ShareBookCon
         setSupportActionBar(toolbar);
 
 //        mImageView = (ImageView) findViewById(R.id.imageView);
-
     }
 
 
@@ -72,6 +71,15 @@ public class ShareBookActivity extends AppCompatActivity implements ShareBookCon
 
         mPresenter = new ShareBookPresenter(this, getFragmentManager());
         mPresenter.start();
+    }
+
+    @OnClick(R.id.fab)
+    public void onViewClicked() {
+//        Snackbar.make(mFab, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                .setAction("Action", null).show();
+
+        mInputIsbnDialog = new InputIsbnDialog(this, this, mPresenter);
+        mInputIsbnDialog.show();
     }
 
     @Override
@@ -96,54 +104,6 @@ public class ShareBookActivity extends AppCompatActivity implements ShareBookCon
         return super.onOptionsItemSelected(item);
     }
 
-//
-//    @OnClick({R.id.btn_barcode_scanner, R.id.btn_sendISBN})
-//    public void onViewClicked(View view) {
-//        switch (view.getId()) {
-//            case R.id.btn_barcode_scanner:
-//
-//                scanIntegrator = new IntentIntegrator(ShareBookActivity.this);
-//                scanIntegrator.setPrompt("請掃描");
-//                scanIntegrator.setTimeout(300000);
-//                scanIntegrator.setOrientationLocked(false);
-//                scanIntegrator.initiateScan();
-//
-//                break;
-//
-//            case R.id.btn_sendISBN:
-//                mIsbn = String.valueOf(mEditTextIsbn.getText());
-//                String bookCoverUrl = GetBookCoverUrl.GetUrl(mIsbn);
-//
-//                new GetBookIdTask(mIsbn, new GetBookIdCallback() {
-//                    @Override
-//                    public void onCompleted(String id) {
-//                        Log.d(Constants.TAG_MAIN_ACTIVITY, "========== GetBookIdTask onCompleted ==========");
-//
-//                        new GetBookDataTask(id, new GetBookDataCallback() {
-//                            @Override
-//                            public void onCompleted(Book book) {
-//                                Log.d(Constants.TAG_MAIN_ACTIVITY, "========== GetBookDataTask onCompleted ==========");
-//
-//                                new FirebaseApiHelper().uploadBooks(mIsbn,book);
-//                                setText(book.getTitle());
-//                                setImage(book.getImage());
-//                            }
-//
-//                            @Override
-//                            public void onError(String errorMessage) {
-//
-//                            }
-//                        }).execute();
-//                    }
-//
-//                    @Override
-//                    public void onError(String errorMessage) {
-//                        Log.d(Constants.TAG_MAIN_ACTIVITY, "GetBookIdTask onError");
-//                    }
-//                }).execute();
-//                break;
-//        }
-//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
@@ -154,8 +114,10 @@ public class ShareBookActivity extends AppCompatActivity implements ShareBookCon
             if (scanningResult.getContents() != null) {
                 String scanContent = scanningResult.getContents();
                 if (!scanContent.equals("")) {
-                    Toast.makeText(getApplicationContext(), "掃描內容: " + scanContent.toString(), Toast.LENGTH_LONG).show();
-                    mPresenter.checkIsbnValid(scanContent.toString());
+                    String scanResult = scanContent.toString();
+//                    Toast.makeText(getApplicationContext(), "掃描內容: " + scanResult, Toast.LENGTH_LONG).show();
+                    Log.d(Constants.TAG_MAIN_ACTIVITY, "掃描內容: " + scanResult);
+                    mPresenter.checkIsbnValid(mPresenter.isIsbnValid(scanResult), scanResult);
                 }
             }
         } else {
@@ -166,27 +128,19 @@ public class ShareBookActivity extends AppCompatActivity implements ShareBookCon
 
 
     @Override
-    public void setEditText(String isbn) {
-        mInputIsbnDialog.setEditTextIsbn(isbn);
-    }
-
-    @Override
-    public void setEditTextError(String error) {
-        mInputIsbnDialog.setEditTextError(error);
-    }
-
-
-    @Override
     public void setPresenter(ShareBookContract.Presenter presenter) {
 
     }
 
-    @OnClick(R.id.fab)
-    public void onViewClicked() {
-//        Snackbar.make(mFab, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                .setAction("Action", null).show();
 
-        mInputIsbnDialog = new InputIsbnDialog(this, this, mPresenter);
-        mInputIsbnDialog.show();
+    @Override
+    public void setEditText(String isbn) {
+        mInputIsbnDialog.setEditTextIsbn(isbn);
+    }
+
+
+    @Override
+    public void setEditTextError(String error) {
+        mInputIsbnDialog.setEditTextError(error);
     }
 }

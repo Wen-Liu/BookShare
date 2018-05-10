@@ -18,17 +18,27 @@ import org.json.JSONObject;
 
 public class ShareBookParser {
 
-    public static String parseBookId(String jsonString) {
-        String beanGetBookId = "";
+    public static String parseBookDetailUrl(String jsonString) {
+        JSONObject jsonObject;
+        String bookDetailUrl = "";
+        int totalItems;
 
         try {
-            beanGetBookId = new JSONObject(jsonString).getJSONArray("items").getJSONObject(0).getString("selfLink");
-            Log.d(Constants.TAG_SHARE_BOOK_PARSER, "id: " + beanGetBookId);
+            jsonObject = new JSONObject(jsonString);
+            totalItems = jsonObject.getInt("totalItems");
+
+            if (totalItems > 0){
+                bookDetailUrl = jsonObject.getJSONArray("items").getJSONObject(0).getString("selfLink");
+                Log.d(Constants.TAG_SHARE_BOOK_PARSER, "bookDetailUrl: " + bookDetailUrl);
+            } else {
+                Log.d(Constants.TAG_SHARE_BOOK_PARSER, "totalItems: " + totalItems);
+            }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        return beanGetBookId;
+        return bookDetailUrl;
     }
 
     public static Book parseBookData(String jsonString) {
@@ -38,7 +48,7 @@ public class ShareBookParser {
         Gson gson = new Gson();
         googleBookData = gson.fromJson(jsonString, Item.class);
 
-        new FirebaseApiHelper().uploadGoogleBook(googleBookData.getId(),googleBookData);
+        new FirebaseApiHelper().uploadGoogleBook(googleBookData.getId(), googleBookData);
 
         book = parseBook(googleBookData);
         Log.d(Constants.TAG_SHARE_BOOK_PARSER, "parseBookData");
