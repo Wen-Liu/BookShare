@@ -2,13 +2,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="@drawable/shape_recyclerview_gradient"
     tools:context="com.wenliu.bookshare.main.MainFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/Recycview_main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white"></android.support.v7.widget.RecyclerView>
+        android:layout_height="match_parent"
+        android:background="@drawable/shape_recyclerview_gradient">
+
+    </android.support.v7.widget.RecyclerView>
 
 </FrameLayout>

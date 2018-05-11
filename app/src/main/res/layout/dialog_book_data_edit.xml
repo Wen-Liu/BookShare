@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/l_layout_book_data_edit"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@drawable/scroll_paper_68833_640"
+    android:gravity="center_vertical|right"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/book_dialog_gap_each_line"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/book_dialog_gap_text_edit"
+            android:text="@string/book_title"
+            android:textColor="@color/colorBrown300_dark"
+            android:textSize="@dimen/book_dialog_tv_size"
+            android:textStyle="bold"
+            android:typeface="sans" />
+
+        <EditText
+            android:id="@+id/et_dialog_book_title"
+            android:layout_width="@dimen/book_dialog_editText_width"
+            android:layout_height="wrap_content"
+            android:allowUndo="false"
+            android:background="@drawable/shape_edittext_rectangle"
+            android:maxLength="30"
+            android:maxLines="2"
+            android:paddingHorizontal="@dimen/book_dialog_paddingHorizontal"
+            android:paddingVertical="4dp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/book_dialog_et_size" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/book_dialog_gap_each_line"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/book_dialog_gap_text_edit"
+            android:text="@string/book_subtitle"
+            android:textColor="@color/colorBrown300_dark"
+            android:textSize="@dimen/book_dialog_tv_size"
+            android:textStyle="bold"
+            android:typeface="sans" />
+
+        <EditText
+            android:id="@+id/et_dialog_book_subtitle"
+            android:layout_width="@dimen/book_dialog_editText_width"
+            android:layout_height="wrap_content"
+            android:allowUndo="false"
+            android:background="@drawable/shape_edittext_rectangle"
+            android:maxLength="40"
+            android:maxLines="2"
+            android:paddingHorizontal="@dimen/book_dialog_paddingHorizontal"
+            android:paddingVertical="4dp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/book_dialog_et_size" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/book_dialog_gap_each_line"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/book_dialog_gap_text_edit"
+            android:text="@string/book_author"
+            android:textColor="@color/colorBrown300_dark"
+            android:textSize="@dimen/book_dialog_tv_size"
+            android:textStyle="bold"
+            android:typeface="sans" />
+
+        <EditText
+            android:id="@+id/et_dialog_book_author"
+            android:layout_width="@dimen/book_dialog_editText_width"
+            android:layout_height="@dimen/book_dialog_editText_height"
+            android:background="@drawable/shape_edittext_rectangle"
+            android:maxLength="30"
+            android:maxLines="2"
+            android:paddingHorizontal="@dimen/book_dialog_paddingHorizontal"
+            android:textColor="@color/black"
+            android:textSize="@dimen/book_dialog_et_size" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/book_dialog_gap_each_line"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/book_dialog_gap_text_edit"
+            android:text="@string/book_ISBN"
+            android:textColor="@color/colorBrown300_dark"
+            android:textSize="@dimen/book_dialog_tv_size"
+            android:textStyle="bold"
+            android:typeface="sans" />
+
+        <TextView
+            android:id="@+id/tv_dialog_book_isbn"
+            android:layout_width="@dimen/book_dialog_editText_width"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/book_dialog_paddingHorizontal"
+            android:textColor="@color/black"
+            android:textSize="@dimen/book_dialog_et_size" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/book_dialog_gap_each_line"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/book_dialog_gap_text_edit"
+            android:text="@string/book_publisher"
+            android:textColor="@color/colorBrown300_dark"
+            android:textSize="@dimen/book_dialog_tv_size"
+            android:textStyle="bold"
+            android:typeface="sans" />
+
+        <EditText
+            android:id="@+id/et_dialog_book_publisher"
+            android:layout_width="@dimen/book_dialog_editText_width"
+            android:layout_height="@dimen/book_dialog_editText_height"
+            android:allowUndo="false"
+            android:background="@drawable/shape_edittext_rectangle"
+            android:inputType="number"
+            android:maxLength="15"
+            android:paddingHorizontal="@dimen/book_dialog_paddingHorizontal"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textSize="@dimen/book_dialog_et_size" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/book_dialog_gap_each_line"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/book_dialog_gap_text_edit"
+            android:text="@string/book_publish_date"
+            android:textColor="@color/colorBrown300_dark"
+            android:textSize="@dimen/book_dialog_tv_size"
+            android:textStyle="bold"
+            android:typeface="sans" />
+
+        <EditText
+            android:id="@+id/et_dialog_book_publish_date"
+            android:layout_width="@dimen/book_dialog_editText_width"
+            android:layout_height="@dimen/book_dialog_editText_height"
+            android:background="@drawable/shape_edittext_rectangle"
+            android:maxLength="8"
+            android:paddingHorizontal="@dimen/book_dialog_paddingHorizontal"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textSize="@dimen/book_dialog_et_size" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/book_dialog_gap_each_line"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/book_dialog_gap_text_edit"
+            android:text="@string/book_language"
+            android:textColor="@color/colorBrown300_dark"
+            android:textSize="@dimen/book_dialog_tv_size"
+            android:textStyle="bold"
+            android:typeface="sans" />
+
+        <EditText
+            android:id="@+id/et_dialog_book_language"
+            android:layout_width="@dimen/book_dialog_editText_width"
+            android:layout_height="@dimen/book_dialog_editText_height"
+            android:background="@drawable/shape_edittext_rectangle"
+            android:maxLength="8"
+            android:paddingHorizontal="@dimen/book_dialog_paddingHorizontal"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textSize="@dimen/book_dialog_et_size" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/book_dialog_gap_each_line"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/book_dialog_gap_text_edit"
+            android:text="@string/book_purchase_date"
+            android:textColor="@color/colorBrown300_dark"
+            android:textSize="@dimen/book_dialog_tv_size"
+            android:textStyle="bold"
+            android:typeface="sans" />
+
+        <EditText
+            android:id="@+id/et_dialog_book_purchase_date"
+            android:layout_width="@dimen/book_dialog_editText_width"
+            android:layout_height="@dimen/book_dialog_editText_height"
+            android:background="@drawable/shape_edittext_rectangle"
+            android:inputType="datetime"
+            android:paddingHorizontal="@dimen/book_dialog_paddingHorizontal"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textSize="@dimen/book_dialog_et_size" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/book_dialog_gap_each_line"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/book_dialog_gap_text_edit"
+            android:text="@string/book_purchase_price"
+            android:textColor="@color/colorBrown300_dark"
+            android:textSize="@dimen/book_dialog_tv_size"
+            android:textStyle="bold"
+            android:typeface="sans" />
+
+        <EditText
+            android:id="@+id/et_dialog_book_purchase_price"
+            android:layout_width="@dimen/book_dialog_editText_width"
+            android:layout_height="@dimen/book_dialog_editText_height"
+            android:background="@drawable/shape_edittext_rectangle"
+            android:elevation="0dp"
+            android:inputType="number"
+            android:maxLength="8"
+            android:paddingHorizontal="@dimen/book_dialog_paddingHorizontal"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textSize="@dimen/book_dialog_et_size" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_book_data_send"
+        android:layout_width="@dimen/ic_size"
+        android:layout_height="@dimen/ic_size"
+        android:layout_margin="6dp"
+        android:background="@drawable/ic_send" />
+
+</LinearLayout>

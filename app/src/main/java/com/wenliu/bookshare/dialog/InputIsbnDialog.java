@@ -19,6 +19,7 @@ import com.wenliu.bookshare.ShareBookContract;
 import com.wenliu.bookshare.api.FirebaseApiHelper;
 import com.wenliu.bookshare.api.GetBookDataTask;
 import com.wenliu.bookshare.api.GetBookUrlTask;
+import com.wenliu.bookshare.api.callbacks.CheckBookExistCallback;
 import com.wenliu.bookshare.api.callbacks.GetBookDataCallback;
 import com.wenliu.bookshare.api.callbacks.GetBookUrlCallback;
 import com.wenliu.bookshare.object.Book;
@@ -46,6 +47,7 @@ public class InputIsbnDialog extends Dialog {
     private ShareBookActivity mShareBookActivity;
     private ShareBookContract.Presenter mPresenter;
     private String mIsbn;
+    private BookDataEditDialog mBookDataEditDialog;
 
 
     public InputIsbnDialog(@NonNull Context context, ShareBookActivity activity, ShareBookContract.Presenter presenter) {
@@ -80,38 +82,55 @@ public class InputIsbnDialog extends Dialog {
                 setRequestFocusNull();
                 mIsbn = String.valueOf(mEdittextIsbn.getText());
 
+                // check isbn is valid or not first
                 if (mPresenter.isIsbnValid(mIsbn)) {
                     String bookCoverUrl = GetBookCoverUrl.GetUrl(mIsbn);
 
-                    new GetBookUrlTask(mIsbn, new GetBookUrlCallback() {
+                    // if isbn is valid, then check the book data of isbn exist or not
+                    new FirebaseApiHelper().isBookDataExist(mIsbn, new CheckBookExistCallback() {
                         @Override
-                        public void onCompleted(String id) {
-                            Log.d(Constants.TAG_INPUT_ISBN_DIALOG, "========== GetBookUrlTask onCompleted ==========");
+                        public void onCompleted(Book book) {
+                            goToEditDialog(book);
+                        }
 
-                            new GetBookDataTask(id, new GetBookDataCallback() {
+                        @Override
+                        public void onError() {
+                            // the book data of isbn doesn't exist, so get data trough api
+                            new GetBookUrlTask(mIsbn, new GetBookUrlCallback() {
                                 @Override
-                                public void onCompleted(Book book) {
-                                    Log.d(Constants.TAG_INPUT_ISBN_DIALOG, "========== GetBookDataTask onCompleted ==========");
-                                    new FirebaseApiHelper().uploadBooks(mIsbn, book);
-                                    dismiss();
+                                public void onCompleted(String id) {
+                                    Log.d(Constants.TAG_INPUT_ISBN_DIALOG, "========== GetBookUrlTask onCompleted ==========");
+
+                                    // get url of book data trough api, then get the book data
+                                    new GetBookDataTask(id, new GetBookDataCallback() {
+                                        @Override
+                                        public void onCompleted(Book book) {
+                                            Log.d(Constants.TAG_INPUT_ISBN_DIALOG, "========== GetBookDataTask onCompleted ==========");
+                                            new FirebaseApiHelper().uploadBooks(mIsbn, book);
+                                            goToEditDialog(book);
+                                        }
+
+                                        // get the book data error, maybe internet problem
+                                        @Override
+                                        public void onError(String errorMessage) {
+                                            Log.d(Constants.TAG_INPUT_ISBN_DIALOG, "GetBookDataTask onError");
+                                        }
+                                    }).execute();
                                 }
 
+                                // get url of book data trough api error, cannot find this isbn url from api
                                 @Override
                                 public void onError(String errorMessage) {
-                                    Log.d(Constants.TAG_INPUT_ISBN_DIALOG, "GetBookDataTask onError");
+                                    Log.d(Constants.TAG_INPUT_ISBN_DIALOG, "GetBookUrlTask onError");
+                                    setEditTextError(errorMessage);
                                 }
                             }).execute();
                         }
-
-                        @Override
-                        public void onError(String errorMessage) {
-                            Log.d(Constants.TAG_INPUT_ISBN_DIALOG, "GetBookUrlTask onError");
-                            setEditTextError(errorMessage);
-                        }
-                    }).execute();
+                    });
                 } else {
                     setEditTextError(mShareBookActivity.getString(R.string.error_invalid_isbn));
                 }
+
                 break;
         }
     }
@@ -130,6 +149,12 @@ public class InputIsbnDialog extends Dialog {
             mEdittextIsbn.setError(null);
             mEdittextIsbn.clearFocus();
         }
+    }
+
+    private void goToEditDialog(Book book){
+        mBookDataEditDialog = new BookDataEditDialog(mContext, mShareBookActivity, mPresenter, book);
+        mBookDataEditDialog.show();
+        dismiss();
     }
 
 }

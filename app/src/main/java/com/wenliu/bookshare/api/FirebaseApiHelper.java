@@ -9,6 +9,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.wenliu.bookshare.Constants;
+import com.wenliu.bookshare.api.callbacks.CheckBookExistCallback;
 import com.wenliu.bookshare.api.callbacks.GetBooksCallback;
 import com.wenliu.bookshare.api.callbacks.SignInCallback;
 import com.wenliu.bookshare.api.callbacks.SignUpCallback;
@@ -71,6 +72,28 @@ public class FirebaseApiHelper {
         });
     }
 
+    public void isBookDataExist(final String isbn, final CheckBookExistCallback callback){
+        Log.d(Constants.TAG_FIREBASE_API_HELPER, "isBookDataExist");
+        boolean isBookDataExist;
 
+        Query myBooksQuery = mGetRef.child(Constants.FIREBASE_BOOKS).orderByKey().equalTo(isbn);
+        myBooksQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    Log.d(Constants.TAG_FIREBASE_API_HELPER, "dataSnapshot.exists()");
+                    Book book = dataSnapshot.child(isbn).getValue(Book.class);
+                    callback.onCompleted(book);
+                } else {
+                    callback.onError();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
 
 }

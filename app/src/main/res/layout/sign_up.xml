@@ -21,8 +21,8 @@
         android:paddingHorizontal="12dp"
         android:paddingVertical="6dp"
         android:singleLine="true"
-        android:textColor="@color/colorBrown_dark"
-        android:textColorHint="@color/colorBrown_light"
+        android:textColor="@color/colorBrown300_dark"
+        android:textColorHint="@color/colorBrown300_light"
         android:textSize="18sp" />
 
     <EditText
@@ -38,8 +38,8 @@
         android:paddingHorizontal="12dp"
         android:paddingVertical="6dp"
         android:singleLine="true"
-        android:textColor="@color/colorBrown_dark"
-        android:textColorHint="@color/colorBrown_light"
+        android:textColor="@color/colorBrown300_dark"
+        android:textColorHint="@color/colorBrown300_light"
         android:textSize="18sp" />
 
     <EditText
@@ -55,8 +55,8 @@
         android:paddingHorizontal="12dp"
         android:paddingVertical="6dp"
         android:singleLine="true"
-        android:textColor="@color/colorBrown_dark"
-        android:textColorHint="@color/colorBrown_light"
+        android:textColor="@color/colorBrown300_dark"
+        android:textColorHint="@color/colorBrown300_light"
         android:textSize="18sp" />
 
     <EditText
@@ -72,8 +72,8 @@
         android:paddingHorizontal="12dp"
         android:paddingVertical="6dp"
         android:singleLine="true"
-        android:textColor="@color/colorBrown_dark"
-        android:textColorHint="@color/colorBrown_light"
+        android:textColor="@color/colorBrown300_dark"
+        android:textColorHint="@color/colorBrown300_light"
         android:textSize="18sp" />
 
     <LinearLayout
@@ -86,7 +86,7 @@
             android:layout_width="@dimen/login_activity_button_width"
             android:layout_height="30dp"
             android:layout_marginEnd="10dp"
-            android:background="@color/colorP_Dark"
+            android:background="@color/colorBlue200_Dark"
             android:text="@string/action_cancel"
             android:textAllCaps="false"
             android:textSize="18sp"
@@ -96,7 +96,7 @@
             android:id="@+id/btn_register_email"
             android:layout_width="@dimen/login_activity_button_width"
             android:layout_height="30dp"
-            android:background="@color/colorP_Dark"
+            android:background="@color/colorBlue200_Dark"
             android:text="@string/action_send"
             android:textAllCaps="false"
             android:textSize="18sp"

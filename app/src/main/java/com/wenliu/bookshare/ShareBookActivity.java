@@ -1,25 +1,19 @@
 package com.wenliu.bookshare;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.wenliu.bookshare.base.BaseActivity;
 import com.wenliu.bookshare.dialog.InputIsbnDialog;
 
 import butterknife.BindView;
@@ -27,25 +21,10 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class ShareBookActivity extends AppCompatActivity implements ShareBookContract.View {
+public class ShareBookActivity extends BaseActivity implements ShareBookContract.View {
+
     @BindView(R.id.fab)
     FloatingActionButton mFab;
-//    @BindView(R.id.editText_isbn)
-//    EditText mEditTextIsbn;
-//    @BindView(R.id.btn_sendISBN)
-//    Button mBtnSendISBN;
-//    @BindView(R.id.imageView)
-//    ImageView mImageView;
-//    @BindView(R.id.btn_barcode_scanner)
-//    Button mBtnBarcodeScanner;
-//    @BindView(R.id.tv_book_title)
-//    TextView mTvBookTitle;
-
-    private String mIsbn;
-    private final String mUrl = "http://api.findbook.tw/book/cover/";
-    private String mBookTitle;
-    private String mBookAuthor;
-    private IntentIntegrator scanIntegrator;
     private ShareBookContract.Presenter mPresenter;
     private InputIsbnDialog mInputIsbnDialog;
 
@@ -55,11 +34,6 @@ public class ShareBookActivity extends AppCompatActivity implements ShareBookCon
         super.onCreate(savedInstanceState);
 
         init();
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-//        mImageView = (ImageView) findViewById(R.id.imageView);
     }
 
 
@@ -71,6 +45,31 @@ public class ShareBookActivity extends AppCompatActivity implements ShareBookCon
 
         mPresenter = new ShareBookPresenter(this, getFragmentManager());
         mPresenter.start();
+
+        setToolbar();
+    }
+
+    private void setToolbar() {
+        // Set the padding to match the Status Bar height
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setPadding(0, getStatusBarHeight(), 0, 0);
+        setSupportActionBar(toolbar);
+    }
+
+
+    /**
+     *
+     * @return height of status bar
+     */
+    private int getStatusBarHeight() {
+        int result = 0;
+        int resourceId = getResources()
+                .getIdentifier("status_bar_height", "dimen", "android");
+
+        if (resourceId > 0) {
+            result = getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
     }
 
     @OnClick(R.id.fab)

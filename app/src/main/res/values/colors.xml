@@ -5,14 +5,23 @@
     <color name="colorAccent">#81d4fa</color>
 
     <!-- Blue Series-->
-    <color name="colorP_light">#b6ffff</color>
+    <color name="colorBlue200_light">#b6ffff</color>
     <color name="colorLightBlue200">#81d4fa</color>
-    <color name="colorP_Dark">#4ba3c7</color>
+    <color name="colorBlue200_Dark">#4ba3c7</color>
 
     <!-- Brown Series-->
-    <color name="colorBrown_light">#be9c91</color>
-    <color name="colorBrown_400">#8d6e63</color>
-    <color name="colorBrown_dark">#5f4339</color>
+    <color name="colorBrown300_light">#d3b8ae</color>
+    <color name="colorBrown_300">#a1887f</color>
+    <color name="colorBrown300_dark">#725b53</color>
+    <color name="colorBrown_600">#6d4c41</color>
 
+    <!-- Orange Series-->
+    <color name="colorOrange_400">#ffa726</color>
+
+    <!-- Black Series-->
+    <color name="black">#000000</color>
+
+    <!-- White Series-->
+    <color name="white">#ffffff</color>
 
 </resources>

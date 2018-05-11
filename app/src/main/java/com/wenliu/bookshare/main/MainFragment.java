@@ -59,14 +59,14 @@ public class MainFragment extends Fragment implements MainContract.View {
 
         Log.d(Constants.TAG_MAIN_FRAGMENT, "onCreateView");
         mRecycviewMain.setLayoutManager(new LinearLayoutManager(ShareBook.getAppContext()));
-        mRecycviewMain.addItemDecoration(new RecyclerView.ItemDecoration() {
-            @Override
-            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-                super.getItemOffsets(outRect, view, parent, state);
-                int space = ShareBook.getAppContext().getResources().getDimensionPixelSize(R.dimen.space_item);
-                outRect.top = space;
-            }
-        });
+//        mRecycviewMain.addItemDecoration(new RecyclerView.ItemDecoration() {
+//            @Override
+//            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+//                super.getItemOffsets(outRect, view, parent, state);
+//                int space = ShareBook.getAppContext().getResources().getDimensionPixelSize(R.dimen.space_item);
+//                outRect.top = space;
+//            }
+//        });
         mRecycviewMain.setAdapter(mMainAdapter);
 
         return layout;
