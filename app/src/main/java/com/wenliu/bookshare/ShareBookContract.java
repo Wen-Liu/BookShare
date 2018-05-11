@@ -23,6 +23,8 @@ public interface ShareBookContract {
 
         void checkIsbnValid(boolean isIsbnValid, String isbn);
 
+        void refreshMainFragment();
+
     }
 
 }

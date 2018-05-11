@@ -9,6 +9,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.wenliu.bookshare.Constants;
+import com.wenliu.bookshare.UserManager;
 import com.wenliu.bookshare.api.callbacks.CheckBookExistCallback;
 import com.wenliu.bookshare.api.callbacks.GetBooksCallback;
 import com.wenliu.bookshare.api.callbacks.SignInCallback;
@@ -32,6 +33,12 @@ public class FirebaseApiHelper {
     public void uploadBooks(String isbn, Book book) {
         Log.d(Constants.TAG_FIREBASE_API_HELPER, "uploadBooks");
         mGetRef.child(Constants.FIREBASE_BOOKS).child(isbn).setValue(book);
+    }
+
+    public void uploadMyBooks(String isbn, Book book) {
+        Log.d(Constants.TAG_FIREBASE_API_HELPER, "uploadBooks");
+        mGetRef.child(Constants.FIREBASE_USERS).child(UserManager.getInstance().getUserId())
+                .child(Constants.FIREBASE_BOOKS).child(isbn).setValue(book);
     }
 
     public void uploadGoogleBook(String id, Item item) {
@@ -72,10 +79,8 @@ public class FirebaseApiHelper {
         });
     }
 
-    public void isBookDataExist(final String isbn, final CheckBookExistCallback callback){
-        Log.d(Constants.TAG_FIREBASE_API_HELPER, "isBookDataExist");
-        boolean isBookDataExist;
-
+    public void checkBookDataExist(final String isbn, final CheckBookExistCallback callback){
+        Log.d(Constants.TAG_FIREBASE_API_HELPER, "checkBookDataExist");
         Query myBooksQuery = mGetRef.child(Constants.FIREBASE_BOOKS).orderByKey().equalTo(isbn);
         myBooksQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

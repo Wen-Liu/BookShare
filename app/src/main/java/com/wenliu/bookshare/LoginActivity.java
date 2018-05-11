@@ -87,6 +87,9 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     private void initView() {
         mConstraintLayout.getBackground().setAlpha(230);
         setSignUpVisibility(false);
+
+        mEditTextSignInEmail.setText("liuwen1025@gmail.com");
+        mEditTextSignInPassword.setText("111111");
     }
 
 

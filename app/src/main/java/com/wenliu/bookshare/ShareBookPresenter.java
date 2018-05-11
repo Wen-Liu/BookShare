@@ -62,4 +62,11 @@ public class ShareBookPresenter implements ShareBookContract.Presenter {
             mShareBookView.setEditTextError(ShareBook.getAppContext().getString(R.string.error_invalid_isbn));
         }
     }
+
+    @Override
+    public void refreshMainFragment() {
+        mMainPresenter.loadBooks();
+    }
+
+
 }

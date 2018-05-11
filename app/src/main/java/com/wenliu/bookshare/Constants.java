@@ -29,7 +29,7 @@ public class Constants {
     // Firebase
     public final static String FIREBASE_BOOKS = "Books";
     public final static String FIREBASE_GOOGLE_BOOKS = "GoogleBooks";
-    public final static String FIREBASE_USERS = "users";
+    public final static String FIREBASE_USERS = "Users";
 
     // User Manager
     public final static String USER_DATA = "user_data";

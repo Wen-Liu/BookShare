@@ -13,7 +13,10 @@ import com.wenliu.bookshare.Constants;
 import com.wenliu.bookshare.R;
 import com.wenliu.bookshare.ShareBookActivity;
 import com.wenliu.bookshare.ShareBookContract;
+import com.wenliu.bookshare.api.FirebaseApiHelper;
 import com.wenliu.bookshare.object.Book;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,6 +55,15 @@ public class BookDataEditDialog extends Dialog {
     private Book mBook;
     private ShareBookActivity mShareBookActivity;
     private ShareBookContract.Presenter mPresenter;
+    private String mTitle;
+    private String mSubtitle;
+    private List<String> mAuthor;
+    private String mPublisher;
+    private String mPublishDate;
+    private String mLanguage;
+    private String mPurchaseDate;
+    private String mPurchasePrice;
+
 
     public BookDataEditDialog(@NonNull Context context, ShareBookActivity activity, ShareBookContract.Presenter presenter, Book book) {
         super(context);
@@ -78,7 +90,7 @@ public class BookDataEditDialog extends Dialog {
             mEtDialogBookSubtitle.setText(mBook.getSubtitle());
         }
 
-        if (mBook.getAuthor() != null && mBook.getAuthor().size()>0) {
+        if (mBook.getAuthor() != null && mBook.getAuthor().size() > 0) {
             mEtDialogBookAuthor.setText(mBook.getAuthor().get(0));
         }
 
@@ -103,6 +115,21 @@ public class BookDataEditDialog extends Dialog {
     @OnClick(R.id.btn_book_data_send)
     public void onViewClicked() {
 
+        mBook.setTitle(mEtDialogBookTitle.getText().toString());
+        mBook.setSubtitle(mEtDialogBookSubtitle.getText().toString());
+//        mAuthor.add(mEtDialogBookTitle.getText().toString());
+//        mBook.setAuthor(mAuthor);
+        mBook.setPublisher(mEtDialogBookPublisher.getText().toString());
+        mBook.setPublishDate(mEtDialogBookPublishDate.getText().toString());
+        mBook.setLanguage(mEtDialogBookLanguage.getText().toString());
 
+        mLanguage = mEtDialogBookLanguage.getText().toString();
+        mPurchaseDate = mEtDialogBookPurchaseDate.getText().toString();
+        mPurchasePrice = mEtDialogBookPurchasePrice.getText().toString();
+
+        new FirebaseApiHelper().uploadBooks(mBook.getIsbn13(), mBook);
+        mPresenter.refreshMainFragment();
+
+        dismiss();
     }
 }
