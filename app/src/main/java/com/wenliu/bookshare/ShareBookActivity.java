@@ -3,18 +3,18 @@ package com.wenliu.bookshare;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.wenliu.bookshare.base.BaseActivity;
 import com.wenliu.bookshare.dialog.InputIsbnDialog;
+import com.wenliu.bookshare.object.Book;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,6 +27,7 @@ public class ShareBookActivity extends BaseActivity implements ShareBookContract
     FloatingActionButton mFab;
     private ShareBookContract.Presenter mPresenter;
     private InputIsbnDialog mInputIsbnDialog;
+    private Toolbar mToolbar;
 
 
     @Override
@@ -39,7 +40,7 @@ public class ShareBookActivity extends BaseActivity implements ShareBookContract
 
     private void init() {
 
-        Log.d(Constants.TAG_MAIN_ACTIVITY, "ShareBookActivity.init");
+        Log.d(Constants.TAG_SHAREBOOK_ACTIVITY, "ShareBookActivity.init");
         setContentView(R.layout.activity_share_book);
         ButterKnife.bind(this);
 
@@ -51,9 +52,16 @@ public class ShareBookActivity extends BaseActivity implements ShareBookContract
 
     private void setToolbar() {
         // Set the padding to match the Status Bar height
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setPadding(0, getStatusBarHeight(), 0, 0);
-        setSupportActionBar(toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar.setPadding(0, getStatusBarHeight(), 0, 0);
+        setSupportActionBar(mToolbar);
+    }
+
+    public void setToolbarVisibility(boolean isVisible) {
+        Log.d(Constants.TAG_SHAREBOOK_ACTIVITY, "setToolbarVisibility: ");
+        if (mToolbar != null) {
+            mToolbar.setVisibility((isVisible) ? View.VISIBLE : View.GONE);
+        }
     }
 
 
@@ -106,7 +114,7 @@ public class ShareBookActivity extends BaseActivity implements ShareBookContract
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        Log.d(Constants.TAG_MAIN_ACTIVITY, "onActivityResult");
+        Log.d(Constants.TAG_SHAREBOOK_ACTIVITY, "onActivityResult");
 
         IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
         if (scanningResult != null) {
@@ -115,7 +123,7 @@ public class ShareBookActivity extends BaseActivity implements ShareBookContract
                 if (!scanContent.equals("")) {
                     String scanResult = scanContent.toString();
 //                    Toast.makeText(getApplicationContext(), "掃描內容: " + scanResult, Toast.LENGTH_LONG).show();
-                    Log.d(Constants.TAG_MAIN_ACTIVITY, "掃描內容: " + scanResult);
+                    Log.d(Constants.TAG_SHAREBOOK_ACTIVITY, "掃描內容: " + scanResult);
                     mPresenter.checkIsbnValid(mPresenter.isIsbnValid(scanResult), scanResult);
                 }
             }
@@ -131,7 +139,6 @@ public class ShareBookActivity extends BaseActivity implements ShareBookContract
 
     }
 
-
     @Override
     public void setEditText(String isbn) {
         mInputIsbnDialog.setEditTextIsbn(isbn);
@@ -141,5 +148,10 @@ public class ShareBookActivity extends BaseActivity implements ShareBookContract
     @Override
     public void setEditTextError(String error) {
         mInputIsbnDialog.setEditTextError(error);
+    }
+
+    @Override
+    public void transToDetail(Book book) {
+        mPresenter.transToDetail(book);
     }
 }

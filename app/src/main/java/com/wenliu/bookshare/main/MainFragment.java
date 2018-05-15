@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import com.wenliu.bookshare.Constants;
 import com.wenliu.bookshare.R;
 import com.wenliu.bookshare.ShareBook;
+import com.wenliu.bookshare.ShareBookActivity;
 import com.wenliu.bookshare.object.Book;
 
 import java.util.ArrayList;
@@ -91,6 +92,11 @@ public class MainFragment extends Fragment implements MainContract.View {
     public void showBooks(ArrayList<Book> books) {
         Log.d(Constants.TAG_MAIN_FRAGMENT, "showBooks");
         mMainAdapter.updateData(books);
+    }
+
+    @Override
+    public void showDetailUi(Book book) {
+        ((ShareBookActivity) getActivity()).transToDetail(book);
     }
 
     @Override

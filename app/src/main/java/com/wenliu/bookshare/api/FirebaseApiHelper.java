@@ -61,6 +61,8 @@ public class FirebaseApiHelper {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.d(Constants.TAG_FIREBASE_API_HELPER, "getMyBooks");
+
                 ArrayList<Book> mBooks = new ArrayList<>();
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
@@ -74,6 +76,7 @@ public class FirebaseApiHelper {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                Log.d(Constants.TAG_FIREBASE_API_HELPER, "onCancelled: " + databaseError.getMessage().toString());
                 callback.onError(databaseError.getMessage());
             }
         });

@@ -1,0 +1,246 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.wenliu.bookshare.detial.DetailFragment">
+
+
+    <ImageView
+        android:id="@+id/iv_detail_book_cover"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_gravity="center"
+        android:background="@color/black"
+        android:scaleType="fitCenter" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/book_dialog_gap_each_line"
+        android:orientation="vertical"
+        android:paddingHorizontal="16dp">
+
+
+        <TextView
+            android:id="@+id/tv_detail_book_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="做工的人"
+            android:textColor="@color/black"
+            android:textSize="@dimen/detail_book_title_size" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="@dimen/book_dialog_gap_each_line"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <RatingBar
+                style="@style/Base.Widget.AppCompat.RatingBar.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numStars="5"
+                android:rating="4.5"
+                android:scrollbarSize="90dp"
+                android:stepSize="0.5" />
+
+            <TextView
+                android:id="@+id/tv_detail_rating"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_weight="1"
+                android:text="4.5"
+                android:textColor="@color/colorBlue200_Dark"
+                android:textSize="@dimen/detail_book_tv_rating_size"></TextView>
+
+            <Spinner
+                android:id="@+id/spinner_detail"
+                style="@style/Widget.AppCompat.Spinner.DropDown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:entries="@array/menu_book_status"
+                android:spinnerMode="dropdown" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/book_dialog_gap_each_line"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/detail_tv_width"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/book_dialog_gap_text_edit"
+                android:gravity="right"
+                android:text="@string/book_author"
+                android:textColor="@color/black"
+                android:textSize="@dimen/detail_book_tv_size" />
+
+            <TextView
+                android:id="@+id/tv_detail_book_author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="林立青"
+                android:textColor="@color/black"
+                android:textSize="@dimen/detail_book_tv_size" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/book_dialog_gap_each_line"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/detail_tv_width"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/book_dialog_gap_text_edit"
+                android:gravity="right"
+                android:text="@string/book_publisher"
+                android:textColor="@color/black"
+                android:textSize="@dimen/detail_book_tv_size" />
+
+            <TextView
+                android:id="@+id/tv_detail_book_publisher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="寶瓶文化"
+                android:textColor="@color/black"
+                android:textSize="@dimen/detail_book_tv_size" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/book_dialog_gap_each_line"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/detail_tv_width"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/book_dialog_gap_text_edit"
+                android:gravity="right"
+                android:text="@string/book_publish_date"
+                android:textColor="@color/black"
+                android:textSize="@dimen/detail_book_tv_size" />
+
+            <TextView
+                android:id="@+id/tv_detail_book_publish_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2017"
+                android:textColor="@color/black"
+                android:textSize="@dimen/detail_book_tv_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/book_dialog_gap_each_line"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/detail_tv_width"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/book_dialog_gap_text_edit"
+                android:gravity="right"
+                android:text="@string/book_language"
+                android:textColor="@color/black"
+                android:textSize="@dimen/detail_book_tv_size" />
+
+            <TextView
+                android:id="@+id/tv_detail_book_language"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="中文"
+                android:textColor="@color/black"
+                android:textSize="@dimen/detail_book_tv_size" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/book_dialog_gap_each_line"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/detail_tv_width"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/book_dialog_gap_text_edit"
+                android:gravity="right"
+                android:text="@string/book_ISBN"
+                android:textColor="@color/black"
+                android:textSize="@dimen/detail_book_tv_size" />
+
+            <TextView
+                android:id="@+id/tv_detail_book_isbn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1235740453453"
+                android:textColor="@color/black"
+                android:textSize="@dimen/detail_book_tv_size" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/book_dialog_gap_each_line"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/detail_tv_width"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/book_dialog_gap_text_edit"
+                android:gravity="right"
+                android:text="@string/book_purchase_date"
+                android:textColor="@color/black"
+                android:textSize="@dimen/detail_book_tv_size" />
+
+            <TextView
+                android:id="@+id/tv_detail_book_purchase_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20170204"
+                android:textColor="@color/black"
+                android:textSize="@dimen/detail_book_tv_size" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/book_dialog_gap_each_line"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/detail_tv_width"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/book_dialog_gap_text_edit"
+                android:gravity="right"
+                android:text="@string/book_purchase_price"
+                android:textColor="@color/black"
+                android:textSize="@dimen/detail_book_tv_size" />
+
+            <TextView
+                android:id="@+id/tv_detail_book_purchase_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20170204"
+                android:textColor="@color/black"
+                android:textSize="@dimen/detail_book_tv_size" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

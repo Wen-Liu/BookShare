@@ -42,4 +42,13 @@
     <string name="book_purchase_date">Purchase Date :</string>
     <string name="book_purchase_price">Purchase Price :</string>
 
+
+    <!-- Strings related to menu -->
+    <string-array name="menu_book_status">
+        <item>閱讀中</item>
+        <item>已借出</item>
+        <item>可借閱</item>
+    </string-array>
+
+
 </resources>

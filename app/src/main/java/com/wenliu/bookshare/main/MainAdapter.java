@@ -5,7 +5,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -17,6 +19,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by wen on 2018/5/5.
@@ -71,7 +74,7 @@ public class MainAdapter extends RecyclerView.Adapter {
         return mBooks.size();
     }
 
-    public static class MainViewHolder extends RecyclerView.ViewHolder {
+    public class MainViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.ImV_main_book_cover)
         ImageView mImVMainBookCover;
         @BindView(R.id.tv_main_title)
@@ -80,13 +83,23 @@ public class MainAdapter extends RecyclerView.Adapter {
         TextView mTvMainSubtitle;
         @BindView(R.id.tv_main_author)
         TextView mTvMainAuthor;
+        @BindView(R.id.llayout_item_main)
+        LinearLayout mLlayoutItemMain;
 
         public MainViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
+
             Log.d(Constants.TAG_MAIN_ADAPTER, "MainViewHolder");
 
         }
+
+        @OnClick(R.id.llayout_item_main)
+        public void onViewClicked() {
+            Log.d(Constants.TAG_MAIN_ADAPTER, "onViewClicked ");
+            mPresenter.openDetail(mBooks.get(getAdapterPosition()));
+        }
+
 
         public ImageView getImVMainBookCover() {
             return mImVMainBookCover;
@@ -119,6 +132,7 @@ public class MainAdapter extends RecyclerView.Adapter {
         public void setTvMainAuthor(TextView tvMainAuthor) {
             mTvMainAuthor = tvMainAuthor;
         }
+
     }
 
 

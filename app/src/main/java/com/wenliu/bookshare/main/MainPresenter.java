@@ -46,12 +46,18 @@ public class MainPresenter implements MainContract.Presenter {
 
                 @Override
                 public void onError(String errorMessage) {
-
+                    Log.d(Constants.TAG_MAIN_PRESENTER, "GetBooksTask onError: " + errorMessage);
                 }
             }).execute();
 
 
         }
+    }
+
+    @Override
+    public void openDetail(Book book) {
+        Log.d(Constants.TAG_MAIN_PRESENTER, "openDetail: ");
+        mMainView.showDetailUi(book);
     }
 
 
