@@ -7,9 +7,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.wenliu.bookshare.Constants;
@@ -26,7 +28,7 @@ import butterknife.Unbinder;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DetailFragment extends Fragment implements DetailContract.View {
+public class DetailFragment extends Fragment implements DetailContract.View, AdapterView.OnItemSelectedListener {
 
     @BindView(R.id.iv_detail_book_cover)
     ImageView mIvDetailBookCover;
@@ -72,6 +74,8 @@ public class DetailFragment extends Fragment implements DetailContract.View {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_detail, container, false);
         unbinder = ButterKnife.bind(this, view);
+
+        mSpinnerDetail.setOnItemSelectedListener(this);
         return view;
     }
 
@@ -145,5 +149,16 @@ public class DetailFragment extends Fragment implements DetailContract.View {
             case R.id.tv_detail_book_title:
                 break;
         }
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+        Toast.makeText(ShareBook.getAppContext(), position, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }
