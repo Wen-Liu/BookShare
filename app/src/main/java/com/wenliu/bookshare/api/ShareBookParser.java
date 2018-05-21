@@ -4,11 +4,10 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.wenliu.bookshare.Constants;
-import com.wenliu.bookshare.GetBookCoverUrl;
+import com.wenliu.bookshare.UserManager;
 import com.wenliu.bookshare.object.Book;
 import com.wenliu.bookshare.object.GoogleBook.Item;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -47,10 +46,11 @@ public class ShareBookParser {
 
         Gson gson = new Gson();
         googleBookData = gson.fromJson(jsonString, Item.class);
-
-        new FirebaseApiHelper().uploadGoogleBook(googleBookData.getVolumeInfo().getIndustryIdentifiers().get(0).getIdentifier(), googleBookData);
-
         book = parseBook(googleBookData);
+
+        FirebaseApiHelper.newInstance().uploadGoogleBook(googleBookData.getVolumeInfo().getIndustryIdentifiers().get(1).getIdentifier(), googleBookData);
+        FirebaseApiHelper.newInstance().uploadBook(book.getIsbn13(), book);
+
         Log.d(Constants.TAG_SHARE_BOOK_PARSER, "parseBookData");
 
         return book;
@@ -61,7 +61,7 @@ public class ShareBookParser {
         Book oBook = new Book();
 
         oBook.setBookSource("google");
-        oBook.setId(item.getId());
+        oBook.setCreateByUid(UserManager.getInstance().getUserId());
         oBook.setTitle(item.getVolumeInfo().getTitle());
         oBook.setSubtitle(item.getVolumeInfo().getSubtitle());
         oBook.setAuthor(item.getVolumeInfo().getAuthors());

@@ -14,9 +14,15 @@
         android:orientation="vertical">
 
         <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbarlayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/AppTheme.AppBarOverlay">
+            android:layout_height="wrap_content">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:theme="@style/AppTheme.AppBarOverlay">
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -24,7 +30,11 @@
                 android:layout_height="80dp"
                 android:background="@drawable/shape_toolbar_gradient"
                 app:popupTheme="@style/AppTheme.PopupOverlay"
-                app:titleTextColor="@color/colorBrown_600" />
+                app:titleTextColor="@color/Brown_600"
+                app:layout_scrollFlags="scroll|enterAlways"
+                />
+
+            </android.support.constraint.ConstraintLayout>
 
         </android.support.design.widget.AppBarLayout>
 
@@ -34,7 +44,8 @@
             android:id="@+id/frame_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/darker_gray"></FrameLayout>
+            android:background="@android:color/darker_gray"
+            ></FrameLayout>
 
     </LinearLayout>
 
@@ -44,7 +55,8 @@
         android:layout_height="60dp"
         android:layout_gravity="right|bottom"
         android:layout_margin="@dimen/fab_margin"
-        app:backgroundTint="@color/colorBrown_300"
+        app:backgroundTint="@color/Brown_300"
+        android:clickable="true"
         android:src="@drawable/ic_add" />
 
 </android.support.design.widget.CoordinatorLayout>

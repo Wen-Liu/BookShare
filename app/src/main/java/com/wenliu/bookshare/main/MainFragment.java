@@ -17,6 +17,7 @@ import com.wenliu.bookshare.R;
 import com.wenliu.bookshare.ShareBook;
 import com.wenliu.bookshare.ShareBookActivity;
 import com.wenliu.bookshare.object.Book;
+import com.wenliu.bookshare.object.BookCustomInfo;
 
 import java.util.ArrayList;
 
@@ -34,7 +35,8 @@ public class MainFragment extends Fragment implements MainContract.View {
     Unbinder unbinder;
     private MainContract.Presenter mPresenter;
     private MainAdapter mMainAdapter;
-    private ArrayList<Book> mBooks = new ArrayList<>();
+//    private ArrayList<Book> mBooks = new ArrayList<>();
+    private ArrayList<BookCustomInfo> mBookCustomInfos = new ArrayList<>();
 
     public MainFragment() {
         // Required empty public constructor
@@ -48,7 +50,7 @@ public class MainFragment extends Fragment implements MainContract.View {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(Constants.TAG_MAIN_FRAGMENT, "onCreate");
-        mMainAdapter = new MainAdapter(mBooks, mPresenter);
+        mMainAdapter = new MainAdapter(mBookCustomInfos, mPresenter);
     }
 
     @Override
@@ -89,14 +91,14 @@ public class MainFragment extends Fragment implements MainContract.View {
     }
 
     @Override
-    public void showBooks(ArrayList<Book> books) {
+    public void showBooks(ArrayList<BookCustomInfo> bookCustomInfos) {
         Log.d(Constants.TAG_MAIN_FRAGMENT, "showBooks");
-        mMainAdapter.updateData(books);
+        mMainAdapter.updateData(bookCustomInfos);
     }
 
     @Override
-    public void showDetailUi(Book book) {
-        ((ShareBookActivity) getActivity()).transToDetail(book);
+    public void showDetailUi(BookCustomInfo bookCustomInfo) {
+        ((ShareBookActivity) getActivity()).transToDetail(bookCustomInfo);
     }
 
     @Override

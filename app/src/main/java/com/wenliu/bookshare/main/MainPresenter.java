@@ -6,6 +6,7 @@ import com.wenliu.bookshare.Constants;
 import com.wenliu.bookshare.api.callbacks.GetBooksCallback;
 import com.wenliu.bookshare.api.GetBooksTask;
 import com.wenliu.bookshare.object.Book;
+import com.wenliu.bookshare.object.BookCustomInfo;
 
 import java.util.ArrayList;
 
@@ -38,26 +39,25 @@ public class MainPresenter implements MainContract.Presenter {
 
             new GetBooksTask(new GetBooksCallback() {
                 @Override
-                public void onCompleted(ArrayList<Book> books) {
+                public void onCompleted(ArrayList<BookCustomInfo> bookCustomInfos) {
                     setLoading(false);
                     Log.d(Constants.TAG_MAIN_PRESENTER, "GetBooksTask onCompleted");
-                    mMainView.showBooks(books);
+                    mMainView.showBooks(bookCustomInfos);
                 }
 
                 @Override
                 public void onError(String errorMessage) {
                     Log.d(Constants.TAG_MAIN_PRESENTER, "GetBooksTask onError: " + errorMessage);
+                    setLoading(false);
                 }
             }).execute();
-
-
         }
     }
 
     @Override
-    public void openDetail(Book book) {
+    public void openDetail(BookCustomInfo bookCustomInfo) {
         Log.d(Constants.TAG_MAIN_PRESENTER, "openDetail: ");
-        mMainView.showDetailUi(book);
+        mMainView.showDetailUi(bookCustomInfo);
     }
 
 

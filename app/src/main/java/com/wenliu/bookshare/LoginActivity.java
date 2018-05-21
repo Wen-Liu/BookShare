@@ -17,9 +17,12 @@ import android.widget.ProgressBar;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.wenliu.bookshare.api.FirebaseApiHelper;
+import com.wenliu.bookshare.api.callbacks.GetUserInfoCallback;
 import com.wenliu.bookshare.api.callbacks.SignInCallback;
 import com.wenliu.bookshare.api.callbacks.SignUpCallback;
 import com.wenliu.bookshare.base.BaseActivity;
+import com.wenliu.bookshare.object.User;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -73,18 +76,19 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         ButterKnife.bind(this);
 
         if (UserManager.getInstance().isLoginStatus()) {
+            showUserInfoLog();
             transToShareBookActivity();
-
         } else {
-            initView();
-            mAuth = FirebaseAuth.getInstance();
-            mPresenter = new LoginPresenter(this);
-            mPresenter.start();
+            init();
         }
     }
 
 
-    private void initView() {
+    private void init() {
+        mAuth = FirebaseAuth.getInstance();
+        mPresenter = new LoginPresenter(this);
+        mPresenter.start();
+
         mConstraintLayout.getBackground().setAlpha(230);
         setSignUpVisibility(false);
 
@@ -99,6 +103,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         Log.d(Constants.TAG_LOGIN_ACTIVITY, "onStart");
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
+
     }
 
 
@@ -146,6 +151,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
                 @Override
                 public void onCompleted() {
                     showProgress(false, mLinearlayoutSignIn);
+                    showUserInfoLog();
                     transToShareBookActivity();
                 }
 
@@ -214,6 +220,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
                 @Override
                 public void onCompleted() {
                     showProgress(false, mLinearlayoutSignUp);
+                    showUserInfoLog();
                     transToShareBookActivity();
                 }
 
@@ -312,64 +319,5 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         finish();
     }
 
-
-    /**
-     * Represents an asynchronous login/registration task used to authenticate
-     * the user.
-     */
-//    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
-//
-//        private String mEmail;
-//        private String mPassword;
-//
-//        UserLoginTask(String email, String password) {
-//            mEmail = email;
-//            mPassword = password;
-//        }
-//
-//        @Override
-//        protected Boolean doInBackground(Void... params) {
-//            Log.d(Constants.TAG_LOGIN_ACTIVITY, "UserLoginTask doInBackground");
-//            Log.d(Constants.TAG_FIREBASE_API_HELPER, "loginByEmail ");
-//            mAuth.createUserWithEmailAndPassword(mEmail, mPassword)
-//                    .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<AuthResult> task) {
-//                            if (task.isSuccessful()) {
-//                                // Sign in success, update UI with the signed-in user's information
-//                                Log.d(Constants.TAG_FIREBASE_API_HELPER, "createUserWithEmail success!");
-//                                FirebaseUser user = mAuth.getCurrentUser();
-//                            } else {
-//                                // If sign in fails, display a message to the user.
-//                                Log.e(Constants.TAG_FIREBASE_API_HELPER, "createUserWithEmail fail!");
-//                            }
-//                        }
-//                    });
-//
-//            return true;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(final Boolean success) {
-//            mAuthTask = null;
-//            showProgress(false);
-//
-//            if (success) {
-//                Intent intent = new Intent(LoginActivity.this, ShareBookActivity.class);
-//                startActivity(intent);
-//                LoginActivity.this.finish();
-//
-//            } else {
-//                mEditTextSignInPassword.setError(getString(R.string.error_incorrect_password));
-//                mEditTextSignInPassword.requestFocus();
-//            }
-//        }
-//
-//        @Override
-//        protected void onCancelled() {
-//            mAuthTask = null;
-//            showProgress(false);
-//        }
-//    }
 }
 

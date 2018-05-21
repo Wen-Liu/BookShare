@@ -2,6 +2,7 @@ package com.wenliu.bookshare;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -12,9 +13,12 @@ import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.wenliu.bookshare.api.FirebaseApiHelper;
 import com.wenliu.bookshare.base.BaseActivity;
 import com.wenliu.bookshare.dialog.InputIsbnDialog;
 import com.wenliu.bookshare.object.Book;
+import com.wenliu.bookshare.object.BookCustomInfo;
+import com.wenliu.bookshare.profile.ProfileActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,7 +32,7 @@ public class ShareBookActivity extends BaseActivity implements ShareBookContract
     private ShareBookContract.Presenter mPresenter;
     private InputIsbnDialog mInputIsbnDialog;
     private Toolbar mToolbar;
-
+    private AppBarLayout mAppBarLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,55 +43,48 @@ public class ShareBookActivity extends BaseActivity implements ShareBookContract
 
 
     private void init() {
-
         Log.d(Constants.TAG_SHAREBOOK_ACTIVITY, "ShareBookActivity.init");
         setContentView(R.layout.activity_share_book);
         ButterKnife.bind(this);
 
         mPresenter = new ShareBookPresenter(this, getFragmentManager());
         mPresenter.start();
-
         setToolbar();
     }
 
     private void setToolbar() {
+        mAppBarLayout = (AppBarLayout) findViewById(R.id.appbarlayout);
         // Set the padding to match the Status Bar height
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mToolbar.setPadding(0, getStatusBarHeight(), 0, 0);
         setSupportActionBar(mToolbar);
     }
 
-    public void setToolbarVisibility(boolean isVisible) {
-        Log.d(Constants.TAG_SHAREBOOK_ACTIVITY, "setToolbarVisibility: ");
-        if (mToolbar != null) {
-            mToolbar.setVisibility((isVisible) ? View.VISIBLE : View.GONE);
-        }
-    }
-
-
     /**
-     *
      * @return height of status bar
      */
     private int getStatusBarHeight() {
+
         int result = 0;
         int resourceId = getResources()
                 .getIdentifier("status_bar_height", "dimen", "android");
 
         if (resourceId > 0) {
             result = getResources().getDimensionPixelSize(resourceId);
+            Log.d(Constants.TAG_SHAREBOOK_ACTIVITY, "getStatusBarHeight: " + result);
         }
         return result;
     }
+
 
     @OnClick(R.id.fab)
     public void onViewClicked() {
 //        Snackbar.make(mFab, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                .setAction("Action", null).show();
-
         mInputIsbnDialog = new InputIsbnDialog(this, this, mPresenter);
         mInputIsbnDialog.show();
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -104,7 +101,9 @@ public class ShareBookActivity extends BaseActivity implements ShareBookContract
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_to_profile) {
+            Intent intent = new Intent(ShareBookActivity.this, ProfileActivity.class);
+            startActivity(intent);
             return true;
         }
 
@@ -133,17 +132,16 @@ public class ShareBookActivity extends BaseActivity implements ShareBookContract
         }
     }
 
-
     @Override
     public void setPresenter(ShareBookContract.Presenter presenter) {
-
+        mPresenter = presenter;
     }
+
 
     @Override
     public void setEditText(String isbn) {
         mInputIsbnDialog.setEditTextIsbn(isbn);
     }
-
 
     @Override
     public void setEditTextError(String error) {
@@ -151,7 +149,14 @@ public class ShareBookActivity extends BaseActivity implements ShareBookContract
     }
 
     @Override
-    public void transToDetail(Book book) {
-        mPresenter.transToDetail(book);
+    public void transToDetail(BookCustomInfo bookCustomInfo) {
+        mPresenter.transToDetail(bookCustomInfo);
+    }
+
+    public void setToolbarVisibility(boolean isVisible) {
+        Log.d(Constants.TAG_SHAREBOOK_ACTIVITY, "setToolbarVisibility: ");
+        if (mToolbar != null) {
+            mToolbar.setVisibility((isVisible) ? View.VISIBLE : View.GONE);
+        }
     }
 }

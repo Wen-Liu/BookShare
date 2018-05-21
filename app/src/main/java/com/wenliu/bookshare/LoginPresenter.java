@@ -33,13 +33,13 @@ public class LoginPresenter implements LoginContract.Presenter {
     }
 
     @Override
-    public void loginTask(LoginActivity activity, FirebaseAuth auth, String email, String password, SignInCallback callback) {
-        UserManager.getInstance().signInByEmail(activity, auth, email, password, callback);
+    public void register(LoginActivity activity, FirebaseAuth auth, String email, String password, String name, SignUpCallback callback) {
+        UserManager.getInstance().signUpByEmail(activity, auth, email, password, name, callback);
     }
 
     @Override
-    public void register(LoginActivity activity, FirebaseAuth auth, String email, String password, String name, SignUpCallback callback) {
-        UserManager.getInstance().signUpByEmail(activity, auth, email, password, name, callback);
+    public void loginTask(LoginActivity activity, FirebaseAuth auth, String email, String password, SignInCallback callback) {
+        UserManager.getInstance().signInByEmail(activity, auth, email, password, callback);
     }
 
 

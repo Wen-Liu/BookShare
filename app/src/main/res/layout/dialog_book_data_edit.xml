@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/book_dialog_gap_text_edit"
             android:text="@string/book_title"
-            android:textColor="@color/colorBrown300_dark"
+            android:textColor="@color/Brown_300_dark"
             android:textSize="@dimen/book_dialog_tv_size"
             android:textStyle="bold"
             android:typeface="sans" />
@@ -37,7 +37,7 @@
             android:maxLines="2"
             android:paddingHorizontal="@dimen/book_dialog_paddingHorizontal"
             android:paddingVertical="4dp"
-            android:textColor="@color/black"
+            android:textColor="@color/Black"
             android:textSize="@dimen/book_dialog_et_size" />
     </LinearLayout>
 
@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/book_dialog_gap_text_edit"
             android:text="@string/book_subtitle"
-            android:textColor="@color/colorBrown300_dark"
+            android:textColor="@color/Brown_300_dark"
             android:textSize="@dimen/book_dialog_tv_size"
             android:textStyle="bold"
             android:typeface="sans" />
@@ -68,7 +68,7 @@
             android:maxLines="2"
             android:paddingHorizontal="@dimen/book_dialog_paddingHorizontal"
             android:paddingVertical="4dp"
-            android:textColor="@color/black"
+            android:textColor="@color/Black"
             android:textSize="@dimen/book_dialog_et_size" />
     </LinearLayout>
 
@@ -85,7 +85,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/book_dialog_gap_text_edit"
             android:text="@string/book_author"
-            android:textColor="@color/colorBrown300_dark"
+            android:textColor="@color/Brown_300_dark"
             android:textSize="@dimen/book_dialog_tv_size"
             android:textStyle="bold"
             android:typeface="sans" />
@@ -98,7 +98,7 @@
             android:maxLength="30"
             android:maxLines="2"
             android:paddingHorizontal="@dimen/book_dialog_paddingHorizontal"
-            android:textColor="@color/black"
+            android:textColor="@color/Black"
             android:textSize="@dimen/book_dialog_et_size" />
     </LinearLayout>
 
@@ -115,7 +115,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/book_dialog_gap_text_edit"
             android:text="@string/book_ISBN"
-            android:textColor="@color/colorBrown300_dark"
+            android:textColor="@color/Brown_300_dark"
             android:textSize="@dimen/book_dialog_tv_size"
             android:textStyle="bold"
             android:typeface="sans" />
@@ -125,7 +125,7 @@
             android:layout_width="@dimen/book_dialog_editText_width"
             android:layout_height="wrap_content"
             android:paddingHorizontal="@dimen/book_dialog_paddingHorizontal"
-            android:textColor="@color/black"
+            android:textColor="@color/Black"
             android:textSize="@dimen/book_dialog_et_size" />
     </LinearLayout>
 
@@ -142,7 +142,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/book_dialog_gap_text_edit"
             android:text="@string/book_publisher"
-            android:textColor="@color/colorBrown300_dark"
+            android:textColor="@color/Brown_300_dark"
             android:textSize="@dimen/book_dialog_tv_size"
             android:textStyle="bold"
             android:typeface="sans" />
@@ -157,7 +157,7 @@
             android:maxLength="15"
             android:paddingHorizontal="@dimen/book_dialog_paddingHorizontal"
             android:singleLine="true"
-            android:textColor="@color/black"
+            android:textColor="@color/Black"
             android:textSize="@dimen/book_dialog_et_size" />
     </LinearLayout>
 
@@ -174,7 +174,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/book_dialog_gap_text_edit"
             android:text="@string/book_publish_date"
-            android:textColor="@color/colorBrown300_dark"
+            android:textColor="@color/Brown_300_dark"
             android:textSize="@dimen/book_dialog_tv_size"
             android:textStyle="bold"
             android:typeface="sans" />
@@ -187,7 +187,7 @@
             android:maxLength="8"
             android:paddingHorizontal="@dimen/book_dialog_paddingHorizontal"
             android:singleLine="true"
-            android:textColor="@color/black"
+            android:textColor="@color/Black"
             android:textSize="@dimen/book_dialog_et_size" />
     </LinearLayout>
 
@@ -204,7 +204,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/book_dialog_gap_text_edit"
             android:text="@string/book_language"
-            android:textColor="@color/colorBrown300_dark"
+            android:textColor="@color/Brown_300_dark"
             android:textSize="@dimen/book_dialog_tv_size"
             android:textStyle="bold"
             android:typeface="sans" />
@@ -217,7 +217,7 @@
             android:maxLength="8"
             android:paddingHorizontal="@dimen/book_dialog_paddingHorizontal"
             android:singleLine="true"
-            android:textColor="@color/black"
+            android:textColor="@color/Black"
             android:textSize="@dimen/book_dialog_et_size" />
     </LinearLayout>
 
@@ -234,7 +234,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/book_dialog_gap_text_edit"
             android:text="@string/book_purchase_date"
-            android:textColor="@color/colorBrown300_dark"
+            android:textColor="@color/Brown_300_dark"
             android:textSize="@dimen/book_dialog_tv_size"
             android:textStyle="bold"
             android:typeface="sans" />
@@ -247,7 +247,7 @@
             android:inputType="datetime"
             android:paddingHorizontal="@dimen/book_dialog_paddingHorizontal"
             android:singleLine="true"
-            android:textColor="@color/black"
+            android:textColor="@color/Black"
             android:textSize="@dimen/book_dialog_et_size" />
     </LinearLayout>
 
@@ -264,7 +264,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/book_dialog_gap_text_edit"
             android:text="@string/book_purchase_price"
-            android:textColor="@color/colorBrown300_dark"
+            android:textColor="@color/Brown_300_dark"
             android:textSize="@dimen/book_dialog_tv_size"
             android:textStyle="bold"
             android:typeface="sans" />
@@ -279,7 +279,7 @@
             android:maxLength="8"
             android:paddingHorizontal="@dimen/book_dialog_paddingHorizontal"
             android:singleLine="true"
-            android:textColor="@color/black"
+            android:textColor="@color/Black"
             android:textSize="@dimen/book_dialog_et_size" />
     </LinearLayout>
 

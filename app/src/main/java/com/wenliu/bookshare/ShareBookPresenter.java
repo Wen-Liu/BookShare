@@ -9,6 +9,7 @@ import com.wenliu.bookshare.detial.DetailPresenter;
 import com.wenliu.bookshare.main.MainFragment;
 import com.wenliu.bookshare.main.MainPresenter;
 import com.wenliu.bookshare.object.Book;
+import com.wenliu.bookshare.object.BookCustomInfo;
 import com.wenliu.bookshare.object.GoogleBook.MyBook;
 
 /**
@@ -19,7 +20,6 @@ public class ShareBookPresenter implements ShareBookContract.Presenter {
 
     private final ShareBookContract.View mShareBookView;
     private FragmentManager mFragmentManager;
-
     private MainFragment mMainFragment;
     private MainPresenter mMainPresenter;
     private DetailPresenter mDetailPresenter;
@@ -59,7 +59,7 @@ public class ShareBookPresenter implements ShareBookContract.Presenter {
     }
 
     @Override
-    public void transToDetail(Book book) {
+    public void transToDetail(BookCustomInfo bookCustomInfo) {
         Log.d(Constants.TAG_SHAREBOOK_PRESENTER, "transToDetail: ");
 
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
@@ -77,7 +77,7 @@ public class ShareBookPresenter implements ShareBookContract.Presenter {
         transaction.add(R.id.frame_container, detailFragment, DETAIL);
         transaction.commit();
 
-        mDetailPresenter = new DetailPresenter(detailFragment, book);
+        mDetailPresenter = new DetailPresenter(detailFragment, bookCustomInfo);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.wenliu.bookshare.api.callbacks;
 
-import com.wenliu.bookshare.object.Book;
+import com.wenliu.bookshare.object.BookCustomInfo;
 
 import java.util.ArrayList;
 
@@ -9,6 +9,6 @@ import java.util.ArrayList;
  */
 
 public interface GetBooksCallback {
-    public void onCompleted(ArrayList<Book> books);
+    public void onCompleted(ArrayList<BookCustomInfo> bookCustomInfos);
     public void onError(String errorMessage);
 }

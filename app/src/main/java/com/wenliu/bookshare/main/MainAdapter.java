@@ -10,12 +10,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 import com.wenliu.bookshare.Constants;
 import com.wenliu.bookshare.R;
+import com.wenliu.bookshare.ShareBook;
 import com.wenliu.bookshare.object.Book;
+import com.wenliu.bookshare.object.BookCustomInfo;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,10 +31,10 @@ import butterknife.OnClick;
 
 public class MainAdapter extends RecyclerView.Adapter {
     private MainContract.Presenter mPresenter;
-    private ArrayList<Book> mBooks;
+    private ArrayList<BookCustomInfo> mBookCustomInfos;
 
-    public MainAdapter(ArrayList<Book> books, MainContract.Presenter presenter) {
-        mBooks = books;
+    public MainAdapter(ArrayList<BookCustomInfo> bookCustomInfos, MainContract.Presenter presenter) {
+        mBookCustomInfos = bookCustomInfos;
         mPresenter = presenter;
     }
 
@@ -47,21 +51,22 @@ public class MainAdapter extends RecyclerView.Adapter {
 //        Log.d(Constants.TAG_MAIN_ADAPTER, "onBindViewHolder");
 
         // Book image
-        Picasso.get().load(mBooks.get(position).getImage()).into(((MainViewHolder) holder).getImVMainBookCover());
+        Glide.with(ShareBook.getAppContext()).load(mBookCustomInfos.get(position).getImage()).into(((MainViewHolder) holder).getImVMainBookCover());
+//        Picasso.get().load(mBooks.get(position).getImage()).into(((MainViewHolder) holder).getImVMainBookCover());
         // Book title
-        ((MainViewHolder) holder).getTvMainTitle().setText(mBooks.get(position).getTitle());
+        ((MainViewHolder) holder).getTvMainTitle().setText(mBookCustomInfos.get(position).getTitle());
         // Book subTitle
-        if (mBooks.get(position).getSubtitle().length() > 0) {
-            ((MainViewHolder) holder).getTvMainSubtitle().setText(mBooks.get(position).getSubtitle());
+        if (mBookCustomInfos.get(position).getSubtitle().length() > 0) {
+            ((MainViewHolder) holder).getTvMainSubtitle().setText(mBookCustomInfos.get(position).getSubtitle());
         } else {
             ((MainViewHolder) holder).getTvMainSubtitle().setVisibility(View.GONE);
         }
 
         // Book Author
-        Log.d(Constants.TAG_MAIN_ADAPTER, "getAuthor= " + mBooks.get(position).getAuthor());
+        Log.d(Constants.TAG_MAIN_ADAPTER, "getAuthor= " + mBookCustomInfos.get(position).getAuthor());
 //        List<String> authors = mBooks.get(position).getAuthor();
-        if (mBooks.get(position).getAuthor().size() > 0) {
-            ((MainViewHolder) holder).getTvMainAuthor().setText(mBooks.get(position).getAuthor().get(0));
+        if (mBookCustomInfos.get(position).getAuthor().size() > 0) {
+            ((MainViewHolder) holder).getTvMainAuthor().setText(mBookCustomInfos.get(position).getAuthor().get(0));
         } else {
             ((MainViewHolder) holder).getTvMainAuthor().setVisibility(View.GONE);
         }
@@ -71,7 +76,7 @@ public class MainAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return mBooks.size();
+        return mBookCustomInfos.size();
     }
 
     public class MainViewHolder extends RecyclerView.ViewHolder {
@@ -91,13 +96,12 @@ public class MainAdapter extends RecyclerView.Adapter {
             ButterKnife.bind(this, view);
 
             Log.d(Constants.TAG_MAIN_ADAPTER, "MainViewHolder");
-
         }
 
         @OnClick(R.id.llayout_item_main)
         public void onViewClicked() {
             Log.d(Constants.TAG_MAIN_ADAPTER, "onViewClicked ");
-            mPresenter.openDetail(mBooks.get(getAdapterPosition()));
+            mPresenter.openDetail(mBookCustomInfos.get(getAdapterPosition()));
         }
 
 
@@ -136,11 +140,12 @@ public class MainAdapter extends RecyclerView.Adapter {
     }
 
 
-    public void updateData(ArrayList<Book> books) {
-        Log.d(Constants.TAG_MAIN_ADAPTER, "updateData, data count= " + books.size());
+    public void updateData(ArrayList<BookCustomInfo> bookCustomInfos) {
+        Log.d(Constants.TAG_MAIN_ADAPTER, "updateData, data count= " + bookCustomInfos.size());
 
-        mBooks.clear();
-        mBooks = books;
+        mBookCustomInfos.clear();
+        mBookCustomInfos = bookCustomInfos;
+        Collections.reverse(mBookCustomInfos);
         notifyDataSetChanged();
     }
 }

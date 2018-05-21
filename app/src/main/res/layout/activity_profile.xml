@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.wenliu.bookshare.profile.ProfileActivity">
+
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbarlayout_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="20dp"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:elevation="20dp">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collape_toolbar_profile"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/shape_toolbar_gradient"
+            app:contentScrim="@color/LightBlue_200_Dark"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:titleTextColor="@color/Brown_600">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingHorizontal="@dimen/profile_info_paddingHorizontal"
+                app:layout_collapseMode="parallax"
+                app:layout_collapseParallaxMultiplier="0.7">
+
+                <ImageView
+                    android:id="@+id/iv_profile_userimage"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="40dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/all_placeholder_avatar"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/iv_profile_change_image"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/camera"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_profile_userimage"
+                    app:layout_constraintEnd_toEndOf="@id/iv_profile_userimage" />
+
+                <TextView
+                    android:id="@+id/tv_profile_user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Wen"
+                    android:fontFamily="sans-serif"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/Black"
+                    android:textSize="@dimen/profile_info_number_size"
+                    android:textStyle="bold"
+                    android:layout_marginTop="@dimen/book_dialog_gap_each_line"
+                    app:layout_constraintTop_toBottomOf="@id/iv_profile_userimage"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+                <TextView
+                    android:id="@+id/tv_profile_user_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Wen@gmail.com"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/Black"
+                    android:textSize="@dimen/profile_info_title_size"
+                    android:layout_marginTop="@dimen/book_dialog_gap_each_line"
+                    app:layout_constraintTop_toBottomOf="@id/tv_profile_user_name"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="30dp"
+                    android:gravity="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_profile_user_email">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif"
+                            android:includeFontPadding="false"
+                            android:text="23"
+                            android:textColor="@color/Grey_800"
+                            android:textSize="@dimen/profile_info_number_size"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif"
+                            android:includeFontPadding="false"
+                            android:text="Books"
+                            android:textColor="@color/Grey_500"
+                            android:textSize="@dimen/profile_info_title_size" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="@dimen/profile_divider_length"
+                        android:background="@color/Grey_400" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif"
+                            android:includeFontPadding="false"
+                            android:text="10"
+                            android:textColor="@color/Grey_800"
+                            android:textSize="@dimen/profile_info_number_size"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif"
+                            android:includeFontPadding="false"
+                            android:text="Unread"
+                            android:textColor="@color/Grey_500"
+                            android:textSize="@dimen/profile_info_title_size" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="@dimen/profile_divider_length"
+                        android:background="@color/Grey_400" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif"
+                            android:includeFontPadding="false"
+                            android:text="11"
+                            android:textColor="@color/Grey_800"
+                            android:textSize="@dimen/profile_info_number_size"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif"
+                            android:includeFontPadding="false"
+                            android:text="Read"
+                            android:textColor="@color/Grey_500"
+                            android:textSize="@dimen/profile_info_title_size" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="@dimen/profile_divider_length"
+                        android:background="@color/Grey_400" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif"
+                            android:includeFontPadding="false"
+                            android:text="3"
+                            android:textColor="@color/Grey_800"
+                            android:textSize="@dimen/profile_info_number_size"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif"
+                            android:includeFontPadding="false"
+                            android:text="Lent"
+                            android:textColor="@color/Grey_500"
+                            android:textSize="@dimen/profile_info_title_size" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar_profile"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:theme="@style/AppTheme.AppBarOverlay"
+                app:layout_collapseMode="pin"
+                app:navigationIcon="@drawable/ic_navigate_before"
+                app:popupTheme="@style/AppTheme.PopupOverlay"
+                app:subtitle="123"
+                app:title="test"></android.support.v7.widget.Toolbar>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_profile"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/White"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"></android.support.v7.widget.RecyclerView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/ic_person_add"
+        app:layout_anchor="@id/appbarlayout_profile"
+        app:layout_anchorGravity="bottom|end" />
+
+
+</android.support.design.widget.CoordinatorLayout>

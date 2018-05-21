@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.wenliu.bookshare.Constants;
 import com.wenliu.bookshare.object.Book;
+import com.wenliu.bookshare.object.BookCustomInfo;
 import com.wenliu.bookshare.object.GoogleBook.MyBook;
 
 /**
@@ -13,21 +14,20 @@ import com.wenliu.bookshare.object.GoogleBook.MyBook;
 public class DetailPresenter implements DetailContract.Presenter {
 
     private final DetailContract.View mDetailView;
-    private Book mBook;
+    private BookCustomInfo mBookCustomInfo;
 
-    public DetailPresenter(DetailContract.View detailView, Book book) {
+    public DetailPresenter(DetailContract.View detailView, BookCustomInfo bookCustomInfo) {
         Log.d(Constants.TAG_DETAIL_PRESENTER, "DetailPresenter: ");
 
         mDetailView = detailView;
         mDetailView.setPresenter(this);
-
-        mBook = book;
+        mBookCustomInfo = bookCustomInfo;
     }
 
     @Override
     public void start() {
         Log.d(Constants.TAG_DETAIL_PRESENTER, "start: ");
-        mDetailView.showBook(mBook);
+        mDetailView.showBook(mBookCustomInfo);
     }
 
     @Override

@@ -10,7 +10,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ServerValue;
 import com.wenliu.bookshare.api.FirebaseApiHelper;
+import com.wenliu.bookshare.api.callbacks.GetUserInfoCallback;
 import com.wenliu.bookshare.api.callbacks.SignInCallback;
 import com.wenliu.bookshare.api.callbacks.SignUpCallback;
 import com.wenliu.bookshare.object.User;
@@ -106,8 +108,26 @@ public class UserManager {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(Constants.TAG_USERMANAGER, "signInWithEmailAndPassword success!");
-                            FirebaseUser user = auth.getCurrentUser();
-                            callback.onCompleted();
+                            FirebaseUser firebaseUser = auth.getCurrentUser();
+
+                            mUserData.edit()
+                                    .putString(Constants.USER_EMAIL, firebaseUser.getEmail())
+                                    .putString(Constants.USER_ID, firebaseUser.getUid())
+                                    .commit();
+
+                            getUserInfo(new GetUserInfoCallback() {
+                                @Override
+                                public void onCompleted(User user) {
+                                    Log.d(Constants.TAG_USERMANAGER, "GetUserInfoCallback onCompleted: ");
+                                    storeUserData(user);
+                                    callback.onCompleted();
+                                }
+
+                                @Override
+                                public void onError(String error) {
+                                    callback.onError(error);
+                                }
+                            });
 
                         } else {
                             // If sign in fails, display a message to the user.
@@ -116,6 +136,23 @@ public class UserManager {
                         }
                     }
                 });
+    }
+
+    public void getUserInfo(GetUserInfoCallback callback) {
+        Log.d(Constants.TAG_USERMANAGER, "getUserInfo: ");
+
+        new FirebaseApiHelper().getUserInfo(getUserId(), callback);
+    }
+
+
+    public void storeUserData(User user) {
+        Log.i(Constants.TAG_USERMANAGER, "storeUserData: ");
+        mUserData.edit()
+                .putString(Constants.USER_ID, user.getId())
+                .putString(Constants.USER_NAME, user.getName())
+                .putString(Constants.USER_EMAIL, user.getEmail())
+                .putString(Constants.USER_IMAGE, user.getImage())
+                .commit();
     }
 
 

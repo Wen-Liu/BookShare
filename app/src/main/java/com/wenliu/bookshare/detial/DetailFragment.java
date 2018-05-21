@@ -13,12 +13,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 import com.wenliu.bookshare.Constants;
+import com.wenliu.bookshare.ImageManager;
 import com.wenliu.bookshare.R;
 import com.wenliu.bookshare.ShareBook;
 import com.wenliu.bookshare.ShareBookActivity;
 import com.wenliu.bookshare.object.Book;
+import com.wenliu.bookshare.object.BookCustomInfo;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,6 +54,7 @@ public class DetailFragment extends Fragment implements DetailContract.View, Ada
     TextView mTvDetailBookPurchasePrice;
     Unbinder unbinder;
     private DetailContract.Presenter mPresenter;
+    private ImageManager mImageManager;
 
 
     public DetailFragment() {
@@ -66,6 +69,7 @@ public class DetailFragment extends Fragment implements DetailContract.View, Ada
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPresenter.hideToolbar();
+        mImageManager = new ImageManager(getActivity());
     }
 
     @Override
@@ -74,8 +78,9 @@ public class DetailFragment extends Fragment implements DetailContract.View, Ada
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_detail, container, false);
         unbinder = ButterKnife.bind(this, view);
+        Log.d(Constants.TAG_DETAIL_FRAGMENT, "onCreateView: ");
 
-        mSpinnerDetail.setOnItemSelectedListener(this);
+//        mSpinnerDetail.setOnItemSelectedListener(this);
         return view;
     }
 
@@ -95,34 +100,38 @@ public class DetailFragment extends Fragment implements DetailContract.View, Ada
     }
 
     @Override
-    public void showBook(Book book) {
-        Log.d(Constants.TAG_DETAIL_FRAGMENT, "showBook: ");
+    public void showBook(BookCustomInfo bookCustomInfo) {
+        Log.d(Constants.TAG_DETAIL_FRAGMENT, "showBook: start");
 
-        Picasso.get().load(book.getImage()).into(mIvDetailBookCover);
-        mTvDetailBookTitle.setText(book.getTitle());
+        mImageManager.loadUrlImage(bookCustomInfo.getImage(),mIvDetailBookCover);
+//        Glide.with(ShareBook.getAppContext()).load(book.getImage()).into(mIvDetailBookCover);
+//        Picasso.get().load(book.getImage()).into(mIvDetailBookCover);
+        mTvDetailBookTitle.setText(bookCustomInfo.getTitle());
 
-        if (book.getAuthor() != null && book.getAuthor().size() > 0) {
-            mTvDetailBookAuthor.setText(book.getAuthor().get(0));
+        if (bookCustomInfo.getAuthor() != null && bookCustomInfo.getAuthor().size() > 0) {
+            mTvDetailBookAuthor.setText(bookCustomInfo.getAuthor().get(0));
         } else {
             mTvDetailBookAuthor.setText("");
         }
-        if (book.getPublisher() != null) {
-            mTvDetailBookPublisher.setText(book.getPublisher());
+        if (bookCustomInfo.getPublisher() != null) {
+            mTvDetailBookPublisher.setText(bookCustomInfo.getPublisher());
         } else {
             mTvDetailBookPublisher.setText("");
         }
-        if (book.getPublishDate() != null) {
-            mTvDetailBookPublishDate.setText(book.getPublishDate());
+        if (bookCustomInfo.getPublishDate() != null) {
+            mTvDetailBookPublishDate.setText(bookCustomInfo.getPublishDate());
         } else {
             mTvDetailBookPublishDate.setText("");
         }
-        if (book.getLanguage() != null) {
-            mTvDetailBookLanguage.setText(book.getLanguage());
+        if (bookCustomInfo.getLanguage() != null) {
+            mTvDetailBookLanguage.setText(bookCustomInfo.getLanguage());
         } else {
             mTvDetailBookLanguage.setText("");
         }
 
-        mTvDetailBookIsbn.setText(book.getIsbn13());
+        mTvDetailBookIsbn.setText(bookCustomInfo.getIsbn13());
+        Log.d(Constants.TAG_DETAIL_FRAGMENT, "showBook: end ");
+
     }
 
     @Override

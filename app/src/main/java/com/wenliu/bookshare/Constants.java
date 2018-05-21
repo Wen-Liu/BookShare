@@ -7,10 +7,12 @@ package com.wenliu.bookshare;
 public class Constants {
 
     // Log
+    public final static String TAG_BASE_ACTIVITY = "wen-BaseActivity";
+    public final static String TAG_LOGIN_ACTIVITY = "wen-LoginActivity";
     public final static String TAG_SHAREBOOK_ACTIVITY = "wen-ShareBookActivity";
     public final static String TAG_SHAREBOOK_PRESENTER = "wen-ShareBookActivity";
-    public final static String TAG_LOGIN_ACTIVITY = "wen-LoginActivity";
-    public final static String TAG_BASE_ACTIVITY = "wen-BaseActivity";
+    public final static String TAG_PROFILE_ACTIVITY = "wen-ProfileActivity";
+    public final static String TAG_PROFILE_PRESENTER = "wen-ProfileActivity";
 
     public final static String TAG_MAIN_FRAGMENT = "wen-MainFragment";
     public final static String TAG_MAIN_PRESENTER = "wen-MainPresenter";
@@ -18,6 +20,7 @@ public class Constants {
     public final static String TAG_DETAIL_PRESENTER = "wen-DetailPresenter";
 
     public final static String TAG_MAIN_ADAPTER = "wen-MainAdapter";
+    public final static String TAG_PROFILE_ADAPTER = "wen-ProfileAdapter";
 
     public final static String TAG_INPUT_ISBN_DIALOG = "wen-InputIsbnDialog";
     public final static String TAG_BOOK_DATA_EDIT_DIALOG = "wen-BookDataEditDialog";
@@ -34,9 +37,10 @@ public class Constants {
     public final static String TAG_SHARE_BOOK_PARSER = "wen-ShareBookParser";
 
     // Firebase
-    public final static String FIREBASE_BOOKS = "Books";
     public final static String FIREBASE_GOOGLE_BOOKS = "GoogleBooks";
     public final static String FIREBASE_USERS = "Users";
+    public final static String FIREBASE_BOOKS = "Books";
+    public final static String FIREBASE_FRIENDS = "Friends";
 
     // User Manager
     public final static String USER_DATA = "user_data";
@@ -44,6 +48,12 @@ public class Constants {
     public final static String USER_EMAIL = "user_email";
     public final static String USER_IMAGE = "user_image";
     public final static String USER_ID = "user_id";
+
+    // Book Status
+    public final static int UNREAD = 0;
+    public final static int READ = 1;
+    public final static int LENT = 2;
+    public final static int BORROW = 3;
 
 
 }

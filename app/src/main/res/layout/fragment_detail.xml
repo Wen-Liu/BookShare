@@ -1,5 +1,4 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,13 +11,15 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_gravity="center"
-        android:background="@color/black"
+        android:elevation="8dp"
+        android:background="@color/Black"
         android:scaleType="fitCenter" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/book_dialog_gap_each_line"
+        android:paddingTop="@dimen/book_dialog_gap_each_line"
+        android:background="@color/White"
         android:orientation="vertical"
         android:paddingHorizontal="16dp">
 
@@ -29,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:text="做工的人"
-            android:textColor="@color/black"
+            android:textColor="@color/Black"
             android:textSize="@dimen/detail_book_title_size" />
 
         <LinearLayout
@@ -56,7 +57,7 @@
                 android:layout_marginStart="4dp"
                 android:layout_weight="1"
                 android:text="4.5"
-                android:textColor="@color/colorBlue200_Dark"
+                android:textColor="@color/LightBlue_200_Dark"
                 android:textSize="@dimen/detail_book_tv_rating_size"></TextView>
 
             <Spinner
@@ -81,7 +82,7 @@
                 android:layout_marginEnd="@dimen/book_dialog_gap_text_edit"
                 android:gravity="right"
                 android:text="@string/book_author"
-                android:textColor="@color/black"
+                android:textColor="@color/Black"
                 android:textSize="@dimen/detail_book_tv_size" />
 
             <TextView
@@ -89,7 +90,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="林立青"
-                android:textColor="@color/black"
+                android:textColor="@color/Black"
                 android:textSize="@dimen/detail_book_tv_size" />
         </LinearLayout>
 
@@ -106,7 +107,7 @@
                 android:layout_marginEnd="@dimen/book_dialog_gap_text_edit"
                 android:gravity="right"
                 android:text="@string/book_publisher"
-                android:textColor="@color/black"
+                android:textColor="@color/Black"
                 android:textSize="@dimen/detail_book_tv_size" />
 
             <TextView
@@ -114,7 +115,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="寶瓶文化"
-                android:textColor="@color/black"
+                android:textColor="@color/Black"
                 android:textSize="@dimen/detail_book_tv_size" />
         </LinearLayout>
 
@@ -131,7 +132,7 @@
                 android:layout_marginEnd="@dimen/book_dialog_gap_text_edit"
                 android:gravity="right"
                 android:text="@string/book_publish_date"
-                android:textColor="@color/black"
+                android:textColor="@color/Black"
                 android:textSize="@dimen/detail_book_tv_size" />
 
             <TextView
@@ -139,7 +140,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="2017"
-                android:textColor="@color/black"
+                android:textColor="@color/Black"
                 android:textSize="@dimen/detail_book_tv_size" />
         </LinearLayout>
 
@@ -155,7 +156,7 @@
                 android:layout_marginEnd="@dimen/book_dialog_gap_text_edit"
                 android:gravity="right"
                 android:text="@string/book_language"
-                android:textColor="@color/black"
+                android:textColor="@color/Black"
                 android:textSize="@dimen/detail_book_tv_size" />
 
             <TextView
@@ -163,7 +164,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="中文"
-                android:textColor="@color/black"
+                android:textColor="@color/Black"
                 android:textSize="@dimen/detail_book_tv_size" />
         </LinearLayout>
 
@@ -180,7 +181,7 @@
                 android:layout_marginEnd="@dimen/book_dialog_gap_text_edit"
                 android:gravity="right"
                 android:text="@string/book_ISBN"
-                android:textColor="@color/black"
+                android:textColor="@color/Black"
                 android:textSize="@dimen/detail_book_tv_size" />
 
             <TextView
@@ -188,7 +189,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="1235740453453"
-                android:textColor="@color/black"
+                android:textColor="@color/Black"
                 android:textSize="@dimen/detail_book_tv_size" />
         </LinearLayout>
 
@@ -205,7 +206,7 @@
                 android:layout_marginEnd="@dimen/book_dialog_gap_text_edit"
                 android:gravity="right"
                 android:text="@string/book_purchase_date"
-                android:textColor="@color/black"
+                android:textColor="@color/Black"
                 android:textSize="@dimen/detail_book_tv_size" />
 
             <TextView
@@ -213,7 +214,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="20170204"
-                android:textColor="@color/black"
+                android:textColor="@color/Black"
                 android:textSize="@dimen/detail_book_tv_size" />
         </LinearLayout>
 
@@ -230,7 +231,7 @@
                 android:layout_marginEnd="@dimen/book_dialog_gap_text_edit"
                 android:gravity="right"
                 android:text="@string/book_purchase_price"
-                android:textColor="@color/black"
+                android:textColor="@color/Black"
                 android:textSize="@dimen/detail_book_tv_size" />
 
             <TextView
@@ -238,9 +239,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="20170204"
-                android:textColor="@color/black"
+                android:textColor="@color/Black"
                 android:textSize="@dimen/detail_book_tv_size" />
         </LinearLayout>
     </LinearLayout>
-
 </LinearLayout>

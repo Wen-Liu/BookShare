@@ -11,7 +11,7 @@ import android.widget.ImageView;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.wenliu.bookshare.Constants;
-import com.wenliu.bookshare.GetBookCoverUrl;
+import com.wenliu.bookshare.api.GetBookCoverUrl;
 import com.wenliu.bookshare.R;
 import com.wenliu.bookshare.ShareBook;
 import com.wenliu.bookshare.ShareBookActivity;
@@ -34,7 +34,6 @@ import butterknife.OnClick;
 
 public class InputIsbnDialog extends Dialog {
 
-
     @BindView(R.id.editText_isbn)
     EditText mEdittextIsbn;
     @BindView(R.id.imageView_scanner)
@@ -43,10 +42,10 @@ public class InputIsbnDialog extends Dialog {
     Button mBtnSend;
 
     private Context mContext;
+    private String mIsbn;
     private IntentIntegrator scanIntegrator;
     private ShareBookActivity mShareBookActivity;
     private ShareBookContract.Presenter mPresenter;
-    private String mIsbn;
     private BookDataEditDialog mBookDataEditDialog;
 
 
@@ -128,6 +127,7 @@ public class InputIsbnDialog extends Dialog {
                     @Override
                     public void onError(String errorMessage) {
                         Log.d(Constants.TAG_INPUT_ISBN_DIALOG, "GetBookDataTask onError");
+                        setEditTextError(errorMessage);
                     }
                 }).execute();
             }

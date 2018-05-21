@@ -7,16 +7,22 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.wenliu.bookshare.Constants;
 import com.wenliu.bookshare.UserManager;
 import com.wenliu.bookshare.api.callbacks.CheckBookExistCallback;
 import com.wenliu.bookshare.api.callbacks.GetBooksCallback;
+import com.wenliu.bookshare.api.callbacks.GetUserInfoCallback;
 import com.wenliu.bookshare.api.callbacks.SignInCallback;
 import com.wenliu.bookshare.api.callbacks.SignUpCallback;
 import com.wenliu.bookshare.object.Book;
+import com.wenliu.bookshare.object.BookCustomInfo;
 import com.wenliu.bookshare.object.GoogleBook.Item;
 import com.wenliu.bookshare.object.User;
+
+import org.json.JSONObject;
+import org.json.JSONStringer;
 
 import java.util.ArrayList;
 
@@ -30,47 +36,113 @@ public class FirebaseApiHelper {
     private FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference mGetRef = mDatabase.getReference();
 
-    public void uploadBooks(String isbn, Book book) {
-        Log.d(Constants.TAG_FIREBASE_API_HELPER, "uploadBooks");
-        mGetRef.child(Constants.FIREBASE_BOOKS).child(isbn).setValue(book);
-    }
-
-    public void uploadMyBooks(String isbn, Book book) {
-        Log.d(Constants.TAG_FIREBASE_API_HELPER, "uploadBooks");
-        mGetRef.child(Constants.FIREBASE_USERS).child(UserManager.getInstance().getUserId())
-                .child(Constants.FIREBASE_BOOKS).child(isbn).setValue(book);
-    }
-
-    public void uploadGoogleBook(String id, Item item) {
-        Log.d(Constants.TAG_FIREBASE_API_HELPER, "uploadGoogleBook");
-        mGetRef.child(Constants.FIREBASE_GOOGLE_BOOKS).child(id).setValue(item);
+    public static FirebaseApiHelper newInstance() {
+        return new FirebaseApiHelper();
     }
 
     public void uploadUser(User user, SignUpCallback callback) {
         Log.d(Constants.TAG_FIREBASE_API_HELPER, "uploadUser");
-        
+
         mGetRef.child(Constants.FIREBASE_USERS).child(user.getId()).setValue(user);
         callback.onCompleted();
+    }
+
+    public void getUserInfo(String uid, final GetUserInfoCallback callback) {
+        Log.d(Constants.TAG_FIREBASE_API_HELPER, "getUserInfo: ");
+
+        Query userInfoQuery = mGetRef.child(Constants.FIREBASE_USERS).child(uid).orderByValue();
+        userInfoQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    Log.d(Constants.TAG_FIREBASE_API_HELPER, "dataSnapshot.exists()");
+                    User user = dataSnapshot.getValue(User.class);
+                    callback.onCompleted(user);
+                } else {
+                    callback.onError("c");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d(Constants.TAG_FIREBASE_API_HELPER, "onCancelled: getUserInfo" + databaseError.getMessage().toString());
+                callback.onError(databaseError.getMessage());
+            }
+        });
+    }
+
+    public void checkBookDataExist(final String isbn, final CheckBookExistCallback callback) {
+        Log.d(Constants.TAG_FIREBASE_API_HELPER, "checkBookDataExist");
+
+        Query myBooksQuery = mGetRef.child(Constants.FIREBASE_BOOKS).orderByKey().equalTo(isbn);
+        myBooksQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    Log.d(Constants.TAG_FIREBASE_API_HELPER, "checkBookDataExist true");
+                    Book book = dataSnapshot.child(isbn).getValue(Book.class);
+                    callback.onCompleted(book);
+                } else {
+                    Log.d(Constants.TAG_FIREBASE_API_HELPER, "checkBookDataExist false");
+                    callback.onError();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void uploadGoogleBook(String isbn, Item item) {
+        Log.d(Constants.TAG_FIREBASE_API_HELPER, "uploadGoogleBook");
+        mGetRef.child(Constants.FIREBASE_GOOGLE_BOOKS).child(isbn).setValue(item);
+    }
+
+    public void uploadBook(String isbn, Book book) {
+        Log.d(Constants.TAG_FIREBASE_API_HELPER, "uploadBook");
+
+        // upload to the common book pool
+        mGetRef.child(Constants.FIREBASE_BOOKS).child(isbn).setValue(book);
+    }
+
+    public void uploadMyBook(String isbn, BookCustomInfo bookCustomInfo) {
+        Log.d(Constants.TAG_FIREBASE_API_HELPER, "uploadMyBook ");
+
+        // upload to user's book data
+        mGetRef.child(Constants.FIREBASE_USERS)
+                .child(UserManager.getInstance().getUserId())
+                .child(Constants.FIREBASE_BOOKS)
+                .child(isbn)
+                .setValue(bookCustomInfo);
     }
 
     public void getMyBooks(final GetBooksCallback callback) {
         Log.d(Constants.TAG_FIREBASE_API_HELPER, "getMyBooks");
 
-        Query myBooksQuery = mGetRef.child(Constants.FIREBASE_BOOKS).orderByValue();
+        Query myBooksQuery = mGetRef.child(Constants.FIREBASE_USERS)
+                .child(UserManager.getInstance().getUserId())
+                .child(Constants.FIREBASE_BOOKS)
+                .orderByChild("createTime");
+
         myBooksQuery.addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d(Constants.TAG_FIREBASE_API_HELPER, "getMyBooks");
 
-                ArrayList<Book> mBooks = new ArrayList<>();
+                ArrayList<BookCustomInfo> mBookCustomInfos = new ArrayList<>();
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        Book book = snapshot.getValue(Book.class);
-                        mBooks.add(book);
+                        BookCustomInfo bookCustomInfo = snapshot.getValue(BookCustomInfo.class);
+                        mBookCustomInfos.add(bookCustomInfo);
                     }
-                    Log.d(Constants.TAG_FIREBASE_API_HELPER, "onDataChange ");
-                    callback.onCompleted(mBooks);
+                    Log.d(Constants.TAG_FIREBASE_API_HELPER, "getMyBooks data exists ");
+                    callback.onCompleted(mBookCustomInfos);
+                } else {
+                    Log.d(Constants.TAG_FIREBASE_API_HELPER, "getMyBooks get nothing ");
+                    callback.onError("get nothing");
                 }
             }
 
@@ -82,24 +154,33 @@ public class FirebaseApiHelper {
         });
     }
 
-    public void checkBookDataExist(final String isbn, final CheckBookExistCallback callback){
-        Log.d(Constants.TAG_FIREBASE_API_HELPER, "checkBookDataExist");
-        Query myBooksQuery = mGetRef.child(Constants.FIREBASE_BOOKS).orderByKey().equalTo(isbn);
+    public void getMyBooks2(final GetBooksCallback callback) {
+        Log.d(Constants.TAG_FIREBASE_API_HELPER, "getMyBooks");
+
+        Query myBooksQuery = mGetRef.child(Constants.FIREBASE_BOOKS).orderByValue();
         myBooksQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
+                ArrayList<Book> mBooks = new ArrayList<>();
                 if (dataSnapshot.exists()) {
-                    Log.d(Constants.TAG_FIREBASE_API_HELPER, "dataSnapshot.exists()");
-                    Book book = dataSnapshot.child(isbn).getValue(Book.class);
-                    callback.onCompleted(book);
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        Book book = snapshot.getValue(Book.class);
+                        mBooks.add(book);
+                    }
+                    Log.d(Constants.TAG_FIREBASE_API_HELPER, "getMyBooks data exists ");
+//                    callback.onCompleted(mBooks);
                 } else {
-                    callback.onError();
+                    Log.d(Constants.TAG_FIREBASE_API_HELPER, "getMyBooks get nothing ");
+                    callback.onError("get nothing");
                 }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                Log.d(Constants.TAG_FIREBASE_API_HELPER, "onCancelled: " + databaseError.getMessage().toString());
+                callback.onError(databaseError.getMessage());
             }
         });
     }

@@ -12,7 +12,9 @@ import com.wenliu.bookshare.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment implements ProfileContract.View {
+
+    private ProfileContract.Presenter mPresenter;
 
 
     public ProfileFragment() {
@@ -27,4 +29,8 @@ public class ProfileFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_profile, container, false);
     }
 
+    @Override
+    public void setPresenter(ProfileContract.Presenter presenter) {
+        mPresenter = presenter;
+    }
 }

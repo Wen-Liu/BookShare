@@ -3,6 +3,7 @@ package com.wenliu.bookshare;
 import com.wenliu.bookshare.base.BasePresenter;
 import com.wenliu.bookshare.base.BaseView;
 import com.wenliu.bookshare.object.Book;
+import com.wenliu.bookshare.object.BookCustomInfo;
 import com.wenliu.bookshare.object.GoogleBook.MyBook;
 
 /**
@@ -16,14 +17,14 @@ public interface ShareBookContract {
 
         void setEditTextError(String error);
 
-        void transToDetail(Book book);
+        void transToDetail(BookCustomInfo bookCustomInfo);
     }
 
 
     interface Presenter extends BasePresenter {
         void transToMain();
 
-        void transToDetail(Book book);
+        void transToDetail(BookCustomInfo bookCustomInfo);
 
         boolean isIsbnValid(String isbn);
 

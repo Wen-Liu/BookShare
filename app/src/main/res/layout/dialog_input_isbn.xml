@@ -31,7 +31,7 @@
             android:paddingVertical="6dp"
             android:singleLine="true"
             android:textColor="@android:color/black"
-            android:textColorHint="@color/colorBrown300_light"
+            android:textColorHint="@color/Brown_300_light"
             android:textSize="18sp" />
 
         <ImageView
@@ -64,7 +64,7 @@
             android:layout_width="100dp"
             android:layout_height="30dp"
             android:layout_weight="1"
-            android:background="@color/colorBrown_300"
+            android:background="@color/Brown_300"
             android:text="send"
             android:textSize="18sp" />
 

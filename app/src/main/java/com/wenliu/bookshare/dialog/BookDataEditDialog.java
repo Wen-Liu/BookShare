@@ -15,6 +15,7 @@ import com.wenliu.bookshare.ShareBookActivity;
 import com.wenliu.bookshare.ShareBookContract;
 import com.wenliu.bookshare.api.FirebaseApiHelper;
 import com.wenliu.bookshare.object.Book;
+import com.wenliu.bookshare.object.BookCustomInfo;
 
 import java.util.List;
 
@@ -53,6 +54,7 @@ public class BookDataEditDialog extends Dialog {
 
     private Context mContext;
     private Book mBook;
+    private BookCustomInfo mBookCustomInfo;
     private ShareBookActivity mShareBookActivity;
     private ShareBookContract.Presenter mPresenter;
     private String mTitle;
@@ -75,38 +77,40 @@ public class BookDataEditDialog extends Dialog {
         mShareBookActivity = activity;
         mPresenter = presenter;
         mBook = book;
+        mBookCustomInfo = new BookCustomInfo(book);
 
         init();
     }
 
 
+    // init the book data get from server
     private void init() {
 
-        if (mBook.getTitle() != null) {
+        if (mBookCustomInfo.getTitle() != null) {
             mEtDialogBookTitle.setText(mBook.getTitle());
         }
 
-        if (mBook.getSubtitle() != null) {
+        if (mBookCustomInfo.getSubtitle() != null) {
             mEtDialogBookSubtitle.setText(mBook.getSubtitle());
         }
 
-        if (mBook.getAuthor() != null && mBook.getAuthor().size() > 0) {
+        if (mBookCustomInfo.getAuthor() != null && mBook.getAuthor().size() > 0) {
             mEtDialogBookAuthor.setText(mBook.getAuthor().get(0));
         }
 
-        if (mBook.getIsbn13() != null) {
+        if (mBookCustomInfo.getIsbn13() != null) {
             mTvDialogBookIsbn.setText(mBook.getIsbn13());
         }
 
-        if (mBook.getPublisher() != null) {
+        if (mBookCustomInfo.getPublisher() != null) {
             mEtDialogBookPublisher.setText(mBook.getPublisher());
         }
 
-        if (mBook.getPublishDate() != null) {
+        if (mBookCustomInfo.getPublishDate() != null) {
             mEtDialogBookPublishDate.setText(mBook.getPublishDate());
         }
 
-        if (mBook.getLanguage() != null) {
+        if (mBookCustomInfo.getLanguage() != null) {
             mEtDialogBookLanguage.setText(mBook.getLanguage());
         }
 
@@ -115,21 +119,20 @@ public class BookDataEditDialog extends Dialog {
     @OnClick(R.id.btn_book_data_send)
     public void onViewClicked() {
 
-        mBook.setTitle(mEtDialogBookTitle.getText().toString());
-        mBook.setSubtitle(mEtDialogBookSubtitle.getText().toString());
+        mBookCustomInfo.setTitle(mEtDialogBookTitle.getText().toString());
+        mBookCustomInfo.setSubtitle(mEtDialogBookSubtitle.getText().toString());
 //        mAuthor.add(mEtDialogBookTitle.getText().toString());
 //        mBook.setAuthor(mAuthor);
-        mBook.setPublisher(mEtDialogBookPublisher.getText().toString());
-        mBook.setPublishDate(mEtDialogBookPublishDate.getText().toString());
-        mBook.setLanguage(mEtDialogBookLanguage.getText().toString());
+        mBookCustomInfo.setPublisher(mEtDialogBookPublisher.getText().toString());
+        mBookCustomInfo.setPublishDate(mEtDialogBookPublishDate.getText().toString());
+        mBookCustomInfo.setLanguage(mEtDialogBookLanguage.getText().toString());
 
-        mLanguage = mEtDialogBookLanguage.getText().toString();
-        mPurchaseDate = mEtDialogBookPurchaseDate.getText().toString();
-        mPurchasePrice = mEtDialogBookPurchasePrice.getText().toString();
+        mBookCustomInfo.setPurchaseDate(mEtDialogBookPurchaseDate.getText().toString());
+        mBookCustomInfo.setPurchasePrice(mEtDialogBookPurchasePrice.getText().toString());
 
-        new FirebaseApiHelper().uploadBooks(mBook.getIsbn13(), mBook);
+        FirebaseApiHelper.newInstance().uploadMyBook(mBookCustomInfo.getIsbn13(), mBookCustomInfo);
+
         mPresenter.refreshMainFragment();
-
         dismiss();
     }
 }

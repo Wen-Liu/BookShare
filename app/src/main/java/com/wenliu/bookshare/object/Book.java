@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Book {
     private String mBookSource;
-    private String mId;
+    private String mCreateByUid;
     private String mTitle;
     private String mSubtitle;
     private List<String> mAuthor;
@@ -23,7 +23,7 @@ public class Book {
 
     public Book() {
         mBookSource = "";
-        mId = "";
+        mCreateByUid = "";
         mTitle = "";
         mSubtitle = "";
         mAuthor = new ArrayList<>();
@@ -43,12 +43,12 @@ public class Book {
         mBookSource = bookSource;
     }
 
-    public String getId() {
-        return mId;
+    public String getCreateByUid() {
+        return mCreateByUid;
     }
 
-    public void setId(String id) {
-        mId = id;
+    public void setCreateByUid(String createByUid) {
+        mCreateByUid = createByUid;
     }
 
     public String getTitle() {

@@ -10,7 +10,7 @@
      4.ring   環形
      -->
 
-    <solid android:color="@color/white" />
+    <solid android:color="@color/White" />
 
     <size
         android:width="40dp"
