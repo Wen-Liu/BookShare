@@ -23,6 +23,7 @@
             android:background="@drawable/shape_toolbar_gradient"
             app:contentScrim="@color/LightBlue_200_Dark"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:expandedTitleGravity="center"
             app:titleTextColor="@color/Brown_600">
 
             <android.support.constraint.ConstraintLayout
@@ -58,7 +59,7 @@
                     android:layout_marginTop="@dimen/book_dialog_gap_each_line"
                     android:fontFamily="sans-serif"
                     android:includeFontPadding="false"
-                    android:text="Wen"
+                    android:text=" "
                     android:textColor="@color/Black"
                     android:textSize="@dimen/profile_info_number_size"
                     android:textStyle="bold"
@@ -232,8 +233,7 @@
                 app:layout_collapseMode="pin"
                 app:navigationIcon="@drawable/ic_navigate_before"
                 app:popupTheme="@style/AppTheme.PopupOverlay"
-                app:subtitle="123"
-                app:title="test"></android.support.v7.widget.Toolbar>
+                app:title=" "></android.support.v7.widget.Toolbar>
 
         </android.support.design.widget.CollapsingToolbarLayout>
 

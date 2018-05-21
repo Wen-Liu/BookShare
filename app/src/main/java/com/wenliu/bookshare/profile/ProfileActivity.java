@@ -105,7 +105,8 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
         Bundle bundle = this.getIntent().getExtras();
         mBookStatusInfo = bundle.getIntArray(Constants.BOOKSTATUS);
 
-        mTvProfileUserName.setText(UserManager.getInstance().getUserName());
+        mToolbar.setTitle(UserManager.getInstance().getUserName());
+//        mTvProfileUserName.setText(UserManager.getInstance().getUserName());
         mTvProfileUserEmail.setText(UserManager.getInstance().getUserEmail());
         mTvProfileBookBook.setText(String.valueOf(mBookStatusInfo[Constants.MY_BOOK_UNREAD]+mBookStatusInfo[Constants.MY_BOOK_READ]));
         mTvProfileBookUnread.setText(String.valueOf(mBookStatusInfo[Constants.MY_BOOK_UNREAD]));
