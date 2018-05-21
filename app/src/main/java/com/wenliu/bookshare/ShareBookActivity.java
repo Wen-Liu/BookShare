@@ -103,6 +103,11 @@ public class ShareBookActivity extends BaseActivity implements ShareBookContract
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_to_profile) {
             Intent intent = new Intent(ShareBookActivity.this, ProfileActivity.class);
+
+            Bundle bundle = new Bundle();
+            bundle.putIntArray(Constants.BOOKSTATUS, mPresenter.getMyBookStatus());
+
+            intent.putExtras(bundle);
             startActivity(intent);
             return true;
         }

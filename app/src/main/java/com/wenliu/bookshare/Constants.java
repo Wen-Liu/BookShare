@@ -41,6 +41,7 @@ public class Constants {
     public final static String FIREBASE_USERS = "Users";
     public final static String FIREBASE_BOOKS = "Books";
     public final static String FIREBASE_FRIENDS = "Friends";
+    public final static String FIREBASE_BOOKSTATUS = "bookStatus";
 
     // User Manager
     public final static String USER_DATA = "user_data";
@@ -50,10 +51,12 @@ public class Constants {
     public final static String USER_ID = "user_id";
 
     // Book Status
-    public final static int UNREAD = 0;
-    public final static int READ = 1;
-    public final static int LENT = 2;
+    public final static String BOOKSTATUS = "bookStatus";
+    public final static int MY_BOOK_UNREAD = 0;
+    public final static int MY_BOOK_READ = 1; // my books count = MY_BOOK_UNREAD + MY_BOOK_READ
+    public final static int MY_BOOK_LENT = 2;
     public final static int BORROW = 3;
+    public final static int READ = 4; // total read = MY_BOOK_READ + READ;
 
 
 }

@@ -86,6 +86,11 @@ public class ShareBookPresenter implements ShareBookContract.Presenter {
     }
 
     @Override
+    public int[] getMyBookStatus() {
+        return mMainFragment.getMyBookStatus();
+    }
+
+    @Override
     public boolean isIsbnValid(String isbn) {
         return isbn.length() == 10 || isbn.length() == 13;
     }

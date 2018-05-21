@@ -9,6 +9,6 @@ import java.util.ArrayList;
  */
 
 public interface GetBooksCallback {
-    public void onCompleted(ArrayList<BookCustomInfo> bookCustomInfos);
+    public void onCompleted(ArrayList<BookCustomInfo> bookCustomInfos , int[] bookStatusInfo);
     public void onError(String errorMessage);
 }

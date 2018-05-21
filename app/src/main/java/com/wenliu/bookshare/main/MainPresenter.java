@@ -5,7 +5,6 @@ import android.util.Log;
 import com.wenliu.bookshare.Constants;
 import com.wenliu.bookshare.api.callbacks.GetBooksCallback;
 import com.wenliu.bookshare.api.GetBooksTask;
-import com.wenliu.bookshare.object.Book;
 import com.wenliu.bookshare.object.BookCustomInfo;
 
 import java.util.ArrayList;
@@ -39,10 +38,11 @@ public class MainPresenter implements MainContract.Presenter {
 
             new GetBooksTask(new GetBooksCallback() {
                 @Override
-                public void onCompleted(ArrayList<BookCustomInfo> bookCustomInfos) {
+                public void onCompleted(ArrayList<BookCustomInfo> bookCustomInfos, int[] bookStatusAll) {
                     setLoading(false);
                     Log.d(Constants.TAG_MAIN_PRESENTER, "GetBooksTask onCompleted");
                     mMainView.showBooks(bookCustomInfos);
+                    mMainView.setMyBookStatus(bookStatusAll);
                 }
 
                 @Override
@@ -64,4 +64,5 @@ public class MainPresenter implements MainContract.Presenter {
     public void setLoading(boolean loading) {
         isLoading = loading;
     }
+
 }

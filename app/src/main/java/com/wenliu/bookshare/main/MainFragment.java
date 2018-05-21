@@ -35,7 +35,7 @@ public class MainFragment extends Fragment implements MainContract.View {
     Unbinder unbinder;
     private MainContract.Presenter mPresenter;
     private MainAdapter mMainAdapter;
-//    private ArrayList<Book> mBooks = new ArrayList<>();
+    private int[] mBookStatusInfo;
     private ArrayList<BookCustomInfo> mBookCustomInfos = new ArrayList<>();
 
     public MainFragment() {
@@ -102,6 +102,16 @@ public class MainFragment extends Fragment implements MainContract.View {
     }
 
     @Override
+    public void setMyBookStatus(int[] bookStatusInfo) {
+        mBookStatusInfo = bookStatusInfo;
+    }
+
+    public int[] getMyBookStatus(){
+        return mBookStatusInfo;
+    }
+
+    @Override
+
     public void onDestroyView() {
         super.onDestroyView();
         Log.d(Constants.TAG_MAIN_FRAGMENT, "onDestroyView");

@@ -32,6 +32,8 @@ public interface ShareBookContract {
 
         void refreshMainFragment();
 
+        int[] getMyBookStatus();
+
     }
 
 }

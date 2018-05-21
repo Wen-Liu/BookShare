@@ -4,6 +4,7 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -30,7 +31,6 @@ import butterknife.OnClick;
 
 public class ProfileActivity extends BaseActivity implements ProfileContract.View {
 
-
     @BindView(R.id.appbarlayout_profile)
     AppBarLayout mAppbarlayoutProfile;
     @BindView(R.id.collape_toolbar_profile)
@@ -47,12 +47,23 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
     TextView mTvProfileUserName;
     @BindView(R.id.tv_profile_user_email)
     TextView mTvProfileUserEmail;
+    @BindView(R.id.tv_profile_book_book)
+    TextView mTvProfileBookBook;
+    @BindView(R.id.tv_profile_book_unread)
+    TextView mTvProfileBookUnread;
+    @BindView(R.id.tv_profile_book_read)
+    TextView mTvProfileBookRead;
+    @BindView(R.id.tv_profile_book_lent)
+    TextView mTvProfileBookLent;
+    @BindView(R.id.fab_profile)
+    FloatingActionButton mFabProfile;
 
     private Toolbar mToolbar;
     private ProfileContract.Presenter mPresenter;
     private ProfileAdapter mProfileAdapter;
     private ArrayList<User> mFriends = new ArrayList<>();
     private ImageManager mImageManager;
+    private int[] mBookStatusInfo;
 
 
     @Override
@@ -60,6 +71,7 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         ButterKnife.bind(this);
+
 
         Log.d(Constants.TAG_PROFILE_ACTIVITY, "onCreate: ");
 
@@ -90,9 +102,15 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
         mImageManager = new ImageManager(this);
         mImageManager.loadCircleImage(url, mIvProfileUserimage);
 
+        Bundle bundle = this.getIntent().getExtras();
+        mBookStatusInfo = bundle.getIntArray(Constants.BOOKSTATUS);
+
         mTvProfileUserName.setText(UserManager.getInstance().getUserName());
         mTvProfileUserEmail.setText(UserManager.getInstance().getUserEmail());
-
+        mTvProfileBookBook.setText(String.valueOf(mBookStatusInfo[Constants.MY_BOOK_UNREAD]+mBookStatusInfo[Constants.MY_BOOK_READ]));
+        mTvProfileBookUnread.setText(String.valueOf(mBookStatusInfo[Constants.MY_BOOK_UNREAD]));
+        mTvProfileBookRead.setText(String.valueOf(mBookStatusInfo[Constants.MY_BOOK_READ]+mBookStatusInfo[Constants.READ]));
+        mTvProfileBookLent.setText(String.valueOf(mBookStatusInfo[Constants.MY_BOOK_LENT]));
     }
 
     private void setRecyclerView() {
@@ -119,6 +137,8 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
         // Set the padding to match the Status Bar height
         mToolbar = (Toolbar) findViewById(R.id.toolbar_profile);
         mToolbar.setPadding(0, getStatusBarHeight(), 0, 0);
+        mToolbar.setTitleTextColor(getResources().getColor(R.color.White));
+
         setSupportActionBar(mToolbar);
     }
 

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:theme="@style/Widget.AppCompat.Light.ActionBar"
     tools:context="com.wenliu.bookshare.profile.ProfileActivity">
 
 
@@ -54,38 +55,38 @@
                     android:id="@+id/tv_profile_user_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Wen"
+                    android:layout_marginTop="@dimen/book_dialog_gap_each_line"
                     android:fontFamily="sans-serif"
                     android:includeFontPadding="false"
+                    android:text="Wen"
                     android:textColor="@color/Black"
                     android:textSize="@dimen/profile_info_number_size"
                     android:textStyle="bold"
-                    android:layout_marginTop="@dimen/book_dialog_gap_each_line"
-                    app:layout_constraintTop_toBottomOf="@id/iv_profile_userimage"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+                    app:layout_constraintTop_toBottomOf="@id/iv_profile_userimage" />
 
                 <TextView
                     android:id="@+id/tv_profile_user_email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Wen@gmail.com"
+                    android:layout_marginTop="@dimen/book_dialog_gap_each_line"
                     android:includeFontPadding="false"
+                    android:text="Wen@gmail.com"
                     android:textColor="@color/Black"
                     android:textSize="@dimen/profile_info_title_size"
-                    android:layout_marginTop="@dimen/book_dialog_gap_each_line"
-                    app:layout_constraintTop_toBottomOf="@id/tv_profile_user_name"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+                    app:layout_constraintTop_toBottomOf="@id/tv_profile_user_name" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     android:layout_marginBottom="30dp"
+                    android:layout_marginTop="8dp"
                     android:gravity="center"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_profile_user_email">
@@ -98,6 +99,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tv_profile_book_book"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif"
@@ -131,6 +133,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tv_profile_book_unread"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif"
@@ -163,6 +166,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tv_profile_book_read"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif"
@@ -195,6 +199,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tv_profile_book_lent"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif"
@@ -239,7 +244,6 @@
         android:id="@+id/rv_profile"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/White"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"></android.support.v7.widget.RecyclerView>
 
     <android.support.design.widget.FloatingActionButton

@@ -7,22 +7,17 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.wenliu.bookshare.Constants;
 import com.wenliu.bookshare.UserManager;
 import com.wenliu.bookshare.api.callbacks.CheckBookExistCallback;
 import com.wenliu.bookshare.api.callbacks.GetBooksCallback;
 import com.wenliu.bookshare.api.callbacks.GetUserInfoCallback;
-import com.wenliu.bookshare.api.callbacks.SignInCallback;
 import com.wenliu.bookshare.api.callbacks.SignUpCallback;
 import com.wenliu.bookshare.object.Book;
 import com.wenliu.bookshare.object.BookCustomInfo;
 import com.wenliu.bookshare.object.GoogleBook.Item;
 import com.wenliu.bookshare.object.User;
-
-import org.json.JSONObject;
-import org.json.JSONStringer;
 
 import java.util.ArrayList;
 
@@ -121,8 +116,9 @@ public class FirebaseApiHelper {
 
     public void getMyBooks(final GetBooksCallback callback) {
         Log.d(Constants.TAG_FIREBASE_API_HELPER, "getMyBooks");
+        final int[] bookStatusAll = {0, 0, 0, 0, 0};
 
-        Query myBooksQuery = mGetRef.child(Constants.FIREBASE_USERS)
+        final Query myBooksQuery = mGetRef.child(Constants.FIREBASE_USERS)
                 .child(UserManager.getInstance().getUserId())
                 .child(Constants.FIREBASE_BOOKS)
                 .orderByChild("createTime");
@@ -136,10 +132,32 @@ public class FirebaseApiHelper {
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         BookCustomInfo bookCustomInfo = snapshot.getValue(BookCustomInfo.class);
+                        int bookStatus = bookCustomInfo.getBookStatus();
+
+                        switch (bookStatus) {
+                            case Constants.MY_BOOK_UNREAD:
+                                bookStatusAll[0] += 1;
+                                break;
+                            case Constants.MY_BOOK_READ:
+                                bookStatusAll[1] += 1;
+                                break;
+                            case Constants.MY_BOOK_LENT:
+                                bookStatusAll[2] += 1;
+                                break;
+                            case Constants.BORROW:
+                                bookStatusAll[3] += 1;
+                                break;
+                            case Constants.READ:
+                                bookStatusAll[4] += 1;
+                                break;
+
+                        }
+
                         mBookCustomInfos.add(bookCustomInfo);
                     }
                     Log.d(Constants.TAG_FIREBASE_API_HELPER, "getMyBooks data exists ");
-                    callback.onCompleted(mBookCustomInfos);
+                    callback.onCompleted(mBookCustomInfos, bookStatusAll);
+
                 } else {
                     Log.d(Constants.TAG_FIREBASE_API_HELPER, "getMyBooks get nothing ");
                     callback.onError("get nothing");
@@ -154,35 +172,5 @@ public class FirebaseApiHelper {
         });
     }
 
-    public void getMyBooks2(final GetBooksCallback callback) {
-        Log.d(Constants.TAG_FIREBASE_API_HELPER, "getMyBooks");
-
-        Query myBooksQuery = mGetRef.child(Constants.FIREBASE_BOOKS).orderByValue();
-        myBooksQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                ArrayList<Book> mBooks = new ArrayList<>();
-                if (dataSnapshot.exists()) {
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        Book book = snapshot.getValue(Book.class);
-                        mBooks.add(book);
-                    }
-                    Log.d(Constants.TAG_FIREBASE_API_HELPER, "getMyBooks data exists ");
-//                    callback.onCompleted(mBooks);
-                } else {
-                    Log.d(Constants.TAG_FIREBASE_API_HELPER, "getMyBooks get nothing ");
-                    callback.onError("get nothing");
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.d(Constants.TAG_FIREBASE_API_HELPER, "onCancelled: " + databaseError.getMessage().toString());
-                callback.onError(databaseError.getMessage());
-            }
-        });
-    }
 
 }

@@ -20,6 +20,8 @@ public interface MainContract {
 
         void showDetailUi(BookCustomInfo bookCustomInfo);
 
+        void setMyBookStatus(int[] bookStatusAll);
+
     }
 
     interface Presenter extends BasePresenter {
