@@ -58,5 +58,6 @@ public class Constants {
     public final static int BORROW = 3;
     public final static int READ = 4; // total read = MY_BOOK_READ + READ;
 
-
+    //
+    public static final int REQUEST_IMAGE_CAPTURE = 1;
 }
