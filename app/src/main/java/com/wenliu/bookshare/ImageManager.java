@@ -58,6 +58,23 @@ public class ImageManager {
                 .into(imageView);
     }
 
+    /**
+     * 加載網絡圓型圖片
+     * https://blog.csdn.net/zhangyiminsunshine/article/details/78051435
+     * @param bitmap
+     * @param imageView
+     */
+    public void loadCircleImageBitmap(Bitmap bitmap, ImageView imageView) {
+        Glide.with(mContext)
+                .load(bitmap)
+                .apply(RequestOptions
+                        .circleCropTransform()
+                        .placeholder(R.drawable.all_placeholder_avatar)
+                        .error(R.drawable.all_placeholder_avatar)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL))
+                .into(imageView);
+    }
+
 
     /**
      * 加載 drawable 圓型圖片

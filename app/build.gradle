@@ -46,6 +46,9 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.3'
     // barcode scanner
     implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
+    // Managing Runtime Permissions with PermissionsDispatcher
+    implementation 'com.github.hotchemi:permissionsdispatcher:3.1.0'
+    annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:3.1.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

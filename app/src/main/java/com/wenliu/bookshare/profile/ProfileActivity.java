@@ -1,12 +1,17 @@
 package com.wenliu.bookshare.profile;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -36,7 +41,14 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import permissions.dispatcher.NeedsPermission;
+import permissions.dispatcher.OnNeverAskAgain;
+import permissions.dispatcher.OnPermissionDenied;
+import permissions.dispatcher.OnShowRationale;
+import permissions.dispatcher.PermissionRequest;
+import permissions.dispatcher.RuntimePermissions;
 
+@RuntimePermissions
 public class ProfileActivity extends BaseActivity implements ProfileContract.View {
 
     @BindView(R.id.appbarlayout_profile)
@@ -80,8 +92,6 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         ButterKnife.bind(this);
-
-
         Log.d(Constants.TAG_PROFILE_ACTIVITY, "onCreate: ");
 
         if (UserManager.getInstance().getUserName() == null) {
@@ -106,10 +116,12 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
     private void init() {
         setToolbar();
         setRecyclerView();
+        mPresenter = new ProfilePresenter(this);
+        mPresenter.start();
 
-        String url = "http://img0.pconline.com.cn/pconline/1308/28/3446062_13451641160b60-4w4921.jpg";
-        mImageManager = new ImageManager(this);
-        mImageManager.loadCircleImage(url, mIvProfileUserimage);
+//        String url = "http://img0.pconline.com.cn/pconline/1308/28/3446062_13451641160b60-4w4921.jpg";
+//        mImageManager = new ImageManager(this);
+//        mImageManager.loadCircleImage(url, mIvProfileUserimage);
 
         Bundle bundle = this.getIntent().getExtras();
         mBookStatusInfo = bundle.getIntArray(Constants.BOOKSTATUS);
@@ -166,21 +178,44 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
     @OnClick(R.id.iv_profile_change_image)
     public void onViewClicked() {
 
-        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED){
+        ProfileActivityPermissionsDispatcher.getPhotoWithPermissionCheck(this);
+    }
 
-            Toast.makeText(this, "permission denied", Toast.LENGTH_LONG).show();
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-        } else {
-            //讀取圖片
-            Intent intent = new Intent();
-            //開啟Pictures畫面Type設定為image
-            intent.setType("image/*");
-            //使用Intent.ACTION_GET_CONTENT這個Action
-            intent.setAction(Intent.ACTION_GET_CONTENT);
-            //取得照片後返回此畫面
-            startActivityForResult(intent, 1);
+        switch (requestCode) {
+            case 0:  //取得圖片後進行裁剪
+                Log.d(Constants.TAG_PROFILE_ACTIVITY, "onActivityResult: 0 ");
+
+                if (resultCode == RESULT_OK) {
+                    Uri uri = data.getData();
+                    if (uri != null) {
+                        doCropPhoto(uri);
+                    }
+                }
+                break;
+
+            case 1:  //裁剪完的圖片更新到ImageView
+                //先釋放ImageView上的圖片
+                if (resultCode == RESULT_OK) {
+
+                    Log.d(Constants.TAG_PROFILE_ACTIVITY, "onActivityResult: 1 ");
+                    Uri uri = data.getData();
+                    mPresenter.getPhotoUri(uri);
+//
+//                    if (mIvProfileUserimage.getDrawable() != null) {
+//                        mIvProfileUserimage.setImageBitmap(null);
+//                        System.gc();
+//                    }
+//                    //更新ImageView
+//                    Bitmap bitmap = data.getParcelableExtra("data");
+//                    mIvProfileUserimage.setImageBitmap(bitmap);
+                }
+                break;
         }
+
 
     }
 
@@ -188,34 +223,6 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.manu_profile, menu);
         return true;
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-
-
-        if (resultCode == RESULT_OK) {
-            switch (requestCode) {
-                case 0:  //取得圖片後進行裁剪
-                    Uri uri = data.getData();
-                    if (uri != null) {
-                        doCropPhoto(uri);
-                    }
-                    break;
-                case 1:  //裁剪完的圖片更新到ImageView
-                    //先釋放ImageView上的圖片
-                    if (mIvProfileUserimage.getDrawable() != null) {
-                        mIvProfileUserimage.setImageBitmap(null);
-                        System.gc();
-                    }
-                    //更新ImageView
-                    Bitmap bitmap = data.getParcelableExtra("data");
-                    mIvProfileUserimage.setImageBitmap(bitmap);
-                    break;
-            }
-        }
-        super.onActivityResult(requestCode, resultCode, data);
     }
 
     protected void doCropPhoto(Uri uri) {
@@ -232,8 +239,8 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
         intent.putExtra("scale", true); //讓裁剪框支援縮放
         intent.putExtra("aspectX", 1);// 这兩項為裁剪框的比例.
         intent.putExtra("aspectY", 1);// x:y=1:1
-        intent.putExtra("outputX", 500);//回傳照片比例X
-        intent.putExtra("outputY", 500);//回傳照片比例Y
+        intent.putExtra("outputX", 300);//回傳照片比例X
+        intent.putExtra("outputY", 300);//回傳照片比例Y
         intent.putExtra("return-data", true);
         return intent;
     }
@@ -257,4 +264,92 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
         mPresenter = presenter;
     }
 
+    @Override
+    public void showImageOnView(Bitmap bitmap) {
+        Log.d(Constants.TAG_PROFILE_ACTIVITY, "showImageOnView: ");
+
+        mImageManager = new ImageManager(this);
+        mImageManager.loadCircleImageBitmap(bitmap, mIvProfileUserimage);
+//        mIvProfileUserimage.setImageBitmap(bitmap);
+    }
+
+    @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    void getPhoto() {
+        Log.d(Constants.TAG_PROFILE_ACTIVITY, "have permission WRITE_EXTERNAL_STORAGE: ");
+
+        //讀取圖片
+        Intent intent = new Intent();
+        //開啟Pictures畫面Type設定為image
+        intent.setType("image/*");
+        //使用Intent.ACTION_GET_CONTENT這個Action
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        //取得照片後返回此畫面
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), 0);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        ProfileActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
+
+//            switch (requestCode) {
+//                case Constants.PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE: {
+//                    // If request is cancelled, the result arrays are empty.
+//                    if (grantResults.length > 0
+//                            && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//
+//                        Log.e(Constants.TAG_PROFILE_ACTIVITY, "have permission: ");
+//
+//                        // permission was granted, yay! Do the
+//                        // contacts-related task you need to do.
+//
+//                    } else {
+//
+//                        Log.e(Constants.TAG_PROFILE_ACTIVITY, "no permission: ");
+//
+//
+//                        // permission denied, boo! Disable the
+//                        // functionality that depends on this permission.
+//                    }
+//                    return;
+//                }
+
+        // other 'case' lines to check for other
+        // permissions this app might request
+//            }
+    }
+
+    @OnShowRationale({Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    void showRationale(final PermissionRequest request) {
+        new AlertDialog.Builder(this)
+                .setMessage(getString(R.string.permission_request))
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        request.proceed();
+                    }
+                })
+//                .setNegativeButton("deny", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        request.cancel();
+//                    }
+//                })
+                .create()
+                .show();
+    }
+
+    // Annotate a method which is invoked if the user doesn't grant the permissions
+    @OnPermissionDenied({Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    void showDenied() {
+        Toast.makeText(this, "denied", Toast.LENGTH_SHORT).show();
+    }
+
+    // Annotates a method which is invoked if the user
+    // chose to have the device "never ask again" about a permission
+    @OnNeverAskAgain({Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    void showNeverAsk() {
+        Toast.makeText(this, "never ask", Toast.LENGTH_SHORT).show();
+    }
 }
