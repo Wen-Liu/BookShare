@@ -21,6 +21,7 @@ import com.wenliu.bookshare.ShareBook;
 import com.wenliu.bookshare.UserManager;
 import com.wenliu.bookshare.api.callbacks.GetUserInfoCallback;
 import com.wenliu.bookshare.base.BaseActivity;
+import com.wenliu.bookshare.dialog.ProgressBarDialog;
 import com.wenliu.bookshare.object.User;
 
 import java.util.ArrayList;
@@ -64,6 +65,7 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
     private ArrayList<User> mFriends = new ArrayList<>();
     private ImageManager mImageManager;
     private int[] mBookStatusInfo;
+    private ProgressBarDialog mProgressBarDialog;
 
 
     @Override
@@ -131,6 +133,9 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
 
     @OnClick(R.id.iv_profile_change_image)
     public void onViewClicked() {
+
+        mProgressBarDialog = new ProgressBarDialog(this);
+        mProgressBarDialog.show();
     }
 
 
