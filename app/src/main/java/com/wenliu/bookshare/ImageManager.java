@@ -2,6 +2,7 @@ package com.wenliu.bookshare;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.widget.ImageView;
 
@@ -21,11 +22,11 @@ import java.security.MessageDigest;
 public class ImageManager {
 
     private Context mContext;
-    public static final String  ANDROID_RESOURCE  =  "android.resource://" ;
-    public static final String  FOREWARD_SLASH  =  "/" ;
+    public static final String ANDROID_RESOURCE = "android.resource://";
+    public static final String FOREWARD_SLASH = "/";
 
     public ImageManager(Context context) {
-        this.mContext  =  context ;
+        this.mContext = context;
     }
 
 
@@ -44,6 +45,7 @@ public class ImageManager {
     /**
      * 加載網絡圓型圖片
      * https://blog.csdn.net/zhangyiminsunshine/article/details/78051435
+     *
      * @param url
      * @param imageView
      */
@@ -59,8 +61,9 @@ public class ImageManager {
     }
 
     /**
-     * 加載網絡圓型圖片
+     * 加載 bitmap 圓型圖片
      * https://blog.csdn.net/zhangyiminsunshine/article/details/78051435
+     *
      * @param bitmap
      * @param imageView
      */
@@ -77,8 +80,28 @@ public class ImageManager {
 
 
     /**
+     * 加載 uri 圓型圖片
+     * https://blog.csdn.net/zhangyiminsunshine/article/details/78051435
+     *
+     * @param uri
+     * @param imageView
+     */
+    public void loadCircleImageUri(Uri uri, ImageView imageView) {
+        Glide.with(mContext)
+                .load(uri)
+                .apply(RequestOptions
+                        .circleCropTransform()
+                        .placeholder(R.drawable.all_placeholder_avatar)
+                        .error(R.drawable.all_placeholder_avatar)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL))
+                .into(imageView);
+    }
+
+
+    /**
      * 加載 drawable 圓型圖片
      * https://blog.csdn.net/zhangyiminsunshine/article/details/78051435
+     *
      * @param resourceId
      * @param imageView
      */

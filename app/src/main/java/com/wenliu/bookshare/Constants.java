@@ -58,6 +58,11 @@ public class Constants {
     public final static int BORROW = 3;
     public final static int READ = 4; // total read = MY_BOOK_READ + READ;
 
+    // Profile activity result
+    public static final int GET_PHOTO_FROM_GALLERY = 0;
+    public static final int GET_PHOTO_CROP = 1;
+
+
     // permission relative
     public static final int PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 100;
     public static final int PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 101;

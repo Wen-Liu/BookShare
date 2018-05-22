@@ -3,19 +3,27 @@ package com.wenliu.bookshare.profile;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -36,7 +44,12 @@ import com.wenliu.bookshare.base.BaseActivity;
 import com.wenliu.bookshare.dialog.ProgressBarDialog;
 import com.wenliu.bookshare.object.User;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -85,6 +98,9 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
     private ImageManager mImageManager;
     private int[] mBookStatusInfo;
     private ProgressBarDialog mProgressBarDialog;
+    private Uri mImageUri;
+    private Uri mNewPhotoUri;
+    private String mCurrentPhotoPath;
 
 
     @Override
@@ -120,7 +136,7 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
         mPresenter.start();
 
 //        String url = "http://img0.pconline.com.cn/pconline/1308/28/3446062_13451641160b60-4w4921.jpg";
-//        mImageManager = new ImageManager(this);
+        mImageManager = new ImageManager(this);
 //        mImageManager.loadCircleImage(url, mIvProfileUserimage);
 
         Bundle bundle = this.getIntent().getExtras();
@@ -178,7 +194,7 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
     @OnClick(R.id.iv_profile_change_image)
     public void onViewClicked() {
 
-        ProfileActivityPermissionsDispatcher.getPhotoWithPermissionCheck(this);
+        ProfileActivityPermissionsDispatcher.getPhotoFromGalleryWithPermissionCheck(this);
     }
 
     @Override
@@ -186,38 +202,106 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
         super.onActivityResult(requestCode, resultCode, data);
 
         switch (requestCode) {
-            case 0:  //取得圖片後進行裁剪
-                Log.d(Constants.TAG_PROFILE_ACTIVITY, "onActivityResult: 0 ");
-
+            case Constants.GET_PHOTO_FROM_GALLERY:  //取得圖片後進行裁剪
                 if (resultCode == RESULT_OK) {
-                    Uri uri = data.getData();
-                    if (uri != null) {
-                        doCropPhoto(uri);
-                    }
+                    String path = getRealPathFromURI(data.getData());
+                    File imageFile = new File(path);
+                    Log.d(Constants.TAG_PROFILE_ACTIVITY, "onActivityResult: GET_PHOTO_FROM_GALLERY: ");
+                    doCropPhoto(mImageUri, FileProvider.getUriForFile(this, "com.wenliu.bookshare.fileprovider", imageFile));
                 }
                 break;
 
-            case 1:  //裁剪完的圖片更新到ImageView
-                //先釋放ImageView上的圖片
-                if (resultCode == RESULT_OK) {
+            case Constants.GET_PHOTO_CROP:  //裁剪完的圖片更新到ImageView
+                Log.d(Constants.TAG_PROFILE_ACTIVITY, "onActivityResult: GET_PHOTO_CROP ");
 
-                    Log.d(Constants.TAG_PROFILE_ACTIVITY, "onActivityResult: 1 ");
-                    Uri uri = data.getData();
-                    mPresenter.getPhotoUri(uri);
-//
-//                    if (mIvProfileUserimage.getDrawable() != null) {
-//                        mIvProfileUserimage.setImageBitmap(null);
-//                        System.gc();
-//                    }
-//                    //更新ImageView
-//                    Bitmap bitmap = data.getParcelableExtra("data");
-//                    mIvProfileUserimage.setImageBitmap(bitmap);
+                if (resultCode == RESULT_OK) {
+                    mImageManager.loadCircleImageUri(mImageUri, mIvProfileUserimage);
                 }
+
                 break;
         }
 
 
     }
+
+    protected void doCropPhoto(Uri uri, Uri galleryUri) {
+        Log.d(Constants.TAG_PROFILE_ACTIVITY, "doCropPhoto: ");
+
+        try {
+            Intent intent = new Intent("com.android.camera.action.CROP");
+            intent.setDataAndType(galleryUri, "image/*");
+            intent.putExtra("crop", "true");// crop=true 有這句才能叫出裁剪頁面.
+            intent.putExtra("scale", true); //讓裁剪框支援縮放
+            intent.putExtra("aspectX", 1);// 这兩項為裁剪框的比例.
+            intent.putExtra("aspectY", 1);// x:y=1:1
+            intent.putExtra("outputX", 200);//回傳照片比例X
+            intent.putExtra("outputY", 200);//回傳照片比例Y
+            intent.putExtra("return-data", false);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+
+            List<ResolveInfo> resInfoList = this.getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+            for (ResolveInfo resolveInfo : resInfoList) {
+                String packageName = resolveInfo.activityInfo.packageName;
+                this.grantUriPermission(packageName, uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            }
+
+            intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION); //For android 8.0 and after
+            startActivityForResult(intent, Constants.GET_PHOTO_CROP);
+
+        } catch (ActivityNotFoundException e) {
+            Log.d(Constants.TAG_PROFILE_ACTIVITY, "doCropPhoto: ActivityNotFoundException ");
+            Toast.makeText(this, "This device doesn't support the crop action!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public String getRealPathFromURI(Uri uri) {
+        Log.d(Constants.TAG_PROFILE_ACTIVITY, "getRealPathFromURI: ");
+
+        final String docId = DocumentsContract.getDocumentId(uri);
+        final String[] split = docId.split(":");
+        final String type = split[0];
+
+        Uri contentUri = null;
+        if ("image".equals(type)) {
+            contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+        } else if ("video".equals(type)) {
+            contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
+        } else if ("audio".equals(type)) {
+            contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+        }
+
+        final String selection = "_id=?";
+        final String[] selectionArgs = new String[]{
+                split[1]
+        };
+
+        return getDataColumn(this, contentUri, selection, selectionArgs);
+    }
+
+    public static String getDataColumn(Context context, Uri uri, String selection,
+                                       String[] selectionArgs) {
+        Log.d(Constants.TAG_PROFILE_ACTIVITY, "getDataColumn: ");
+
+        Cursor cursor = null;
+        final String column = "_data";
+        final String[] projection = {
+                column
+        };
+
+        try {
+            cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs,
+                    null);
+            if (cursor != null && cursor.moveToFirst()) {
+                final int index = cursor.getColumnIndexOrThrow(column);
+                return cursor.getString(index);
+            }
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+        return null;
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -225,23 +309,21 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
         return true;
     }
 
-    protected void doCropPhoto(Uri uri) {
-        //進行照片裁剪
-        Intent intent = getCropImageIntent(uri);
-        startActivityForResult(intent, 1);
-    }
-
     //裁剪圖片的Intent設定
-    public static Intent getCropImageIntent(Uri uri) {
+    public Intent getCropImageIntent(Uri uri) {
+        Log.d(Constants.TAG_PROFILE_ACTIVITY, "getCropImageIntent: ");
+
         Intent intent = new Intent("com.android.camera.action.CROP");
         intent.setDataAndType(uri, "image/*");
+        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
         intent.putExtra("crop", "true");// crop=true 有這句才能叫出裁剪頁面.
         intent.putExtra("scale", true); //讓裁剪框支援縮放
         intent.putExtra("aspectX", 1);// 这兩項為裁剪框的比例.
         intent.putExtra("aspectY", 1);// x:y=1:1
-        intent.putExtra("outputX", 300);//回傳照片比例X
-        intent.putExtra("outputY", 300);//回傳照片比例Y
-        intent.putExtra("return-data", true);
+        intent.putExtra("outputX", 200);//回傳照片比例X
+        intent.putExtra("outputY", 200);//回傳照片比例Y
+        intent.putExtra("return-data", false);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
         return intent;
     }
 
@@ -268,23 +350,47 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
     public void showImageOnView(Bitmap bitmap) {
         Log.d(Constants.TAG_PROFILE_ACTIVITY, "showImageOnView: ");
 
-        mImageManager = new ImageManager(this);
         mImageManager.loadCircleImageBitmap(bitmap, mIvProfileUserimage);
 //        mIvProfileUserimage.setImageBitmap(bitmap);
     }
 
     @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE})
-    void getPhoto() {
-        Log.d(Constants.TAG_PROFILE_ACTIVITY, "have permission WRITE_EXTERNAL_STORAGE: ");
+    void getPhotoFromGallery() {
+        Log.d(Constants.TAG_PROFILE_ACTIVITY, "getPhotoFromGallery: ");
 
-        //讀取圖片
-        Intent intent = new Intent();
-        //開啟Pictures畫面Type設定為image
-        intent.setType("image/*");
-        //使用Intent.ACTION_GET_CONTENT這個Action
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        //取得照片後返回此畫面
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), 0);
+        //讀取圖片，使用 Intent.ACTION_GET_CONTENT 這個 Action
+        Intent intentPhotoGallery = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        //開啟 Pictures 畫面 Type 設定為 image
+        intentPhotoGallery.setType("image/*");
+
+        if (intentPhotoGallery.resolveActivity(this.getPackageManager()) != null) {
+            File imageFile = null;
+            try {
+                imageFile = createImageFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            if (imageFile != null) {
+                mImageUri = FileProvider.getUriForFile(this, "com.wenliu.bookshare.fileprovider", imageFile); //mImageCameraTempUri
+                intentPhotoGallery.putExtra(MediaStore.EXTRA_OUTPUT, mImageUri);
+                startActivityForResult(intentPhotoGallery, Constants.GET_PHOTO_FROM_GALLERY);
+            }
+        }
+    }
+
+    private File createImageFile() throws IOException {
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = this.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */);
+        // Save a file: path for use with ACTION_VIEW intents
+        mCurrentPhotoPath = image.getAbsolutePath();
+        Log.d(Constants.TAG_PROFILE_ACTIVITY, "mCurrentPhotoPath: " + mCurrentPhotoPath);
+        return image;
     }
 
     @Override
@@ -352,4 +458,6 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
     void showNeverAsk() {
         Toast.makeText(this, "never ask", Toast.LENGTH_SHORT).show();
     }
+
+
 }
