@@ -39,6 +39,7 @@ import com.wenliu.bookshare.ImageManager;
 import com.wenliu.bookshare.R;
 import com.wenliu.bookshare.ShareBook;
 import com.wenliu.bookshare.UserManager;
+import com.wenliu.bookshare.api.FirebaseApiHelper;
 import com.wenliu.bookshare.api.callbacks.GetUserInfoCallback;
 import com.wenliu.bookshare.base.BaseActivity;
 import com.wenliu.bookshare.dialog.ProgressBarDialog;
@@ -135,14 +136,14 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
         mPresenter = new ProfilePresenter(this);
         mPresenter.start();
 
-//        String url = "http://img0.pconline.com.cn/pconline/1308/28/3446062_13451641160b60-4w4921.jpg";
-        mImageManager = new ImageManager(this);
-//        mImageManager.loadCircleImage(url, mIvProfileUserimage);
-
         Bundle bundle = this.getIntent().getExtras();
         mBookStatusInfo = bundle.getIntArray(Constants.BOOKSTATUS);
 
         mToolbar.setTitle(UserManager.getInstance().getUserName());
+        mImageManager = new ImageManager(this);
+        if (UserManager.getInstance().getUserImage() != null) {
+            mImageManager.loadCircleImage(UserManager.getInstance().getUserImage(), mIvProfileUserimage);
+        }
 //        mTvProfileUserName.setText(UserManager.getInstance().getUserName());
         mTvProfileUserEmail.setText(UserManager.getInstance().getUserEmail());
         mTvProfileBookBook.setText(String.valueOf(mBookStatusInfo[Constants.MY_BOOK_UNREAD] + mBookStatusInfo[Constants.MY_BOOK_READ]));
@@ -216,6 +217,7 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
 
                 if (resultCode == RESULT_OK) {
                     mImageManager.loadCircleImageUri(mImageUri, mIvProfileUserimage);
+                    FirebaseApiHelper.newInstance().uploadProfileImage(mImageUri);
                 }
 
                 break;

@@ -57,11 +57,16 @@ public class UserManager {
         return mUserData.getString(Constants.USER_IMAGE, null);
     }
 
+    public void setUserImage(String userImage) {
+        mUserData.edit()
+                .putString(Constants.USER_IMAGE, userImage)
+                .commit();
+    }
+
     public boolean isLoginStatus() {
         Log.d(Constants.TAG_USERMANAGER, "isLoginStatus(): " + ((getUserId() == null) ? false : true));
         return (getUserId() == null) ? false : true;
     }
-
 
     public void signUpByEmail(final LoginActivity activity, final FirebaseAuth auth, String email, String password, final String name, final SignUpCallback callback) {
         Log.d(Constants.TAG_USERMANAGER, "signUpByEmail ");
@@ -97,7 +102,6 @@ public class UserManager {
                     }
                 });
     }
-
 
     public void signInByEmail(LoginActivity activity, final FirebaseAuth auth, String email, String password, final SignInCallback callback) {
 
@@ -143,7 +147,6 @@ public class UserManager {
 
         new FirebaseApiHelper().getUserInfo(getUserId(), callback);
     }
-
 
     public void storeUserData(User user) {
         Log.i(Constants.TAG_USERMANAGER, "storeUserData: ");

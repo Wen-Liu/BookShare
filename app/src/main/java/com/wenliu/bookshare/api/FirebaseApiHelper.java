@@ -1,13 +1,20 @@
 package com.wenliu.bookshare.api;
 
+import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.wenliu.bookshare.Constants;
 import com.wenliu.bookshare.UserManager;
 import com.wenliu.bookshare.api.callbacks.CheckBookExistCallback;
@@ -19,6 +26,7 @@ import com.wenliu.bookshare.object.BookCustomInfo;
 import com.wenliu.bookshare.object.GoogleBook.Item;
 import com.wenliu.bookshare.object.User;
 
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -30,6 +38,8 @@ public class FirebaseApiHelper {
 
     private FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference mGetRef = mDatabase.getReference();
+    private StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
+
 
     public static FirebaseApiHelper newInstance() {
         return new FirebaseApiHelper();
@@ -40,6 +50,12 @@ public class FirebaseApiHelper {
 
         mGetRef.child(Constants.FIREBASE_USERS).child(user.getId()).setValue(user);
         callback.onCompleted();
+    }
+
+    public void uploadUserImageUrl(String ImageUrl) {
+        Log.d(Constants.TAG_FIREBASE_API_HELPER, "uploadUser");
+
+        mGetRef.child(Constants.FIREBASE_USERS).child(UserManager.getInstance().getUserId()).child("image").setValue(ImageUrl);
     }
 
     public void getUserInfo(String uid, final GetUserInfoCallback callback) {
@@ -170,6 +186,35 @@ public class FirebaseApiHelper {
                 callback.onError(databaseError.getMessage());
             }
         });
+    }
+
+    public void uploadProfileImage(Uri uri) {
+
+        Uri file = uri;
+        StorageReference riversRef = mStorageRef.child("Profile_images/" + UserManager.getInstance().getUserId() + ".jpg");
+
+        riversRef.putFile(file)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        // Get a URL to the uploaded content
+                        Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                        UserManager.getInstance().setUserImage(downloadUrl.toString());
+                        uploadUserImageUrl(downloadUrl.toString());
+                        Log.d(Constants.TAG_FIREBASE_API_HELPER, "uploadProfileImage + Url " + downloadUrl);
+
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        Log.d(Constants.TAG_FIREBASE_API_HELPER, "uploadProfileImage + onFailure ");
+
+
+                    }
+                });
+
+
     }
 
 

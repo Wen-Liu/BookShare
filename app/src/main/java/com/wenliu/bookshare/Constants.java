@@ -42,6 +42,7 @@ public class Constants {
     public final static String FIREBASE_BOOKS = "Books";
     public final static String FIREBASE_FRIENDS = "Friends";
     public final static String FIREBASE_BOOKSTATUS = "bookStatus";
+    public final static String FIREBASE_IMAGE = "image";
 
     // User Manager
     public final static String USER_DATA = "user_data";
