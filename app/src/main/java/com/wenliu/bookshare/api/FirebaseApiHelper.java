@@ -55,7 +55,8 @@ public class FirebaseApiHelper {
     public void uploadUserImageUrl(String ImageUrl) {
         Log.d(Constants.TAG_FIREBASE_API_HELPER, "uploadUser");
 
-        mGetRef.child(Constants.FIREBASE_USERS).child(UserManager.getInstance().getUserId()).child("image").setValue(ImageUrl);
+        mGetRef.child(Constants.FIREBASE_USERS).child(UserManager.getInstance().getUserId())
+                .child(Constants.FIREBASE_IMAGE).setValue(ImageUrl);
     }
 
     public void getUserInfo(String uid, final GetUserInfoCallback callback) {
@@ -77,7 +78,8 @@ public class FirebaseApiHelper {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.d(Constants.TAG_FIREBASE_API_HELPER, "onCancelled: getUserInfo" + databaseError.getMessage().toString());
+                Log.d(Constants.TAG_FIREBASE_API_HELPER, "onCancelled: getUserInfo"
+                        + databaseError.getMessage().toString());
                 callback.onError(databaseError.getMessage());
             }
         });
@@ -132,7 +134,7 @@ public class FirebaseApiHelper {
 
     public void getMyBooks(final GetBooksCallback callback) {
         Log.d(Constants.TAG_FIREBASE_API_HELPER, "getMyBooks");
-        final int[] bookStatusAll = {0, 0, 0, 0, 0};
+        final int[] bookStatusAll = new int[8];
 
         final Query myBooksQuery = mGetRef.child(Constants.FIREBASE_USERS)
                 .child(UserManager.getInstance().getUserId())
@@ -152,21 +154,29 @@ public class FirebaseApiHelper {
 
                         switch (bookStatus) {
                             case Constants.MY_BOOK_UNREAD:
-                                bookStatusAll[0] += 1;
+                                bookStatusAll[Constants.MY_BOOK_UNREAD] += 1;
                                 break;
                             case Constants.MY_BOOK_READ:
-                                bookStatusAll[1] += 1;
+                                bookStatusAll[Constants.MY_BOOK_READ] += 1;
+                                break;
+                            case Constants.MY_BOOK_READING:
+                                bookStatusAll[Constants.MY_BOOK_READING] += 1;
                                 break;
                             case Constants.MY_BOOK_LENT:
-                                bookStatusAll[2] += 1;
+                                bookStatusAll[Constants.MY_BOOK_LENT] += 1;
                                 break;
                             case Constants.BORROW:
-                                bookStatusAll[3] += 1;
+                                bookStatusAll[Constants.BORROW] += 1;
+                                break;
+                            case Constants.UNREAD:
+                                bookStatusAll[Constants.UNREAD] += 1;
                                 break;
                             case Constants.READ:
-                                bookStatusAll[4] += 1;
+                                bookStatusAll[Constants.READ] += 1;
                                 break;
-
+                            case Constants.READING:
+                                bookStatusAll[Constants.READING] += 1;
+                                break;
                         }
 
                         mBookCustomInfos.add(bookCustomInfo);

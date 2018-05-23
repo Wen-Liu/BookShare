@@ -4,6 +4,17 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#81d4fa</color>
 
+    <!-- Black Series-->
+    <color name="Black">#000000</color>
+
+    <!-- Grey Series-->
+    <color name="Grey_400">#bdbdbd</color>
+    <color name="Grey_500">#9e9e9e</color>
+    <color name="Grey_800">#424242</color>
+
+    <!-- White Series-->
+    <color name="White">#ffffff</color>
+
     <!-- Blue Series-->
     <color name="LightBlue_200_light">#b6ffff</color>
     <color name="LightBlue_200">#81d4fa</color>
@@ -15,18 +26,17 @@
     <color name="Brown_300_dark">#725b53</color>
     <color name="Brown_600">#6d4c41</color>
 
+    <!-- Red Series-->
+    <color name="Red_400">#ef5350</color>
+
     <!-- Orange Series-->
     <color name="Orange_400">#ffa726</color>
 
-    <!-- Black Series-->
-    <color name="Black">#000000</color>
+    <!-- Yellow Series-->
+    <color name="Yellow_400">#ffee58</color>
 
-    <!-- White Series-->
-    <color name="White">#ffffff</color>
+    <!-- Green Series-->
+    <color name="Green_400">#66bb6a</color>
 
-    <!-- Grey Series-->
-    <color name="Grey_400">#bdbdbd</color>
-    <color name="Grey_500">#9e9e9e</color>
-    <color name="Grey_800">#424242</color>
 
 </resources>

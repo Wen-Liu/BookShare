@@ -41,33 +41,43 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <RatingBar
-                style="@style/Base.Widget.AppCompat.RatingBar.Small"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:numStars="5"
-                android:rating="4.5"
-                android:scrollbarSize="90dp"
-                android:stepSize="0.5" />
+            <!--<RatingBar-->
+                <!--style="@style/Base.Widget.AppCompat.RatingBar.Small"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:numStars="5"-->
+                <!--android:rating="4.5"-->
+                <!--android:scrollbarSize="90dp"-->
+                <!--android:stepSize="0.5" />-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/tv_detail_rating"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginStart="4dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:text="4.5"-->
+                <!--android:textColor="@color/LightBlue_200_Dark"-->
+                <!--android:textSize="@dimen/detail_book_tv_rating_size"></TextView>-->
 
             <TextView
-                android:id="@+id/tv_detail_rating"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_weight="1"
-                android:text="4.5"
-                android:textColor="@color/LightBlue_200_Dark"
-                android:textSize="@dimen/detail_book_tv_rating_size"></TextView>
-
-            <Spinner
-                android:id="@+id/spinner_detail"
-                style="@style/Widget.AppCompat.Spinner.DropDown"
+                android:id="@+id/tv_detail_book_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="林立青"
+                android:textColor="@color/Black"
                 android:layout_gravity="right"
-                android:entries="@array/menu_book_status"
-                android:spinnerMode="dropdown" />
+                android:textSize="@dimen/detail_book_tv_size" />
+
+            <!--<Spinner-->
+                <!--android:id="@+id/spinner_detail"-->
+                <!--style="@style/Widget.AppCompat.Spinner.DropDown"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="right"-->
+                <!--android:entries="@array/menu_book_status"-->
+                <!--android:spinnerMode="dropdown" />-->
         </LinearLayout>
 
         <LinearLayout

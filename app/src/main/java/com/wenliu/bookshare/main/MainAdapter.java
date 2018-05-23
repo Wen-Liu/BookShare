@@ -63,7 +63,7 @@ public class MainAdapter extends RecyclerView.Adapter {
         }
 
         // Book Author
-        Log.d(Constants.TAG_MAIN_ADAPTER, "getAuthor= " + mBookCustomInfos.get(position).getAuthor());
+//        Log.d(Constants.TAG_MAIN_ADAPTER, "getAuthor= " + mBookCustomInfos.get(position).getAuthor());
 //        List<String> authors = mBooks.get(position).getAuthor();
         if (mBookCustomInfos.get(position).getAuthor().size() > 0) {
             ((MainViewHolder) holder).getTvMainAuthor().setText(mBookCustomInfos.get(position).getAuthor().get(0));

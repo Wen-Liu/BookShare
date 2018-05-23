@@ -42,7 +42,7 @@ public class MainPresenter implements MainContract.Presenter {
                     setLoading(false);
                     Log.d(Constants.TAG_MAIN_PRESENTER, "GetBooksTask onCompleted");
                     mMainView.showBooks(bookCustomInfos);
-                    mMainView.setMyBookStatus(bookStatusAll);
+                    mMainView.showMyBookStatus(bookStatusAll);
                 }
 
                 @Override

@@ -55,7 +55,7 @@
         android:layout_height="60dp"
         android:layout_gravity="right|bottom"
         android:layout_margin="@dimen/fab_margin"
-        app:backgroundTint="@color/Brown_300"
+        app:backgroundTint="@color/Yellow_400"
         android:clickable="true"
         android:src="@drawable/ic_add" />
 

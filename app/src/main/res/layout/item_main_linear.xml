@@ -49,15 +49,15 @@
             android:textColor="@android:color/black"
             android:textSize="14sp" />
 
-        <RatingBar
-            style="?android:attr/ratingBarStyleIndicator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:isIndicator="false"
-            android:numStars="5"
-            android:rating="3.5"
-            android:stepSize="0.5" />
+        <!--<RatingBar-->
+            <!--style="?android:attr/ratingBarStyleIndicator"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="8dp"-->
+            <!--android:isIndicator="false"-->
+            <!--android:numStars="5"-->
+            <!--android:rating="3.5"-->
+            <!--android:stepSize="0.5" />-->
 
     </LinearLayout>
 

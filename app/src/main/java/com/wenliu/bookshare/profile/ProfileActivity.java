@@ -1,7 +1,6 @@
 package com.wenliu.bookshare.profile;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -13,7 +12,6 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.DocumentsContract;
@@ -111,54 +109,52 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
         ButterKnife.bind(this);
         Log.d(Constants.TAG_PROFILE_ACTIVITY, "onCreate: ");
 
-        if (UserManager.getInstance().getUserName() == null) {
-            UserManager.getInstance().getUserInfo(new GetUserInfoCallback() {
-                @Override
-                public void onCompleted(User user) {
-                    Log.d(Constants.TAG_PROFILE_ACTIVITY, "getUserInfo onCompleted: ");
-                    UserManager.getInstance().storeUserData(user);
-                    showUserInfoLog();
-                    init();
-                }
+        UserManager.getInstance().getUserInfo(new GetUserInfoCallback() {
+            @Override
+            public void onCompleted(User user) {
+                Log.d(Constants.TAG_PROFILE_ACTIVITY, "getUserInfo onCompleted: ");
+                UserManager.getInstance().storeUserData(user);
+                showUserInfoLog();
+                init();
+            }
 
-                @Override
-                public void onError(String error) {
-                }
-            });
-        } else {
-            init();
-        }
+            @Override
+            public void onError(String error) {
+            }
+        });
+
     }
 
     private void init() {
-        setToolbar();
-        setRecyclerView();
         mPresenter = new ProfilePresenter(this);
         mPresenter.start();
 
+        setToolbar();
+        setRecyclerView();
+
         Bundle bundle = this.getIntent().getExtras();
         mBookStatusInfo = bundle.getIntArray(Constants.BOOKSTATUS);
-
-        mToolbar.setTitle(UserManager.getInstance().getUserName());
         mImageManager = new ImageManager(this);
+
         if (UserManager.getInstance().getUserImage() != null) {
             mImageManager.loadCircleImage(UserManager.getInstance().getUserImage(), mIvProfileUserimage);
         }
 //        mTvProfileUserName.setText(UserManager.getInstance().getUserName());
         mTvProfileUserEmail.setText(UserManager.getInstance().getUserEmail());
-        mTvProfileBookBook.setText(String.valueOf(mBookStatusInfo[Constants.MY_BOOK_UNREAD] + mBookStatusInfo[Constants.MY_BOOK_READ]));
+        mTvProfileBookBook.setText(String.valueOf(mBookStatusInfo[Constants.MY_BOOK_UNREAD] + mBookStatusInfo[Constants.MY_BOOK_READ]+mBookStatusInfo[Constants.MY_BOOK_READING]));
         mTvProfileBookUnread.setText(String.valueOf(mBookStatusInfo[Constants.MY_BOOK_UNREAD]));
         mTvProfileBookRead.setText(String.valueOf(mBookStatusInfo[Constants.MY_BOOK_READ] + mBookStatusInfo[Constants.READ]));
         mTvProfileBookLent.setText(String.valueOf(mBookStatusInfo[Constants.MY_BOOK_LENT]));
+        getSupportActionBar().setTitle(UserManager.getInstance().getUserName());
+
     }
 
     private void setToolbar() {
         // Set the padding to match the Status Bar height
         mToolbar = (Toolbar) findViewById(R.id.toolbar_profile);
         mToolbar.setPadding(0, getStatusBarHeight(), 0, 0);
-        mToolbar.setTitleTextColor(getResources().getColor(R.color.White));
-
         setSupportActionBar(mToolbar);
+        mCollapeToolbarProfile.setTitle(UserManager.getInstance().getUserName());
     }
 
     /**
@@ -172,7 +168,6 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
         if (resourceId > 0) {
             result = getResources().getDimensionPixelSize(resourceId);
             Log.d(Constants.TAG_PROFILE_ACTIVITY, "getStatusBarHeight: " + result);
-
         }
         return result;
     }
@@ -307,7 +302,7 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.manu_profile, menu);
+//        getMenuInflater().inflate(R.menu.manu_profile, menu);
         return true;
     }
 
@@ -385,6 +380,7 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
         File storageDir = this.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+
         File image = File.createTempFile(
                 imageFileName,  /* prefix */
                 ".jpg",         /* suffix */

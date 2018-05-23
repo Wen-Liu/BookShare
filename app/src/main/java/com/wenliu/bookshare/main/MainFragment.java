@@ -102,11 +102,11 @@ public class MainFragment extends Fragment implements MainContract.View {
     }
 
     @Override
-    public void setMyBookStatus(int[] bookStatusInfo) {
+    public void showMyBookStatus(int[] bookStatusInfo) {
         mBookStatusInfo = bookStatusInfo;
     }
 
-    public int[] getMyBookStatus(){
+    public int[] getMyBookStatus() {
         return mBookStatusInfo;
     }
 

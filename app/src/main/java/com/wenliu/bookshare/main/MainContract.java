@@ -20,7 +20,7 @@ public interface MainContract {
 
         void showDetailUi(BookCustomInfo bookCustomInfo);
 
-        void setMyBookStatus(int[] bookStatusAll);
+        void showMyBookStatus(int[] bookStatusAll);
 
     }
 

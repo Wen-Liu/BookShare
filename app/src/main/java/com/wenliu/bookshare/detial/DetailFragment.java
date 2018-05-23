@@ -7,19 +7,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.wenliu.bookshare.Constants;
 import com.wenliu.bookshare.ImageManager;
 import com.wenliu.bookshare.R;
 import com.wenliu.bookshare.ShareBook;
 import com.wenliu.bookshare.ShareBookActivity;
-import com.wenliu.bookshare.object.Book;
 import com.wenliu.bookshare.object.BookCustomInfo;
 
 import butterknife.BindView;
@@ -30,14 +25,12 @@ import butterknife.Unbinder;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DetailFragment extends Fragment implements DetailContract.View, AdapterView.OnItemSelectedListener {
+public class DetailFragment extends Fragment implements DetailContract.View {
 
     @BindView(R.id.iv_detail_book_cover)
     ImageView mIvDetailBookCover;
     @BindView(R.id.tv_detail_book_title)
     TextView mTvDetailBookTitle;
-    @BindView(R.id.spinner_detail)
-    Spinner mSpinnerDetail;
     @BindView(R.id.tv_detail_book_author)
     TextView mTvDetailBookAuthor;
     @BindView(R.id.tv_detail_book_publisher)
@@ -53,6 +46,8 @@ public class DetailFragment extends Fragment implements DetailContract.View, Ada
     @BindView(R.id.tv_detail_book_purchase_price)
     TextView mTvDetailBookPurchasePrice;
     Unbinder unbinder;
+    @BindView(R.id.tv_detail_book_status)
+    TextView mTvDetailBookStatus;
     private DetailContract.Presenter mPresenter;
     private ImageManager mImageManager;
 
@@ -80,7 +75,6 @@ public class DetailFragment extends Fragment implements DetailContract.View, Ada
         unbinder = ButterKnife.bind(this, view);
         Log.d(Constants.TAG_DETAIL_FRAGMENT, "onCreateView: ");
 
-//        mSpinnerDetail.setOnItemSelectedListener(this);
         return view;
     }
 
@@ -103,9 +97,7 @@ public class DetailFragment extends Fragment implements DetailContract.View, Ada
     public void showBook(BookCustomInfo bookCustomInfo) {
         Log.d(Constants.TAG_DETAIL_FRAGMENT, "showBook: start");
 
-        mImageManager.loadUrlImage(bookCustomInfo.getImage(),mIvDetailBookCover);
-//        Glide.with(ShareBook.getAppContext()).load(book.getImage()).into(mIvDetailBookCover);
-//        Picasso.get().load(book.getImage()).into(mIvDetailBookCover);
+        mImageManager.loadUrlImage(bookCustomInfo.getImage(), mIvDetailBookCover);
         mTvDetailBookTitle.setText(bookCustomInfo.getTitle());
 
         if (bookCustomInfo.getAuthor() != null && bookCustomInfo.getAuthor().size() > 0) {
@@ -128,10 +120,36 @@ public class DetailFragment extends Fragment implements DetailContract.View, Ada
         } else {
             mTvDetailBookLanguage.setText("");
         }
-
         mTvDetailBookIsbn.setText(bookCustomInfo.getIsbn13());
-        Log.d(Constants.TAG_DETAIL_FRAGMENT, "showBook: end ");
 
+        setBookStatusView(bookCustomInfo.getBookStatus());
+
+        if (bookCustomInfo.getBookStatus() == Constants.MY_BOOK_READING) {
+            mTvDetailBookStatus.setText("Reading");
+            mTvDetailBookStatus.setBackgroundColor(getResources().getColor(R.color.Red_400));
+        } else if (bookCustomInfo.getBookStatus() == Constants.MY_BOOK_READ) {
+            mTvDetailBookStatus.setText("Read");
+            mTvDetailBookStatus.setBackgroundColor(getResources().getColor(R.color.Red_400));
+        }
+
+        Log.d(Constants.TAG_DETAIL_FRAGMENT, "showBook: end ");
+    }
+
+    private void setBookStatusView(int bookStatus) {
+        String statusString;
+        int statusColor;
+
+        switch (bookStatus){
+            case Constants.MY_BOOK_READING:
+                statusString =
+
+
+
+
+        }
+
+        mTvDetailBookStatus.setText("Read");
+        mTvDetailBookStatus.setBackgroundColor(getResources().getColor(R.color.Red_400));
     }
 
     @Override
@@ -160,14 +178,4 @@ public class DetailFragment extends Fragment implements DetailContract.View, Ada
         }
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-        Toast.makeText(ShareBook.getAppContext(), position, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
 }

@@ -7,7 +7,6 @@
     android:theme="@style/Widget.AppCompat.Light.ActionBar"
     tools:context="com.wenliu.bookshare.profile.ProfileActivity">
 
-
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbarlayout_profile"
         android:layout_width="match_parent"
@@ -21,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/shape_toolbar_gradient"
-            app:contentScrim="@color/LightBlue_200_Dark"
+            app:contentScrim="@color/LightBlue_200"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:expandedTitleGravity="center"
             app:titleTextColor="@color/Brown_600">
@@ -105,7 +104,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif"
                             android:includeFontPadding="false"
-                            android:text="23"
+                            android:text="0"
                             android:textColor="@color/Grey_800"
                             android:textSize="@dimen/profile_info_number_size"
                             android:textStyle="bold" />
@@ -139,7 +138,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif"
                             android:includeFontPadding="false"
-                            android:text="10"
+                            android:text="0"
                             android:textColor="@color/Grey_800"
                             android:textSize="@dimen/profile_info_number_size"
                             android:textStyle="bold" />
@@ -172,7 +171,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif"
                             android:includeFontPadding="false"
-                            android:text="11"
+                            android:text="0"
                             android:textColor="@color/Grey_800"
                             android:textSize="@dimen/profile_info_number_size"
                             android:textStyle="bold" />
@@ -205,7 +204,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif"
                             android:includeFontPadding="false"
-                            android:text="3"
+                            android:text="0"
                             android:textColor="@color/Grey_800"
                             android:textSize="@dimen/profile_info_number_size"
                             android:textStyle="bold" />
@@ -231,7 +230,6 @@
                 android:layout_height="80dp"
                 android:theme="@style/AppTheme.AppBarOverlay"
                 app:layout_collapseMode="pin"
-                app:navigationIcon="@drawable/ic_navigate_before"
                 app:popupTheme="@style/AppTheme.PopupOverlay"
                 app:title=" "></android.support.v7.widget.Toolbar>
 
@@ -252,6 +250,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
         android:src="@drawable/ic_person_add"
+        app:backgroundTint="@color/Yellow_400"
         app:layout_anchor="@id/appbarlayout_profile"
         app:layout_anchorGravity="bottom|end" />
 
