@@ -134,7 +134,7 @@ public class FirebaseApiHelper {
 
     public void getMyBooks(final GetBooksCallback callback) {
         Log.d(Constants.TAG_FIREBASE_API_HELPER, "getMyBooks");
-        final int[] bookStatusAll = new int[8];
+        final int[] bookStatusAll = new int[6];
 
         final Query myBooksQuery = mGetRef.child(Constants.FIREBASE_USERS)
                 .child(UserManager.getInstance().getUserId())
@@ -150,24 +150,8 @@ public class FirebaseApiHelper {
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         BookCustomInfo bookCustomInfo = snapshot.getValue(BookCustomInfo.class);
-                        int bookStatus = bookCustomInfo.getBookStatus();
 
-                        switch (bookStatus) {
-                            case Constants.MY_BOOK_UNREAD:
-                                bookStatusAll[Constants.MY_BOOK_UNREAD] += 1;
-                                break;
-                            case Constants.MY_BOOK_READ:
-                                bookStatusAll[Constants.MY_BOOK_READ] += 1;
-                                break;
-                            case Constants.MY_BOOK_READING:
-                                bookStatusAll[Constants.MY_BOOK_READING] += 1;
-                                break;
-                            case Constants.MY_BOOK_LENT:
-                                bookStatusAll[Constants.MY_BOOK_LENT] += 1;
-                                break;
-                            case Constants.BORROW:
-                                bookStatusAll[Constants.BORROW] += 1;
-                                break;
+                        switch (bookCustomInfo.getBookReadStatus()) {
                             case Constants.UNREAD:
                                 bookStatusAll[Constants.UNREAD] += 1;
                                 break;
@@ -177,6 +161,16 @@ public class FirebaseApiHelper {
                             case Constants.READING:
                                 bookStatusAll[Constants.READING] += 1;
                                 break;
+                            case Constants.LENT:
+                                bookStatusAll[Constants.LENT] += 1;
+                                break;
+                            case Constants.BORROW:
+                                bookStatusAll[Constants.BORROW] += 1;
+                                break;
+                        }
+
+                        if (bookCustomInfo.isHaveBook()){
+                            bookStatusAll[Constants.MY_BOOK] += 1;
                         }
 
                         mBookCustomInfos.add(bookCustomInfo);

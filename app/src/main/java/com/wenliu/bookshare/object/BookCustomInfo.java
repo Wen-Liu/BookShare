@@ -19,7 +19,8 @@ public class BookCustomInfo {
     private String mPurchasePrice;
     private String mComment;
     private double mBookScore;
-    private int mBookStatus;
+    private int mBookReadStatus;
+    private boolean haveBook;
     private int mCreateTime;
 
     public BookCustomInfo() {
@@ -36,7 +37,8 @@ public class BookCustomInfo {
         mPurchasePrice = "";
         mComment = "";
         mBookScore = 0;
-        mBookStatus = 0;
+        mBookReadStatus = 0;
+        haveBook = false;
         mCreateTime = Integer.parseInt(String.valueOf(System.currentTimeMillis() / 1000));
     }
 
@@ -55,7 +57,8 @@ public class BookCustomInfo {
         mPurchasePrice = "";
         mComment = "";
         mBookScore = 0;
-        mBookStatus = 0;
+        mBookReadStatus = 0;
+        haveBook = false;
         mCreateTime = Integer.parseInt(String.valueOf(System.currentTimeMillis() / 1000));
     }
 
@@ -163,12 +166,20 @@ public class BookCustomInfo {
         mBookScore = bookScore;
     }
 
-    public int getBookStatus() {
-        return mBookStatus;
+    public int getBookReadStatus() {
+        return mBookReadStatus;
     }
 
-    public void setBookStatus(int bookStatus) {
-        mBookStatus = bookStatus;
+    public void setBookReadStatus(int bookReadStatus) {
+        mBookReadStatus = bookReadStatus;
+    }
+
+    public boolean isHaveBook() {
+        return haveBook;
+    }
+
+    public void setHaveBook(boolean haveBook) {
+        this.haveBook = haveBook;
     }
 
     public int getCreateTime() {

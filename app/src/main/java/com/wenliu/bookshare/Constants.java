@@ -53,14 +53,12 @@ public class Constants {
 
     // Book Status
     public final static String BOOKSTATUS = "bookStatus";
-    public final static int MY_BOOK_UNREAD = 0;
-    public final static int MY_BOOK_READ = 1;
-    public final static int MY_BOOK_READING = 2; // my books count = MY_BOOK_UNREAD + MY_BOOK_READ + MY_BOOK_READING
-    public final static int MY_BOOK_LENT = 3;
-    public final static int BORROW = 4;
-    public final static int UNREAD = 5;
-    public final static int READ = 6; // total read = MY_BOOK_READ + READ;
-    public final static int READING = 7;
+    public final static int MY_BOOK = 0;
+    public final static int UNREAD = 1;
+    public final static int READING = 2;
+    public final static int READ = 3;
+    public final static int LENT = 4;
+    public final static int BORROW = 5;
 
     // Profile activity result
     public static final int GET_PHOTO_FROM_GALLERY = 0;

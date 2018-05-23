@@ -21,8 +21,6 @@ import com.wenliu.bookshare.api.FirebaseApiHelper;
 import com.wenliu.bookshare.object.Book;
 import com.wenliu.bookshare.object.BookCustomInfo;
 
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -67,21 +65,16 @@ public class BookDataEditDialog extends Dialog implements CompoundButton.OnCheck
     LinearLayout mLlayoutDialogPurchaseDate;
     @BindView(R.id.llayout_dialog_purchase_price)
     LinearLayout mLlayoutDialogPurchasePrice;
-
+    @BindView(R.id.et_dialog_book_reading_page)
+    EditText mEtDialogBookReadingPage;
+    @BindView(R.id.llayout_dialog_Reading_page)
+    LinearLayout mLlayoutDialogReadingPage;
 
     private Context mContext;
     private Book mBook;
     private BookCustomInfo mBookCustomInfo;
     private ShareBookActivity mShareBookActivity;
     private ShareBookContract.Presenter mPresenter;
-    private String mTitle;
-    private String mSubtitle;
-    private List<String> mAuthor;
-    private String mPublisher;
-    private String mPublishDate;
-    private String mLanguage;
-    private String mPurchaseDate;
-    private String mPurchasePrice;
 
 
     public BookDataEditDialog(@NonNull Context context, ShareBookActivity activity, ShareBookContract.Presenter presenter, Book book) {
@@ -128,11 +121,12 @@ public class BookDataEditDialog extends Dialog implements CompoundButton.OnCheck
         mCheckBoxHaveBook.setOnCheckedChangeListener(this);
         mRadioBtnUnread.setChecked(true);
 
-        setVisibility(false);
+        mLlayoutDialogReadingPage.setVisibility(View.GONE);
+        setPurchaseVisibility(false);
     }
 
 
-    @OnClick({R.id.btn_book_data_send})
+    @OnClick({R.id.btn_book_data_send, R.id.radioBtn_read, R.id.radioBtn_reading, R.id.radioBtn_unread})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_book_data_send:
@@ -145,18 +139,31 @@ public class BookDataEditDialog extends Dialog implements CompoundButton.OnCheck
                 mBookCustomInfo.setPublishDate(mEtDialogBookPublishDate.getText().toString());
                 mBookCustomInfo.setLanguage(mEtDialogBookLanguage.getText().toString());
 
-                mBookCustomInfo.setBookStatus(checkBookStatus());
+                mBookCustomInfo.setBookReadStatus(checkBookStatus());
+                mBookCustomInfo.setHaveBook(mCheckBoxHaveBook.isChecked());
                 Log.d(Constants.TAG_BOOK_DATA_EDIT_DIALOG, "btn_book_data_send, checkBookStatus: " + checkBookStatus());
 
-                if(mCheckBoxHaveBook.isChecked()){
+                if (mCheckBoxHaveBook.isChecked()) {
                     mBookCustomInfo.setPurchaseDate(mEtDialogBookPurchaseDate.getText().toString());
                     mBookCustomInfo.setPurchasePrice(mEtDialogBookPurchasePrice.getText().toString());
                 }
 
-//                FirebaseApiHelper.newInstance().uploadMyBook(mBookCustomInfo.getIsbn13(), mBookCustomInfo);
+                FirebaseApiHelper.newInstance().uploadMyBook(mBookCustomInfo.getIsbn13(), mBookCustomInfo);
 
                 mPresenter.refreshMainFragment();
                 dismiss();
+                break;
+
+            case R.id.radioBtn_reading:
+                mLlayoutDialogReadingPage.setVisibility(View.VISIBLE);
+                break;
+
+            case R.id.radioBtn_unread:
+                mLlayoutDialogReadingPage.setVisibility(View.GONE);
+                break;
+
+            case R.id.radioBtn_read:
+                mLlayoutDialogReadingPage.setVisibility(View.GONE);
                 break;
         }
     }
@@ -165,33 +172,24 @@ public class BookDataEditDialog extends Dialog implements CompoundButton.OnCheck
     private int checkBookStatus() {
         int bookStatus = -1;
 
-        if (mCheckBoxHaveBook.isChecked()) {
-            if (mRadioBtnRead.isChecked()) {
-                bookStatus = Constants.MY_BOOK_READ;
-            } else if (mRadioBtnReading.isChecked()) {
-                bookStatus = Constants.MY_BOOK_READING;
-            } else if (mRadioBtnUnread.isChecked()) {
-                bookStatus = Constants.MY_BOOK_UNREAD;
-            }
-        } else {
-            if (mRadioBtnRead.isChecked()) {
-                bookStatus = Constants.READ;
-            } else if (mRadioBtnReading.isChecked()) {
-                bookStatus = Constants.READING;
-            } else if (mRadioBtnUnread.isChecked()) {
-                bookStatus = Constants.UNREAD;
-            }
+        if (mRadioBtnRead.isChecked()) {
+            bookStatus = Constants.READ;
+        } else if (mRadioBtnReading.isChecked()) {
+            bookStatus = Constants.READING;
+        } else if (mRadioBtnUnread.isChecked()) {
+            bookStatus = Constants.UNREAD;
         }
+
         return bookStatus;
     }
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         Log.d(Constants.TAG_BOOK_DATA_EDIT_DIALOG, "onCheckedChanged: " + isChecked);
-        setVisibility(isChecked);
+        setPurchaseVisibility(isChecked);
     }
 
-    private void setVisibility(boolean isVisible) {
+    private void setPurchaseVisibility(boolean isVisible) {
         Log.d(Constants.TAG_BOOK_DATA_EDIT_DIALOG, "setVisibility: " + isVisible);
         mLlayoutDialogPurchaseDate.setVisibility((isVisible) ? View.VISIBLE : View.GONE);
         mLlayoutDialogPurchasePrice.setVisibility((isVisible) ? View.VISIBLE : View.GONE);

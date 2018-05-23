@@ -39,4 +39,14 @@ public class DetailPresenter implements DetailContract.Presenter {
     public void showToolbar() {
         mDetailView.setToolbarVisibility(true);
     }
+
+    @Override
+    public void hideFab() {
+        mDetailView.setFabVisibility(false);
+    }
+
+    @Override
+    public void showFab() {
+        mDetailView.setFabVisibility(true);
+    }
 }

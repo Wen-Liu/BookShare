@@ -141,10 +141,10 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
         }
 //        mTvProfileUserName.setText(UserManager.getInstance().getUserName());
         mTvProfileUserEmail.setText(UserManager.getInstance().getUserEmail());
-        mTvProfileBookBook.setText(String.valueOf(mBookStatusInfo[Constants.MY_BOOK_UNREAD] + mBookStatusInfo[Constants.MY_BOOK_READ]+mBookStatusInfo[Constants.MY_BOOK_READING]));
-        mTvProfileBookUnread.setText(String.valueOf(mBookStatusInfo[Constants.MY_BOOK_UNREAD]));
-        mTvProfileBookRead.setText(String.valueOf(mBookStatusInfo[Constants.MY_BOOK_READ] + mBookStatusInfo[Constants.READ]));
-        mTvProfileBookLent.setText(String.valueOf(mBookStatusInfo[Constants.MY_BOOK_LENT]));
+        mTvProfileBookBook.setText(String.valueOf(mBookStatusInfo[Constants.MY_BOOK]));
+        mTvProfileBookUnread.setText(String.valueOf(mBookStatusInfo[Constants.UNREAD]));
+        mTvProfileBookRead.setText(String.valueOf(mBookStatusInfo[Constants.READ]));
+        mTvProfileBookLent.setText(String.valueOf(mBookStatusInfo[Constants.LENT]));
         getSupportActionBar().setTitle(UserManager.getInstance().getUserName());
 
     }

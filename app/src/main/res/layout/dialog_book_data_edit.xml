@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|right"
+        android:animateLayoutChanges="true"
         android:gravity="center_vertical|right"
         android:orientation="vertical"
         android:padding="16dp">
@@ -266,6 +267,36 @@
                 android:typeface="sans" />
         </RadioGroup>
 
+        <LinearLayout
+            android:id="@+id/llayout_dialog_Reading_page"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/book_dialog_gap_each_line"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/book_dialog_gap_text_edit"
+                android:text="@string/book_reading_page"
+                android:textColor="@color/Brown_300_dark"
+                android:textSize="@dimen/book_dialog_tv_size"
+                android:textStyle="bold"
+                android:typeface="sans" />
+
+            <EditText
+                android:id="@+id/et_dialog_book_reading_page"
+                android:layout_width="@dimen/book_dialog_editText_width"
+                android:layout_height="@dimen/book_dialog_editText_height"
+                android:background="@drawable/shape_edittext_rectangle"
+                android:inputType="number"
+                android:paddingHorizontal="@dimen/book_dialog_paddingHorizontal"
+                android:singleLine="true"
+                android:textColor="@color/Black"
+                android:textSize="@dimen/book_dialog_et_size" />
+        </LinearLayout>
+
 
         <CheckBox
             android:id="@+id/checkBox_have_book"
@@ -281,76 +312,76 @@
 
 
         <!--<LinearLayout-->
-            <!--android:id="@+id/linearlayout_book_have"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:background="@color/White"-->
-            <!--android:paddingHorizontal="2dp"-->
-            <!--android:gravity="right"-->
-            <!--android:orientation="vertical">-->
+        <!--android:id="@+id/linearlayout_book_have"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@color/White"-->
+        <!--android:paddingHorizontal="2dp"-->
+        <!--android:gravity="right"-->
+        <!--android:orientation="vertical">-->
 
-            <LinearLayout
-                android:id="@+id/llayout_dialog_purchase_date"
+        <LinearLayout
+            android:id="@+id/llayout_dialog_purchase_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/book_dialog_gap_each_line"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/book_dialog_gap_each_line"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:layout_marginEnd="@dimen/book_dialog_gap_text_edit"
+                android:text="@string/book_purchase_date"
+                android:textColor="@color/Brown_300_dark"
+                android:textSize="@dimen/book_dialog_tv_size"
+                android:textStyle="bold"
+                android:typeface="sans" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/book_dialog_gap_text_edit"
-                    android:text="@string/book_purchase_date"
-                    android:textColor="@color/Brown_300_dark"
-                    android:textSize="@dimen/book_dialog_tv_size"
-                    android:textStyle="bold"
-                    android:typeface="sans" />
-
-                <EditText
-                    android:id="@+id/et_dialog_book_purchase_date"
-                    android:layout_width="@dimen/book_dialog_editText_width"
-                    android:layout_height="@dimen/book_dialog_editText_height"
-                    android:background="@drawable/shape_edittext_rectangle"
-                    android:inputType="datetime"
-                    android:paddingHorizontal="@dimen/book_dialog_paddingHorizontal"
-                    android:singleLine="true"
-                    android:textColor="@color/Black"
-                    android:textSize="@dimen/book_dialog_et_size" />
-            </LinearLayout>
+            <EditText
+                android:id="@+id/et_dialog_book_purchase_date"
+                android:layout_width="@dimen/book_dialog_editText_width"
+                android:layout_height="@dimen/book_dialog_editText_height"
+                android:background="@drawable/shape_edittext_rectangle"
+                android:inputType="datetime"
+                android:paddingHorizontal="@dimen/book_dialog_paddingHorizontal"
+                android:singleLine="true"
+                android:textColor="@color/Black"
+                android:textSize="@dimen/book_dialog_et_size" />
+        </LinearLayout>
 
 
-            <LinearLayout
-                android:id="@+id/llayout_dialog_purchase_price"
+        <LinearLayout
+            android:id="@+id/llayout_dialog_purchase_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/book_dialog_gap_each_line"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/book_dialog_gap_each_line"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:layout_marginEnd="@dimen/book_dialog_gap_text_edit"
+                android:text="@string/book_purchase_price"
+                android:textColor="@color/Brown_300_dark"
+                android:textSize="@dimen/book_dialog_tv_size"
+                android:textStyle="bold"
+                android:typeface="sans" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/book_dialog_gap_text_edit"
-                    android:text="@string/book_purchase_price"
-                    android:textColor="@color/Brown_300_dark"
-                    android:textSize="@dimen/book_dialog_tv_size"
-                    android:textStyle="bold"
-                    android:typeface="sans" />
-
-                <EditText
-                    android:id="@+id/et_dialog_book_purchase_price"
-                    android:layout_width="@dimen/book_dialog_editText_width"
-                    android:layout_height="@dimen/book_dialog_editText_height"
-                    android:background="@drawable/shape_edittext_rectangle"
-                    android:elevation="0dp"
-                    android:inputType="number"
-                    android:maxLength="8"
-                    android:paddingHorizontal="@dimen/book_dialog_paddingHorizontal"
-                    android:singleLine="true"
-                    android:textColor="@color/Black"
-                    android:textSize="@dimen/book_dialog_et_size" />
-            </LinearLayout>
+            <EditText
+                android:id="@+id/et_dialog_book_purchase_price"
+                android:layout_width="@dimen/book_dialog_editText_width"
+                android:layout_height="@dimen/book_dialog_editText_height"
+                android:background="@drawable/shape_edittext_rectangle"
+                android:elevation="0dp"
+                android:inputType="number"
+                android:maxLength="8"
+                android:paddingHorizontal="@dimen/book_dialog_paddingHorizontal"
+                android:singleLine="true"
+                android:textColor="@color/Black"
+                android:textSize="@dimen/book_dialog_et_size" />
+        </LinearLayout>
 
         <Button
             android:id="@+id/btn_book_data_send"

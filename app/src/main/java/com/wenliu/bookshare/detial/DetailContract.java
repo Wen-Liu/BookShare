@@ -16,6 +16,8 @@ public interface DetailContract {
 
         void setToolbarVisibility(boolean visible);
 
+        void setFabVisibility(boolean visible);
+
     }
 
     interface Presenter extends BasePresenter {
@@ -23,6 +25,10 @@ public interface DetailContract {
         void hideToolbar();
 
         void showToolbar();
+
+        void hideFab();
+
+        void showFab();
     }
 
 

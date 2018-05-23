@@ -164,4 +164,13 @@ public class ShareBookActivity extends BaseActivity implements ShareBookContract
             mToolbar.setVisibility((isVisible) ? View.VISIBLE : View.GONE);
         }
     }
+
+    public void setFabVisibility(boolean isVisible) {
+        Log.d(Constants.TAG_SHAREBOOK_ACTIVITY, "setFabVisibility: ");
+        if (mFab != null) {
+            mFab.setVisibility((isVisible) ? View.VISIBLE : View.GONE);
+        }
+    }
+
+
 }
