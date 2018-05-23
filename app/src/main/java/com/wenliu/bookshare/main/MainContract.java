@@ -1,5 +1,7 @@
 package com.wenliu.bookshare.main;
 
+import android.widget.ImageView;
+
 import com.wenliu.bookshare.base.BasePresenter;
 import com.wenliu.bookshare.base.BaseView;
 import com.wenliu.bookshare.object.Book;
@@ -18,17 +20,18 @@ public interface MainContract {
 
         void showBooks(ArrayList<BookCustomInfo> bookCustomInfos);
 
-        void showDetailUi(BookCustomInfo bookCustomInfo);
+        void showDetailUi(BookCustomInfo bookCustomInfo, ImageView imageView);
 
         void showMyBookStatus(int[] bookStatusAll);
 
+        void showProgressDialog(boolean show);
     }
 
     interface Presenter extends BasePresenter {
 
         void loadBooks();
 
-        void openDetail(BookCustomInfo bookCustomInfo);
+        void openDetail(BookCustomInfo bookCustomInfo, ImageView imageView);
 
     }
 

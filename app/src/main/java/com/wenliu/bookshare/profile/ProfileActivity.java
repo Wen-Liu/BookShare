@@ -20,7 +20,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -89,6 +88,7 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
     TextView mTvProfileBookLent;
     @BindView(R.id.fab_profile)
     FloatingActionButton mFabProfile;
+
 
     private Toolbar mToolbar;
     private ProfileContract.Presenter mPresenter;
@@ -187,11 +187,18 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
 
     }
 
-    @OnClick(R.id.iv_profile_change_image)
-    public void onViewClicked() {
-
-        ProfileActivityPermissionsDispatcher.getPhotoFromGalleryWithPermissionCheck(this);
+    @OnClick({R.id.iv_profile_change_image, R.id.fab_profile})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.iv_profile_change_image:
+                ProfileActivityPermissionsDispatcher.getPhotoFromGalleryWithPermissionCheck(this);
+                break;
+            case R.id.fab_profile:
+                Toast.makeText(this, "Coming soon!",Toast.LENGTH_SHORT).show();
+                break;
+        }
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -396,32 +403,6 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
                                            @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         ProfileActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
-
-//            switch (requestCode) {
-//                case Constants.PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE: {
-//                    // If request is cancelled, the result arrays are empty.
-//                    if (grantResults.length > 0
-//                            && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//
-//                        Log.e(Constants.TAG_PROFILE_ACTIVITY, "have permission: ");
-//
-//                        // permission was granted, yay! Do the
-//                        // contacts-related task you need to do.
-//
-//                    } else {
-//
-//                        Log.e(Constants.TAG_PROFILE_ACTIVITY, "no permission: ");
-//
-//
-//                        // permission denied, boo! Disable the
-//                        // functionality that depends on this permission.
-//                    }
-//                    return;
-//                }
-
-        // other 'case' lines to check for other
-        // permissions this app might request
-//            }
     }
 
     @OnShowRationale({Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE})
@@ -456,6 +437,7 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
     void showNeverAsk() {
         Toast.makeText(this, "never ask", Toast.LENGTH_SHORT).show();
     }
+
 
 
 }

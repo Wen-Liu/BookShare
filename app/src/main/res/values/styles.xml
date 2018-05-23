@@ -6,6 +6,8 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="colorControlHighlight">@color/White</item>
+        <item name="android:windowContentTransitions">true</item>
         <!--<item name="colorPrimary">@color/colorPrimary</item>-->
         <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
         <!--<item name="colorAccent">@color/colorAccent</item>-->
@@ -29,6 +31,20 @@
         <item name="android:progressDrawable">@drawable/ratingbar_design</item>
         <item name="android:minHeight">24dp</item>
         <item name="android:maxHeight">24dp</item>
+    </style>
+
+    <style name="FlatButton" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">@color/Black</item>
+    </style>
+
+    <style name="Animation_slide_right">
+        <item name="android:windowEnterAnimation">@anim/slide_left</item>
+        <item name="android:windowExitAnimation">@anim/slide_right</item>
+    </style>
+
+    <style name="Animation_fade">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <!--<item name="android:windowExitAnimation">@android:anim/fade_out</item>-->
     </style>
 
 </resources>

@@ -26,6 +26,7 @@
 
     <!-- layout dimension related to book data dialog -->
     <dimen name="detail_book_title_size">20sp</dimen>
+    <dimen name="detail_book_subtitle_size">16sp</dimen>
     <dimen name="detail_book_tv_size">14sp</dimen>
     <dimen name="detail_book_tv_rating_size">16sp</dimen>
     <dimen name="detail_tv_width">120dp</dimen>

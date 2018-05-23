@@ -1,6 +1,8 @@
 package com.wenliu.bookshare;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -9,8 +11,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.wenliu.bookshare.api.FirebaseApiHelper;
@@ -50,6 +54,7 @@ public class ShareBookActivity extends BaseActivity implements ShareBookContract
         mPresenter = new ShareBookPresenter(this, getFragmentManager());
         mPresenter.start();
         setToolbar();
+
     }
 
     private void setToolbar() {
@@ -82,6 +87,8 @@ public class ShareBookActivity extends BaseActivity implements ShareBookContract
 //        Snackbar.make(mFab, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                .setAction("Action", null).show();
         mInputIsbnDialog = new InputIsbnDialog(this, this, mPresenter);
+        mInputIsbnDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        mInputIsbnDialog.getWindow().getAttributes().windowAnimations = R.style.Animation_fade; //style id
         mInputIsbnDialog.show();
     }
 
@@ -154,9 +161,11 @@ public class ShareBookActivity extends BaseActivity implements ShareBookContract
     }
 
     @Override
-    public void transToDetail(BookCustomInfo bookCustomInfo) {
-        mPresenter.transToDetail(bookCustomInfo);
+    public void transToDetail(BookCustomInfo bookCustomInfo, ImageView imageView) {
+        mPresenter.transToDetail(bookCustomInfo, imageView);
     }
+
+
 
     public void setToolbarVisibility(boolean isVisible) {
         Log.d(Constants.TAG_SHAREBOOK_ACTIVITY, "setToolbarVisibility: ");

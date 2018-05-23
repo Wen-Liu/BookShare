@@ -1,6 +1,7 @@
 package com.wenliu.bookshare.main;
 
 import android.util.Log;
+import android.widget.ImageView;
 
 import com.wenliu.bookshare.Constants;
 import com.wenliu.bookshare.api.callbacks.GetBooksCallback;
@@ -35,6 +36,7 @@ public class MainPresenter implements MainContract.Presenter {
 
         if (!isLoading) {
             setLoading(true);
+            mMainView.showProgressDialog(true);
 
             new GetBooksTask(new GetBooksCallback() {
                 @Override
@@ -43,21 +45,23 @@ public class MainPresenter implements MainContract.Presenter {
                     Log.d(Constants.TAG_MAIN_PRESENTER, "GetBooksTask onCompleted");
                     mMainView.showBooks(bookCustomInfos);
                     mMainView.showMyBookStatus(bookStatusAll);
+                    mMainView.showProgressDialog(false);
                 }
 
                 @Override
                 public void onError(String errorMessage) {
                     Log.d(Constants.TAG_MAIN_PRESENTER, "GetBooksTask onError: " + errorMessage);
                     setLoading(false);
+                    mMainView.showProgressDialog(false);
                 }
             }).execute();
         }
     }
 
     @Override
-    public void openDetail(BookCustomInfo bookCustomInfo) {
+    public void openDetail(BookCustomInfo bookCustomInfo, ImageView imageView) {
         Log.d(Constants.TAG_MAIN_PRESENTER, "openDetail: ");
-        mMainView.showDetailUi(bookCustomInfo);
+        mMainView.showDetailUi(bookCustomInfo, imageView);
     }
 
 

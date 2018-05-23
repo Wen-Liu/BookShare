@@ -55,6 +55,8 @@ public class DetailFragment extends Fragment implements DetailContract.View {
     LinearLayout mLlayoutDetailPurchasePrice;
     @BindView(R.id.tv_detail_book_borrow_status)
     TextView mTvDetailBookBorrowStatus;
+    @BindView(R.id.tv_detail_book_subtitle)
+    TextView mTvDetailBookSubtitle;
     private DetailContract.Presenter mPresenter;
     private ImageManager mImageManager;
 
@@ -108,6 +110,12 @@ public class DetailFragment extends Fragment implements DetailContract.View {
         mImageManager.loadUrlImage(bookCustomInfo.getImage(), mIvDetailBookCover);
         mTvDetailBookTitle.setText(bookCustomInfo.getTitle());
 
+
+        if (bookCustomInfo.getSubtitle() != null && bookCustomInfo.getSubtitle().length() > 1) {
+            mTvDetailBookSubtitle.setText(bookCustomInfo.getSubtitle());
+        } else {
+            mTvDetailBookSubtitle.setVisibility(View.GONE);
+        }
         if (bookCustomInfo.getAuthor() != null && bookCustomInfo.getAuthor().size() > 0) {
             mTvDetailBookAuthor.setText(bookCustomInfo.getAuthor().get(0));
         } else {
@@ -165,8 +173,6 @@ public class DetailFragment extends Fragment implements DetailContract.View {
                 statusBackgroundColor = R.drawable.shape_book_status_red;
                 break;
         }
-
-
         mTvDetailBookStatus.setText(statusString);
         mTvDetailBookStatus.setBackground(ContextCompat.getDrawable(getActivity(), statusBackgroundColor));
     }

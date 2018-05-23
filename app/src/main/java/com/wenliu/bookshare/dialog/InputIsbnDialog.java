@@ -2,6 +2,8 @@ package com.wenliu.bookshare.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
@@ -161,6 +163,8 @@ public class InputIsbnDialog extends Dialog {
 
     private void goToEditDialog(Book book) {
         mBookDataEditDialog = new BookDataEditDialog(mContext, mShareBookActivity, mPresenter, book);
+        mBookDataEditDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        mBookDataEditDialog.getWindow().getAttributes().windowAnimations = R.style.Animation_slide_right; //style id
         mBookDataEditDialog.show();
         dismiss();
     }

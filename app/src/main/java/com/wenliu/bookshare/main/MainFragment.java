@@ -1,6 +1,7 @@
 package com.wenliu.bookshare.main;
 
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,7 +12,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.wenliu.bookshare.Constants;
 import com.wenliu.bookshare.R;
 import com.wenliu.bookshare.ShareBook;
@@ -36,6 +39,7 @@ public class MainFragment extends Fragment implements MainContract.View {
     private MainContract.Presenter mPresenter;
     private MainAdapter mMainAdapter;
     private int[] mBookStatusInfo;
+    private MaterialDialog mMaterialDialog;
     private ArrayList<BookCustomInfo> mBookCustomInfos = new ArrayList<>();
 
     public MainFragment() {
@@ -97,8 +101,24 @@ public class MainFragment extends Fragment implements MainContract.View {
     }
 
     @Override
-    public void showDetailUi(BookCustomInfo bookCustomInfo) {
-        ((ShareBookActivity) getActivity()).transToDetail(bookCustomInfo);
+    public void showDetailUi(BookCustomInfo bookCustomInfo, ImageView imageView) {
+        ((ShareBookActivity) getActivity()).transToDetail(bookCustomInfo, imageView);
+    }
+
+    @Override
+    public void showProgressDialog(boolean show) {
+        if (show) {
+            if (mMaterialDialog == null) {
+                mMaterialDialog = new MaterialDialog.Builder(getActivity())
+                        .content(R.string.please_wait)
+                        .progress(true, 0)
+                        .show();
+            } else {
+                mMaterialDialog.show();
+            }
+        } else {
+            mMaterialDialog.dismiss();
+        }
     }
 
     @Override
@@ -111,7 +131,6 @@ public class MainFragment extends Fragment implements MainContract.View {
     }
 
     @Override
-
     public void onDestroyView() {
         super.onDestroyView();
         Log.d(Constants.TAG_MAIN_FRAGMENT, "onDestroyView");

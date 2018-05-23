@@ -13,7 +13,8 @@
         android:layout_gravity="center"
         android:background="@color/Black"
         android:elevation="8dp"
-        android:scaleType="fitCenter" />
+        android:scaleType="fitCenter"
+        android:transitionName="@string/transitionName_detail" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,15 +24,24 @@
         android:paddingHorizontal="16dp"
         android:paddingTop="@dimen/book_dialog_gap_each_line">
 
-
         <TextView
             android:id="@+id/tv_detail_book_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="15dp"
             android:text="做工的人"
             android:textColor="@color/Black"
             android:textSize="@dimen/detail_book_title_size" />
+
+        <TextView
+            android:id="@+id/tv_detail_book_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="@dimen/book_dialog_gap_each_line"
+            android:text="做工的人"
+            android:textColor="@color/Black"
+            android:textSize="@dimen/detail_book_subtitle_size" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -60,33 +70,35 @@
             <!--android:textColor="@color/LightBlue_200_Dark"-->
             <!--android:textSize="@dimen/detail_book_tv_rating_size"></TextView>-->
 
-            <TextView
-                android:id="@+id/tv_detail_book_borrow_status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:background="@color/White"
-                android:padding="8dp"
-                android:text="林立青"
-                android:layout_marginEnd="@dimen/book_dialog_gap_text_edit"
-                android:textColor="@color/Black"
-                android:textSize="@dimen/detail_book_tv_size"
-                android:textStyle="bold"
-                android:typeface="sans" />
 
             <TextView
                 android:id="@+id/tv_detail_book_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
+                android:layout_marginEnd="@dimen/book_dialog_gap_text_edit"
                 android:background="@color/White"
-                android:padding="8dp"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp"
                 android:text="林立青"
                 android:textColor="@color/Black"
                 android:textSize="@dimen/detail_book_tv_size"
                 android:textStyle="bold"
                 android:typeface="sans" />
 
+            <TextView
+                android:id="@+id/tv_detail_book_borrow_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:background="@color/White"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp"
+                android:text="林立青"
+                android:textColor="@color/Black"
+                android:textSize="@dimen/detail_book_tv_size"
+                android:textStyle="bold"
+                android:typeface="sans" />
             <!--<Spinner-->
             <!--android:id="@+id/spinner_detail"-->
             <!--style="@style/Widget.AppCompat.Spinner.DropDown"-->

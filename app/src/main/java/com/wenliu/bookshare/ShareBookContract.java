@@ -1,5 +1,7 @@
 package com.wenliu.bookshare;
 
+import android.widget.ImageView;
+
 import com.wenliu.bookshare.base.BasePresenter;
 import com.wenliu.bookshare.base.BaseView;
 import com.wenliu.bookshare.object.Book;
@@ -17,14 +19,14 @@ public interface ShareBookContract {
 
         void setEditTextError(String error);
 
-        void transToDetail(BookCustomInfo bookCustomInfo);
-    }
+        void transToDetail(BookCustomInfo bookCustomInfo, ImageView imageView);
+        }
 
 
     interface Presenter extends BasePresenter {
         void transToMain();
 
-        void transToDetail(BookCustomInfo bookCustomInfo);
+        void transToDetail(BookCustomInfo bookCustomInfo, ImageView imageView);
 
         boolean isIsbnValid(String isbn);
 

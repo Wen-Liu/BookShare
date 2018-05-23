@@ -52,8 +52,8 @@ dependencies {
     // Managing Runtime Permissions with PermissionsDispatcher
     implementation 'com.github.hotchemi:permissionsdispatcher:3.1.0'
     annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:3.1.0'
-
-
+    // material dialog
+    implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

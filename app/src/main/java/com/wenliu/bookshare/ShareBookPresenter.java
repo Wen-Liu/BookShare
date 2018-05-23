@@ -3,14 +3,13 @@ package com.wenliu.bookshare;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.util.Log;
+import android.widget.ImageView;
 
 import com.wenliu.bookshare.detial.DetailFragment;
 import com.wenliu.bookshare.detial.DetailPresenter;
 import com.wenliu.bookshare.main.MainFragment;
 import com.wenliu.bookshare.main.MainPresenter;
-import com.wenliu.bookshare.object.Book;
 import com.wenliu.bookshare.object.BookCustomInfo;
-import com.wenliu.bookshare.object.GoogleBook.MyBook;
 
 /**
  * Created by wen on 2018/5/4.
@@ -22,6 +21,7 @@ public class ShareBookPresenter implements ShareBookContract.Presenter {
     private FragmentManager mFragmentManager;
     private MainFragment mMainFragment;
     private MainPresenter mMainPresenter;
+    private DetailFragment mDetailFragment;
     private DetailPresenter mDetailPresenter;
 
 
@@ -59,7 +59,7 @@ public class ShareBookPresenter implements ShareBookContract.Presenter {
     }
 
     @Override
-    public void transToDetail(BookCustomInfo bookCustomInfo) {
+    public void transToDetail(BookCustomInfo bookCustomInfo, ImageView imageView) {
         Log.d(Constants.TAG_SHAREBOOK_PRESENTER, "transToDetail: ");
 
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
@@ -69,15 +69,16 @@ public class ShareBookPresenter implements ShareBookContract.Presenter {
             transaction.addToBackStack(MAIN);
         }
 
-        DetailFragment detailFragment = DetailFragment.newInstance();
-//        if (bundle != null) {
-//            detailFragment.setArguments(bundle);
-//        }
+        if (mDetailFragment== null) {
+            mDetailFragment = DetailFragment.newInstance();
+            Log.d(Constants.TAG_SHAREBOOK_PRESENTER, "transToDetail newInstance: ");
+        }
 
-        transaction.add(R.id.frame_container, detailFragment, DETAIL);
+        transaction.add(R.id.frame_container, mDetailFragment, DETAIL);
+        transaction.addSharedElement(imageView, ShareBook.getAppContext().getString(R.string.transitionName_detail));
         transaction.commit();
 
-        mDetailPresenter = new DetailPresenter(detailFragment, bookCustomInfo);
+        mDetailPresenter = new DetailPresenter(mDetailFragment, bookCustomInfo);
     }
 
     @Override

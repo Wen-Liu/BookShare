@@ -42,11 +42,17 @@
     <!-- Strings related to permission -->
     <string name="permission_request">We need the permission of Camera and Storage for set profile photo</string>
 
+    <!-- Strings related to progress -->
+    <string name="please_wait">Loading</string>
+
+    <!-- Strings related to animation -->
+    <string name="transitionName_detail">transitionName_detail</string>
+
     <!-- Strings related to bookStatus -->
     <string name="book_status_reading">Reading</string>
     <string name="book_status_read">Read</string>
     <string name="book_status_unread">Unread</string>
-    <string name="book_status_lendable">lendable</string>
+    <string name="book_status_lendable">Lendable</string>
     <string name="book_status_lend_out">Lent out</string>
 
 

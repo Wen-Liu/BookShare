@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/scroll_paper_68833_640"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_marginHorizontal="8dp">
 
     <LinearLayout
         android:id="@+id/l_layout_book_data_edit"
