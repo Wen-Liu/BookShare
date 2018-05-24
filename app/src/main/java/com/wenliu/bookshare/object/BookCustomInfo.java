@@ -1,5 +1,10 @@
 package com.wenliu.bookshare.object;
 
+import android.util.Log;
+
+import com.wenliu.bookshare.Constants;
+import com.wenliu.bookshare.ShareBook;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +26,8 @@ public class BookCustomInfo {
     private double mBookScore;
     private int mBookReadStatus;
     private boolean haveBook;
-    private int mCreateTime;
+    private String mCreateTime;
+    private String mUpdateTime;
 
     public BookCustomInfo() {
         mTitle = "";
@@ -37,9 +43,10 @@ public class BookCustomInfo {
         mPurchasePrice = "";
         mComment = "";
         mBookScore = 0;
-        mBookReadStatus = 0;
+        mBookReadStatus = -1;
         haveBook = false;
-        mCreateTime = Integer.parseInt(String.valueOf(System.currentTimeMillis() / 1000));
+        mCreateTime = "";
+        mUpdateTime = "";
     }
 
     public BookCustomInfo(Book book) {
@@ -57,9 +64,10 @@ public class BookCustomInfo {
         mPurchasePrice = "";
         mComment = "";
         mBookScore = 0;
-        mBookReadStatus = 0;
+        mBookReadStatus = -1;
         haveBook = false;
-        mCreateTime = Integer.parseInt(String.valueOf(System.currentTimeMillis() / 1000));
+        mCreateTime = "";
+        mUpdateTime = "";
     }
 
     public String getTitle() {
@@ -182,11 +190,24 @@ public class BookCustomInfo {
         this.haveBook = haveBook;
     }
 
-    public int getCreateTime() {
+    public String getCreateTime() {
         return mCreateTime;
     }
 
-    public void setCreateTime(int createTime) {
+    public void setCreateTime(String createTime) {
         mCreateTime = createTime;
     }
+
+    public String getUpdateTime() {
+        return mUpdateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        mUpdateTime = updateTime;
+    }
+
+    private int getTime() {
+        return Integer.parseInt(String.valueOf(System.currentTimeMillis() / 1000));
+    }
+
 }

@@ -5,7 +5,6 @@
     android:orientation="vertical"
     tools:context="com.wenliu.bookshare.detial.DetailFragment">
 
-
     <ImageView
         android:id="@+id/iv_detail_book_cover"
         android:layout_width="match_parent"
@@ -24,14 +23,20 @@
         android:paddingHorizontal="16dp"
         android:paddingTop="@dimen/book_dialog_gap_each_line">
 
-        <TextView
-            android:id="@+id/tv_detail_book_title"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:text="做工的人"
-            android:textColor="@color/Black"
-            android:textSize="@dimen/detail_book_title_size" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_detail_book_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:text="做工的人"
+                android:textColor="@color/Black"
+                android:textSize="@dimen/detail_book_title_size" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tv_detail_book_subtitle"
@@ -48,7 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="@dimen/book_dialog_gap_each_line"
-            android:gravity="right"
+            android:gravity="right|center_vertical"
             android:orientation="horizontal">
 
             <!--<RatingBar-->
@@ -70,7 +75,6 @@
             <!--android:textColor="@color/LightBlue_200_Dark"-->
             <!--android:textSize="@dimen/detail_book_tv_rating_size"></TextView>-->
 
-
             <TextView
                 android:id="@+id/tv_detail_book_status"
                 android:layout_width="wrap_content"
@@ -91,6 +95,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
+                android:layout_marginEnd="@dimen/book_dialog_gap_text_edit"
                 android:background="@color/White"
                 android:paddingHorizontal="8dp"
                 android:paddingVertical="4dp"
@@ -99,6 +104,13 @@
                 android:textSize="@dimen/detail_book_tv_size"
                 android:textStyle="bold"
                 android:typeface="sans" />
+
+            <Button
+                android:id="@+id/btn_detail_edit"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/ic_edit" />
+
             <!--<Spinner-->
             <!--android:id="@+id/spinner_detail"-->
             <!--style="@style/Widget.AppCompat.Spinner.DropDown"-->

@@ -29,6 +29,8 @@ public interface DetailContract {
         void hideFab();
 
         void showFab();
+
+        void showBookDataEditDialog(BookCustomInfo bookCustomInfo);
     }
 
 

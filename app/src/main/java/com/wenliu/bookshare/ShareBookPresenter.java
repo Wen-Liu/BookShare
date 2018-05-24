@@ -24,7 +24,6 @@ public class ShareBookPresenter implements ShareBookContract.Presenter {
     private DetailFragment mDetailFragment;
     private DetailPresenter mDetailPresenter;
 
-
     public static final String MAIN = "MAIN";
     public static final String DETAIL = "DETAIL";
 
@@ -78,7 +77,7 @@ public class ShareBookPresenter implements ShareBookContract.Presenter {
         transaction.addSharedElement(imageView, ShareBook.getAppContext().getString(R.string.transitionName_detail));
         transaction.commit();
 
-        mDetailPresenter = new DetailPresenter(mDetailFragment, bookCustomInfo);
+        mDetailPresenter = new DetailPresenter(mDetailFragment,this, bookCustomInfo);
     }
 
     @Override
@@ -89,6 +88,11 @@ public class ShareBookPresenter implements ShareBookContract.Presenter {
     @Override
     public int[] getMyBookStatus() {
         return mMainFragment.getMyBookStatus();
+    }
+
+    @Override
+    public void goToEditDialog(BookCustomInfo bookCustomInfo) {
+            mShareBookView.showEditDialog(bookCustomInfo);
     }
 
     @Override
@@ -104,6 +108,7 @@ public class ShareBookPresenter implements ShareBookContract.Presenter {
             mShareBookView.setEditTextError(ShareBook.getAppContext().getString(R.string.error_invalid_isbn));
         }
     }
+
 
 
 }

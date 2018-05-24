@@ -20,7 +20,9 @@ public interface ShareBookContract {
         void setEditTextError(String error);
 
         void transToDetail(BookCustomInfo bookCustomInfo, ImageView imageView);
-        }
+
+        void showEditDialog(BookCustomInfo bookCustomInfo);
+    }
 
 
     interface Presenter extends BasePresenter {
@@ -36,6 +38,7 @@ public interface ShareBookContract {
 
         int[] getMyBookStatus();
 
+        void goToEditDialog(BookCustomInfo bookCustomInfo);
     }
 
 }

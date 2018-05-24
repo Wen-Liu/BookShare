@@ -3,6 +3,8 @@ package com.wenliu.bookshare.detial;
 import android.util.Log;
 
 import com.wenliu.bookshare.Constants;
+import com.wenliu.bookshare.ShareBookContract;
+import com.wenliu.bookshare.ShareBookPresenter;
 import com.wenliu.bookshare.object.Book;
 import com.wenliu.bookshare.object.BookCustomInfo;
 import com.wenliu.bookshare.object.GoogleBook.MyBook;
@@ -14,13 +16,15 @@ import com.wenliu.bookshare.object.GoogleBook.MyBook;
 public class DetailPresenter implements DetailContract.Presenter {
 
     private final DetailContract.View mDetailView;
+    private ShareBookContract.Presenter mPresenter;
     private BookCustomInfo mBookCustomInfo;
 
-    public DetailPresenter(DetailContract.View detailView, BookCustomInfo bookCustomInfo) {
+    public DetailPresenter(DetailContract.View detailView, ShareBookPresenter presenter, BookCustomInfo bookCustomInfo) {
         Log.d(Constants.TAG_DETAIL_PRESENTER, "DetailPresenter: ");
 
         mDetailView = detailView;
         mDetailView.setPresenter(this);
+        mPresenter = presenter;
         mBookCustomInfo = bookCustomInfo;
     }
 
@@ -48,5 +52,10 @@ public class DetailPresenter implements DetailContract.Presenter {
     @Override
     public void showFab() {
         mDetailView.setFabVisibility(true);
+    }
+
+    @Override
+    public void showBookDataEditDialog(BookCustomInfo bookCustomInfo) {
+        mPresenter.goToEditDialog(bookCustomInfo);
     }
 }

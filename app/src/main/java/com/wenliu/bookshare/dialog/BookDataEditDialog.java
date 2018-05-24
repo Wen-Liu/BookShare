@@ -2,6 +2,7 @@ package com.wenliu.bookshare.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.provider.SyncStateContract;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
@@ -88,38 +89,98 @@ public class BookDataEditDialog extends Dialog implements CompoundButton.OnCheck
         mPresenter = presenter;
         mBook = book;
         mBookCustomInfo = new BookCustomInfo(book);
+        initByBook();
+    }
 
-        init();
+    public BookDataEditDialog(@NonNull Context context, ShareBookActivity activity, ShareBookContract.Presenter presenter, BookCustomInfo bookCustomInfo) {
+        super(context);
+        setContentView(R.layout.dialog_book_data_edit);
+        ButterKnife.bind(this);
+
+        Log.d(Constants.TAG_BOOK_DATA_EDIT_DIALOG, "BookDataEditDialog constructor");
+        mContext = context;
+        mShareBookActivity = activity;
+        mPresenter = presenter;
+        mBookCustomInfo = bookCustomInfo;
+
+        Log.d(Constants.TAG_BOOK_DATA_EDIT_DIALOG, "BookDataEditDialog mBookCustomInfo.getCreateTime(): " + bookCustomInfo.getCreateTime());
+        Log.d(Constants.TAG_BOOK_DATA_EDIT_DIALOG, "BookDataEditDialog mBookCustomInfo.getCreateTime(): " + mBookCustomInfo.getCreateTime());
+
+        initByBook();
     }
 
 
-    private void init() {
+    private void initByBook() {
         // init the book data get from server
         if (mBookCustomInfo.getTitle() != null) {
-            mEtDialogBookTitle.setText(mBook.getTitle());
+            mEtDialogBookTitle.setText(mBookCustomInfo.getTitle());
         }
         if (mBookCustomInfo.getSubtitle() != null) {
-            mEtDialogBookSubtitle.setText(mBook.getSubtitle());
+            mEtDialogBookSubtitle.setText(mBookCustomInfo.getSubtitle());
         }
-        if (mBookCustomInfo.getAuthor() != null && mBook.getAuthor().size() > 0) {
-            mEtDialogBookAuthor.setText(mBook.getAuthor().get(0));
+        if (mBookCustomInfo.getAuthor() != null && mBookCustomInfo.getAuthor().size() > 0) {
+            mEtDialogBookAuthor.setText(mBookCustomInfo.getAuthor().get(0));
         }
         if (mBookCustomInfo.getIsbn13() != null) {
-            mTvDialogBookIsbn.setText(mBook.getIsbn13());
+            mTvDialogBookIsbn.setText(mBookCustomInfo.getIsbn13());
         }
         if (mBookCustomInfo.getPublisher() != null) {
-            mEtDialogBookPublisher.setText(mBook.getPublisher());
+            mEtDialogBookPublisher.setText(mBookCustomInfo.getPublisher());
         }
         if (mBookCustomInfo.getPublishDate() != null) {
-            mEtDialogBookPublishDate.setText(mBook.getPublishDate());
+            mEtDialogBookPublishDate.setText(mBookCustomInfo.getPublishDate());
         }
         if (mBookCustomInfo.getLanguage() != null) {
-            mEtDialogBookLanguage.setText(mBook.getLanguage());
+            mEtDialogBookLanguage.setText(mBookCustomInfo.getLanguage());
         }
 
         // set listener
         mCheckBoxHaveBook.setOnCheckedChangeListener(this);
         mRadioBtnUnread.setChecked(true);
+
+        mLlayoutDialogReadingPage.setVisibility(View.GONE);
+        setPurchaseVisibility(false);
+    }
+
+    private void initByBookCustomInfo() {
+
+        if (mBookCustomInfo.getTitle() != null) {
+            mEtDialogBookTitle.setText(mBookCustomInfo.getTitle());
+        }
+        if (mBookCustomInfo.getSubtitle() != null) {
+            mEtDialogBookSubtitle.setText(mBookCustomInfo.getSubtitle());
+        }
+        if (mBookCustomInfo.getAuthor() != null && mBookCustomInfo.getAuthor().size() > 0) {
+            mEtDialogBookAuthor.setText(mBookCustomInfo.getAuthor().get(0));
+        }
+        if (mBookCustomInfo.getIsbn13() != null) {
+            mTvDialogBookIsbn.setText(mBookCustomInfo.getIsbn13());
+        }
+        if (mBookCustomInfo.getPublisher() != null) {
+            mEtDialogBookPublisher.setText(mBookCustomInfo.getPublisher());
+        }
+        if (mBookCustomInfo.getPublishDate() != null) {
+            mEtDialogBookPublishDate.setText(mBookCustomInfo.getPublishDate());
+        }
+        if (mBookCustomInfo.getLanguage() != null) {
+            mEtDialogBookLanguage.setText(mBookCustomInfo.getLanguage());
+        }
+
+        // set listener
+        mCheckBoxHaveBook.setOnCheckedChangeListener(this);
+        if (mBookCustomInfo.isHaveBook()) {
+            mCheckBoxHaveBook.setChecked(true);
+        }
+
+        if (mBookCustomInfo.getBookReadStatus() != -1) {
+            if (mBookCustomInfo.getBookReadStatus() == Constants.READING) {
+                mRadioBtnReading.setChecked(true);
+            } else if (mBookCustomInfo.getBookReadStatus() == Constants.READ) {
+                mRadioBtnRead.setChecked(true);
+            }
+        } else {
+            mRadioBtnUnread.setChecked(true);
+        }
 
         mLlayoutDialogReadingPage.setVisibility(View.GONE);
         setPurchaseVisibility(false);
@@ -141,11 +202,17 @@ public class BookDataEditDialog extends Dialog implements CompoundButton.OnCheck
 
                 mBookCustomInfo.setBookReadStatus(checkBookStatus());
                 mBookCustomInfo.setHaveBook(mCheckBoxHaveBook.isChecked());
-                Log.d(Constants.TAG_BOOK_DATA_EDIT_DIALOG, "btn_book_data_send, checkBookStatus: " + checkBookStatus());
 
                 if (mCheckBoxHaveBook.isChecked()) {
                     mBookCustomInfo.setPurchaseDate(mEtDialogBookPurchaseDate.getText().toString());
                     mBookCustomInfo.setPurchasePrice(mEtDialogBookPurchasePrice.getText().toString());
+                }
+
+                Log.d(Constants.TAG_BOOK_DATA_EDIT_DIALOG, "click mBookCustomInfo.getCreateTime(): " + mBookCustomInfo.getCreateTime());
+                if (mBookCustomInfo.getCreateTime() == ""){
+                    mBookCustomInfo.setCreateTime(String.valueOf(System.currentTimeMillis() / 1000));
+                } else {
+                    mBookCustomInfo.setUpdateTime(String.valueOf(System.currentTimeMillis() / 1000));
                 }
 
                 FirebaseApiHelper.newInstance().uploadMyBook(mBookCustomInfo.getIsbn13(), mBookCustomInfo);

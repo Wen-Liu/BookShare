@@ -19,6 +19,7 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.wenliu.bookshare.api.FirebaseApiHelper;
 import com.wenliu.bookshare.base.BaseActivity;
+import com.wenliu.bookshare.dialog.BookDataEditDialog;
 import com.wenliu.bookshare.dialog.InputIsbnDialog;
 import com.wenliu.bookshare.object.Book;
 import com.wenliu.bookshare.object.BookCustomInfo;
@@ -37,6 +38,7 @@ public class ShareBookActivity extends BaseActivity implements ShareBookContract
     private InputIsbnDialog mInputIsbnDialog;
     private Toolbar mToolbar;
     private AppBarLayout mAppBarLayout;
+    private BookDataEditDialog mBookDataEditDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -165,6 +167,13 @@ public class ShareBookActivity extends BaseActivity implements ShareBookContract
         mPresenter.transToDetail(bookCustomInfo, imageView);
     }
 
+    @Override
+    public void showEditDialog(BookCustomInfo bookCustomInfo) {
+        mBookDataEditDialog = new BookDataEditDialog(this, this, mPresenter, bookCustomInfo);
+        mBookDataEditDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        mBookDataEditDialog.getWindow().getAttributes().windowAnimations = R.style.Animation_slide_right; //style id
+        mBookDataEditDialog.show();
+    }
 
 
     public void setToolbarVisibility(boolean isVisible) {

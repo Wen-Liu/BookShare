@@ -1,6 +1,8 @@
 package com.wenliu.bookshare.detial;
 
 import android.app.Fragment;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -8,19 +10,24 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.wenliu.bookshare.Constants;
 import com.wenliu.bookshare.ImageManager;
 import com.wenliu.bookshare.R;
 import com.wenliu.bookshare.ShareBook;
 import com.wenliu.bookshare.ShareBookActivity;
+import com.wenliu.bookshare.dialog.BookDataEditDialog;
+import com.wenliu.bookshare.object.Book;
 import com.wenliu.bookshare.object.BookCustomInfo;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -57,9 +64,12 @@ public class DetailFragment extends Fragment implements DetailContract.View {
     TextView mTvDetailBookBorrowStatus;
     @BindView(R.id.tv_detail_book_subtitle)
     TextView mTvDetailBookSubtitle;
+    @BindView(R.id.btn_detail_edit)
+    Button mBtnDetailEdit;
+
     private DetailContract.Presenter mPresenter;
     private ImageManager mImageManager;
-
+    private BookCustomInfo mBookCustomInfo;
 
     public DetailFragment() {
         // Required empty public constructor
@@ -107,40 +117,41 @@ public class DetailFragment extends Fragment implements DetailContract.View {
     public void showBook(BookCustomInfo bookCustomInfo) {
         Log.d(Constants.TAG_DETAIL_FRAGMENT, "showBook: start");
 
+        mBookCustomInfo = bookCustomInfo;
         mImageManager.loadUrlImage(bookCustomInfo.getImage(), mIvDetailBookCover);
-        mTvDetailBookTitle.setText(bookCustomInfo.getTitle());
+        mTvDetailBookTitle.setText(mBookCustomInfo.getTitle());
 
 
-        if (bookCustomInfo.getSubtitle() != null && bookCustomInfo.getSubtitle().length() > 1) {
-            mTvDetailBookSubtitle.setText(bookCustomInfo.getSubtitle());
+        if (mBookCustomInfo.getSubtitle() != null && mBookCustomInfo.getSubtitle().length() > 1) {
+            mTvDetailBookSubtitle.setText(mBookCustomInfo.getSubtitle());
         } else {
             mTvDetailBookSubtitle.setVisibility(View.GONE);
         }
-        if (bookCustomInfo.getAuthor() != null && bookCustomInfo.getAuthor().size() > 0) {
-            mTvDetailBookAuthor.setText(bookCustomInfo.getAuthor().get(0));
+        if (mBookCustomInfo.getAuthor() != null && mBookCustomInfo.getAuthor().size() > 0) {
+            mTvDetailBookAuthor.setText(mBookCustomInfo.getAuthor().get(0));
         } else {
             mTvDetailBookAuthor.setText("");
         }
-        if (bookCustomInfo.getPublisher() != null) {
-            mTvDetailBookPublisher.setText(bookCustomInfo.getPublisher());
+        if (mBookCustomInfo.getPublisher() != null) {
+            mTvDetailBookPublisher.setText(mBookCustomInfo.getPublisher());
         } else {
             mTvDetailBookPublisher.setText("");
         }
-        if (bookCustomInfo.getPublishDate() != null) {
-            mTvDetailBookPublishDate.setText(bookCustomInfo.getPublishDate());
+        if (mBookCustomInfo.getPublishDate() != null) {
+            mTvDetailBookPublishDate.setText(mBookCustomInfo.getPublishDate());
         } else {
             mTvDetailBookPublishDate.setText("");
         }
-        if (bookCustomInfo.getLanguage() != null) {
-            mTvDetailBookLanguage.setText(bookCustomInfo.getLanguage());
+        if (mBookCustomInfo.getLanguage() != null) {
+            mTvDetailBookLanguage.setText(mBookCustomInfo.getLanguage());
         } else {
             mTvDetailBookLanguage.setText("");
         }
-        mTvDetailBookIsbn.setText(bookCustomInfo.getIsbn13());
+        mTvDetailBookIsbn.setText(mBookCustomInfo.getIsbn13());
 
-        setBookStatusView(bookCustomInfo.getBookReadStatus());
-        setBookBorrowView(bookCustomInfo.isHaveBook());
-        setBookPurchaseView(bookCustomInfo);
+        setBookStatusView(mBookCustomInfo.getBookReadStatus());
+        setBookBorrowView(mBookCustomInfo.isHaveBook());
+        setBookPurchaseView(mBookCustomInfo);
 
         Log.d(Constants.TAG_DETAIL_FRAGMENT, "showBook: end ");
     }
@@ -216,12 +227,14 @@ public class DetailFragment extends Fragment implements DetailContract.View {
         mPresenter.showFab();
     }
 
-//    @OnClick({R.id.tv_detail_book_title})
-//    public void onViewClicked(View view) {
-//        switch (view.getId()) {
-//            case R.id.tv_detail_book_title:
-//                break;
-//        }
-//    }
+    @OnClick({R.id.btn_detail_edit})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.btn_detail_edit:
+                mPresenter.showBookDataEditDialog(mBookCustomInfo);
+                break;
+        }
+    }
+
 
 }
