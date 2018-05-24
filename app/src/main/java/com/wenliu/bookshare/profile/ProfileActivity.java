@@ -179,7 +179,7 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
             @Override
             public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
                 super.getItemOffsets(outRect, view, parent, state);
-                int space = ShareBook.getAppContext().getResources().getDimensionPixelSize(R.dimen.space_item);
+                int space = ShareBook.getAppContext().getResources().getDimensionPixelSize(R.dimen.gap_recycler_item);
                 outRect.top = space;
             }
         });

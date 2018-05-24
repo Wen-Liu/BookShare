@@ -72,7 +72,6 @@ public class BookDataEditDialog extends Dialog implements CompoundButton.OnCheck
     LinearLayout mLlayoutDialogReadingPage;
 
     private Context mContext;
-    private Book mBook;
     private BookCustomInfo mBookCustomInfo;
     private ShareBookActivity mShareBookActivity;
     private ShareBookContract.Presenter mPresenter;
@@ -83,13 +82,12 @@ public class BookDataEditDialog extends Dialog implements CompoundButton.OnCheck
         setContentView(R.layout.dialog_book_data_edit);
         ButterKnife.bind(this);
 
-        Log.d(Constants.TAG_BOOK_DATA_EDIT_DIALOG, "BookDataEditDialog constructor");
+        Log.d(Constants.TAG_BOOK_DATA_EDIT_DIALOG, "constructor Book: ");
         mContext = context;
         mShareBookActivity = activity;
         mPresenter = presenter;
-        mBook = book;
         mBookCustomInfo = new BookCustomInfo(book);
-        initByBook();
+        initView();
     }
 
     public BookDataEditDialog(@NonNull Context context, ShareBookActivity activity, ShareBookContract.Presenter presenter, BookCustomInfo bookCustomInfo) {
@@ -97,20 +95,17 @@ public class BookDataEditDialog extends Dialog implements CompoundButton.OnCheck
         setContentView(R.layout.dialog_book_data_edit);
         ButterKnife.bind(this);
 
-        Log.d(Constants.TAG_BOOK_DATA_EDIT_DIALOG, "BookDataEditDialog constructor");
+        Log.d(Constants.TAG_BOOK_DATA_EDIT_DIALOG, "constructor BookCustomInfo: ");
         mContext = context;
         mShareBookActivity = activity;
         mPresenter = presenter;
         mBookCustomInfo = bookCustomInfo;
 
-        Log.d(Constants.TAG_BOOK_DATA_EDIT_DIALOG, "BookDataEditDialog mBookCustomInfo.getCreateTime(): " + bookCustomInfo.getCreateTime());
-        Log.d(Constants.TAG_BOOK_DATA_EDIT_DIALOG, "BookDataEditDialog mBookCustomInfo.getCreateTime(): " + mBookCustomInfo.getCreateTime());
-
-        initByBook();
+        initView();
     }
 
 
-    private void initByBook() {
+    private void initView() {
         // init the book data get from server
         if (mBookCustomInfo.getTitle() != null) {
             mEtDialogBookTitle.setText(mBookCustomInfo.getTitle());
@@ -134,56 +129,40 @@ public class BookDataEditDialog extends Dialog implements CompoundButton.OnCheck
             mEtDialogBookLanguage.setText(mBookCustomInfo.getLanguage());
         }
 
-        // set listener
-        mCheckBoxHaveBook.setOnCheckedChangeListener(this);
-        mRadioBtnUnread.setChecked(true);
-
         mLlayoutDialogReadingPage.setVisibility(View.GONE);
-        setPurchaseVisibility(false);
-    }
-
-    private void initByBookCustomInfo() {
-
-        if (mBookCustomInfo.getTitle() != null) {
-            mEtDialogBookTitle.setText(mBookCustomInfo.getTitle());
-        }
-        if (mBookCustomInfo.getSubtitle() != null) {
-            mEtDialogBookSubtitle.setText(mBookCustomInfo.getSubtitle());
-        }
-        if (mBookCustomInfo.getAuthor() != null && mBookCustomInfo.getAuthor().size() > 0) {
-            mEtDialogBookAuthor.setText(mBookCustomInfo.getAuthor().get(0));
-        }
-        if (mBookCustomInfo.getIsbn13() != null) {
-            mTvDialogBookIsbn.setText(mBookCustomInfo.getIsbn13());
-        }
-        if (mBookCustomInfo.getPublisher() != null) {
-            mEtDialogBookPublisher.setText(mBookCustomInfo.getPublisher());
-        }
-        if (mBookCustomInfo.getPublishDate() != null) {
-            mEtDialogBookPublishDate.setText(mBookCustomInfo.getPublishDate());
-        }
-        if (mBookCustomInfo.getLanguage() != null) {
-            mEtDialogBookLanguage.setText(mBookCustomInfo.getLanguage());
+        Log.d(Constants.TAG_BOOK_DATA_EDIT_DIALOG, "mBookCustomInfo.getBookReadStatus(): " + mBookCustomInfo.getBookReadStatus());
+        if (mBookCustomInfo.getBookReadStatus() != -1) {
+            if (mBookCustomInfo.getBookReadStatus() == Constants.READING) {
+                mRadioBtnReading.setChecked(true);
+                // set reading page
+                mLlayoutDialogReadingPage.setVisibility(View.VISIBLE);
+                if (mBookCustomInfo.getReadingPage() != -1) {
+                    mEtDialogBookReadingPage.setText(mBookCustomInfo.getReadingPage());
+                }
+            } else if (mBookCustomInfo.getBookReadStatus() == Constants.READ) {
+                mRadioBtnRead.setChecked(true);
+            } else {
+                mRadioBtnUnread.setChecked(true);
+            }
+        } else {
+            mRadioBtnUnread.setChecked(true);
         }
 
         // set listener
         mCheckBoxHaveBook.setOnCheckedChangeListener(this);
         if (mBookCustomInfo.isHaveBook()) {
             mCheckBoxHaveBook.setChecked(true);
-        }
+            setPurchaseVisibility(true);
 
-        if (mBookCustomInfo.getBookReadStatus() != -1) {
-            if (mBookCustomInfo.getBookReadStatus() == Constants.READING) {
-                mRadioBtnReading.setChecked(true);
-            } else if (mBookCustomInfo.getBookReadStatus() == Constants.READ) {
-                mRadioBtnRead.setChecked(true);
+            if (mBookCustomInfo.getPurchaseDate() != null) {
+                mEtDialogBookPurchaseDate.setText(mBookCustomInfo.getPurchaseDate());
+            }
+            if (mBookCustomInfo.getPurchasePrice() != null) {
+                mEtDialogBookPurchasePrice.setText(mBookCustomInfo.getPurchasePrice());
             }
         } else {
-            mRadioBtnUnread.setChecked(true);
+            setPurchaseVisibility(false);
         }
-
-        mLlayoutDialogReadingPage.setVisibility(View.GONE);
-        setPurchaseVisibility(false);
     }
 
 
@@ -191,32 +170,10 @@ public class BookDataEditDialog extends Dialog implements CompoundButton.OnCheck
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_book_data_send:
+                Log.d(Constants.TAG_BOOK_DATA_EDIT_DIALOG, "click btn_book_data_send: ");
 
-                mBookCustomInfo.setTitle(mEtDialogBookTitle.getText().toString());
-                mBookCustomInfo.setSubtitle(mEtDialogBookSubtitle.getText().toString());
-//        mAuthor.add(mEtDialogBookTitle.getText().toString());
-//        mBook.setAuthor(mAuthor);
-                mBookCustomInfo.setPublisher(mEtDialogBookPublisher.getText().toString());
-                mBookCustomInfo.setPublishDate(mEtDialogBookPublishDate.getText().toString());
-                mBookCustomInfo.setLanguage(mEtDialogBookLanguage.getText().toString());
-
-                mBookCustomInfo.setBookReadStatus(checkBookStatus());
-                mBookCustomInfo.setHaveBook(mCheckBoxHaveBook.isChecked());
-
-                if (mCheckBoxHaveBook.isChecked()) {
-                    mBookCustomInfo.setPurchaseDate(mEtDialogBookPurchaseDate.getText().toString());
-                    mBookCustomInfo.setPurchasePrice(mEtDialogBookPurchasePrice.getText().toString());
-                }
-
-                Log.d(Constants.TAG_BOOK_DATA_EDIT_DIALOG, "click mBookCustomInfo.getCreateTime(): " + mBookCustomInfo.getCreateTime());
-                if (mBookCustomInfo.getCreateTime() == ""){
-                    mBookCustomInfo.setCreateTime(String.valueOf(System.currentTimeMillis() / 1000));
-                } else {
-                    mBookCustomInfo.setUpdateTime(String.valueOf(System.currentTimeMillis() / 1000));
-                }
-
+                storeData();
                 FirebaseApiHelper.newInstance().uploadMyBook(mBookCustomInfo.getIsbn13(), mBookCustomInfo);
-
                 mPresenter.refreshMainFragment();
                 dismiss();
                 break;
@@ -236,6 +193,37 @@ public class BookDataEditDialog extends Dialog implements CompoundButton.OnCheck
     }
 
 
+    private void storeData() {
+
+        mBookCustomInfo.setTitle(mEtDialogBookTitle.getText().toString());
+        mBookCustomInfo.setSubtitle(mEtDialogBookSubtitle.getText().toString());
+//        mAuthor.add(mEtDialogBookTitle.getText().toString());
+//        mBook.setAuthor(mAuthor);
+        mBookCustomInfo.setPublisher(mEtDialogBookPublisher.getText().toString());
+        mBookCustomInfo.setPublishDate(mEtDialogBookPublishDate.getText().toString());
+        mBookCustomInfo.setLanguage(mEtDialogBookLanguage.getText().toString());
+
+        mBookCustomInfo.setBookReadStatus(checkBookStatus());
+
+        if (mEtDialogBookReadingPage.getText().toString().length() > 0
+                && Integer.valueOf(mEtDialogBookReadingPage.getText().toString()) > 0) {
+            mBookCustomInfo.setReadingPage(Integer.valueOf(mEtDialogBookReadingPage.getText().toString()));
+        }
+        mBookCustomInfo.setHaveBook(mCheckBoxHaveBook.isChecked());
+
+        if (mCheckBoxHaveBook.isChecked()) {
+            mBookCustomInfo.setPurchaseDate(mEtDialogBookPurchaseDate.getText().toString());
+            mBookCustomInfo.setPurchasePrice(mEtDialogBookPurchasePrice.getText().toString());
+        }
+
+        if (mBookCustomInfo.getCreateTime() == "") {
+            mBookCustomInfo.setCreateTime(String.valueOf(System.currentTimeMillis() / 1000));
+        } else {
+            mBookCustomInfo.setUpdateTime(String.valueOf(System.currentTimeMillis() / 1000));
+        }
+    }
+
+
     private int checkBookStatus() {
         int bookStatus = -1;
 
@@ -246,7 +234,6 @@ public class BookDataEditDialog extends Dialog implements CompoundButton.OnCheck
         } else if (mRadioBtnUnread.isChecked()) {
             bookStatus = Constants.UNREAD;
         }
-
         return bookStatus;
     }
 

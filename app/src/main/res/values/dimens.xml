@@ -10,34 +10,41 @@
     <dimen name="login_activity_gap">10dp</dimen>
 
     <!-- layout dimension related to main fragment -->
-    <dimen name="space_item">12dp</dimen>
+    <dimen name="main_book_title_size">18sp</dimen>
+    <dimen name="main_book_subtitle_size">14sp</dimen>
+    <dimen name="main_book_tv_text_size">14sp</dimen>
+
+    <!-- layout dimension related to gap -->
+    <dimen name="gap_each_line_large">12dp</dimen>
+    <dimen name="gap_each_line_middle">8dp</dimen>
+    <dimen name="gap_each_line_small">6dp</dimen>
+    <dimen name="gap_each_text_6">6dp</dimen>
+    <dimen name="gap_front_space_large">30dp</dimen>
+    <dimen name="gap_front_space_small">15dp</dimen>
+    <dimen name="gap_recycler_item">12dp</dimen>
+    <dimen name="gap_padding_end_for_italic">12dp</dimen>
 
     <!-- layout dimension related to book data dialog -->
     <dimen name="book_dialog_tv_size">14sp</dimen>
     <dimen name="book_dialog_et_size">16sp</dimen>
-    <dimen name="book_dialog_gap_each_line">12dp</dimen>
-    <dimen name="book_dialog_gap_text_edit">6dp</dimen>
     <dimen name="book_dialog_paddingHorizontal">8dp</dimen>
     <dimen name="book_dialog_editText_width">180dp</dimen>
     <dimen name="book_dialog_editText_height">30dp</dimen>
 
-
     <dimen name="ic_size">36dp</dimen>
 
     <!-- layout dimension related to book data dialog -->
-    <dimen name="detail_book_title_size">20sp</dimen>
-    <dimen name="detail_book_subtitle_size">16sp</dimen>
-    <dimen name="detail_book_tv_size">14sp</dimen>
+    <dimen name="detail_book_title_size">24sp</dimen>
+    <dimen name="detail_book_subtitle_size">20sp</dimen>
+    <dimen name="detail_book_tv_text_size">16sp</dimen>
     <dimen name="detail_book_tv_rating_size">16sp</dimen>
-    <dimen name="detail_tv_width">120dp</dimen>
-    <dimen name="text_margin">16dp</dimen>
+    <dimen name="detail_tv_layout_width">120dp</dimen>
+    <dimen name="detail_divider_length">300dp</dimen>
 
     <!-- layout dimension related to profile page -->
     <dimen name="profile_info_number_size">28sp</dimen>
     <dimen name="profile_info_title_size">16sp</dimen>
     <dimen name="profile_info_paddingHorizontal">8dp</dimen>
     <dimen name="profile_divider_length">60dp</dimen>
-
-
 
 </resources>

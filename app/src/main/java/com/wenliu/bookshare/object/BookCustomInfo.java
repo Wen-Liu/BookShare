@@ -20,14 +20,15 @@ public class BookCustomInfo {
     private String mLanguage;
     private String mImage;
 
-    private String mPurchaseDate;
-    private String mPurchasePrice;
-    private String mComment;
-    private double mBookScore;
-    private int mBookReadStatus;
-    private boolean haveBook;
     private String mCreateTime;
     private String mUpdateTime;
+    private String mPurchaseDate;
+    private String mPurchasePrice;
+    private boolean haveBook;
+    private int mBookReadStatus;
+    private int mReadingPage;
+    private String mComment;
+    private double mBookScore;
 
     public BookCustomInfo() {
         mTitle = "";
@@ -39,14 +40,16 @@ public class BookCustomInfo {
         mPublishDate = "";
         mLanguage = "";
         mImage = "";
-        mPurchaseDate = "";
-        mPurchasePrice = "";
-        mComment = "";
-        mBookScore = 0;
-        mBookReadStatus = -1;
-        haveBook = false;
+
         mCreateTime = "";
         mUpdateTime = "";
+        mPurchaseDate = "";
+        mPurchasePrice = "";
+        haveBook = false;
+        mBookReadStatus = -1;
+        mReadingPage = -1;
+        mComment = "";
+        mBookScore = -1;
     }
 
     public BookCustomInfo(Book book) {
@@ -60,14 +63,15 @@ public class BookCustomInfo {
         mLanguage = book.getLanguage();
         mImage = book.getImage();
 
-        mPurchaseDate = "";
-        mPurchasePrice = "";
-        mComment = "";
-        mBookScore = 0;
-        mBookReadStatus = -1;
-        haveBook = false;
         mCreateTime = "";
         mUpdateTime = "";
+        mPurchaseDate = "";
+        mPurchasePrice = "";
+        haveBook = false;
+        mBookReadStatus = -1;
+        mReadingPage = -1;
+        mComment = "";
+        mBookScore = -1;
     }
 
     public String getTitle() {
@@ -204,6 +208,14 @@ public class BookCustomInfo {
 
     public void setUpdateTime(String updateTime) {
         mUpdateTime = updateTime;
+    }
+
+    public int getReadingPage() {
+        return mReadingPage;
+    }
+
+    public void setReadingPage(int readingPage) {
+        mReadingPage = readingPage;
     }
 
     private int getTime() {

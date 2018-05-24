@@ -18,6 +18,7 @@ import com.google.firebase.storage.UploadTask;
 import com.wenliu.bookshare.Constants;
 import com.wenliu.bookshare.UserManager;
 import com.wenliu.bookshare.api.callbacks.CheckBookExistCallback;
+import com.wenliu.bookshare.api.callbacks.DeleteBookCallback;
 import com.wenliu.bookshare.api.callbacks.GetBooksCallback;
 import com.wenliu.bookshare.api.callbacks.GetUserInfoCallback;
 import com.wenliu.bookshare.api.callbacks.SignUpCallback;
@@ -190,6 +191,11 @@ public class FirebaseApiHelper {
                 callback.onError(databaseError.getMessage());
             }
         });
+    }
+
+    public void deleteMyBook(String isbn, DeleteBookCallback callback){
+        Log.d(Constants.TAG_FIREBASE_API_HELPER, "deleteMyBook");
+
     }
 
     public void uploadProfileImage(Uri uri) {

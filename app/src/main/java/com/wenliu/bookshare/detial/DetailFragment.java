@@ -1,8 +1,6 @@
 package com.wenliu.bookshare.detial;
 
 import android.app.Fragment;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -14,15 +12,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.wenliu.bookshare.Constants;
 import com.wenliu.bookshare.ImageManager;
 import com.wenliu.bookshare.R;
 import com.wenliu.bookshare.ShareBook;
 import com.wenliu.bookshare.ShareBookActivity;
-import com.wenliu.bookshare.dialog.BookDataEditDialog;
-import com.wenliu.bookshare.object.Book;
 import com.wenliu.bookshare.object.BookCustomInfo;
 
 import butterknife.BindView;
@@ -56,16 +51,14 @@ public class DetailFragment extends Fragment implements DetailContract.View {
     Unbinder unbinder;
     @BindView(R.id.tv_detail_book_status)
     TextView mTvDetailBookStatus;
-    @BindView(R.id.llayout_detail_purchase_date)
-    LinearLayout mLlayoutDetailPurchaseDate;
-    @BindView(R.id.llayout_detail_purchase_Price)
-    LinearLayout mLlayoutDetailPurchasePrice;
     @BindView(R.id.tv_detail_book_borrow_status)
     TextView mTvDetailBookBorrowStatus;
     @BindView(R.id.tv_detail_book_subtitle)
     TextView mTvDetailBookSubtitle;
     @BindView(R.id.btn_detail_edit)
     Button mBtnDetailEdit;
+    @BindView(R.id.llayout_detail_purchase)
+    LinearLayout mLlayoutDetailPurchase;
 
     private DetailContract.Presenter mPresenter;
     private ImageManager mImageManager;
@@ -123,7 +116,7 @@ public class DetailFragment extends Fragment implements DetailContract.View {
 
 
         if (mBookCustomInfo.getSubtitle() != null && mBookCustomInfo.getSubtitle().length() > 1) {
-            mTvDetailBookSubtitle.setText(mBookCustomInfo.getSubtitle());
+            mTvDetailBookSubtitle.setText(mBookCustomInfo.getSubtitle() + " ");
         } else {
             mTvDetailBookSubtitle.setVisibility(View.GONE);
         }
@@ -190,8 +183,7 @@ public class DetailFragment extends Fragment implements DetailContract.View {
 
     private void setBookPurchaseView(BookCustomInfo bookCustomInfo) {
 
-        mLlayoutDetailPurchaseDate.setVisibility(bookCustomInfo.isHaveBook() ? View.VISIBLE : View.GONE);
-        mLlayoutDetailPurchasePrice.setVisibility(bookCustomInfo.isHaveBook() ? View.VISIBLE : View.GONE);
+        mLlayoutDetailPurchase.setVisibility(bookCustomInfo.isHaveBook() ? View.VISIBLE : View.GONE);
 
         if (bookCustomInfo.isHaveBook()) {
             if (bookCustomInfo.getPurchaseDate() != null) {

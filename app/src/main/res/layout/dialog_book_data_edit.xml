@@ -19,14 +19,14 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/book_dialog_gap_each_line"
+            android:layout_marginBottom="@dimen/gap_each_line_large"
             android:gravity="center"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/book_dialog_gap_text_edit"
+                android:layout_marginEnd="@dimen/gap_each_text_6"
                 android:text="@string/book_title"
                 android:textColor="@color/Brown_300_dark"
                 android:textSize="@dimen/book_dialog_tv_size"
@@ -50,14 +50,14 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/book_dialog_gap_each_line"
+            android:layout_marginBottom="@dimen/gap_each_line_large"
             android:gravity="center"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/book_dialog_gap_text_edit"
+                android:layout_marginEnd="@dimen/gap_each_text_6"
                 android:text="@string/book_subtitle"
                 android:textColor="@color/Brown_300_dark"
                 android:textSize="@dimen/book_dialog_tv_size"
@@ -82,14 +82,14 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/book_dialog_gap_each_line"
+            android:layout_marginBottom="@dimen/gap_each_line_large"
             android:gravity="center"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/book_dialog_gap_text_edit"
+                android:layout_marginEnd="@dimen/gap_each_text_6"
                 android:text="@string/book_author"
                 android:textColor="@color/Brown_300_dark"
                 android:textSize="@dimen/book_dialog_tv_size"
@@ -112,14 +112,14 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/book_dialog_gap_each_line"
+            android:layout_marginBottom="@dimen/gap_each_line_large"
             android:gravity="center"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/book_dialog_gap_text_edit"
+                android:layout_marginEnd="@dimen/gap_each_text_6"
                 android:text="@string/book_ISBN"
                 android:textColor="@color/Brown_300_dark"
                 android:textSize="@dimen/book_dialog_tv_size"
@@ -139,14 +139,14 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/book_dialog_gap_each_line"
+            android:layout_marginBottom="@dimen/gap_each_line_large"
             android:gravity="center"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/book_dialog_gap_text_edit"
+                android:layout_marginEnd="@dimen/gap_each_text_6"
                 android:text="@string/book_publisher"
                 android:textColor="@color/Brown_300_dark"
                 android:textSize="@dimen/book_dialog_tv_size"
@@ -171,14 +171,14 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/book_dialog_gap_each_line"
+            android:layout_marginBottom="@dimen/gap_each_line_large"
             android:gravity="center"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/book_dialog_gap_text_edit"
+                android:layout_marginEnd="@dimen/gap_each_text_6"
                 android:text="@string/book_publish_date"
                 android:textColor="@color/Brown_300_dark"
                 android:textSize="@dimen/book_dialog_tv_size"
@@ -201,14 +201,14 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/book_dialog_gap_each_line"
+            android:layout_marginBottom="@dimen/gap_each_line_large"
             android:gravity="center"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/book_dialog_gap_text_edit"
+                android:layout_marginEnd="@dimen/gap_each_text_6"
                 android:text="@string/book_language"
                 android:textColor="@color/Brown_300_dark"
                 android:textSize="@dimen/book_dialog_tv_size"
@@ -231,14 +231,14 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="right"
-            android:layout_marginBottom="@dimen/book_dialog_gap_each_line"
+            android:layout_marginBottom="@dimen/gap_each_line_large"
             android:orientation="horizontal">
 
             <RadioButton
                 android:id="@+id/radioBtn_unread"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/book_dialog_gap_text_edit"
+                android:layout_marginEnd="@dimen/gap_each_text_6"
                 android:text="Unread"
                 android:textColor="@color/Brown_300_dark"
                 android:textSize="@dimen/book_dialog_tv_size"
@@ -249,7 +249,7 @@
                 android:id="@+id/radioBtn_reading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/book_dialog_gap_text_edit"
+                android:layout_marginEnd="@dimen/gap_each_text_6"
                 android:text="Reading"
                 android:textColor="@color/Brown_300_dark"
                 android:textSize="@dimen/book_dialog_tv_size"
@@ -260,7 +260,7 @@
                 android:id="@+id/radioBtn_read"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/book_dialog_gap_text_edit"
+                android:layout_marginEnd="@dimen/gap_each_text_6"
                 android:text="Read"
                 android:textColor="@color/Brown_300_dark"
                 android:textSize="@dimen/book_dialog_tv_size"
@@ -272,14 +272,14 @@
             android:id="@+id/llayout_dialog_Reading_page"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/book_dialog_gap_each_line"
+            android:layout_marginBottom="@dimen/gap_each_line_large"
             android:gravity="center"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/book_dialog_gap_text_edit"
+                android:layout_marginEnd="@dimen/gap_each_text_6"
                 android:text="@string/book_reading_page"
                 android:textColor="@color/Brown_300_dark"
                 android:textSize="@dimen/book_dialog_tv_size"
@@ -303,7 +303,7 @@
             android:id="@+id/checkBox_have_book"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/book_dialog_gap_each_line"
+            android:layout_marginBottom="@dimen/gap_each_line_large"
             android:gravity="center"
             android:text="I have this book"
             android:textColor="@color/Brown_300_dark"
@@ -325,14 +325,14 @@
             android:id="@+id/llayout_dialog_purchase_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/book_dialog_gap_each_line"
+            android:layout_marginBottom="@dimen/gap_each_line_large"
             android:gravity="center"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/book_dialog_gap_text_edit"
+                android:layout_marginEnd="@dimen/gap_each_text_6"
                 android:text="@string/book_purchase_date"
                 android:textColor="@color/Brown_300_dark"
                 android:textSize="@dimen/book_dialog_tv_size"
@@ -356,14 +356,14 @@
             android:id="@+id/llayout_dialog_purchase_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/book_dialog_gap_each_line"
+            android:layout_marginBottom="@dimen/gap_each_line_large"
             android:gravity="center"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/book_dialog_gap_text_edit"
+                android:layout_marginEnd="@dimen/gap_each_text_6"
                 android:text="@string/book_purchase_price"
                 android:textColor="@color/Brown_300_dark"
                 android:textSize="@dimen/book_dialog_tv_size"

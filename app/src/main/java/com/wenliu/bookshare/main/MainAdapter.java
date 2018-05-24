@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.wenliu.bookshare.Constants;
+import com.wenliu.bookshare.ImageManager;
 import com.wenliu.bookshare.R;
 import com.wenliu.bookshare.ShareBook;
 import com.wenliu.bookshare.object.BookCustomInfo;
@@ -29,47 +29,35 @@ import butterknife.OnClick;
 public class MainAdapter extends RecyclerView.Adapter {
     private MainContract.Presenter mPresenter;
     private ArrayList<BookCustomInfo> mBookCustomInfos;
+    private ImageManager mImageManager = new ImageManager(ShareBook.getAppContext());
 
     public MainAdapter(ArrayList<BookCustomInfo> bookCustomInfos, MainContract.Presenter presenter) {
+        Log.d(Constants.TAG_MAIN_ADAPTER, "MainAdapter: ");
         mBookCustomInfos = bookCustomInfos;
         mPresenter = presenter;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-//        Log.d(Constants.TAG_MAIN_ADAPTER, "onCreateViewHolder");
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_main_linear, parent, false);
         return new MainViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-//        Log.d(Constants.TAG_MAIN_ADAPTER, "onBindViewHolder");
 
-        if (mBookCustomInfos.get(position).isHaveBook()) {
-            ((MainViewHolder) holder).getTvItemBookBorrowStatus().setText(ShareBook.getAppContext().getString(R.string.book_status_lendable));
-            ((MainViewHolder) holder).getTvItemBookBorrowStatus().setBackground(ContextCompat.getDrawable(ShareBook.getAppContext(), R.drawable.shape_book_status_green));
-        } else {
-            ((MainViewHolder) holder).getTvItemBookBorrowStatus().setText(ShareBook.getAppContext().getString(R.string.book_status_lend_out));
-            ((MainViewHolder) holder).getTvItemBookBorrowStatus().setBackground(ContextCompat.getDrawable(ShareBook.getAppContext(), R.drawable.shape_book_status_red));
-        }
-
+        setBookHaveView(mBookCustomInfos.get(position).isHaveBook(), ((MainViewHolder) holder).getTvItemBookBorrowStatus());
         setBookStatusView(mBookCustomInfos.get(position).getBookReadStatus(), holder);
 
-        // Book image
-        Glide.with(ShareBook.getAppContext()).load(mBookCustomInfos.get(position).getImage()).into(((MainViewHolder) holder).getImVMainBookCover());
-        // Book title
+        mImageManager.loadUrlImage(mBookCustomInfos.get(position).getImage(), ((MainViewHolder) holder).getImVMainBookCover());
+
         ((MainViewHolder) holder).getTvMainTitle().setText(mBookCustomInfos.get(position).getTitle());
-        // Book subTitle
         if (mBookCustomInfos.get(position).getSubtitle().length() > 0) {
-            ((MainViewHolder) holder).getTvMainSubtitle().setText(mBookCustomInfos.get(position).getSubtitle());
+            ((MainViewHolder) holder).getTvMainSubtitle().setText(mBookCustomInfos.get(position).getSubtitle() + " ");
         } else {
             ((MainViewHolder) holder).getTvMainSubtitle().setVisibility(View.GONE);
         }
 
-        // Book Author
-//        Log.d(Constants.TAG_MAIN_ADAPTER, "getAuthor= " + mBookCustomInfos.get(position).getAuthor());
-//        List<String> authors = mBooks.get(position).getAuthor();
         if (mBookCustomInfos.get(position).getAuthor().size() > 0) {
             ((MainViewHolder) holder).getTvMainAuthor().setText(mBookCustomInfos.get(position).getAuthor().get(0));
         } else {
@@ -77,6 +65,16 @@ public class MainAdapter extends RecyclerView.Adapter {
         }
     }
 
+
+    private void setBookHaveView(boolean haveBook, TextView tvBookBorrowStatus) {
+        if (haveBook) {
+            tvBookBorrowStatus.setText(ShareBook.getAppContext().getString(R.string.book_status_lendable));
+            tvBookBorrowStatus.setBackground(ContextCompat.getDrawable(ShareBook.getAppContext(), R.drawable.shape_book_status_green));
+        } else {
+            tvBookBorrowStatus.setText(ShareBook.getAppContext().getString(R.string.book_status_lend_out));
+            tvBookBorrowStatus.setBackground(ContextCompat.getDrawable(ShareBook.getAppContext(), R.drawable.shape_book_status_red));
+        }
+    }
 
     private void setBookStatusView(int bookReadStatus, RecyclerView.ViewHolder holder) {
         String statusString = "";
@@ -106,6 +104,7 @@ public class MainAdapter extends RecyclerView.Adapter {
         return mBookCustomInfos.size();
     }
 
+
     public class MainViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.ImV_main_book_cover)
         ImageView mImVMainBookCover;
@@ -115,11 +114,10 @@ public class MainAdapter extends RecyclerView.Adapter {
         TextView mTvMainSubtitle;
         @BindView(R.id.tv_main_author)
         TextView mTvMainAuthor;
-        @BindView(R.id.tv_item_book_borrow_status)
+        @BindView(R.id.tv_main_book_borrow_status)
         TextView mTvItemBookBorrowStatus;
-        @BindView(R.id.tv_item_book_status)
+        @BindView(R.id.tv_main_book_status)
         TextView mTvItemBookStatus;
-
 
         public MainViewHolder(View view) {
             super(view);
@@ -127,10 +125,17 @@ public class MainAdapter extends RecyclerView.Adapter {
             Log.d(Constants.TAG_MAIN_ADAPTER, "MainViewHolder");
         }
 
-        @OnClick(R.id.llayout_item_main)
-        public void onViewClicked() {
-            Log.d(Constants.TAG_MAIN_ADAPTER, "onViewClicked ");
-            mPresenter.openDetail(mBookCustomInfos.get(getAdapterPosition()), mImVMainBookCover);
+        @OnClick({R.id.llayout_item_main, R.id.btn_main_delete})
+        public void onViewClicked(View view) {
+            switch (view.getId()) {
+                case R.id.llayout_item_main:
+                    Log.d(Constants.TAG_MAIN_ADAPTER, "llayout_item_main Clicked position: "+ getAdapterPosition());
+                    mPresenter.openDetail(mBookCustomInfos.get(getAdapterPosition()), mImVMainBookCover);
+                    break;
+                case R.id.btn_main_delete:
+                    Log.d(Constants.TAG_MAIN_ADAPTER, "btn_main_delete Clicked position: "+ getAdapterPosition());
+                    break;
+            }
         }
 
         public TextView getTvItemBookBorrowStatus() {
