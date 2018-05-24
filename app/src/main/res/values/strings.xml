@@ -55,6 +55,11 @@
     <string name="book_status_lendable">Own</string>
     <string name="book_status_lend_out">Not own</string>
 
+    <!-- Strings related to alert dialog -->
+    <string name="alert_dialog_delete_confirm">確定要刪除 \t </string>
+    <string name="alert_dialog_delete_confirm_2"> \t 這本書嗎？</string>
+    <string name="alert_dialog_delete_positive">確定</string>
+    <string name="alert_dialog_delete_negative">取消</string>
 
     <!-- Strings related to menu -->
     <string-array name="menu_book_status">

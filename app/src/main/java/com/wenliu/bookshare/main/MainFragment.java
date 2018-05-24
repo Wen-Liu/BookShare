@@ -1,7 +1,9 @@
 package com.wenliu.bookshare.main;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,6 +21,7 @@ import com.wenliu.bookshare.Constants;
 import com.wenliu.bookshare.R;
 import com.wenliu.bookshare.ShareBook;
 import com.wenliu.bookshare.ShareBookActivity;
+import com.wenliu.bookshare.api.callbacks.AlertDialogCallback;
 import com.wenliu.bookshare.object.Book;
 import com.wenliu.bookshare.object.BookCustomInfo;
 
@@ -119,6 +122,27 @@ public class MainFragment extends Fragment implements MainContract.View {
         } else {
             mMaterialDialog.dismiss();
         }
+    }
+
+    @Override
+    public void showAlertDialog(String title, final AlertDialogCallback callback) {
+
+        new AlertDialog.Builder(getActivity())
+                .setMessage(getString(R.string.alert_dialog_delete_confirm) + title + getString(R.string.alert_dialog_delete_confirm_2))
+                .setPositiveButton(getString(R.string.alert_dialog_delete_positive), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        callback.onCompleted();
+                    }
+                })
+                .setNegativeButton(getString(R.string.alert_dialog_delete_negative), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        callback.onCancel();
+                    }
+                })
+                .create()
+                .show();
     }
 
     @Override

@@ -86,6 +86,12 @@ public class ShareBookPresenter implements ShareBookContract.Presenter {
     }
 
     @Override
+    public void refreshDetailFragment(BookCustomInfo bookCustomInfo) {
+        mDetailFragment.showBook(bookCustomInfo);
+    }
+
+
+    @Override
     public int[] getMyBookStatus() {
         return mMainFragment.getMyBookStatus();
     }

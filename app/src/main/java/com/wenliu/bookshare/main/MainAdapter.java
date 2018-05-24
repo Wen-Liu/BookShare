@@ -1,6 +1,7 @@
 package com.wenliu.bookshare.main;
 
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +14,8 @@ import com.wenliu.bookshare.Constants;
 import com.wenliu.bookshare.ImageManager;
 import com.wenliu.bookshare.R;
 import com.wenliu.bookshare.ShareBook;
+import com.wenliu.bookshare.api.callbacks.AlertDialogCallback;
+import com.wenliu.bookshare.api.callbacks.DeleteBookCallback;
 import com.wenliu.bookshare.object.BookCustomInfo;
 
 import java.util.ArrayList;
@@ -129,11 +132,30 @@ public class MainAdapter extends RecyclerView.Adapter {
         public void onViewClicked(View view) {
             switch (view.getId()) {
                 case R.id.llayout_item_main:
-                    Log.d(Constants.TAG_MAIN_ADAPTER, "llayout_item_main Clicked position: "+ getAdapterPosition());
+                    Log.d(Constants.TAG_MAIN_ADAPTER, "llayout_item_main Clicked position: " + getAdapterPosition());
                     mPresenter.openDetail(mBookCustomInfos.get(getAdapterPosition()), mImVMainBookCover);
                     break;
                 case R.id.btn_main_delete:
-                    Log.d(Constants.TAG_MAIN_ADAPTER, "btn_main_delete Clicked position: "+ getAdapterPosition());
+                    Log.d(Constants.TAG_MAIN_ADAPTER, "btn_main_delete Clicked position: " + getAdapterPosition());
+
+                    mPresenter.showAlertDialog(mBookCustomInfos.get(getAdapterPosition()).getTitle(), new AlertDialogCallback() {
+                        @Override
+                        public void onCompleted() {
+                            mPresenter.deleteBook(mBookCustomInfos.get(getAdapterPosition()).getIsbn13(), new DeleteBookCallback() {
+                                @Override
+                                public void onCompleted() {
+                                    Log.d(Constants.TAG_MAIN_ADAPTER, "deleteBook onCompleted position: " + getAdapterPosition());
+                                    mPresenter.loadBooks();
+                                }
+                            });
+                        }
+
+                        @Override
+                        public void onCancel() {
+                            Log.d(Constants.TAG_MAIN_ADAPTER, "deleteBook onCancel: ");
+                        }
+                    });
+
                     break;
             }
         }

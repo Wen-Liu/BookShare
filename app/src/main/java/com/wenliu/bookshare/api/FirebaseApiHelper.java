@@ -196,6 +196,13 @@ public class FirebaseApiHelper {
     public void deleteMyBook(String isbn, DeleteBookCallback callback){
         Log.d(Constants.TAG_FIREBASE_API_HELPER, "deleteMyBook");
 
+        mGetRef.child(Constants.FIREBASE_USERS)
+                .child(UserManager.getInstance().getUserId())
+                .child(Constants.FIREBASE_BOOKS)
+                .child(isbn)
+                .removeValue();
+
+        callback.onCompleted();
     }
 
     public void uploadProfileImage(Uri uri) {

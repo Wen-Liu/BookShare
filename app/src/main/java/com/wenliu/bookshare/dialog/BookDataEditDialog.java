@@ -137,7 +137,7 @@ public class BookDataEditDialog extends Dialog implements CompoundButton.OnCheck
                 // set reading page
                 mLlayoutDialogReadingPage.setVisibility(View.VISIBLE);
                 if (mBookCustomInfo.getReadingPage() != -1) {
-                    mEtDialogBookReadingPage.setText(mBookCustomInfo.getReadingPage());
+                    mEtDialogBookReadingPage.setText(String.valueOf(mBookCustomInfo.getReadingPage()));
                 }
             } else if (mBookCustomInfo.getBookReadStatus() == Constants.READ) {
                 mRadioBtnRead.setChecked(true);
@@ -175,6 +175,7 @@ public class BookDataEditDialog extends Dialog implements CompoundButton.OnCheck
                 storeData();
                 FirebaseApiHelper.newInstance().uploadMyBook(mBookCustomInfo.getIsbn13(), mBookCustomInfo);
                 mPresenter.refreshMainFragment();
+                mPresenter.refreshDetailFragment(mBookCustomInfo);
                 dismiss();
                 break;
 

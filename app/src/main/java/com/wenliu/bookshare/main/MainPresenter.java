@@ -1,9 +1,16 @@
 package com.wenliu.bookshare.main;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.util.Log;
 import android.widget.ImageView;
 
 import com.wenliu.bookshare.Constants;
+import com.wenliu.bookshare.R;
+import com.wenliu.bookshare.ShareBook;
+import com.wenliu.bookshare.api.FirebaseApiHelper;
+import com.wenliu.bookshare.api.callbacks.AlertDialogCallback;
+import com.wenliu.bookshare.api.callbacks.DeleteBookCallback;
 import com.wenliu.bookshare.api.callbacks.GetBooksCallback;
 import com.wenliu.bookshare.api.GetBooksTask;
 import com.wenliu.bookshare.object.BookCustomInfo;
@@ -15,7 +22,6 @@ import java.util.ArrayList;
  */
 
 public class MainPresenter implements MainContract.Presenter {
-
     private final MainContract.View mMainView;
     private boolean isLoading = false;
 
@@ -26,7 +32,7 @@ public class MainPresenter implements MainContract.Presenter {
 
     @Override
     public void start() {
-        Log.d(Constants.TAG_MAIN_PRESENTER, "start");
+        Log.d(Constants.TAG_MAIN_PRESENTER, "start: ");
         loadBooks();
     }
 
@@ -64,9 +70,18 @@ public class MainPresenter implements MainContract.Presenter {
         mMainView.showDetailUi(bookCustomInfo, imageView);
     }
 
+    @Override
+    public void showAlertDialog(String title, final AlertDialogCallback callback) {
+        mMainView.showAlertDialog(title, callback);
+    }
+
+    @Override
+    public void deleteBook(String isbn, DeleteBookCallback callback) {
+        Log.d(Constants.TAG_MAIN_PRESENTER, "deleteBook: ");
+        FirebaseApiHelper.newInstance().deleteMyBook(isbn, callback);
+    }
 
     public void setLoading(boolean loading) {
         isLoading = loading;
     }
-
 }

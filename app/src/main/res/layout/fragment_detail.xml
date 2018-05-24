@@ -22,32 +22,12 @@
         android:orientation="vertical"
         android:paddingHorizontal="@dimen/activity_horizontal_margin">
 
-        <TextView
-            android:id="@+id/tv_detail_book_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/gap_front_space_small"
-            android:text="做工的人"
-            android:textColor="@color/Black"
-            android:textSize="@dimen/detail_book_title_size"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tv_detail_book_subtitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/gap_front_space_small"
-            android:paddingEnd="@dimen/gap_padding_end_for_italic"
-            android:text="subtitle"
-            android:textColor="@color/Black"
-            android:textSize="@dimen/detail_book_subtitle_size"
-            android:textStyle="italic" />
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="@dimen/gap_each_line_middle"
+            android:layout_marginTop="@dimen/gap_each_line_large"
             android:gravity="right|center_vertical"
             android:orientation="horizontal">
 
@@ -116,10 +96,31 @@
             <!--android:spinnerMode="dropdown" />-->
         </LinearLayout>
 
+
+        <TextView
+            android:id="@+id/tv_detail_book_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="做工的人"
+            android:textColor="@color/Black"
+            android:textSize="@dimen/detail_book_title_size"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_detail_book_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/gap_front_space_small"
+            android:paddingEnd="@dimen/gap_padding_end_for_italic"
+            android:text="subtitle"
+            android:textColor="@color/Black"
+            android:textSize="@dimen/detail_book_subtitle_size"
+            android:textStyle="italic" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/gap_each_line_middle"
+            android:layout_marginTop="@dimen/gap_each_line_large"
             android:orientation="horizontal">
 
             <TextView

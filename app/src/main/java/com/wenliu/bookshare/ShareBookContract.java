@@ -36,6 +36,8 @@ public interface ShareBookContract {
 
         void refreshMainFragment();
 
+        void refreshDetailFragment(BookCustomInfo bookCustomInfo);
+
         int[] getMyBookStatus();
 
         void goToEditDialog(BookCustomInfo bookCustomInfo);

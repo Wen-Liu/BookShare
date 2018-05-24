@@ -2,6 +2,8 @@ package com.wenliu.bookshare.main;
 
 import android.widget.ImageView;
 
+import com.wenliu.bookshare.api.callbacks.AlertDialogCallback;
+import com.wenliu.bookshare.api.callbacks.DeleteBookCallback;
 import com.wenliu.bookshare.base.BasePresenter;
 import com.wenliu.bookshare.base.BaseView;
 import com.wenliu.bookshare.object.Book;
@@ -25,14 +27,19 @@ public interface MainContract {
         void showMyBookStatus(int[] bookStatusAll);
 
         void showProgressDialog(boolean show);
+
+        void showAlertDialog(String title, AlertDialogCallback callback);
     }
 
     interface Presenter extends BasePresenter {
 
         void loadBooks();
 
+        void deleteBook(String isbn, DeleteBookCallback callback);
+
         void openDetail(BookCustomInfo bookCustomInfo, ImageView imageView);
 
+        void showAlertDialog(String title, AlertDialogCallback callback);
     }
 
 
