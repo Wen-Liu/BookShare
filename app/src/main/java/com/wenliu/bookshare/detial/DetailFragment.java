@@ -77,7 +77,6 @@ public class DetailFragment extends Fragment implements DetailContract.View {
         super.onCreate(savedInstanceState);
         mPresenter.hideToolbar();
         mPresenter.hideFab();
-        mImageManager = new ImageManager(getActivity());
     }
 
     @Override
@@ -111,9 +110,9 @@ public class DetailFragment extends Fragment implements DetailContract.View {
         Log.d(Constants.TAG_DETAIL_FRAGMENT, "showBook: start");
 
         mBookCustomInfo = bookCustomInfo;
+        mImageManager = new ImageManager(getActivity());
         mImageManager.loadUrlImage(bookCustomInfo.getImage(), mIvDetailBookCover);
         mTvDetailBookTitle.setText(mBookCustomInfo.getTitle());
-
 
         if (mBookCustomInfo.getSubtitle() != null && mBookCustomInfo.getSubtitle().length() > 1) {
             mTvDetailBookSubtitle.setText(mBookCustomInfo.getSubtitle() + " ");

@@ -60,6 +60,14 @@ public class Constants {
     public final static int LENT = 4;
     public final static int BORROW = 5;
 
+    // filter
+    public final static int BOOK_ALL = 0;
+    public final static int BOOK_OWN = 1;
+    public final static int BOOK_UNREAD = 2;
+    public final static int BOOK_READING = 3;
+    public final static int BOOK_READ = 4;
+
+
     // Profile activity result
     public static final int GET_PHOTO_FROM_GALLERY = 0;
     public static final int GET_PHOTO_CROP = 1;

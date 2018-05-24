@@ -22,7 +22,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/shape_item_outline"
+            android:background="@drawable/shape_outline_round_gray"
             android:hint="ISBN Number"
             android:inputType="number"
             android:paddingHorizontal="8dp"

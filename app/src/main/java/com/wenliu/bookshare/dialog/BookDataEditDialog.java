@@ -206,10 +206,7 @@ public class BookDataEditDialog extends Dialog implements CompoundButton.OnCheck
 
         mBookCustomInfo.setBookReadStatus(checkBookStatus());
 
-        if (mEtDialogBookReadingPage.getText().toString().length() > 0
-                && Integer.valueOf(mEtDialogBookReadingPage.getText().toString()) > 0) {
-            mBookCustomInfo.setReadingPage(Integer.valueOf(mEtDialogBookReadingPage.getText().toString()));
-        }
+
         mBookCustomInfo.setHaveBook(mCheckBoxHaveBook.isChecked());
 
         if (mCheckBoxHaveBook.isChecked()) {
@@ -230,10 +227,16 @@ public class BookDataEditDialog extends Dialog implements CompoundButton.OnCheck
 
         if (mRadioBtnRead.isChecked()) {
             bookStatus = Constants.READ;
+            mBookCustomInfo.setReadingPage(-1);
         } else if (mRadioBtnReading.isChecked()) {
             bookStatus = Constants.READING;
+            if (mEtDialogBookReadingPage.getText().toString().length() > 0
+                    && Integer.valueOf(mEtDialogBookReadingPage.getText().toString()) > 0) {
+                mBookCustomInfo.setReadingPage(Integer.valueOf(mEtDialogBookReadingPage.getText().toString()));
+            }
         } else if (mRadioBtnUnread.isChecked()) {
             bookStatus = Constants.UNREAD;
+            mBookCustomInfo.setReadingPage(-1);
         }
         return bookStatus;
     }

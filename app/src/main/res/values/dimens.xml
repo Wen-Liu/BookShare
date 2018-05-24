@@ -13,6 +13,8 @@
     <dimen name="main_book_title_size">18sp</dimen>
     <dimen name="main_book_subtitle_size">14sp</dimen>
     <dimen name="main_book_tv_text_size">14sp</dimen>
+    <dimen name="main_spinner_margin_top">10dp</dimen>
+    <dimen name="main_spinner_margin_bottom">6dp</dimen>
 
     <!-- layout dimension related to gap -->
     <dimen name="gap_each_line_large">12dp</dimen>

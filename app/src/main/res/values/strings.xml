@@ -62,10 +62,12 @@
     <string name="alert_dialog_delete_negative">取消</string>
 
     <!-- Strings related to menu -->
-    <string-array name="menu_book_status">
-        <item>閱讀中</item>
-        <item>已借出</item>
-        <item>可借閱</item>
+    <string-array name="menu_book_filter">
+        <item>所有蒐藏</item>
+        <item>我擁有的書</item>
+        <item>尚未閱讀的書</item>
+        <item>正在閱讀的書</item>
+        <item>已經讀完的書</item>
     </string-array>
 
 

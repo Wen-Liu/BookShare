@@ -40,6 +40,8 @@ public interface MainContract {
         void openDetail(BookCustomInfo bookCustomInfo, ImageView imageView);
 
         void showAlertDialog(String title, AlertDialogCallback callback);
+
+        ArrayList<BookCustomInfo> DataFilter(ArrayList<BookCustomInfo> bookCustomInfos, int filter);
     }
 
 

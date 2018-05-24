@@ -87,7 +87,9 @@ public class ShareBookPresenter implements ShareBookContract.Presenter {
 
     @Override
     public void refreshDetailFragment(BookCustomInfo bookCustomInfo) {
-        mDetailFragment.showBook(bookCustomInfo);
+        if(mDetailFragment!= null && mDetailFragment.isVisible()) {
+            mDetailFragment.showBook(bookCustomInfo);
+        }
     }
 
 

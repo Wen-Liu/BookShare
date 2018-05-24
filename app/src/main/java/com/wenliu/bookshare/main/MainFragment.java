@@ -2,19 +2,22 @@ package com.wenliu.bookshare.main;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.Switch;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.wenliu.bookshare.Constants;
@@ -22,28 +25,34 @@ import com.wenliu.bookshare.R;
 import com.wenliu.bookshare.ShareBook;
 import com.wenliu.bookshare.ShareBookActivity;
 import com.wenliu.bookshare.api.callbacks.AlertDialogCallback;
-import com.wenliu.bookshare.object.Book;
 import com.wenliu.bookshare.object.BookCustomInfo;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MainFragment extends Fragment implements MainContract.View {
+public class MainFragment extends Fragment implements MainContract.View, AdapterView.OnItemSelectedListener {
 
     @BindView(R.id.Recycview_main)
     RecyclerView mRecycviewMain;
     Unbinder unbinder;
+    @BindView(R.id.spinner_main_filter)
+    Spinner mSpinnerMainFilter;
+    @BindView(R.id.btn_main_filter)
+    Button mBtnMainFilter;
+
     private MainContract.Presenter mPresenter;
     private MainAdapter mMainAdapter;
     private int[] mBookStatusInfo;
     private MaterialDialog mMaterialDialog;
     private ArrayList<BookCustomInfo> mBookCustomInfos = new ArrayList<>();
+    private ArrayList<BookCustomInfo> mBookCustomInfosAll = new ArrayList<>();
 
     public MainFragment() {
         // Required empty public constructor
@@ -67,7 +76,7 @@ public class MainFragment extends Fragment implements MainContract.View {
         View layout = inflater.inflate(R.layout.fragment_main, container, false);
         unbinder = ButterKnife.bind(this, layout);
 
-        Log.d(Constants.TAG_MAIN_FRAGMENT, "onCreateView");
+        Log.d(Constants.TAG_MAIN_FRAGMENT, "onCreateView: ");
         mRecycviewMain.setLayoutManager(new LinearLayoutManager(ShareBook.getAppContext()));
 //        mRecycviewMain.addItemDecoration(new RecyclerView.ItemDecoration() {
 //            @Override
@@ -86,6 +95,7 @@ public class MainFragment extends Fragment implements MainContract.View {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mPresenter.start();
+        mSpinnerMainFilter.setOnItemSelectedListener(this);
     }
 
     @Override
@@ -100,7 +110,15 @@ public class MainFragment extends Fragment implements MainContract.View {
     @Override
     public void showBooks(ArrayList<BookCustomInfo> bookCustomInfos) {
         Log.d(Constants.TAG_MAIN_FRAGMENT, "showBooks");
-        mMainAdapter.updateData(bookCustomInfos);
+        mBookCustomInfos = bookCustomInfos;
+        mBookCustomInfosAll.clear();
+
+        for(BookCustomInfo bookCustomInfo: mBookCustomInfos){
+            mBookCustomInfosAll.add(bookCustomInfo);
+        }
+
+        mMainAdapter.updateData(mBookCustomInfos);
+        mSpinnerMainFilter.setSelection(0);
     }
 
     @Override
@@ -160,4 +178,22 @@ public class MainFragment extends Fragment implements MainContract.View {
         Log.d(Constants.TAG_MAIN_FRAGMENT, "onDestroyView");
         unbinder.unbind();
     }
+
+    @OnClick(R.id.btn_main_filter)
+    public void onViewClicked() {
+        mSpinnerMainFilter.performClick();
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        Log.d(Constants.TAG_MAIN_FRAGMENT, "onItemSelected: ");
+        ArrayList<BookCustomInfo>  test = mPresenter.DataFilter(mBookCustomInfosAll , position);
+        mMainAdapter.updateData(test);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
 }

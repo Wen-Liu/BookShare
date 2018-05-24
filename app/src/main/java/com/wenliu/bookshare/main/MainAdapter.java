@@ -31,12 +31,12 @@ import butterknife.OnClick;
 
 public class MainAdapter extends RecyclerView.Adapter {
     private MainContract.Presenter mPresenter;
-    private ArrayList<BookCustomInfo> mBookCustomInfos;
+    private ArrayList<BookCustomInfo> mBookCustomInfos = new ArrayList<>();
     private ImageManager mImageManager = new ImageManager(ShareBook.getAppContext());
 
     public MainAdapter(ArrayList<BookCustomInfo> bookCustomInfos, MainContract.Presenter presenter) {
         Log.d(Constants.TAG_MAIN_ADAPTER, "MainAdapter: ");
-        mBookCustomInfos = bookCustomInfos;
+//        mBookCustomInfos = bookCustomInfos;
         mPresenter = presenter;
     }
 
@@ -190,7 +190,10 @@ public class MainAdapter extends RecyclerView.Adapter {
         Log.d(Constants.TAG_MAIN_ADAPTER, "updateData, data count= " + bookCustomInfos.size());
 
         mBookCustomInfos.clear();
-        mBookCustomInfos = bookCustomInfos;
+        for(BookCustomInfo bookCustomInfo: bookCustomInfos){
+            mBookCustomInfos.add(bookCustomInfo);
+        }
+//        mBookCustomInfos = bookCustomInfos;
         Collections.reverse(mBookCustomInfos);
         notifyDataSetChanged();
     }

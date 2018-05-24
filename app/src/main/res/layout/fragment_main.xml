@@ -1,9 +1,43 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/White"
+    android:orientation="vertical"
     tools:context="com.wenliu.bookshare.main.MainFragment">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Spinner
+            android:id="@+id/spinner_main_filter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/main_spinner_margin_bottom"
+            android:layout_marginStart="@dimen/gap_front_space_small"
+            android:layout_marginTop="@dimen/main_spinner_margin_top"
+            android:layout_weight="1"
+            android:background="@drawable/shape_outline_round_gray"
+            android:entries="@array/menu_book_filter"
+            android:forceHasOverlappingRendering="true"
+            android:gravity="center"
+            android:paddingVertical="@dimen/main_spinner_margin_bottom"
+            android:spinnerMode="dropdown"
+            android:theme="@style/Widget.AppCompat.Light.DropDownItem.Spinner"></Spinner>
+
+        <Button
+            android:id="@+id/btn_main_filter"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="@dimen/gap_padding_end_for_italic"
+            android:background="@drawable/ic_filter_list" />
+
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/Recycview_main"
@@ -12,4 +46,4 @@
 
     </android.support.v7.widget.RecyclerView>
 
-</FrameLayout>
+</LinearLayout>

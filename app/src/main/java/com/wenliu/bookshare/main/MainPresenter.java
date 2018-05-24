@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.wenliu.bookshare.Constants;
 import com.wenliu.bookshare.R;
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 public class MainPresenter implements MainContract.Presenter {
     private final MainContract.View mMainView;
     private boolean isLoading = false;
+    private static ArrayList<BookCustomInfo> newBookCustomInfos = new ArrayList<>();
 
     public MainPresenter(MainContract.View mainView) {
         mMainView = mainView;
@@ -74,6 +76,59 @@ public class MainPresenter implements MainContract.Presenter {
     public void showAlertDialog(String title, final AlertDialogCallback callback) {
         mMainView.showAlertDialog(title, callback);
     }
+
+    @Override
+    public ArrayList<BookCustomInfo> DataFilter(ArrayList<BookCustomInfo> bookCustomInfos, int filter) {
+        Log.d(Constants.TAG_MAIN_PRESENTER, "DataFilter: ");
+            newBookCustomInfos.clear();
+
+        switch (filter) {
+            case Constants.BOOK_ALL:
+                Log.d(Constants.TAG_MAIN_PRESENTER, "DataFilter: Constants.BOOK_ALL " + Constants.BOOK_ALL);
+                return bookCustomInfos;
+
+            case Constants.BOOK_OWN:
+                for (BookCustomInfo bookCustomInfo : bookCustomInfos) {
+                    if (bookCustomInfo.isHaveBook()) {
+                        newBookCustomInfos.add(bookCustomInfo);
+                    }
+                }
+                Log.d(Constants.TAG_MAIN_PRESENTER, "DataFilter: Constants.BOOK_OWN " + Constants.BOOK_OWN + "  " + newBookCustomInfos.size());
+                return newBookCustomInfos;
+
+            case Constants.BOOK_UNREAD:
+                for (BookCustomInfo bookCustomInfo : bookCustomInfos) {
+                    if (bookCustomInfo.getBookReadStatus() == Constants.UNREAD) {
+                        newBookCustomInfos.add(bookCustomInfo);
+                    }
+                }
+                Log.d(Constants.TAG_MAIN_PRESENTER, "DataFilter: Constants.BOOK_UNREAD " + Constants.BOOK_UNREAD + "  " + newBookCustomInfos.size());
+                return newBookCustomInfos;
+
+            case Constants.BOOK_READING:
+                for (BookCustomInfo bookCustomInfo : bookCustomInfos) {
+                    if (bookCustomInfo.getBookReadStatus() == Constants.READING) {
+                        newBookCustomInfos.add(bookCustomInfo);
+                    }
+                }
+                Log.d(Constants.TAG_MAIN_PRESENTER, "DataFilter: Constants.BOOK_READING " + Constants.BOOK_READING + "  " + newBookCustomInfos.size());
+                return newBookCustomInfos;
+
+            case Constants.BOOK_READ:
+                for (BookCustomInfo bookCustomInfo : bookCustomInfos) {
+                    if (bookCustomInfo.getBookReadStatus() == Constants.READ) {
+                        newBookCustomInfos.add(bookCustomInfo);
+                    }
+                }
+                Log.d(Constants.TAG_MAIN_PRESENTER, "DataFilter: Constants.BOOK_READ " + Constants.BOOK_READ + "  " + newBookCustomInfos.size());
+                return newBookCustomInfos;
+
+            default:
+                return bookCustomInfos;
+        }
+    }
+
+
 
     @Override
     public void deleteBook(String isbn, DeleteBookCallback callback) {
