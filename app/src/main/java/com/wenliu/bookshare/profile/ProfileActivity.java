@@ -27,6 +27,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -194,9 +195,30 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
                 ProfileActivityPermissionsDispatcher.getPhotoFromGalleryWithPermissionCheck(this);
                 break;
             case R.id.fab_profile:
-                Toast.makeText(this, "Coming soon!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Coming soon!", Toast.LENGTH_SHORT).show();
+                showAddFriendDialog();
+
                 break;
         }
+    }
+
+
+    private void showAddFriendDialog() {
+
+        new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.alert_dialog_add_friend))
+//                .setView(new EditText(this))
+                .setView(R.layout.dialog_book_data_edit)
+                .setPositiveButton(getString(R.string.alert_dialog_delete_positive), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                })
+                .setNegativeButton(getString(R.string.alert_dialog_delete_negative), null)
+                .create()
+                .show();
+
     }
 
 
@@ -437,7 +459,6 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
     void showNeverAsk() {
         Toast.makeText(this, "never ask", Toast.LENGTH_SHORT).show();
     }
-
 
 
 }

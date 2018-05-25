@@ -189,11 +189,12 @@ public class MainAdapter extends RecyclerView.Adapter {
     public void updateData(ArrayList<BookCustomInfo> bookCustomInfos) {
         Log.d(Constants.TAG_MAIN_ADAPTER, "updateData, data count= " + bookCustomInfos.size());
 
-        mBookCustomInfos.clear();
-        for(BookCustomInfo bookCustomInfo: bookCustomInfos){
-            mBookCustomInfos.add(bookCustomInfo);
-        }
-//        mBookCustomInfos = bookCustomInfos;
+        mBookCustomInfos = new ArrayList<>(bookCustomInfos);
+
+//        mBookCustomInfos.clear();
+//        for(BookCustomInfo bookCustomInfo: bookCustomInfos){
+//            mBookCustomInfos.add(bookCustomInfo);
+//        }
         Collections.reverse(mBookCustomInfos);
         notifyDataSetChanged();
     }

@@ -24,6 +24,7 @@ import com.wenliu.bookshare.object.User;
 public class UserManager {
 
     private static final UserManager instance = new UserManager();
+    private static User mUser;
     private static String mUserId;
     private static String mUserEmail;
     private static String mUserName;
@@ -55,6 +56,14 @@ public class UserManager {
 
     public String getUserImage() {
         return mUserData.getString(Constants.USER_IMAGE, null);
+    }
+
+    public User getUser() {
+        return mUser;
+    }
+
+    public void setUser(User user) {
+        UserManager.mUser = user;
     }
 
     public void setUserImage(String userImage) {
@@ -156,6 +165,8 @@ public class UserManager {
                 .putString(Constants.USER_EMAIL, user.getEmail())
                 .putString(Constants.USER_IMAGE, user.getImage())
                 .commit();
+
+        setUser(user);
     }
 
 

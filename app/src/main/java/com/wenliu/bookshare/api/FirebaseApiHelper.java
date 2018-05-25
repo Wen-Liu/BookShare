@@ -170,7 +170,7 @@ public class FirebaseApiHelper {
                                 break;
                         }
 
-                        if (bookCustomInfo.isHaveBook()){
+                        if (bookCustomInfo.isHaveBook()) {
                             bookStatusAll[Constants.MY_BOOK] += 1;
                         }
 
@@ -193,7 +193,7 @@ public class FirebaseApiHelper {
         });
     }
 
-    public void deleteMyBook(String isbn, DeleteBookCallback callback){
+    public void deleteMyBook(String isbn, DeleteBookCallback callback) {
         Log.d(Constants.TAG_FIREBASE_API_HELPER, "deleteMyBook");
 
         mGetRef.child(Constants.FIREBASE_USERS)
@@ -234,5 +234,19 @@ public class FirebaseApiHelper {
 
     }
 
+    public void checkUserByEmail(String email){
 
+    }
+
+    public void addFriend(User friend) {
+
+        User user = UserManager.getInstance().getUser();
+
+        mGetRef.child(Constants.FIREBASE_USERS).child(user.getId()).child(Constants.FIREBASE_FRIENDS).child(friend.getId()).setValue(friend);
+        mGetRef.child(Constants.FIREBASE_USERS).child(user.getId()).child(Constants.FIREBASE_FRIENDS).child(friend.getId()).child(Constants.FIREBASE_FRIEND_STATUS).setValue(Constants.FIREBASE_FRIEND_SEND);
+
+        mGetRef.child(Constants.FIREBASE_USERS).child(friend.getId()).child(Constants.FIREBASE_FRIENDS).child(user.getId()).setValue(user);
+        mGetRef.child(Constants.FIREBASE_USERS).child(friend.getId()).child(Constants.FIREBASE_FRIENDS).child(user.getId()).child(Constants.FIREBASE_FRIEND_STATUS).setValue(Constants.FIREBASE_FRIEND_RECEIVE);
+
+    }
 }

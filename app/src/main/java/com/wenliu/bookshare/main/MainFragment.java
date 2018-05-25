@@ -111,11 +111,12 @@ public class MainFragment extends Fragment implements MainContract.View, Adapter
     public void showBooks(ArrayList<BookCustomInfo> bookCustomInfos) {
         Log.d(Constants.TAG_MAIN_FRAGMENT, "showBooks");
         mBookCustomInfos = bookCustomInfos;
-        mBookCustomInfosAll.clear();
 
-        for(BookCustomInfo bookCustomInfo: mBookCustomInfos){
-            mBookCustomInfosAll.add(bookCustomInfo);
-        }
+        mBookCustomInfosAll = new ArrayList<>(bookCustomInfos);
+//        mBookCustomInfosAll.clear();
+//        for(BookCustomInfo bookCustomInfo: mBookCustomInfos){
+//            mBookCustomInfosAll.add(bookCustomInfo);
+//        }
 
         mMainAdapter.updateData(mBookCustomInfos);
         mSpinnerMainFilter.setSelection(0);
