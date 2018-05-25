@@ -97,7 +97,6 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
     private ArrayList<User> mFriends = new ArrayList<>();
     private ImageManager mImageManager;
     private int[] mBookStatusInfo;
-    private ProgressBarDialog mProgressBarDialog;
     private Uri mImageUri;
     private Uri mNewPhotoUri;
     private String mCurrentPhotoPath;
@@ -174,16 +173,16 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
     }
 
     private void setRecyclerView() {
-        mProfileAdapter = new ProfileAdapter(mFriends);
+        mProfileAdapter = new ProfileAdapter(this ,mFriends);
         mRvProfile.setLayoutManager(new LinearLayoutManager(this));
-        mRvProfile.addItemDecoration(new RecyclerView.ItemDecoration() {
-            @Override
-            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-                super.getItemOffsets(outRect, view, parent, state);
-                int space = ShareBook.getAppContext().getResources().getDimensionPixelSize(R.dimen.gap_recycler_item);
-                outRect.top = space;
-            }
-        });
+//        mRvProfile.addItemDecoration(new RecyclerView.ItemDecoration() {
+//            @Override
+//            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+//                super.getItemOffsets(outRect, view, parent, state);
+//                int space = ShareBook.getAppContext().getResources().getDimensionPixelSize(R.dimen.gap_recycler_item);
+//                outRect.top = space;
+//            }
+//        });
         mRvProfile.setAdapter(mProfileAdapter);
 
     }
@@ -205,14 +204,17 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
 
     private void showAddFriendDialog() {
 
+//        View addFriendView = inflater.inflate(R.layout.alert_label_editor, null);
+
         new AlertDialog.Builder(this)
                 .setTitle(getString(R.string.alert_dialog_add_friend))
 //                .setView(new EditText(this))
-                .setView(R.layout.dialog_book_data_edit)
+                .setView(new EditText(this))
                 .setPositiveButton(getString(R.string.alert_dialog_delete_positive), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
+                        Log.d(Constants.TAG_PROFILE_ACTIVITY, "onClick: " );
                     }
                 })
                 .setNegativeButton(getString(R.string.alert_dialog_delete_negative), null)

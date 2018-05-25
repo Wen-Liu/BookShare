@@ -7,7 +7,7 @@
     android:layout_marginHorizontal="8dp"
     android:layout_marginVertical="8dp"
     android:background="@color/White"
-    android:elevation="4dp"
+    android:elevation="8dp"
     android:orientation="horizontal"
     android:paddingEnd="8dp"
     android:paddingVertical="12dp">
@@ -32,6 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right|bottom"
+            android:layout_marginBottom="@dimen/gap_each_line_small"
             android:orientation="horizontal">
 
             <TextView
@@ -42,7 +43,7 @@
                 android:layout_marginEnd="@dimen/gap_each_text_6"
                 android:background="@color/White"
                 android:paddingHorizontal="8dp"
-                android:paddingVertical="4dp"
+                android:paddingVertical="2dp"
                 android:text="林立青"
                 android:textColor="@color/Black"
                 android:textSize="@dimen/main_book_tv_text_size"
@@ -57,7 +58,7 @@
                 android:layout_marginEnd="@dimen/gap_each_text_6"
                 android:background="@color/White"
                 android:paddingHorizontal="8dp"
-                android:paddingVertical="4dp"
+                android:paddingVertical="2dp"
                 android:text="林立青"
                 android:textColor="@color/Black"
                 android:textSize="@dimen/main_book_tv_text_size"
@@ -86,7 +87,6 @@
             android:id="@+id/tv_main_subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/gap_each_line_small"
             android:layout_marginStart="@dimen/gap_front_space_small"
             android:paddingEnd="@dimen/gap_padding_end_for_italic"
             android:text="subtitle"
@@ -98,6 +98,7 @@
             android:id="@+id/tv_main_author"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/gap_each_line_small"
             android:text="author"
             android:textColor="@android:color/black"
             android:textSize="@dimen/main_book_tv_text_size" />

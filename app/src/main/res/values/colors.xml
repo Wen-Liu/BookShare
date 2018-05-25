@@ -12,6 +12,7 @@
     <color name="Black">#000000</color>
 
     <!-- Grey Series-->
+    <color name="Grey_200">#eeeeee</color>
     <color name="Grey_400">#bdbdbd</color>
     <color name="Grey_500">#9e9e9e</color>
     <color name="Grey_800">#424242</color>
@@ -32,15 +33,20 @@
 
     <!-- Red Series-->
     <color name="Red_400">#ef5350</color>
+    <color name="Red_600">#e53935</color>
+    <color name="Red_800">#c62828</color>
 
     <!-- Orange Series-->
     <color name="Orange_400">#ffa726</color>
 
     <!-- Yellow Series-->
     <color name="Yellow_400">#ffee58</color>
+    <color name="Yellow_600">#fdd835</color>
 
     <!-- Green Series-->
     <color name="Green_400">#66bb6a</color>
+    <color name="Green_600">#2e7d32</color>
+    <color name="Green_800">#43a047</color>
 
 
 </resources>

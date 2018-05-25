@@ -45,9 +45,11 @@
 
                 <ImageView
                     android:id="@+id/iv_profile_change_image"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/camera"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:padding="3dp"
+                    android:background="@drawable/shape_circle_background"
+                    android:src="@drawable/ic_edit"
                     app:layout_constraintBottom_toBottomOf="@id/iv_profile_userimage"
                     app:layout_constraintEnd_toEndOf="@id/iv_profile_userimage" />
 

@@ -18,6 +18,7 @@ import com.wenliu.bookshare.ImageManager;
 import com.wenliu.bookshare.R;
 import com.wenliu.bookshare.ShareBook;
 import com.wenliu.bookshare.ShareBookActivity;
+import com.wenliu.bookshare.main.MainAdapter;
 import com.wenliu.bookshare.object.BookCustomInfo;
 
 import butterknife.BindView;
@@ -30,6 +31,7 @@ import butterknife.Unbinder;
  */
 public class DetailFragment extends Fragment implements DetailContract.View {
 
+    //region "BindView"
     @BindView(R.id.iv_detail_book_cover)
     ImageView mIvDetailBookCover;
     @BindView(R.id.tv_detail_book_title)
@@ -59,7 +61,7 @@ public class DetailFragment extends Fragment implements DetailContract.View {
     Button mBtnDetailEdit;
     @BindView(R.id.llayout_detail_purchase)
     LinearLayout mLlayoutDetailPurchase;
-
+    //endregion
     private DetailContract.Presenter mPresenter;
     private ImageManager mImageManager;
     private BookCustomInfo mBookCustomInfo;
@@ -152,32 +154,41 @@ public class DetailFragment extends Fragment implements DetailContract.View {
         if (haveBook) {
             mTvDetailBookBorrowStatus.setText(getString(R.string.book_status_lendable));
             mTvDetailBookBorrowStatus.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.shape_book_status_green));
+            mTvDetailBookBorrowStatus.setTextColor(ContextCompat.getColor(getActivity(), R.color.Green_600));
+
         } else {
             mTvDetailBookBorrowStatus.setText(getString(R.string.book_status_lend_out));
             mTvDetailBookBorrowStatus.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.shape_book_status_red));
+            mTvDetailBookBorrowStatus.setTextColor(ContextCompat.getColor(ShareBook.getAppContext(), R.color.Red_600));
         }
     }
 
     private void setBookStatusView(int bookStatus) {
         String statusString = "";
         int statusBackgroundColor = 0;
+        int statusTextColor = 0;
 
         switch (bookStatus) {
             case Constants.READING:
                 statusString = getString(R.string.book_status_reading);
                 statusBackgroundColor = R.drawable.shape_book_status_yellow;
+                statusTextColor = R.color.Yellow_600;
                 break;
             case Constants.READ:
                 statusString = getString(R.string.book_status_read);
                 statusBackgroundColor = R.drawable.shape_book_status_green;
+                statusTextColor = R.color.Green_600;
                 break;
             case Constants.UNREAD:
                 statusString = getString(R.string.book_status_unread);
                 statusBackgroundColor = R.drawable.shape_book_status_red;
+                statusTextColor = R.color.Red_600;
                 break;
         }
         mTvDetailBookStatus.setText(statusString);
         mTvDetailBookStatus.setBackground(ContextCompat.getDrawable(getActivity(), statusBackgroundColor));
+        mTvDetailBookStatus.setTextColor(ContextCompat.getColor(getActivity(),statusTextColor));
+
     }
 
     private void setBookPurchaseView(BookCustomInfo bookCustomInfo) {
