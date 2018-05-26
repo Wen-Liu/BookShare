@@ -7,7 +7,7 @@
     android:layout_marginHorizontal="8dp"
     android:layout_marginVertical="8dp"
     android:background="@color/White"
-    android:elevation="8dp"
+    android:elevation="4dp"
     android:orientation="horizontal"
     android:paddingEnd="8dp"
     android:paddingVertical="12dp">

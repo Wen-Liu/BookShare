@@ -21,9 +21,9 @@
             android:layout_marginStart="@dimen/gap_front_space_small"
             android:layout_marginTop="@dimen/main_spinner_margin_top"
             android:layout_weight="1"
+            android:background="@drawable/shape_edittext_rectangle"
             android:dropDownSelector="@color/LightBlue_200"
             android:dropDownVerticalOffset="32dp"
-            android:background="@drawable/shape_outline_round_gray"
             android:entries="@array/menu_book_filter"
             android:forceHasOverlappingRendering="true"
             android:gravity="center"
@@ -36,7 +36,10 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="center"
-            android:layout_marginHorizontal="@dimen/gap_padding_end_for_italic"
+            android:layout_marginStart="4dp"
+            android:layout_marginBottom="@dimen/main_spinner_margin_bottom"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="@dimen/main_spinner_margin_top"
             android:background="@drawable/ic_filter_list" />
 
     </LinearLayout>

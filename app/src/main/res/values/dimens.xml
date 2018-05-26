@@ -18,10 +18,11 @@
 
     <!-- layout dimension related to gap -->
     <dimen name="gap_each_line_large">12dp</dimen>
-    <dimen name="gap_each_line_middle">8dp</dimen>
+    <dimen name="gap_each_line_medium">8dp</dimen>
     <dimen name="gap_each_line_small">6dp</dimen>
     <dimen name="gap_each_text_6">6dp</dimen>
     <dimen name="gap_front_space_large">30dp</dimen>
+    <dimen name="gap_front_space_medium">20dp</dimen>
     <dimen name="gap_front_space_small">15dp</dimen>
     <dimen name="gap_recycler_item">12dp</dimen>
     <dimen name="gap_padding_end_for_italic">12dp</dimen>
@@ -37,7 +38,7 @@
 
     <!-- layout dimension related to detail fragment -->
     <dimen name="detail_book_title_size">24sp</dimen>
-    <dimen name="detail_book_subtitle_size">20sp</dimen>
+    <dimen name="detail_book_subtitle_size">18sp</dimen>
     <dimen name="detail_book_tv_text_size">16sp</dimen>
     <dimen name="detail_book_tv_rating_size">16sp</dimen>
     <dimen name="detail_tv_layout_width">120dp</dimen>

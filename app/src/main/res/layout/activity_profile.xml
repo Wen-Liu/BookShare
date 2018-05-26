@@ -117,7 +117,7 @@
                             android:fontFamily="sans-serif"
                             android:includeFontPadding="false"
                             android:text="Books"
-                            android:textColor="@color/Grey_500"
+                            android:textColor="@color/Grey_600"
                             android:textSize="@dimen/profile_info_title_size" />
 
                     </LinearLayout>
@@ -151,7 +151,7 @@
                             android:fontFamily="sans-serif"
                             android:includeFontPadding="false"
                             android:text="Unread"
-                            android:textColor="@color/Grey_500"
+                            android:textColor="@color/Grey_600"
                             android:textSize="@dimen/profile_info_title_size" />
                     </LinearLayout>
 
@@ -184,7 +184,7 @@
                             android:fontFamily="sans-serif"
                             android:includeFontPadding="false"
                             android:text="Read"
-                            android:textColor="@color/Grey_500"
+                            android:textColor="@color/Grey_600"
                             android:textSize="@dimen/profile_info_title_size" />
                     </LinearLayout>
 
@@ -217,7 +217,7 @@
                             android:fontFamily="sans-serif"
                             android:includeFontPadding="false"
                             android:text="Lent"
-                            android:textColor="@color/Grey_500"
+                            android:textColor="@color/Grey_600"
                             android:textSize="@dimen/profile_info_title_size" />
                     </LinearLayout>
 

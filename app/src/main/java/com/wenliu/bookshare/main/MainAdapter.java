@@ -52,16 +52,22 @@ public class MainAdapter extends RecyclerView.Adapter {
         setBookStatusView(mBookCustomInfos.get(position).getBookReadStatus(), holder);
 
         mImageManager.loadUrlImage(mBookCustomInfos.get(position).getImage(), ((MainViewHolder) holder).getImVMainBookCover());
-
         ((MainViewHolder) holder).getTvMainTitle().setText(mBookCustomInfos.get(position).getTitle());
+
         if (mBookCustomInfos.get(position).getSubtitle().length() > 0) {
             ((MainViewHolder) holder).getTvMainSubtitle().setText(mBookCustomInfos.get(position).getSubtitle() + " ");
+            ((MainViewHolder) holder).getTvMainSubtitle().setVisibility(View.VISIBLE);
         } else {
             ((MainViewHolder) holder).getTvMainSubtitle().setVisibility(View.GONE);
         }
 
         if (mBookCustomInfos.get(position).getAuthor().size() > 0) {
-            ((MainViewHolder) holder).getTvMainAuthor().setText(mBookCustomInfos.get(position).getAuthor().get(0));
+            String author = mBookCustomInfos.get(position).getAuthor().get(0);
+            for (int i = 1; i < mBookCustomInfos.get(position).getAuthor().size(); i++) {
+                author += ", " + mBookCustomInfos.get(position).getAuthor().get(i);
+            }
+            ((MainViewHolder) holder).getTvMainAuthor().setText(author);
+            ((MainViewHolder) holder).getTvMainAuthor().setVisibility(View.VISIBLE);
         } else {
             ((MainViewHolder) holder).getTvMainAuthor().setVisibility(View.GONE);
         }
@@ -104,7 +110,7 @@ public class MainAdapter extends RecyclerView.Adapter {
         }
         ((MainViewHolder) holder).getTvItemBookStatus().setText(statusString);
         ((MainViewHolder) holder).getTvItemBookStatus().setBackground(ContextCompat.getDrawable(ShareBook.getAppContext(), statusBackgroundColor));
-        ((MainViewHolder) holder).getTvItemBookStatus().setTextColor(ContextCompat.getColor(ShareBook.getAppContext(),statusTextColor));
+        ((MainViewHolder) holder).getTvItemBookStatus().setTextColor(ContextCompat.getColor(ShareBook.getAppContext(), statusTextColor));
     }
 
 
@@ -131,7 +137,7 @@ public class MainAdapter extends RecyclerView.Adapter {
         public MainViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
-            Log.d(Constants.TAG_MAIN_ADAPTER, "MainViewHolder");
+//            Log.d(Constants.TAG_MAIN_ADAPTER, "MainViewHolder");
         }
 
         @OnClick({R.id.llayout_item_main, R.id.btn_main_delete})

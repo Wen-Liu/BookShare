@@ -122,7 +122,11 @@ public class DetailFragment extends Fragment implements DetailContract.View {
             mTvDetailBookSubtitle.setVisibility(View.GONE);
         }
         if (mBookCustomInfo.getAuthor() != null && mBookCustomInfo.getAuthor().size() > 0) {
-            mTvDetailBookAuthor.setText(mBookCustomInfo.getAuthor().get(0));
+            String author = mBookCustomInfo.getAuthor().get(0);
+            for (int i = 1; i < mBookCustomInfo.getAuthor().size(); i++) {
+                author += ", " + mBookCustomInfo.getAuthor().get(i);
+            }
+            mTvDetailBookAuthor.setText(author);
         } else {
             mTvDetailBookAuthor.setText("");
         }
@@ -187,7 +191,7 @@ public class DetailFragment extends Fragment implements DetailContract.View {
         }
         mTvDetailBookStatus.setText(statusString);
         mTvDetailBookStatus.setBackground(ContextCompat.getDrawable(getActivity(), statusBackgroundColor));
-        mTvDetailBookStatus.setTextColor(ContextCompat.getColor(getActivity(),statusTextColor));
+        mTvDetailBookStatus.setTextColor(ContextCompat.getColor(getActivity(), statusTextColor));
 
     }
 

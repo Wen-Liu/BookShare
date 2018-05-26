@@ -99,7 +99,7 @@
             android:id="@+id/tv_detail_book_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/gap_each_line_middle"
+            android:layout_marginTop="@dimen/gap_each_line_medium"
             android:text="做工的人"
             android:textColor="@color/Black"
             android:textSize="@dimen/detail_book_title_size"
@@ -109,7 +109,7 @@
             android:id="@+id/tv_detail_book_subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/gap_front_space_small"
+            android:layout_marginStart="@dimen/gap_front_space_medium"
             android:paddingEnd="@dimen/gap_padding_end_for_italic"
             android:text="subtitle"
             android:textColor="@color/Black"
@@ -144,7 +144,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/gap_each_line_middle"
+            android:layout_marginTop="@dimen/gap_each_line_medium"
             android:orientation="horizontal">
 
             <TextView
@@ -169,7 +169,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/gap_each_line_middle"
+            android:layout_marginTop="@dimen/gap_each_line_medium"
             android:orientation="horizontal">
 
             <TextView
@@ -193,7 +193,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/gap_each_line_middle"
+            android:layout_marginTop="@dimen/gap_each_line_medium"
             android:orientation="horizontal">
 
             <TextView
@@ -218,7 +218,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/gap_each_line_middle"
+            android:layout_marginTop="@dimen/gap_each_line_medium"
             android:orientation="horizontal">
 
             <TextView
@@ -249,13 +249,13 @@
                 android:layout_width="@dimen/detail_divider_length"
                 android:layout_height="1dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="@dimen/gap_each_line_middle"
+                android:layout_marginTop="@dimen/gap_each_line_medium"
                 android:background="@color/Grey_400" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/gap_each_line_middle"
+                android:layout_marginTop="@dimen/gap_each_line_medium"
                 android:orientation="horizontal">
 
                 <TextView
@@ -279,7 +279,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/gap_each_line_middle"
+                android:layout_marginTop="@dimen/gap_each_line_medium"
                 android:orientation="horizontal">
 
                 <TextView
