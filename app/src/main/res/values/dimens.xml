@@ -35,7 +35,7 @@
 
     <dimen name="ic_size">36dp</dimen>
 
-    <!-- layout dimension related to book data dialog -->
+    <!-- layout dimension related to detail fragment -->
     <dimen name="detail_book_title_size">24sp</dimen>
     <dimen name="detail_book_subtitle_size">20sp</dimen>
     <dimen name="detail_book_tv_text_size">16sp</dimen>

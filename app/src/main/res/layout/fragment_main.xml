@@ -21,6 +21,8 @@
             android:layout_marginStart="@dimen/gap_front_space_small"
             android:layout_marginTop="@dimen/main_spinner_margin_top"
             android:layout_weight="1"
+            android:dropDownSelector="@color/LightBlue_200"
+            android:dropDownVerticalOffset="32dp"
             android:background="@drawable/shape_outline_round_gray"
             android:entries="@array/menu_book_filter"
             android:forceHasOverlappingRendering="true"

@@ -194,9 +194,7 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
                 ProfileActivityPermissionsDispatcher.getPhotoFromGalleryWithPermissionCheck(this);
                 break;
             case R.id.fab_profile:
-                Toast.makeText(this, "Coming soon!", Toast.LENGTH_SHORT).show();
                 showAddFriendDialog();
-
                 break;
         }
     }
@@ -204,23 +202,22 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
 
     private void showAddFriendDialog() {
 
-//        View addFriendView = inflater.inflate(R.layout.alert_label_editor, null);
+        final View addFriendView = View.inflate(this ,R.layout.dialog_add_friend, null);
 
         new AlertDialog.Builder(this)
                 .setTitle(getString(R.string.alert_dialog_add_friend))
-//                .setView(new EditText(this))
-                .setView(new EditText(this))
+                .setView(addFriendView)
                 .setPositiveButton(getString(R.string.alert_dialog_delete_positive), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        Log.d(Constants.TAG_PROFILE_ACTIVITY, "onClick: " );
+                        String test = ((EditText) addFriendView.findViewById(R.id.et_dialog_add_friend_email)).getText().toString();
+                        Log.d(Constants.TAG_PROFILE_ACTIVITY, "onClick: " + test );
                     }
                 })
                 .setNegativeButton(getString(R.string.alert_dialog_delete_negative), null)
                 .create()
                 .show();
-
     }
 
 

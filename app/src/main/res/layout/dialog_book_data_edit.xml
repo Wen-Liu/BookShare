@@ -389,7 +389,7 @@
             android:layout_width="@dimen/ic_size"
             android:layout_height="@dimen/ic_size"
             android:layout_margin="6dp"
-            android:background="@drawable/ic_send" />
+            android:background="@drawable/ic_done" />
 
     </LinearLayout>
 </ScrollView>

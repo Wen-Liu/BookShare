@@ -235,6 +235,36 @@ public class FirebaseApiHelper {
     }
 
     public void checkUserByEmail(String email){
+        Log.d(Constants.TAG_FIREBASE_API_HELPER, "checkUserByEmail");
+
+        final Query myBooksQuery = mGetRef.child(Constants.FIREBASE_USERS)
+                .orderByChild(Constants.FIREBASE_EMAIL)
+                .equalTo(email);
+
+        myBooksQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                ArrayList<BookCustomInfo> mBookCustomInfos = new ArrayList<>();
+                if (dataSnapshot.exists()) {
+                        User user = dataSnapshot.getValue(User.class);
+
+                    Log.d(Constants.TAG_FIREBASE_API_HELPER, "checkUserByEmail data exists ");
+//                    callback.onCompleted(mBookCustomInfos, bookStatusAll);
+
+                } else {
+                    Log.d(Constants.TAG_FIREBASE_API_HELPER, "checkUserByEmail nothing ");
+//                    callback.onError("get nothing");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d(Constants.TAG_FIREBASE_API_HELPER, "checkUserByEmail onCancelled: " + databaseError.getMessage().toString());
+//                callback.onError(databaseError.getMessage());
+            }
+        });
 
     }
 
