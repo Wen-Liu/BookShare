@@ -43,6 +43,7 @@ public class Constants {
     public final static String FIREBASE_FRIENDS = "Friends";
     public final static String FIREBASE_IMAGE = "image";
     public final static String FIREBASE_EMAIL = "email";
+    public final static String FIREBASE_CREATE_TIME = "createTime";
     public final static String FIREBASE_FRIEND_STATUS = "status";
     public final static String FIREBASE_FRIEND_SEND = "send";
     public final static String FIREBASE_FRIEND_RECEIVE = "receive";

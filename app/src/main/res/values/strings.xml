@@ -58,7 +58,7 @@
     <!-- Strings related to alert dialog -->
     <string name="alert_dialog_delete_confirm">確定要刪除 \t </string>
     <string name="alert_dialog_delete_confirm_2"> \t 這本書嗎？</string>
-    <string name="alert_dialog_add_friend">請輸入欲加入的好友 Email: </string>
+    <string name="alert_dialog_add_friend">請輸入欲加入的好友 Email : </string>
     <string name="alert_dialog_delete_positive">確定</string>
     <string name="alert_dialog_delete_negative">取消</string>
 

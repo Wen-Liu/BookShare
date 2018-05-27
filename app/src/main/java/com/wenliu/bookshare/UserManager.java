@@ -100,6 +100,7 @@ public class UserManager {
                             user.setEmail(firebaseUser.getEmail());
                             user.setId(firebaseUser.getUid());
                             user.setName(name);
+                            user.setCreateTime(String.valueOf(System.currentTimeMillis() / 1000));
 
                             new FirebaseApiHelper().uploadUser(user, callback);
 

@@ -33,6 +33,7 @@ import butterknife.OnClick;
  */
 public class LoginActivity extends BaseActivity implements LoginContract.View {
 
+    //region "BindView"
     @BindView(R.id.login_progress)
     ProgressBar mProgressView;
     @BindView(R.id.linearlayout_sign_in)
@@ -62,6 +63,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     Button mBtnRegisterCancel;
     @BindView(R.id.constraint_layout)
     ConstraintLayout mConstraintLayout;
+    //endregion
 
     private LoginContract.Presenter mPresenter;
     private FirebaseAuth mAuth;
@@ -92,8 +94,6 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         mConstraintLayout.getBackground().setAlpha(230);
         setSignUpVisibility(false);
 
-        mEditTextSignInEmail.setText("liuwen1025@gmail.com");
-        mEditTextSignInPassword.setText("111111");
     }
 
 

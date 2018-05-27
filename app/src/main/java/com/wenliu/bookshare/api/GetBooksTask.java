@@ -18,7 +18,6 @@ public class GetBooksTask extends AsyncTask<Void, Void, Void> {
         mCallback = callback;
     }
 
-
     @Override
     protected Void doInBackground(Void... voids) {
         Log.d(Constants.TAG_GET_BOOKS_TASK, "doInBackground ");
@@ -26,4 +25,6 @@ public class GetBooksTask extends AsyncTask<Void, Void, Void> {
         new FirebaseApiHelper().getMyBooks(mCallback);
         return null;
     }
+
+
 }

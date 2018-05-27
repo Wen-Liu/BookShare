@@ -10,14 +10,14 @@ public class User {
     private String mEmail;
     private String mImage;
     private String mId;
-    private int mCreateTime;
+    private String mCreateTime;
 
     public User() {
         mName = "";
         mEmail = "";
         mImage = "";
         mId = "";
-        mCreateTime = 0;
+        mCreateTime = "";
     }
 
     public String getName() {
@@ -52,11 +52,11 @@ public class User {
         mId = id;
     }
 
-    public int getCreateTime() {
+    public String getCreateTime() {
         return mCreateTime;
     }
 
-    public void setCreateTime(int createTime) {
+    public void setCreateTime(String createTime) {
         mCreateTime = createTime;
     }
 }

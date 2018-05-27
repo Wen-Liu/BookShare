@@ -73,52 +73,10 @@ public class MainAdapter extends RecyclerView.Adapter {
         }
     }
 
-
-    private void setBookHaveView(boolean haveBook, TextView tvBookBorrowStatus) {
-        if (haveBook) {
-            tvBookBorrowStatus.setText(ShareBook.getAppContext().getString(R.string.book_status_lendable));
-            tvBookBorrowStatus.setBackground(ContextCompat.getDrawable(ShareBook.getAppContext(), R.drawable.shape_book_status_green));
-            tvBookBorrowStatus.setTextColor(ContextCompat.getColor(ShareBook.getAppContext(), R.color.Green_600));
-        } else {
-            tvBookBorrowStatus.setText(ShareBook.getAppContext().getString(R.string.book_status_lend_out));
-            tvBookBorrowStatus.setBackground(ContextCompat.getDrawable(ShareBook.getAppContext(), R.drawable.shape_book_status_red));
-            tvBookBorrowStatus.setTextColor(ContextCompat.getColor(ShareBook.getAppContext(), R.color.Red_600));
-        }
-    }
-
-    private void setBookStatusView(int bookReadStatus, RecyclerView.ViewHolder holder) {
-        String statusString = "";
-        int statusBackgroundColor = 0;
-        int statusTextColor = 0;
-
-        switch (bookReadStatus) {
-            case Constants.READING:
-                statusString = ShareBook.getAppContext().getString(R.string.book_status_reading);
-                statusBackgroundColor = R.drawable.shape_book_status_yellow;
-                statusTextColor = R.color.Yellow_600;
-                break;
-            case Constants.READ:
-                statusString = ShareBook.getAppContext().getString(R.string.book_status_read);
-                statusBackgroundColor = R.drawable.shape_book_status_green;
-                statusTextColor = R.color.Green_600;
-                break;
-            case Constants.UNREAD:
-                statusString = ShareBook.getAppContext().getString(R.string.book_status_unread);
-                statusBackgroundColor = R.drawable.shape_book_status_red;
-                statusTextColor = R.color.Red_600;
-                break;
-        }
-        ((MainViewHolder) holder).getTvItemBookStatus().setText(statusString);
-        ((MainViewHolder) holder).getTvItemBookStatus().setBackground(ContextCompat.getDrawable(ShareBook.getAppContext(), statusBackgroundColor));
-        ((MainViewHolder) holder).getTvItemBookStatus().setTextColor(ContextCompat.getColor(ShareBook.getAppContext(), statusTextColor));
-    }
-
-
     @Override
     public int getItemCount() {
         return mBookCustomInfos.size();
     }
-
 
     public class MainViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.ImV_main_book_cover)
@@ -197,6 +155,45 @@ public class MainAdapter extends RecyclerView.Adapter {
         }
     }
 
+
+    private void setBookHaveView(boolean haveBook, TextView tvBookBorrowStatus) {
+        if (haveBook) {
+            tvBookBorrowStatus.setText(ShareBook.getAppContext().getString(R.string.book_status_lendable));
+            tvBookBorrowStatus.setBackground(ContextCompat.getDrawable(ShareBook.getAppContext(), R.drawable.shape_book_status_green));
+            tvBookBorrowStatus.setTextColor(ContextCompat.getColor(ShareBook.getAppContext(), R.color.Green_600));
+        } else {
+            tvBookBorrowStatus.setText(ShareBook.getAppContext().getString(R.string.book_status_lend_out));
+            tvBookBorrowStatus.setBackground(ContextCompat.getDrawable(ShareBook.getAppContext(), R.drawable.shape_book_status_red));
+            tvBookBorrowStatus.setTextColor(ContextCompat.getColor(ShareBook.getAppContext(), R.color.Red_600));
+        }
+    }
+
+    private void setBookStatusView(int bookReadStatus, RecyclerView.ViewHolder holder) {
+        String statusString = "";
+        int statusBackgroundColor = 0;
+        int statusTextColor = 0;
+
+        switch (bookReadStatus) {
+            case Constants.READING:
+                statusString = ShareBook.getAppContext().getString(R.string.book_status_reading);
+                statusBackgroundColor = R.drawable.shape_book_status_yellow;
+                statusTextColor = R.color.Yellow_600;
+                break;
+            case Constants.READ:
+                statusString = ShareBook.getAppContext().getString(R.string.book_status_read);
+                statusBackgroundColor = R.drawable.shape_book_status_green;
+                statusTextColor = R.color.Green_600;
+                break;
+            case Constants.UNREAD:
+                statusString = ShareBook.getAppContext().getString(R.string.book_status_unread);
+                statusBackgroundColor = R.drawable.shape_book_status_red;
+                statusTextColor = R.color.Red_600;
+                break;
+        }
+        ((MainViewHolder) holder).getTvItemBookStatus().setText(statusString);
+        ((MainViewHolder) holder).getTvItemBookStatus().setBackground(ContextCompat.getDrawable(ShareBook.getAppContext(), statusBackgroundColor));
+        ((MainViewHolder) holder).getTvItemBookStatus().setTextColor(ContextCompat.getColor(ShareBook.getAppContext(), statusTextColor));
+    }
 
     public void updateData(ArrayList<BookCustomInfo> bookCustomInfos) {
         Log.d(Constants.TAG_MAIN_ADAPTER, "updateData, data count= " + bookCustomInfos.size());

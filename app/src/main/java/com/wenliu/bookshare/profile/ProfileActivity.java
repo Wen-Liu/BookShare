@@ -35,12 +35,9 @@ import android.widget.Toast;
 import com.wenliu.bookshare.Constants;
 import com.wenliu.bookshare.ImageManager;
 import com.wenliu.bookshare.R;
-import com.wenliu.bookshare.ShareBook;
 import com.wenliu.bookshare.UserManager;
-import com.wenliu.bookshare.api.FirebaseApiHelper;
 import com.wenliu.bookshare.api.callbacks.GetUserInfoCallback;
 import com.wenliu.bookshare.base.BaseActivity;
-import com.wenliu.bookshare.dialog.ProgressBarDialog;
 import com.wenliu.bookshare.object.User;
 
 import java.io.File;
@@ -63,6 +60,7 @@ import permissions.dispatcher.RuntimePermissions;
 @RuntimePermissions
 public class ProfileActivity extends BaseActivity implements ProfileContract.View {
 
+    //region "BindView"
     @BindView(R.id.appbarlayout_profile)
     AppBarLayout mAppbarlayoutProfile;
     @BindView(R.id.collape_toolbar_profile)
@@ -89,13 +87,13 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
     TextView mTvProfileBookLent;
     @BindView(R.id.fab_profile)
     FloatingActionButton mFabProfile;
+    //endregion
 
-
-    private Toolbar mToolbar;
     private ProfileContract.Presenter mPresenter;
+    private Toolbar mToolbar;
     private ProfileAdapter mProfileAdapter;
-    private ArrayList<User> mFriends = new ArrayList<>();
     private ImageManager mImageManager;
+    private ArrayList<User> mFriends = new ArrayList<>();
     private int[] mBookStatusInfo;
     private Uri mImageUri;
     private Uri mNewPhotoUri;
@@ -129,6 +127,7 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
         mPresenter = new ProfilePresenter(this);
         mPresenter.start();
 
+        getMyFriends();
         setToolbar();
         setRecyclerView();
 
@@ -173,7 +172,7 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
     }
 
     private void setRecyclerView() {
-        mProfileAdapter = new ProfileAdapter(this ,mFriends);
+        mProfileAdapter = new ProfileAdapter(this, mFriends);
         mRvProfile.setLayoutManager(new LinearLayoutManager(this));
 //        mRvProfile.addItemDecoration(new RecyclerView.ItemDecoration() {
 //            @Override
@@ -184,7 +183,6 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
 //            }
 //        });
         mRvProfile.setAdapter(mProfileAdapter);
-
     }
 
     @OnClick({R.id.iv_profile_change_image, R.id.fab_profile})
@@ -194,32 +192,10 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
                 ProfileActivityPermissionsDispatcher.getPhotoFromGalleryWithPermissionCheck(this);
                 break;
             case R.id.fab_profile:
-                showAddFriendDialog();
+                showAddFriendDialog(false);
                 break;
         }
     }
-
-
-    private void showAddFriendDialog() {
-
-        final View addFriendView = View.inflate(this ,R.layout.dialog_add_friend, null);
-
-        new AlertDialog.Builder(this)
-                .setTitle(getString(R.string.alert_dialog_add_friend))
-                .setView(addFriendView)
-                .setPositiveButton(getString(R.string.alert_dialog_delete_positive), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        String test = ((EditText) addFriendView.findViewById(R.id.et_dialog_add_friend_email)).getText().toString();
-                        Log.d(Constants.TAG_PROFILE_ACTIVITY, "onClick: " + test );
-                    }
-                })
-                .setNegativeButton(getString(R.string.alert_dialog_delete_negative), null)
-                .create()
-                .show();
-    }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -240,7 +216,7 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
 
                 if (resultCode == RESULT_OK) {
                     mImageManager.loadCircleImageUri(mImageUri, mIvProfileUserimage);
-                    FirebaseApiHelper.newInstance().uploadProfileImage(mImageUri);
+                    mPresenter.uploadProfileImage(mImageUri);
                 }
 
                 break;
@@ -277,6 +253,25 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
             Log.d(Constants.TAG_PROFILE_ACTIVITY, "doCropPhoto: ActivityNotFoundException ");
             Toast.makeText(this, "This device doesn't support the crop action!", Toast.LENGTH_SHORT).show();
         }
+    }
+
+
+    //裁剪圖片的Intent設定
+    public Intent getCropImageIntent(Uri uri) {
+        Log.d(Constants.TAG_PROFILE_ACTIVITY, "getCropImageIntent: ");
+
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        intent.setDataAndType(uri, "image/*");
+        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.putExtra("crop", "true");// crop=true 有這句才能叫出裁剪頁面.
+        intent.putExtra("scale", true); //讓裁剪框支援縮放
+        intent.putExtra("aspectX", 1);// 这兩項為裁剪框的比例.
+        intent.putExtra("aspectY", 1);// x:y=1:1
+        intent.putExtra("outputX", 200);//回傳照片比例X
+        intent.putExtra("outputY", 200);//回傳照片比例Y
+        intent.putExtra("return-data", false);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+        return intent;
     }
 
     public String getRealPathFromURI(Uri uri) {
@@ -327,31 +322,6 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
         return null;
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.manu_profile, menu);
-        return true;
-    }
-
-    //裁剪圖片的Intent設定
-    public Intent getCropImageIntent(Uri uri) {
-        Log.d(Constants.TAG_PROFILE_ACTIVITY, "getCropImageIntent: ");
-
-        Intent intent = new Intent("com.android.camera.action.CROP");
-        intent.setDataAndType(uri, "image/*");
-        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        intent.putExtra("crop", "true");// crop=true 有這句才能叫出裁剪頁面.
-        intent.putExtra("scale", true); //讓裁剪框支援縮放
-        intent.putExtra("aspectX", 1);// 这兩項為裁剪框的比例.
-        intent.putExtra("aspectY", 1);// x:y=1:1
-        intent.putExtra("outputX", 200);//回傳照片比例X
-        intent.putExtra("outputY", 200);//回傳照片比例Y
-        intent.putExtra("return-data", false);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-        return intent;
-    }
-
     @Override
     protected void onDestroy() {
         try {
@@ -367,8 +337,18 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.manu_profile, menu);
+        return true;
+    }
+
+    @Override
     public void setPresenter(ProfileContract.Presenter presenter) {
         mPresenter = presenter;
+    }
+
+    private void getMyFriends() {
+        mPresenter.getMyFriends();
     }
 
     @Override
@@ -377,6 +357,34 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
 
         mImageManager.loadCircleImageBitmap(bitmap, mIvProfileUserimage);
 //        mIvProfileUserimage.setImageBitmap(bitmap);
+    }
+
+    @Override
+    public void showAddFriendDialog(boolean showAlert) {
+
+        final View addFriendView = View.inflate(this, R.layout.dialog_add_friend, null);
+        ((TextView) addFriendView.findViewById(R.id.tv_add_friend_alert)).setVisibility(showAlert ? View.VISIBLE : View.GONE);
+
+        new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.alert_dialog_add_friend))
+                .setView(addFriendView)
+                .setPositiveButton(getString(R.string.alert_dialog_delete_positive), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        String email = ((EditText) addFriendView.findViewById(R.id.et_dialog_add_friend_email)).getText().toString();
+                        mPresenter.checkUserByEmail(email);
+                        Log.d(Constants.TAG_PROFILE_ACTIVITY, "onClick: " + email);
+                    }
+                })
+                .setNegativeButton(getString(R.string.alert_dialog_delete_negative), null)
+                .create()
+                .show();
+    }
+
+    @Override
+    public void showFriend(ArrayList<User> friends) {
+        mProfileAdapter.updateData(friends);
     }
 
     @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE})

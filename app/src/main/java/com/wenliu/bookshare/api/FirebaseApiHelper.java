@@ -18,8 +18,10 @@ import com.google.firebase.storage.UploadTask;
 import com.wenliu.bookshare.Constants;
 import com.wenliu.bookshare.UserManager;
 import com.wenliu.bookshare.api.callbacks.CheckBookExistCallback;
+import com.wenliu.bookshare.api.callbacks.CheckUserExistCallback;
 import com.wenliu.bookshare.api.callbacks.DeleteBookCallback;
 import com.wenliu.bookshare.api.callbacks.GetBooksCallback;
+import com.wenliu.bookshare.api.callbacks.GetFriendsCallback;
 import com.wenliu.bookshare.api.callbacks.GetUserInfoCallback;
 import com.wenliu.bookshare.api.callbacks.SignUpCallback;
 import com.wenliu.bookshare.object.Book;
@@ -140,7 +142,7 @@ public class FirebaseApiHelper {
         final Query myBooksQuery = mGetRef.child(Constants.FIREBASE_USERS)
                 .child(UserManager.getInstance().getUserId())
                 .child(Constants.FIREBASE_BOOKS)
-                .orderByChild("createTime");
+                .orderByChild(Constants.FIREBASE_CREATE_TIME);
 
         myBooksQuery.addListenerForSingleValueEvent(new ValueEventListener() {
 
@@ -234,7 +236,7 @@ public class FirebaseApiHelper {
 
     }
 
-    public void checkUserByEmail(String email){
+    public void checkUserByEmail(String email, final CheckUserExistCallback callback) {
         Log.d(Constants.TAG_FIREBASE_API_HELPER, "checkUserByEmail");
 
         final Query myBooksQuery = mGetRef.child(Constants.FIREBASE_USERS)
@@ -245,32 +247,33 @@ public class FirebaseApiHelper {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
                 ArrayList<BookCustomInfo> mBookCustomInfos = new ArrayList<>();
                 if (dataSnapshot.exists()) {
-                        User user = dataSnapshot.getValue(User.class);
-
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                        User user = snapshot.getValue(User.class);
+                        callback.userExist(user);
+                    }
                     Log.d(Constants.TAG_FIREBASE_API_HELPER, "checkUserByEmail data exists ");
-//                    callback.onCompleted(mBookCustomInfos, bookStatusAll);
 
                 } else {
+                    callback.notExist();
                     Log.d(Constants.TAG_FIREBASE_API_HELPER, "checkUserByEmail nothing ");
-//                    callback.onError("get nothing");
                 }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.d(Constants.TAG_FIREBASE_API_HELPER, "checkUserByEmail onCancelled: " + databaseError.getMessage().toString());
-//                callback.onError(databaseError.getMessage());
+                callback.notExist();
             }
         });
-
     }
 
     public void addFriend(User friend) {
 
         User user = UserManager.getInstance().getUser();
+        user.setCreateTime(String.valueOf(System.currentTimeMillis() / 1000));
+        friend.setCreateTime(String.valueOf(System.currentTimeMillis() / 1000));
 
         mGetRef.child(Constants.FIREBASE_USERS).child(user.getId()).child(Constants.FIREBASE_FRIENDS).child(friend.getId()).setValue(friend);
         mGetRef.child(Constants.FIREBASE_USERS).child(user.getId()).child(Constants.FIREBASE_FRIENDS).child(friend.getId()).child(Constants.FIREBASE_FRIEND_STATUS).setValue(Constants.FIREBASE_FRIEND_SEND);
@@ -278,5 +281,41 @@ public class FirebaseApiHelper {
         mGetRef.child(Constants.FIREBASE_USERS).child(friend.getId()).child(Constants.FIREBASE_FRIENDS).child(user.getId()).setValue(user);
         mGetRef.child(Constants.FIREBASE_USERS).child(friend.getId()).child(Constants.FIREBASE_FRIENDS).child(user.getId()).child(Constants.FIREBASE_FRIEND_STATUS).setValue(Constants.FIREBASE_FRIEND_RECEIVE);
 
+    }
+
+    public void getMyFriends(final GetFriendsCallback callback) {
+
+        Log.d(Constants.TAG_FIREBASE_API_HELPER, "getMyFriends");
+
+        final Query myBooksQuery = mGetRef.child(Constants.FIREBASE_USERS)
+                .child(UserManager.getInstance().getUserId())
+                .child(Constants.FIREBASE_FRIENDS)
+                .orderByChild(Constants.FIREBASE_CREATE_TIME);
+
+        myBooksQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                ArrayList<User> friends = new ArrayList<>();
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        User friend = snapshot.getValue(User.class);
+                        friends.add(friend);
+                    }
+                    Log.d(Constants.TAG_FIREBASE_API_HELPER, "getMyFriends data exists ");
+                    callback.onCompleted(friends);
+
+                } else {
+                    Log.d(Constants.TAG_FIREBASE_API_HELPER, "getMyFriends get nothing ");
+                    callback.onError("get nothing");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d(Constants.TAG_FIREBASE_API_HELPER, "onCancelled: " + databaseError.getMessage().toString());
+                callback.onError(databaseError.getMessage());
+            }
+        });
     }
 }
