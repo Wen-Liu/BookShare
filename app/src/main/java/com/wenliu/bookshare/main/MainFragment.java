@@ -9,15 +9,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.Switch;
-import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.wenliu.bookshare.Constants;
@@ -46,6 +44,9 @@ public class MainFragment extends Fragment implements MainContract.View, Adapter
     Spinner mSpinnerMainFilter;
     @BindView(R.id.btn_main_filter)
     Button mBtnMainFilter;
+    @BindView(R.id.ll_main_no_data)
+    LinearLayout mLlMainNoData;
+
 
     private MainContract.Presenter mPresenter;
     private MainAdapter mMainAdapter;
@@ -165,6 +166,11 @@ public class MainFragment extends Fragment implements MainContract.View, Adapter
     }
 
     @Override
+    public void isNoBookData(boolean isNoBookData) {
+        mLlMainNoData.setVisibility(isNoBookData ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
     public void showMyBookStatus(int[] bookStatusInfo) {
         mBookStatusInfo = bookStatusInfo;
     }
@@ -188,7 +194,7 @@ public class MainFragment extends Fragment implements MainContract.View, Adapter
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         Log.d(Constants.TAG_MAIN_FRAGMENT, "onItemSelected: ");
-        ArrayList<BookCustomInfo>  test = mPresenter.DataFilter(mBookCustomInfosAll , position);
+        ArrayList<BookCustomInfo> test = mPresenter.DataFilter(mBookCustomInfosAll, position);
         mMainAdapter.updateData(test);
     }
 

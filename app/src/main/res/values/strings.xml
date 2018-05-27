@@ -13,6 +13,7 @@
     <string name="action_cancel">Cancel</string>
     <string name="action_send">Send</string>
 
+    <!-- Strings related to error message -->
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">The password must be 6 characters or more</string>
     <string name="error_incorrect_password">This password is incorrect</string>
@@ -20,6 +21,10 @@
     <string name="error_field_required">This field is required</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
+    </string>
+    <string name="no_book_data">"You have no books yet. Start adding books by clicking the '+' button!"
+    </string>
+    <string name="no_friend_data">"Start adding your friends by clicking the button!"
     </string>
 
     <!-- Strings related to ISBN / google API -->

@@ -36,13 +36,43 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="center"
-            android:layout_marginStart="4dp"
             android:layout_marginBottom="@dimen/main_spinner_margin_bottom"
             android:layout_marginEnd="8dp"
+            android:layout_marginStart="4dp"
             android:layout_marginTop="@dimen/main_spinner_margin_top"
             android:background="@drawable/ic_filter_list" />
-
     </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ll_main_no_data"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:scaleType="fitCenter"
+            android:layout_marginTop="50dp"
+            android:src="@drawable/no_book_2943383_640"
+            android:paddingHorizontal="@dimen/main_no_data_margin"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/main_no_data_margin"
+            android:fontFamily="sans-serif"
+            android:text="@string/no_book_data"
+            android:textSize="@dimen/main_book_tv_text_size" />
+    </LinearLayout>
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/Recycview_main"

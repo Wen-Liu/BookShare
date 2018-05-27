@@ -6,5 +6,8 @@ import java.util.ArrayList;
 
 public interface GetFriendsCallback {
     public void onCompleted(ArrayList<User> friends);
+
+    public void noFriendData();
+
     public void onError(String errorMessage);
 }

@@ -10,7 +10,6 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -29,9 +28,11 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.wenliu.bookshare.Constants;
 import com.wenliu.bookshare.ImageManager;
 import com.wenliu.bookshare.R;
@@ -87,6 +88,8 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
     TextView mTvProfileBookLent;
     @BindView(R.id.fab_profile)
     FloatingActionButton mFabProfile;
+    @BindView(R.id.ll_profile_no_data)
+    LinearLayout mLlProfileNoData;
     //endregion
 
     private ProfileContract.Presenter mPresenter;
@@ -98,6 +101,7 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
     private Uri mImageUri;
     private Uri mNewPhotoUri;
     private String mCurrentPhotoPath;
+    private MaterialDialog mMaterialDialog;
 
 
     @Override
@@ -360,6 +364,22 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
     }
 
     @Override
+    public void showProgressDialog(boolean show) {
+        if (show) {
+            if (mMaterialDialog == null) {
+                mMaterialDialog = new MaterialDialog.Builder(this)
+                        .content(R.string.please_wait)
+                        .progress(true, 0)
+                        .show();
+            } else {
+                mMaterialDialog.show();
+            }
+        } else {
+            mMaterialDialog.dismiss();
+        }
+    }
+
+    @Override
     public void showAddFriendDialog(boolean showAlert) {
 
         final View addFriendView = View.inflate(this, R.layout.dialog_add_friend, null);
@@ -385,6 +405,12 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
     @Override
     public void showFriend(ArrayList<User> friends) {
         mProfileAdapter.updateData(friends);
+    }
+
+    @Override
+    public void isNoFriendData(boolean isNoFriendData) {
+        Log.d(Constants.TAG_PROFILE_ACTIVITY, "isNoFriendData: ");
+        mLlProfileNoData.setVisibility(isNoFriendData ? View.VISIBLE : View.GONE);
     }
 
     @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE})

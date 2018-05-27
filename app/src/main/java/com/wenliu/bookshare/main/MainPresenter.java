@@ -48,18 +48,27 @@ public class MainPresenter implements MainContract.Presenter {
 
             new GetBooksTask(new GetBooksCallback() {
                 @Override
-                public void onCompleted(ArrayList<BookCustomInfo> bookCustomInfos, int[] bookStatusAll) {
+                public void onCompleted(ArrayList<BookCustomInfo> bookCustomInfos, int[] bookStatusInfo) {
                     setLoading(false);
                     Log.d(Constants.TAG_MAIN_PRESENTER, "GetBooksTask onCompleted");
                     mMainView.showBooks(bookCustomInfos);
-                    mMainView.showMyBookStatus(bookStatusAll);
+                    mMainView.showMyBookStatus(bookStatusInfo);
                     mMainView.showProgressDialog(false);
                 }
 
                 @Override
-                public void onError(String errorMessage) {
+                public void noBookData(int[] bookStatusInfo) {
+                    setLoading(false);
+                    mMainView.showMyBookStatus(bookStatusInfo);
+                    mMainView.isNoBookData(true);
+                    mMainView.showProgressDialog(false);
+                }
+
+                @Override
+                public void onError(String errorMessage, int[] bookStatusInfo) {
                     Log.d(Constants.TAG_MAIN_PRESENTER, "GetBooksTask onError: " + errorMessage);
                     setLoading(false);
+                    mMainView.showMyBookStatus(bookStatusInfo);
                     mMainView.showProgressDialog(false);
                 }
             }).execute();
@@ -80,7 +89,7 @@ public class MainPresenter implements MainContract.Presenter {
     @Override
     public ArrayList<BookCustomInfo> DataFilter(ArrayList<BookCustomInfo> bookCustomInfos, int filter) {
         Log.d(Constants.TAG_MAIN_PRESENTER, "DataFilter: ");
-            newBookCustomInfos.clear();
+        newBookCustomInfos.clear();
 
         switch (filter) {
             case Constants.BOOK_ALL:
@@ -127,7 +136,6 @@ public class MainPresenter implements MainContract.Presenter {
                 return bookCustomInfos;
         }
     }
-
 
 
     @Override

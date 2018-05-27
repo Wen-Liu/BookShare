@@ -183,14 +183,14 @@ public class FirebaseApiHelper {
 
                 } else {
                     Log.d(Constants.TAG_FIREBASE_API_HELPER, "getMyBooks get nothing ");
-                    callback.onError("get nothing");
+                    callback.noBookData(bookStatusAll);
                 }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.d(Constants.TAG_FIREBASE_API_HELPER, "onCancelled: " + databaseError.getMessage().toString());
-                callback.onError(databaseError.getMessage());
+                callback.onError(databaseError.getMessage(), bookStatusAll);
             }
         });
     }
@@ -249,7 +249,7 @@ public class FirebaseApiHelper {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ArrayList<BookCustomInfo> mBookCustomInfos = new ArrayList<>();
                 if (dataSnapshot.exists()) {
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         User user = snapshot.getValue(User.class);
                         callback.userExist(user);
                     }
@@ -307,7 +307,7 @@ public class FirebaseApiHelper {
 
                 } else {
                     Log.d(Constants.TAG_FIREBASE_API_HELPER, "getMyFriends get nothing ");
-                    callback.onError("get nothing");
+                    callback.noFriendData();
                 }
             }
 

@@ -26,7 +26,6 @@ public class ProfilePresenter implements ProfileContract.Presenter {
     private FirebaseApiHelper mFirebaseApiHelper = FirebaseApiHelper.newInstance();
 
     public ProfilePresenter(ProfileContract.View profileView) {
-
         Log.d(Constants.TAG_PROFILE_PRESENTER, "ProfilePresenter: ");
         mProfileView = profileView;
     }
@@ -67,15 +66,26 @@ public class ProfilePresenter implements ProfileContract.Presenter {
     @Override
     public void getMyFriends() {
 
+        mProfileView.showProgressDialog(true);
+
         mFirebaseApiHelper.getMyFriends(new GetFriendsCallback() {
             @Override
             public void onCompleted(ArrayList<User> friends) {
                 mProfileView.showFriend(friends);
+                mProfileView.isNoFriendData(false);
+                mProfileView.showProgressDialog(false);
+            }
+
+            @Override
+            public void noFriendData() {
+                Log.d(Constants.TAG_PROFILE_PRESENTER, "noFriendData: ");
+                mProfileView.isNoFriendData(true);
+                mProfileView.showProgressDialog(false);
             }
 
             @Override
             public void onError(String errorMessage) {
-
+                mProfileView.showProgressDialog(false);
             }
         });
 

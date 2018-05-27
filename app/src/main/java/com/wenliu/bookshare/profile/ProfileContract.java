@@ -19,10 +19,13 @@ public interface ProfileContract {
 
         void showImageOnView(Bitmap bitmap);
 
+        void showProgressDialog(boolean show);
+
         void showAddFriendDialog(boolean showAlert);
 
         void showFriend(ArrayList<User> friends);
 
+        void isNoFriendData(boolean isNoFriendData);
     }
 
     interface Presenter extends BasePresenter {

@@ -29,6 +29,8 @@ public interface MainContract {
         void showProgressDialog(boolean show);
 
         void showAlertDialog(String title, AlertDialogCallback callback);
+
+        void isNoBookData(boolean isNoBookData);
     }
 
     interface Presenter extends BasePresenter {
