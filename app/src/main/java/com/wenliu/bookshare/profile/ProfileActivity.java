@@ -26,6 +26,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -102,6 +103,7 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
     private Uri mNewPhotoUri;
     private String mCurrentPhotoPath;
     private MaterialDialog mMaterialDialog;
+    private boolean isAddDialogShow = false;
 
 
     @Override
@@ -189,14 +191,18 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
         mRvProfile.setAdapter(mProfileAdapter);
     }
 
-    @OnClick({R.id.iv_profile_change_image, R.id.fab_profile})
+    @OnClick({R.id.iv_profile_userimage, R.id.iv_profile_change_image, R.id.fab_profile})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.iv_profile_userimage:
             case R.id.iv_profile_change_image:
                 ProfileActivityPermissionsDispatcher.getPhotoFromGalleryWithPermissionCheck(this);
                 break;
             case R.id.fab_profile:
-                showAddFriendDialog(false);
+                if (!isAddDialogShow) {
+                    isAddDialogShow(true);
+                    showAddFriendDialog(false);
+                }
                 break;
         }
     }
@@ -383,23 +389,35 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
     public void showAddFriendDialog(boolean showAlert) {
 
         final View addFriendView = View.inflate(this, R.layout.dialog_add_friend, null);
+        final EditText mEtInputEmail = ((EditText) addFriendView.findViewById(R.id.et_dialog_add_friend_email));
         ((TextView) addFriendView.findViewById(R.id.tv_add_friend_alert)).setVisibility(showAlert ? View.VISIBLE : View.GONE);
+//        showKeybroad(true);
+
 
         new AlertDialog.Builder(this)
                 .setTitle(getString(R.string.alert_dialog_add_friend))
+                .setCancelable(false)
                 .setView(addFriendView)
                 .setPositiveButton(getString(R.string.alert_dialog_delete_positive), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        String email = ((EditText) addFriendView.findViewById(R.id.et_dialog_add_friend_email)).getText().toString();
+                        String email = mEtInputEmail.getText().toString();
                         mPresenter.checkUserByEmail(email);
                         Log.d(Constants.TAG_PROFILE_ACTIVITY, "onClick: " + email);
                     }
                 })
-                .setNegativeButton(getString(R.string.alert_dialog_delete_negative), null)
+                .setNegativeButton(getString(R.string.alert_dialog_delete_negative), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+//                        showKeybroad(false);
+                        isAddDialogShow(false);
+                    }
+                })
                 .create()
                 .show();
+
+
     }
 
     @Override
@@ -411,6 +429,25 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
     public void isNoFriendData(boolean isNoFriendData) {
         Log.d(Constants.TAG_PROFILE_ACTIVITY, "isNoFriendData: ");
         mLlProfileNoData.setVisibility(isNoFriendData ? View.VISIBLE : View.GONE);
+        mRvProfile.setVisibility(isNoFriendData ? View.GONE : View.VISIBLE);
+    }
+
+
+    private void showKeybroad(boolean show) {
+        Log.d(Constants.TAG_PROFILE_ACTIVITY, "showKeybroad: ");
+        InputMethodManager mInputMethodManager = (InputMethodManager) this.getSystemService(this.INPUT_METHOD_SERVICE);
+
+        if (show) {
+            mInputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+        } else {
+            mInputMethodManager.toggleSoftInput(InputMethodManager.HIDE_NOT_ALWAYS, 0);
+        }
+    }
+
+    @Override
+    public void isAddDialogShow(boolean isShow) {
+        isAddDialogShow = isShow;
+        showKeybroad(false);
     }
 
     @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE})

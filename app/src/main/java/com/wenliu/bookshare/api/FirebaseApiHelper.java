@@ -17,6 +17,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.wenliu.bookshare.Constants;
 import com.wenliu.bookshare.UserManager;
+import com.wenliu.bookshare.api.callbacks.AddFriendCallback;
 import com.wenliu.bookshare.api.callbacks.CheckBookExistCallback;
 import com.wenliu.bookshare.api.callbacks.CheckUserExistCallback;
 import com.wenliu.bookshare.api.callbacks.DeleteBookCallback;
@@ -183,7 +184,7 @@ public class FirebaseApiHelper {
 
                 } else {
                     Log.d(Constants.TAG_FIREBASE_API_HELPER, "getMyBooks get nothing ");
-                    callback.noBookData(bookStatusAll);
+                    callback.noBookData(mBookCustomInfos, bookStatusAll);
                 }
             }
 
@@ -269,7 +270,7 @@ public class FirebaseApiHelper {
         });
     }
 
-    public void addFriend(User friend) {
+    public void addFriend(User friend, AddFriendCallback callback) {
 
         User user = UserManager.getInstance().getUser();
         user.setCreateTime(String.valueOf(System.currentTimeMillis() / 1000));
@@ -280,7 +281,7 @@ public class FirebaseApiHelper {
 
         mGetRef.child(Constants.FIREBASE_USERS).child(friend.getId()).child(Constants.FIREBASE_FRIENDS).child(user.getId()).setValue(user);
         mGetRef.child(Constants.FIREBASE_USERS).child(friend.getId()).child(Constants.FIREBASE_FRIENDS).child(user.getId()).child(Constants.FIREBASE_FRIEND_STATUS).setValue(Constants.FIREBASE_FRIEND_RECEIVE);
-
+        callback.onCompleted();
     }
 
     public void getMyFriends(final GetFriendsCallback callback) {

@@ -37,6 +37,7 @@ import butterknife.Unbinder;
  */
 public class MainFragment extends Fragment implements MainContract.View, AdapterView.OnItemSelectedListener {
 
+    //region "BindView"
     @BindView(R.id.Recycview_main)
     RecyclerView mRecycviewMain;
     Unbinder unbinder;
@@ -46,7 +47,7 @@ public class MainFragment extends Fragment implements MainContract.View, Adapter
     Button mBtnMainFilter;
     @BindView(R.id.ll_main_no_data)
     LinearLayout mLlMainNoData;
-
+    //endregion
 
     private MainContract.Presenter mPresenter;
     private MainAdapter mMainAdapter;
@@ -168,6 +169,7 @@ public class MainFragment extends Fragment implements MainContract.View, Adapter
     @Override
     public void isNoBookData(boolean isNoBookData) {
         mLlMainNoData.setVisibility(isNoBookData ? View.VISIBLE : View.GONE);
+        mRecycviewMain.setVisibility(isNoBookData ? View.GONE : View.VISIBLE);
     }
 
     @Override

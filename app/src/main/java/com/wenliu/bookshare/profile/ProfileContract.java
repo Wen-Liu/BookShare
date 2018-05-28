@@ -26,6 +26,8 @@ public interface ProfileContract {
         void showFriend(ArrayList<User> friends);
 
         void isNoFriendData(boolean isNoFriendData);
+
+        void isAddDialogShow(boolean isShow);
     }
 
     interface Presenter extends BasePresenter {

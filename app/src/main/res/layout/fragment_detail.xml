@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_gravity="center"
-        android:background="@color/Black"
+        android:background="@color/White"
         android:elevation="8dp"
         android:scaleType="fitCenter"
         android:transitionName="@string/transitionName_detail" />
@@ -109,12 +109,10 @@
             android:id="@+id/tv_detail_book_subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/gap_front_space_medium"
             android:paddingEnd="@dimen/gap_padding_end_for_italic"
             android:text="subtitle"
             android:textColor="@color/Black"
-            android:textSize="@dimen/detail_book_subtitle_size"
-            android:textStyle="italic" />
+            android:textSize="@dimen/detail_book_subtitle_size" />
 
         <LinearLayout
             android:layout_width="match_parent"

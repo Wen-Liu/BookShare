@@ -49,16 +49,21 @@ public class MainPresenter implements MainContract.Presenter {
             new GetBooksTask(new GetBooksCallback() {
                 @Override
                 public void onCompleted(ArrayList<BookCustomInfo> bookCustomInfos, int[] bookStatusInfo) {
+                    Log.d(Constants.TAG_MAIN_PRESENTER, "GetBooksTask onCompleted: ");
+
                     setLoading(false);
-                    Log.d(Constants.TAG_MAIN_PRESENTER, "GetBooksTask onCompleted");
                     mMainView.showBooks(bookCustomInfos);
                     mMainView.showMyBookStatus(bookStatusInfo);
+                    mMainView.isNoBookData(false);
                     mMainView.showProgressDialog(false);
                 }
 
                 @Override
-                public void noBookData(int[] bookStatusInfo) {
+                public void noBookData(ArrayList<BookCustomInfo> bookCustomInfos, int[] bookStatusInfo) {
+                    Log.d(Constants.TAG_MAIN_PRESENTER, "GetBooksTask noBookData: ");
+
                     setLoading(false);
+                    mMainView.showBooks(bookCustomInfos);
                     mMainView.showMyBookStatus(bookStatusInfo);
                     mMainView.isNoBookData(true);
                     mMainView.showProgressDialog(false);
@@ -67,8 +72,10 @@ public class MainPresenter implements MainContract.Presenter {
                 @Override
                 public void onError(String errorMessage, int[] bookStatusInfo) {
                     Log.d(Constants.TAG_MAIN_PRESENTER, "GetBooksTask onError: " + errorMessage);
+
                     setLoading(false);
                     mMainView.showMyBookStatus(bookStatusInfo);
+                    mMainView.isNoBookData(true);
                     mMainView.showProgressDialog(false);
                 }
             }).execute();

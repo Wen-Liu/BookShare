@@ -8,6 +8,7 @@ import android.util.Log;
 import com.wenliu.bookshare.Constants;
 import com.wenliu.bookshare.ShareBook;
 import com.wenliu.bookshare.api.FirebaseApiHelper;
+import com.wenliu.bookshare.api.callbacks.AddFriendCallback;
 import com.wenliu.bookshare.api.callbacks.CheckUserExistCallback;
 import com.wenliu.bookshare.api.callbacks.GetFriendsCallback;
 import com.wenliu.bookshare.object.User;
@@ -53,7 +54,13 @@ public class ProfilePresenter implements ProfileContract.Presenter {
         mFirebaseApiHelper.checkUserByEmail(email, new CheckUserExistCallback() {
             @Override
             public void userExist(User user) {
-                mFirebaseApiHelper.addFriend(user);
+                mFirebaseApiHelper.addFriend(user , new AddFriendCallback() {
+                    @Override
+                    public void onCompleted() {
+                        getMyFriends();
+                        mProfileView.isAddDialogShow(false);
+                    }
+                });
             }
 
             @Override
@@ -88,8 +95,6 @@ public class ProfilePresenter implements ProfileContract.Presenter {
                 mProfileView.showProgressDialog(false);
             }
         });
-
-
     }
 
     @Override

@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.wenliu.bookshare.Constants;
 import com.wenliu.bookshare.api.GetBookCoverUrl;
@@ -36,20 +37,22 @@ import butterknife.OnClick;
 
 public class InputIsbnDialog extends Dialog {
 
+    //region "BindView"
     @BindView(R.id.editText_isbn)
     EditText mEdittextIsbn;
     @BindView(R.id.imageView_scanner)
     ImageView mImageViewScanner;
     @BindView(R.id.btn_send)
     Button mBtnSend;
+    //endregion
 
     private Context mContext;
-    private String mIsbn;
+    private ShareBookContract.Presenter mPresenter;
     private IntentIntegrator scanIntegrator;
     private ShareBookActivity mShareBookActivity;
-    private ShareBookContract.Presenter mPresenter;
     private BookDataEditDialog mBookDataEditDialog;
-
+    private MaterialDialog mMaterialDialog;
+    private String mIsbn;
 
     public InputIsbnDialog(@NonNull Context context, ShareBookActivity activity, ShareBookContract.Presenter presenter) {
         super(context);
@@ -62,7 +65,6 @@ public class InputIsbnDialog extends Dialog {
         mShareBookActivity = activity;
         mPresenter = presenter;
     }
-
 
     @OnClick({R.id.imageView_scanner, R.id.btn_send})
     public void onViewClicked(View view) {
@@ -77,11 +79,11 @@ public class InputIsbnDialog extends Dialog {
                 Log.d(Constants.TAG_INPUT_ISBN_DIALOG, "open scanner");
                 break;
 
-
             case R.id.btn_send:
 
                 setRequestFocusNull();
                 mIsbn = String.valueOf(mEdittextIsbn.getText());
+                showProgressDialog(true);
 
                 // check isbn is valid or not first
                 if (mPresenter.isIsbnValid(mIsbn)) {
@@ -92,6 +94,7 @@ public class InputIsbnDialog extends Dialog {
                         @Override
                         public void onCompleted(Book book) {
                             goToEditDialog(book);
+                            showProgressDialog(false);
                         }
 
                         @Override
@@ -109,7 +112,6 @@ public class InputIsbnDialog extends Dialog {
     }
 
 
-
     private void getBookDataByApi() {
 
         new GetBookUrlTask(mIsbn, new GetBookUrlCallback() {
@@ -123,6 +125,7 @@ public class InputIsbnDialog extends Dialog {
                     public void onCompleted(Book book) {
                         Log.d(Constants.TAG_INPUT_ISBN_DIALOG, "========== GetBookDataTask onCompleted ==========");
                         goToEditDialog(book);
+                        showProgressDialog(false);
                     }
 
                     // get the book data error, maybe internet problem
@@ -130,6 +133,7 @@ public class InputIsbnDialog extends Dialog {
                     public void onError(String errorMessage) {
                         Log.d(Constants.TAG_INPUT_ISBN_DIALOG, "GetBookDataTask onError");
                         setEditTextError(errorMessage);
+                        showProgressDialog(false);
                     }
                 }).execute();
             }
@@ -139,6 +143,7 @@ public class InputIsbnDialog extends Dialog {
             public void onError(String errorMessage) {
                 Log.d(Constants.TAG_INPUT_ISBN_DIALOG, "GetBookUrlTask onError");
                 setEditTextError(errorMessage);
+                showProgressDialog(false);
             }
         }).execute();
 
@@ -158,6 +163,21 @@ public class InputIsbnDialog extends Dialog {
         if (mEdittextIsbn.hasFocus()) {
             mEdittextIsbn.setError(null);
             mEdittextIsbn.clearFocus();
+        }
+    }
+
+    public void showProgressDialog(boolean show) {
+        if (show) {
+            if (mMaterialDialog == null) {
+                mMaterialDialog = new MaterialDialog.Builder(mShareBookActivity)
+                        .content(R.string.please_wait)
+                        .progress(true, 0)
+                        .show();
+            } else {
+                mMaterialDialog.show();
+            }
+        } else {
+            mMaterialDialog.dismiss();
         }
     }
 

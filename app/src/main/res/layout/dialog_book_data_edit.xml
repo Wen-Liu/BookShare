@@ -2,9 +2,9 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginHorizontal="8dp"
     android:background="@drawable/scroll_paper_68833_640"
-    android:orientation="vertical"
-    android:layout_marginHorizontal="8dp">
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/l_layout_book_data_edit"
@@ -14,7 +14,8 @@
         android:animateLayoutChanges="true"
         android:gravity="center_vertical|right"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="16dp"
+        android:paddingVertical="@dimen/gap_each_line_large">
 
         <LinearLayout
             android:layout_width="wrap_content"

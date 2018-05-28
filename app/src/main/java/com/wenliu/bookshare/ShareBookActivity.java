@@ -34,11 +34,12 @@ public class ShareBookActivity extends BaseActivity implements ShareBookContract
 
     @BindView(R.id.fab)
     FloatingActionButton mFab;
+
     private ShareBookContract.Presenter mPresenter;
     private InputIsbnDialog mInputIsbnDialog;
+    private BookDataEditDialog mBookDataEditDialog;
     private Toolbar mToolbar;
     private AppBarLayout mAppBarLayout;
-    private BookDataEditDialog mBookDataEditDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +47,6 @@ public class ShareBookActivity extends BaseActivity implements ShareBookContract
 
         init();
     }
-
 
     private void init() {
         Log.d(Constants.TAG_SHAREBOOK_ACTIVITY, "ShareBookActivity.init");
@@ -83,17 +83,12 @@ public class ShareBookActivity extends BaseActivity implements ShareBookContract
         return result;
     }
 
-
     @OnClick(R.id.fab)
     public void onViewClicked() {
 //        Snackbar.make(mFab, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                .setAction("Action", null).show();
-        mInputIsbnDialog = new InputIsbnDialog(this, this, mPresenter);
-        mInputIsbnDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        mInputIsbnDialog.getWindow().getAttributes().windowAnimations = R.style.Animation_fade; //style id
-        mInputIsbnDialog.show();
+        showInputIsbnDialog();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -124,7 +119,6 @@ public class ShareBookActivity extends BaseActivity implements ShareBookContract
         return super.onOptionsItemSelected(item);
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         Log.d(Constants.TAG_SHAREBOOK_ACTIVITY, "onActivityResult");
@@ -151,7 +145,6 @@ public class ShareBookActivity extends BaseActivity implements ShareBookContract
         mPresenter = presenter;
     }
 
-
     @Override
     public void setEditText(String isbn) {
         mInputIsbnDialog.setEditTextIsbn(isbn);
@@ -167,6 +160,13 @@ public class ShareBookActivity extends BaseActivity implements ShareBookContract
         mPresenter.transToDetail(bookCustomInfo, imageView);
     }
 
+    private void showInputIsbnDialog() {
+        mInputIsbnDialog = new InputIsbnDialog(this, this, mPresenter);
+        mInputIsbnDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        mInputIsbnDialog.getWindow().getAttributes().windowAnimations = R.style.Animation_fade; //style id
+        mInputIsbnDialog.show();
+    }
+
     @Override
     public void showEditDialog(BookCustomInfo bookCustomInfo) {
         mBookDataEditDialog = new BookDataEditDialog(this, this, mPresenter, bookCustomInfo);
@@ -174,6 +174,7 @@ public class ShareBookActivity extends BaseActivity implements ShareBookContract
         mBookDataEditDialog.getWindow().getAttributes().windowAnimations = R.style.Animation_slide_right; //style id
         mBookDataEditDialog.show();
     }
+
 
 
     public void setToolbarVisibility(boolean isVisible) {

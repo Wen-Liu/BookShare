@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="@dimen/main_spinner_margin_bottom"
-            android:layout_marginStart="@dimen/gap_front_space_small"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="@dimen/main_spinner_margin_top"
             android:layout_weight="1"
             android:background="@drawable/shape_edittext_rectangle"
