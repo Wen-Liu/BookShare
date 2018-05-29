@@ -2,7 +2,6 @@ package com.wenliu.bookshare.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.provider.SyncStateContract;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
@@ -79,7 +78,7 @@ public class BookDataEditDialog extends Dialog implements CompoundButton.OnCheck
 
     public BookDataEditDialog(@NonNull Context context, ShareBookActivity activity, ShareBookContract.Presenter presenter, Book book) {
         super(context);
-        setContentView(R.layout.dialog_book_data_edit);
+        setContentView(R.layout.dialog_edit_book_data);
         ButterKnife.bind(this);
 
         Log.d(Constants.TAG_BOOK_DATA_EDIT_DIALOG, "constructor Book: ");
@@ -92,7 +91,7 @@ public class BookDataEditDialog extends Dialog implements CompoundButton.OnCheck
 
     public BookDataEditDialog(@NonNull Context context, ShareBookActivity activity, ShareBookContract.Presenter presenter, BookCustomInfo bookCustomInfo) {
         super(context);
-        setContentView(R.layout.dialog_book_data_edit);
+        setContentView(R.layout.dialog_edit_book_data);
         ButterKnife.bind(this);
 
         Log.d(Constants.TAG_BOOK_DATA_EDIT_DIALOG, "constructor BookCustomInfo: ");

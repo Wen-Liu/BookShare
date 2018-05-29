@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.wenliu.bookshare.ShareBookActivity">
 
+
     <item
         android:id="@+id/action_to_profile"
         android:icon="@drawable/ic_person"

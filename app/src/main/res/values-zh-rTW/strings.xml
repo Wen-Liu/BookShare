@@ -40,6 +40,7 @@
     <string name="book_reading_page">閱讀進度 :</string>
     <string name="book_purchase_date">購買日 :</string>
     <string name="book_purchase_price">購買價格 :</string>
+    <string name="book_have">我有購買此書</string>
 
     <!-- Strings related to permission -->
     <string name="permission_request">若要修改個人圖片，請提供相機和讀取權限，謝謝！</string>
@@ -54,8 +55,8 @@
     <string name="book_status_reading">閱讀中</string>
     <string name="book_status_read">已讀完</string>
     <string name="book_status_unread">待讀</string>
-    <string name="book_status_lendable">藏書</string>
-    <string name="book_status_lend_out">非個人藏書</string>
+    <string name="book_status_lendable">已擁有</string>
+    <string name="book_status_lend_out">未擁有</string>
 
     <!-- Strings related to alert dialog -->
     <string name="alert_dialog_delete_confirm">確定要刪除 \t </string>

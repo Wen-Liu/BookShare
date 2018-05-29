@@ -28,7 +28,7 @@
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
-                    android:background="@drawable/shape_toolbar_gradient"
+                    android:background="@drawable/shape_gradient_toolbar"
                     app:layout_scrollFlags="scroll|enterAlways"
                     app:popupTheme="@style/AppTheme.PopupOverlay"
                     app:titleTextColor="@color/Brown_600" />

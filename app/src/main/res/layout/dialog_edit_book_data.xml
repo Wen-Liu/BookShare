@@ -14,20 +14,21 @@
         android:animateLayoutChanges="true"
         android:gravity="center_vertical|right"
         android:orientation="vertical"
-        android:padding="16dp"
-        android:paddingVertical="@dimen/gap_each_line_large">
+        android:padding="@dimen/gap_each_line_large">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/gap_each_line_large"
             android:gravity="center"
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/gap_each_text_6"
+                android:layout_weight="@dimen/detail_textview_weight"
+                android:maxLines="2"
                 android:text="@string/book_title"
                 android:textColor="@color/Brown_300_dark"
                 android:textSize="@dimen/book_dialog_tv_size"
@@ -36,10 +37,11 @@
 
             <EditText
                 android:id="@+id/et_dialog_book_title"
-                android:layout_width="@dimen/book_dialog_editText_width"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="@dimen/detail_edittext_weight"
                 android:allowUndo="false"
-                android:background="@drawable/shape_edittext_rectangle"
+                android:background="@drawable/shape_outline_rectangle_black"
                 android:maxLength="30"
                 android:maxLines="2"
                 android:paddingHorizontal="@dimen/book_dialog_paddingHorizontal"
@@ -49,16 +51,18 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/gap_each_line_large"
             android:gravity="center"
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/gap_each_text_6"
+                android:layout_weight="@dimen/detail_textview_weight"
+                android:maxLines="2"
                 android:text="@string/book_subtitle"
                 android:textColor="@color/Brown_300_dark"
                 android:textSize="@dimen/book_dialog_tv_size"
@@ -67,10 +71,11 @@
 
             <EditText
                 android:id="@+id/et_dialog_book_subtitle"
-                android:layout_width="@dimen/book_dialog_editText_width"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="@dimen/detail_edittext_weight"
                 android:allowUndo="false"
-                android:background="@drawable/shape_edittext_rectangle"
+                android:background="@drawable/shape_outline_rectangle_black"
                 android:maxLength="40"
                 android:maxLines="2"
                 android:paddingHorizontal="@dimen/book_dialog_paddingHorizontal"
@@ -81,16 +86,18 @@
 
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/gap_each_line_large"
             android:gravity="center"
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/gap_each_text_6"
+                android:layout_weight="@dimen/detail_textview_weight"
+                android:maxLines="2"
                 android:text="@string/book_author"
                 android:textColor="@color/Brown_300_dark"
                 android:textSize="@dimen/book_dialog_tv_size"
@@ -99,9 +106,10 @@
 
             <EditText
                 android:id="@+id/et_dialog_book_author"
-                android:layout_width="@dimen/book_dialog_editText_width"
+                android:layout_width="0dp"
                 android:layout_height="@dimen/book_dialog_editText_height"
-                android:background="@drawable/shape_edittext_rectangle"
+                android:layout_weight="@dimen/detail_edittext_weight"
+                android:background="@drawable/shape_outline_rectangle_black"
                 android:maxLength="30"
                 android:maxLines="2"
                 android:paddingHorizontal="@dimen/book_dialog_paddingHorizontal"
@@ -111,16 +119,18 @@
 
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/gap_each_line_large"
             android:gravity="center"
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/gap_each_text_6"
+                android:layout_weight="@dimen/detail_textview_weight"
+                android:maxLines="2"
                 android:text="@string/book_ISBN"
                 android:textColor="@color/Brown_300_dark"
                 android:textSize="@dimen/book_dialog_tv_size"
@@ -129,8 +139,10 @@
 
             <TextView
                 android:id="@+id/tv_dialog_book_isbn"
-                android:layout_width="@dimen/book_dialog_editText_width"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="@dimen/detail_edittext_weight"
+                android:maxLines="2"
                 android:paddingHorizontal="@dimen/book_dialog_paddingHorizontal"
                 android:textColor="@color/Black"
                 android:textSize="@dimen/book_dialog_et_size" />
@@ -138,16 +150,18 @@
 
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/gap_each_line_large"
             android:gravity="center"
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/gap_each_text_6"
+                android:layout_weight="@dimen/detail_textview_weight"
+                android:maxLines="2"
                 android:text="@string/book_publisher"
                 android:textColor="@color/Brown_300_dark"
                 android:textSize="@dimen/book_dialog_tv_size"
@@ -156,12 +170,14 @@
 
             <EditText
                 android:id="@+id/et_dialog_book_publisher"
-                android:layout_width="@dimen/book_dialog_editText_width"
+                android:layout_width="0dp"
                 android:layout_height="@dimen/book_dialog_editText_height"
+                android:layout_weight="@dimen/detail_edittext_weight"
                 android:allowUndo="false"
-                android:background="@drawable/shape_edittext_rectangle"
+                android:background="@drawable/shape_outline_rectangle_black"
                 android:inputType="number"
                 android:maxLength="15"
+                android:maxLines="2"
                 android:paddingHorizontal="@dimen/book_dialog_paddingHorizontal"
                 android:singleLine="true"
                 android:textColor="@color/Black"
@@ -170,16 +186,18 @@
 
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/gap_each_line_large"
             android:gravity="center"
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/gap_each_text_6"
+                android:layout_weight="@dimen/detail_textview_weight"
+                android:maxLines="2"
                 android:text="@string/book_publish_date"
                 android:textColor="@color/Brown_300_dark"
                 android:textSize="@dimen/book_dialog_tv_size"
@@ -188,9 +206,10 @@
 
             <EditText
                 android:id="@+id/et_dialog_book_publish_date"
-                android:layout_width="@dimen/book_dialog_editText_width"
+                android:layout_width="0dp"
                 android:layout_height="@dimen/book_dialog_editText_height"
-                android:background="@drawable/shape_edittext_rectangle"
+                android:layout_weight="@dimen/detail_edittext_weight"
+                android:background="@drawable/shape_outline_rectangle_black"
                 android:maxLength="8"
                 android:paddingHorizontal="@dimen/book_dialog_paddingHorizontal"
                 android:singleLine="true"
@@ -200,16 +219,18 @@
 
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/gap_each_line_large"
             android:gravity="center"
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/gap_each_text_6"
+                android:layout_weight="@dimen/detail_textview_weight"
+                android:maxLines="2"
                 android:text="@string/book_language"
                 android:textColor="@color/Brown_300_dark"
                 android:textSize="@dimen/book_dialog_tv_size"
@@ -218,9 +239,10 @@
 
             <EditText
                 android:id="@+id/et_dialog_book_language"
-                android:layout_width="@dimen/book_dialog_editText_width"
+                android:layout_width="0dp"
                 android:layout_height="@dimen/book_dialog_editText_height"
-                android:background="@drawable/shape_edittext_rectangle"
+                android:layout_weight="3"
+                android:background="@drawable/shape_outline_rectangle_black"
                 android:maxLength="8"
                 android:paddingHorizontal="@dimen/book_dialog_paddingHorizontal"
                 android:singleLine="true"
@@ -229,10 +251,10 @@
         </LinearLayout>
 
         <RadioGroup
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="right"
-            android:layout_marginBottom="@dimen/gap_each_line_large"
+            android:layout_gravity="center"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <RadioButton
@@ -240,7 +262,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/gap_each_text_6"
-                android:text="Unread"
+                android:text="@string/book_status_unread"
                 android:textColor="@color/Brown_300_dark"
                 android:textSize="@dimen/book_dialog_tv_size"
                 android:textStyle="bold"
@@ -251,7 +273,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/gap_each_text_6"
-                android:text="Reading"
+                android:text="@string/book_status_reading"
                 android:textColor="@color/Brown_300_dark"
                 android:textSize="@dimen/book_dialog_tv_size"
                 android:textStyle="bold"
@@ -262,7 +284,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/gap_each_text_6"
-                android:text="Read"
+                android:text="@string/book_status_read"
                 android:textColor="@color/Brown_300_dark"
                 android:textSize="@dimen/book_dialog_tv_size"
                 android:textStyle="bold"
@@ -271,16 +293,18 @@
 
         <LinearLayout
             android:id="@+id/llayout_dialog_Reading_page"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/gap_each_line_large"
             android:gravity="center"
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/gap_each_text_6"
+                android:layout_weight="@dimen/detail_textview_weight"
+                android:maxLines="2"
                 android:text="@string/book_reading_page"
                 android:textColor="@color/Brown_300_dark"
                 android:textSize="@dimen/book_dialog_tv_size"
@@ -289,9 +313,10 @@
 
             <EditText
                 android:id="@+id/et_dialog_book_reading_page"
-                android:layout_width="@dimen/book_dialog_editText_width"
+                android:layout_width="0dp"
                 android:layout_height="@dimen/book_dialog_editText_height"
-                android:background="@drawable/shape_edittext_rectangle"
+                android:layout_weight="@dimen/detail_edittext_weight"
+                android:background="@drawable/shape_outline_rectangle_black"
                 android:inputType="number"
                 android:paddingHorizontal="@dimen/book_dialog_paddingHorizontal"
                 android:singleLine="true"
@@ -304,9 +329,8 @@
             android:id="@+id/checkBox_have_book"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/gap_each_line_large"
             android:gravity="center"
-            android:text="I have this book"
+            android:text="@string/book_have"
             android:textColor="@color/Brown_300_dark"
             android:textSize="@dimen/book_dialog_tv_size"
             android:textStyle="bold"
@@ -324,16 +348,18 @@
 
         <LinearLayout
             android:id="@+id/llayout_dialog_purchase_date"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/gap_each_line_large"
             android:gravity="center"
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/gap_each_text_6"
+                android:layout_weight="@dimen/detail_textview_weight"
+                android:maxLines="2"
                 android:text="@string/book_purchase_date"
                 android:textColor="@color/Brown_300_dark"
                 android:textSize="@dimen/book_dialog_tv_size"
@@ -342,9 +368,10 @@
 
             <EditText
                 android:id="@+id/et_dialog_book_purchase_date"
-                android:layout_width="@dimen/book_dialog_editText_width"
+                android:layout_width="0dp"
                 android:layout_height="@dimen/book_dialog_editText_height"
-                android:background="@drawable/shape_edittext_rectangle"
+                android:layout_weight="@dimen/detail_edittext_weight"
+                android:background="@drawable/shape_outline_rectangle_black"
                 android:inputType="datetime"
                 android:paddingHorizontal="@dimen/book_dialog_paddingHorizontal"
                 android:singleLine="true"
@@ -355,16 +382,18 @@
 
         <LinearLayout
             android:id="@+id/llayout_dialog_purchase_price"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/gap_each_line_large"
             android:gravity="center"
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/gap_each_text_6"
+                android:layout_weight="@dimen/detail_textview_weight"
+                android:maxLines="2"
                 android:text="@string/book_purchase_price"
                 android:textColor="@color/Brown_300_dark"
                 android:textSize="@dimen/book_dialog_tv_size"
@@ -373,9 +402,10 @@
 
             <EditText
                 android:id="@+id/et_dialog_book_purchase_price"
-                android:layout_width="@dimen/book_dialog_editText_width"
+                android:layout_width="0dp"
                 android:layout_height="@dimen/book_dialog_editText_height"
-                android:background="@drawable/shape_edittext_rectangle"
+                android:layout_weight="@dimen/detail_edittext_weight"
+                android:background="@drawable/shape_outline_rectangle_black"
                 android:elevation="0dp"
                 android:inputType="number"
                 android:maxLength="8"
@@ -389,7 +419,7 @@
             android:id="@+id/btn_book_data_send"
             android:layout_width="@dimen/ic_size"
             android:layout_height="@dimen/ic_size"
-            android:layout_margin="6dp"
+            android:layout_marginHorizontal="12dp"
             android:background="@drawable/ic_done" />
 
     </LinearLayout>

@@ -40,6 +40,7 @@
     <string name="book_reading_page">Reading Page :</string>
     <string name="book_purchase_date">Purchase Date :</string>
     <string name="book_purchase_price">Purchase Price :</string>
+    <string name="book_have">Have purchased this book</string>
 
     <!-- Strings related to permission -->
     <string name="permission_request">We need the permission of Camera and Storage for set profile photo</string>
