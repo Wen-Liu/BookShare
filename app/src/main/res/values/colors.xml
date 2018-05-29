@@ -22,6 +22,7 @@
     <color name="White">#ffffff</color>
 
     <!-- Blue Series-->
+    <color name="LightBlue_100">#b6ffff</color>
     <color name="LightBlue_200_light">#b6ffff</color>
     <color name="LightBlue_200">#81d4fa</color>
     <color name="LightBlue_200_Dark">#4ba3c7</color>
@@ -48,6 +49,12 @@
     <color name="Green_400">#66bb6a</color>
     <color name="Green_600">#2e7d32</color>
     <color name="Green_800">#43a047</color>
+
+    <!-- special Series-->
+    <color name="Paper_color">#fade9f</color>
+
+
+
 
 
 </resources>

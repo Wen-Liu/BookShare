@@ -26,7 +26,7 @@ public class ShareBookParser {
             jsonObject = new JSONObject(jsonString);
             totalItems = jsonObject.getInt("totalItems");
 
-            if (totalItems > 0){
+            if (totalItems > 0) {
                 bookDetailUrl = jsonObject.getJSONArray("items").getJSONObject(0).getString("selfLink");
                 Log.d(Constants.TAG_SHARE_BOOK_PARSER, "bookDetailUrl: " + bookDetailUrl);
             } else {
@@ -69,11 +69,27 @@ public class ShareBookParser {
         oBook.setIsbn13(item.getVolumeInfo().getIndustryIdentifiers().get(1).getIdentifier());
         oBook.setPublisher(item.getVolumeInfo().getPublisher());
         oBook.setPublishDate(item.getVolumeInfo().getPublishedDate());
-        oBook.setLanguage(item.getVolumeInfo().getLanguage());
+        oBook.setLanguage(checkLanguage(item.getVolumeInfo().getLanguage()));
         oBook.setImage(GetBookCoverUrl.GetUrl(item.getVolumeInfo().getIndustryIdentifiers().get(1).getIdentifier()));
 
         return oBook;
     }
 
+    public static String checkLanguage(String language) {
 
+        switch (language) {
+            case "zh":
+                return "中文";
+            case "zh-TW":
+                return "繁體中文";
+            case "zh-CN":
+                return "簡體中文";
+            case "en":
+                return "English";
+            case "es":
+                return "Español";
+            default:
+                return language;
+        }
+    }
 }

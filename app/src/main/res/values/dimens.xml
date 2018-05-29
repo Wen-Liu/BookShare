@@ -34,23 +34,26 @@
     <dimen name="book_dialog_paddingHorizontal">8dp</dimen>
     <dimen name="book_dialog_editText_width">220dp</dimen>
     <dimen name="book_dialog_editText_height">30dp</dimen>
+    <dimen name="book_dialog_textview_weight">1</dimen>
+    <dimen name="book_dialog_edittext_weight">3</dimen>
 
     <dimen name="ic_size">36dp</dimen>
 
     <!-- layout dimension related to detail fragment -->
     <dimen name="detail_book_title_size">24sp</dimen>
     <dimen name="detail_book_subtitle_size">18sp</dimen>
-    <dimen name="detail_book_tv_text_size">16sp</dimen>
+    <dimen name="detail_book_tv_text_size">15sp</dimen>
     <dimen name="detail_book_tv_rating_size">16sp</dimen>
     <dimen name="detail_tv_layout_width">120dp</dimen>
     <dimen name="detail_divider_length">340dp</dimen>
-    <dimen name="detail_textview_weight">1</dimen>
-    <dimen name="detail_edittext_weight">3</dimen>
+    <dimen name="detail_title_weight">1</dimen>
+    <dimen name="detail_context_weight">3</dimen>
+
 
     <!-- layout dimension related to profile page -->
     <dimen name="profile_info_number_size">28sp</dimen>
     <dimen name="profile_info_title_size">16sp</dimen>
     <dimen name="profile_info_paddingHorizontal">8dp</dimen>
-    <dimen name="profile_divider_length">60dp</dimen>
+    <dimen name="profile_divider_length">80dp</dimen>
 
 </resources>

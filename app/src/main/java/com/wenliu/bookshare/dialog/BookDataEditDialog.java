@@ -11,6 +11,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.wenliu.bookshare.Constants;
@@ -31,6 +32,7 @@ import butterknife.OnClick;
 
 public class BookDataEditDialog extends Dialog implements CompoundButton.OnCheckedChangeListener {
 
+    //region "BindView"
     @BindView(R.id.et_dialog_book_title)
     EditText mEtDialogBookTitle;
     @BindView(R.id.et_dialog_book_subtitle)
@@ -69,6 +71,7 @@ public class BookDataEditDialog extends Dialog implements CompoundButton.OnCheck
     EditText mEtDialogBookReadingPage;
     @BindView(R.id.llayout_dialog_Reading_page)
     LinearLayout mLlayoutDialogReadingPage;
+    //endregion
 
     private Context mContext;
     private BookCustomInfo mBookCustomInfo;

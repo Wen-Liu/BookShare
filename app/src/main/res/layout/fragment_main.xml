@@ -21,7 +21,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="@dimen/main_spinner_margin_top"
             android:layout_weight="1"
-            android:background="@drawable/shape_outline_rectangle_black"
+            android:background="@drawable/shape_outline_round_black"
             android:dropDownSelector="@color/LightBlue_200"
             android:dropDownVerticalOffset="32dp"
             android:entries="@array/menu_book_filter"
