@@ -124,7 +124,7 @@
                 android:layout_width="@dimen/detail_tv_layout_width"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/gap_each_text_6"
-                android:gravity="right"
+                android:gravity="left"
                 android:text="@string/book_author"
                 android:textColor="@color/Black"
                 android:textSize="@dimen/detail_book_tv_text_size" />
@@ -149,7 +149,7 @@
                 android:layout_width="@dimen/detail_tv_layout_width"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/gap_each_text_6"
-                android:gravity="right"
+                android:gravity="left"
                 android:text="@string/book_publisher"
                 android:textColor="@color/Black"
                 android:textSize="@dimen/detail_book_tv_text_size" />
@@ -174,7 +174,7 @@
                 android:layout_width="@dimen/detail_tv_layout_width"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/gap_each_text_6"
-                android:gravity="right"
+                android:gravity="left"
                 android:text="@string/book_publish_date"
                 android:textColor="@color/Black"
                 android:textSize="@dimen/detail_book_tv_text_size" />
@@ -198,7 +198,7 @@
                 android:layout_width="@dimen/detail_tv_layout_width"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/gap_each_text_6"
-                android:gravity="right"
+                android:gravity="left"
                 android:text="@string/book_language"
                 android:textColor="@color/Black"
                 android:textSize="@dimen/detail_book_tv_text_size" />
@@ -223,7 +223,7 @@
                 android:layout_width="@dimen/detail_tv_layout_width"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/gap_each_text_6"
-                android:gravity="right"
+                android:gravity="left"
                 android:text="@string/book_ISBN"
                 android:textColor="@color/Black"
                 android:textSize="@dimen/detail_book_tv_text_size" />
@@ -260,7 +260,7 @@
                     android:layout_width="@dimen/detail_tv_layout_width"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/gap_each_text_6"
-                    android:gravity="right"
+                    android:gravity="left"
                     android:text="@string/book_purchase_date"
                     android:textColor="@color/Black"
                     android:textSize="@dimen/detail_book_tv_text_size" />
@@ -284,7 +284,7 @@
                     android:layout_width="@dimen/detail_tv_layout_width"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/gap_each_text_6"
-                    android:gravity="right"
+                    android:gravity="left"
                     android:text="@string/book_purchase_price"
                     android:textColor="@color/Black"
                     android:textSize="@dimen/detail_book_tv_text_size" />

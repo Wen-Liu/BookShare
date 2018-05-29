@@ -43,7 +43,7 @@
     <dimen name="detail_book_tv_text_size">16sp</dimen>
     <dimen name="detail_book_tv_rating_size">16sp</dimen>
     <dimen name="detail_tv_layout_width">120dp</dimen>
-    <dimen name="detail_divider_length">320dp</dimen>
+    <dimen name="detail_divider_length">340dp</dimen>
 
     <!-- layout dimension related to profile page -->
     <dimen name="profile_info_number_size">28sp</dimen>

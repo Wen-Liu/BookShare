@@ -19,9 +19,6 @@
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_incorrect_password_confirm">Confirm password not match</string>
     <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
     <string name="no_book_data">"You have no books yet. Start adding books by clicking the '+' button!"
     </string>
     <string name="no_friend_data">"Start adding your friends by clicking the button!"
