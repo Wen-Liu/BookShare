@@ -73,7 +73,7 @@ public class ProfileAdapter extends RecyclerView.Adapter {
         } else if (mFriends.get(position).getStatus().equals(Constants.FIREBASE_FRIEND_SEND)) {
             ((ProfileViewHolder) holder).isReceiveRequest(false);
             ((ProfileViewHolder) holder).isSendRequest(true);
-            ((ProfileViewHolder) holder).getTvItemFriendInfo().setText("等待對方接受邀請中");
+            ((ProfileViewHolder) holder).getTvItemFriendInfo().setText("等待對方接受好友邀請中");
         }
     }
 
@@ -113,16 +113,16 @@ public class ProfileAdapter extends RecyclerView.Adapter {
                 case R.id.btn_friend_reject:
                     Toast.makeText(ShareBook.getAppContext(), "reject " + mFriends.get(getAdapterPosition()).getName(), Toast.LENGTH_SHORT).show();
 
-                    mFriends.remove(getAdapterPosition());
                     FirebaseApiHelper.newInstance().rejectFriendRequest(mFriends.get(getAdapterPosition()));
+                    mFriends.remove(getAdapterPosition());
                     notifyDataSetChanged();
                     break;
 
                 case R.id.btn_friend_accept:
                     Toast.makeText(ShareBook.getAppContext(), "accept " + mFriends.get(getAdapterPosition()).getName(), Toast.LENGTH_SHORT).show();
 
-                    mFriends.get(getAdapterPosition()).setStatus(Constants.FIREBASE_FRIEND_APPROVE);
                     FirebaseApiHelper.newInstance().acceptFriendRequest(mFriends.get(getAdapterPosition()));
+                    mFriends.get(getAdapterPosition()).setStatus(Constants.FIREBASE_FRIEND_APPROVE);
                     notifyDataSetChanged();
                     break;
 

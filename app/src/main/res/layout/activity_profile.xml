@@ -230,6 +230,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:theme="@style/AppTheme.AppBarOverlay"
+                app:navigationIcon="@drawable/ic_navigate_before"
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/AppTheme.PopupOverlay"
                 app:title=" "></android.support.v7.widget.Toolbar>

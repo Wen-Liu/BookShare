@@ -60,7 +60,7 @@ import permissions.dispatcher.PermissionRequest;
 import permissions.dispatcher.RuntimePermissions;
 
 @RuntimePermissions
-public class ProfileActivity extends BaseActivity implements ProfileContract.View {
+public class ProfileActivity extends BaseActivity implements ProfileContract.View, View.OnClickListener {
 
     //region "BindView"
     @BindView(R.id.appbarlayout_profile)
@@ -160,6 +160,7 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
         mToolbar.setPadding(0, getStatusBarHeight(), 0, 0);
         setSupportActionBar(mToolbar);
         mCollapeToolbarProfile.setTitle(UserManager.getInstance().getUserName());
+        mToolbar.setNavigationOnClickListener(this);
     }
 
     /**
@@ -530,5 +531,8 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
         Toast.makeText(this, "never ask", Toast.LENGTH_SHORT).show();
     }
 
-
+    @Override
+    public void onClick(View v) {
+        onBackPressed();
+    }
 }

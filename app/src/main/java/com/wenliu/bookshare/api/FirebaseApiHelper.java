@@ -285,14 +285,15 @@ public class FirebaseApiHelper {
         callback.onCompleted();
     }
 
-    public void acceptFriendRequest(User friend){
+    public void acceptFriendRequest(User friend) {
         String selfId = UserManager.getInstance().getUser().getId();
         mGetRef.child(Constants.FIREBASE_USERS).child(selfId).child(Constants.FIREBASE_FRIENDS).child(friend.getId()).child(Constants.FIREBASE_FRIEND_STATUS).setValue(Constants.FIREBASE_FRIEND_APPROVE);
         mGetRef.child(Constants.FIREBASE_USERS).child(friend.getId()).child(Constants.FIREBASE_FRIENDS).child(selfId).child(Constants.FIREBASE_FRIEND_STATUS).setValue(Constants.FIREBASE_FRIEND_APPROVE);
     }
 
-    public void rejectFriendRequest(User friend){
+    public void rejectFriendRequest(User friend) {
         String selfId = UserManager.getInstance().getUser().getId();
+        Log.d(Constants.TAG_FIREBASE_API_HELPER, "rejectFriendRequest: selfId " + selfId);
         mGetRef.child(Constants.FIREBASE_USERS).child(selfId).child(Constants.FIREBASE_FRIENDS).child(friend.getId()).removeValue();
         mGetRef.child(Constants.FIREBASE_USERS).child(friend.getId()).child(Constants.FIREBASE_FRIENDS).child(selfId).removeValue();
     }

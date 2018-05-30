@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.wenliu.bookshare.Constants;
@@ -18,7 +19,6 @@ import com.wenliu.bookshare.ImageManager;
 import com.wenliu.bookshare.R;
 import com.wenliu.bookshare.ShareBook;
 import com.wenliu.bookshare.ShareBookActivity;
-import com.wenliu.bookshare.main.MainAdapter;
 import com.wenliu.bookshare.object.BookCustomInfo;
 
 import butterknife.BindView;
@@ -61,6 +61,10 @@ public class DetailFragment extends Fragment implements DetailContract.View {
     Button mBtnDetailEdit;
     @BindView(R.id.llayout_detail_purchase)
     LinearLayout mLlayoutDetailPurchase;
+    @BindView(R.id.btn_detail_back)
+    Button mBtnDetailBack;
+    @BindView(R.id.scroll_detail_page)
+    ScrollView mScrollDetailPage;
     //endregion
     private DetailContract.Presenter mPresenter;
     private ImageManager mImageManager;
@@ -233,14 +237,16 @@ public class DetailFragment extends Fragment implements DetailContract.View {
         mPresenter.showFab();
     }
 
-    @OnClick({R.id.btn_detail_edit})
+    @OnClick({R.id.btn_detail_edit , R.id.btn_detail_back})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_detail_edit:
                 mPresenter.showBookDataEditDialog(mBookCustomInfo);
                 break;
+            case R.id.btn_detail_back:
+                getActivity().onBackPressed();
+                break;
         }
     }
-
 
 }

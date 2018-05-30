@@ -6,15 +6,31 @@
     android:orientation="vertical"
     tools:context="com.wenliu.bookshare.detial.DetailFragment">
 
-
-    <ImageView
-        android:id="@+id/iv_detail_book_cover"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_gravity="center"
-        android:scaleType="fitCenter"
-        android:background="@color/White"
-        android:transitionName="@string/transitionName_detail" />
+        android:layout_height="wrap_content"
+        android:paddingVertical="20dp"
+        android:paddingHorizontal="12dp">
+
+        <Button
+            android:id="@+id/btn_detail_back"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/ic_navigate_before"
+            android:backgroundTint="@color/Black" />
+
+        <ImageView
+            android:id="@+id/iv_detail_book_cover"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_gravity="center"
+            android:background="@color/White"
+            android:scaleType="fitCenter"
+            android:transitionName="@string/transitionName_detail"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
