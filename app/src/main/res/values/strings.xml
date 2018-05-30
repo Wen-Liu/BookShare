@@ -71,7 +71,6 @@
     <string name="profile_book_read">Read</string>
     <string name="profile_book_lent">Lent</string>
 
-
     <!-- Strings related to menu -->
     <string-array name="menu_book_filter">
         <item>所有蒐藏</item>

@@ -54,7 +54,7 @@ public class ProfilePresenter implements ProfileContract.Presenter {
         mFirebaseApiHelper.checkUserByEmail(email, new CheckUserExistCallback() {
             @Override
             public void userExist(User user) {
-                mFirebaseApiHelper.addFriend(user , new AddFriendCallback() {
+                mFirebaseApiHelper.sendFriendRequest(user , new AddFriendCallback() {
                     @Override
                     public void onCompleted() {
                         getMyFriends();

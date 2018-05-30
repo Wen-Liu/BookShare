@@ -12,16 +12,20 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_gravity="center"
-        android:background="@color/White"
         android:scaleType="fitCenter"
+        android:background="@color/White"
         android:transitionName="@string/transitionName_detail" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/shape_gradient_detail_page"
+        android:orientation="vertical">
 
         <ScrollView
             android:id="@+id/scroll_detail_page"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/White"
             android:fillViewport="true">
 
             <LinearLayout
@@ -330,4 +334,5 @@
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>
+    </LinearLayout>
 </LinearLayout>

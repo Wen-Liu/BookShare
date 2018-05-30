@@ -6,21 +6,24 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.wenliu.bookshare.Constants;
 import com.wenliu.bookshare.ImageManager;
 import com.wenliu.bookshare.R;
 import com.wenliu.bookshare.ShareBook;
-import com.wenliu.bookshare.main.MainAdapter;
+import com.wenliu.bookshare.api.FirebaseApiHelper;
 import com.wenliu.bookshare.object.User;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 /**
@@ -31,15 +34,156 @@ public class ProfileAdapter extends RecyclerView.Adapter {
 
     private Context mContext;
     private ArrayList<User> mFriends = new ArrayList<>();
-    //    private ArrayList<String> mNumbers;
-//    private ArrayList<String> mPhotos;
     private ImageManager mImageManager = new ImageManager(ShareBook.getAppContext());
-
 
     public ProfileAdapter(Context context, ArrayList<User> friends) {
         mContext = context;
         mFriends = friends;
-//        mNumbers = new ArrayList<>();
+
+        fakeData();
+        Log.d(Constants.TAG_PROFILE_ADAPTER, "ProfileAdapter: ");
+    }
+
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        Log.d(Constants.TAG_PROFILE_ADAPTER, "onCreateViewHolder: ");
+
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_profile_linear, parent, false);
+        return new ProfileViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        Log.d(Constants.TAG_PROFILE_ADAPTER, "onBindViewHolder: ");
+
+        mImageManager.loadCircleImage(mFriends.get(position).getImage(), ((ProfileViewHolder) holder).getIvItemFriendImage());
+        ((ProfileViewHolder) holder).getTvItemFriendName().setText(mFriends.get(position).getName());
+        ((ProfileViewHolder) holder).getTvItemFriendEmail().setText(mFriends.get(position).getEmail());
+
+        if (mFriends.get(position).getStatus().equals(Constants.FIREBASE_FRIEND_APPROVE)) {
+            ((ProfileViewHolder) holder).isReceiveRequest(false);
+            ((ProfileViewHolder) holder).isSendRequest(false);
+            ((ProfileViewHolder) holder).getTvItemFriendInfo().setText("");
+
+        } else if (mFriends.get(position).getStatus().equals(Constants.FIREBASE_FRIEND_RECEIVE)) {
+            ((ProfileViewHolder) holder).isReceiveRequest(true);
+            ((ProfileViewHolder) holder).isSendRequest(false);
+            ((ProfileViewHolder) holder).getTvItemFriendInfo().setText("想加入你為好友");
+
+        } else if (mFriends.get(position).getStatus().equals(Constants.FIREBASE_FRIEND_SEND)) {
+            ((ProfileViewHolder) holder).isReceiveRequest(false);
+            ((ProfileViewHolder) holder).isSendRequest(true);
+            ((ProfileViewHolder) holder).getTvItemFriendInfo().setText("等待對方接受邀請中");
+        }
+    }
+
+    @Override
+    public int getItemCount() {
+        return mFriends.size();
+    }
+
+
+    public class ProfileViewHolder extends RecyclerView.ViewHolder {
+        //region "BindView"
+        @BindView(R.id.iv_item_friend_image)
+        ImageView mIvItemFriendImage;
+        @BindView(R.id.tv_item_friend_name)
+        TextView mTvItemFriendName;
+        @BindView(R.id.tv_item_friend_email)
+        TextView mTvItemFriendEmail;
+        @BindView(R.id.tv_item_friend_info)
+        TextView mTvItemFriendInfo;
+        @BindView(R.id.ll_user_info)
+        LinearLayout mLlUserInfo;
+        @BindView(R.id.ll_add_friend)
+        LinearLayout mLlAddFriend;
+
+        @BindView(R.id.btn_friend_reject)
+        Button mBtnFriendReject;
+        @BindView(R.id.btn_friend_accept)
+        Button mBtnFriendAccept;
+        @BindView(R.id.btn_friend_send)
+        Button mBtnFriendSend;
+        //endregion
+
+
+        @OnClick({R.id.btn_friend_reject, R.id.btn_friend_accept, R.id.btn_friend_send})
+        public void onViewClicked(View view) {
+            switch (view.getId()) {
+                case R.id.btn_friend_reject:
+                    Toast.makeText(ShareBook.getAppContext(), "reject " + mFriends.get(getAdapterPosition()).getName(), Toast.LENGTH_SHORT).show();
+
+                    mFriends.remove(getAdapterPosition());
+                    FirebaseApiHelper.newInstance().rejectFriendRequest(mFriends.get(getAdapterPosition()));
+                    notifyDataSetChanged();
+                    break;
+
+                case R.id.btn_friend_accept:
+                    Toast.makeText(ShareBook.getAppContext(), "accept " + mFriends.get(getAdapterPosition()).getName(), Toast.LENGTH_SHORT).show();
+
+                    mFriends.get(getAdapterPosition()).setStatus(Constants.FIREBASE_FRIEND_APPROVE);
+                    FirebaseApiHelper.newInstance().acceptFriendRequest(mFriends.get(getAdapterPosition()));
+                    notifyDataSetChanged();
+                    break;
+
+                case R.id.btn_friend_send:
+                    Toast.makeText(ShareBook.getAppContext(), "send " + mFriends.get(getAdapterPosition()).getName(), Toast.LENGTH_SHORT).show();
+
+                    break;
+            }
+        }
+
+        public ProfileViewHolder(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
+            Log.d(Constants.TAG_PROFILE_ADAPTER, "ProfileViewHolder: ");
+        }
+
+        public ImageView getIvItemFriendImage() {
+            return mIvItemFriendImage;
+        }
+
+        public TextView getTvItemFriendName() {
+            return mTvItemFriendName;
+        }
+
+        public TextView getTvItemFriendEmail() {
+            return mTvItemFriendEmail;
+        }
+
+        public TextView getTvItemFriendInfo() {
+            return mTvItemFriendInfo;
+        }
+
+        public LinearLayout getLlUserInfo() {
+            return mLlUserInfo;
+        }
+
+        public LinearLayout getLlAddFriend() {
+            return mLlAddFriend;
+        }
+
+        public void isSendRequest(boolean isSend) {
+            mBtnFriendSend.setVisibility(isSend ? View.VISIBLE : View.GONE);
+        }
+
+        public void isReceiveRequest(boolean isReceive) {
+            mBtnFriendReject.setVisibility(isReceive ? View.VISIBLE : View.GONE);
+            mBtnFriendAccept.setVisibility(isReceive ? View.VISIBLE : View.GONE);
+        }
+    }
+
+    public void updateData(ArrayList<User> friends) {
+        Log.d(Constants.TAG_PROFILE_ADAPTER, "updateData, data count= " + friends.size());
+
+        mFriends = new ArrayList<>(friends);
+        notifyDataSetChanged();
+    }
+
+    private void fakeData() {
+        //    private ArrayList<String> mNumbers;
+//    private ArrayList<String> mPhotos;
+        //        mNumbers = new ArrayList<>();
 //        mNumbers.add("Enid");
 //        mNumbers.add("Luke");
 //        mNumbers.add("Wayne Chen");
@@ -54,87 +198,7 @@ public class ProfileAdapter extends RecyclerView.Adapter {
 //        mPhotos.add("https://scontent.ftpe7-2.fna.fbcdn.net/v/t1.0-9/29694909_2087950431220987_294947656529871708_n.jpg?_nc_fx=ftpe7-2&_nc_cat=0&oh=e18aed8ac74d128fe59a62aa7875af25&oe=5B941754");
 //        mPhotos.add("https://scontent.ftpe7-4.fna.fbcdn.net/v/t31.0-8/15591479_1190767794352803_8465831974099662491_o.jpg?_nc_fx=ftpe7-2&_nc_cat=0&oh=a49bc5d55e37169d94af759814941a3e&oe=5BBF9D77");
 //        mPhotos.add("https://scontent.ftpe7-4.fna.fbcdn.net/v/t31.0-8/17504932_1708878342462541_5943255062600487605_o.jpg?_nc_fx=ftpe7-2&_nc_cat=0&oh=9040cf73f3c24ed5c4359793c423d182&oe=5B82AD3F");
-
-        Log.d(Constants.TAG_PROFILE_ADAPTER, "ProfileAdapter: ");
     }
 
-    @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_profile_linear, parent, false);
-        return new ProfileViewHolder(view);
-    }
-
-    @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-
-        mImageManager.loadCircleImage(mFriends.get(position).getImage(), ((ProfileAdapter.ProfileViewHolder) holder).getIvItemFriendImage());
-        Log.d(Constants.TAG_PROFILE_ADAPTER, "onBindViewHolder: " + mFriends.get(position).getImage());
-//        Glide.with(ShareBook.getAppContext())
-//                .load(mFriends.get(position).getImage())
-//                .into(((ProfileViewHolder) holder).getIvItemFriendImage());
-
-        ((ProfileAdapter.ProfileViewHolder) holder).getTvItemFriendName().setText(mFriends.get(position).getName());
-        ((ProfileAdapter.ProfileViewHolder) holder).getTvItemFriendEmail().setText(mFriends.get(position).getEmail());
-    }
-
-    @Override
-    public int getItemCount() {
-        return mFriends.size();
-    }
-
-    public class ProfileViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.iv_item_friend_image)
-        ImageView mIvItemFriendImage;
-        @BindView(R.id.tv_item_friend_name)
-        TextView mTvItemFriendName;
-        @BindView(R.id.tv_item_friend_email)
-        TextView mTvItemFriendEmail;
-        @BindView(R.id.tv_item_friend_info)
-        TextView mTvItemFriendInfo;
-
-        public ProfileViewHolder(View view) {
-            super(view);
-            ButterKnife.bind(this, view);
-        }
-
-        public ImageView getIvItemFriendImage() {
-            return mIvItemFriendImage;
-        }
-
-        public void setIvItemFriendImage(ImageView ivItemFriendImage) {
-            mIvItemFriendImage = ivItemFriendImage;
-        }
-
-        public TextView getTvItemFriendName() {
-            return mTvItemFriendName;
-        }
-
-        public void setTvItemFriendName(TextView tvItemFriendName) {
-            mTvItemFriendName = tvItemFriendName;
-        }
-
-        public TextView getTvItemFriendEmail() {
-            return mTvItemFriendEmail;
-        }
-
-        public void setTvItemFriendEmail(TextView tvItemFriendEmail) {
-            mTvItemFriendEmail = tvItemFriendEmail;
-        }
-
-        public TextView getTvItemFriendInfo() {
-            return mTvItemFriendInfo;
-        }
-
-        public void setTvItemFriendInfo(TextView tvItemFriendInfo) {
-            mTvItemFriendInfo = tvItemFriendInfo;
-        }
-    }
-
-    public void updateData(ArrayList<User> friends) {
-        Log.d(Constants.TAG_PROFILE_ADAPTER, "updateData, data count= " + friends.size());
-
-        mFriends = new ArrayList<>(friends);
-        notifyDataSetChanged();
-    }
 }

@@ -11,6 +11,7 @@ public class User {
     private String mImage;
     private String mId;
     private String mCreateTime;
+    private String mStatus;
 
     public User() {
         mName = "";
@@ -18,6 +19,7 @@ public class User {
         mImage = "";
         mId = "";
         mCreateTime = "";
+        mStatus = "";
     }
 
     public String getName() {
@@ -58,5 +60,13 @@ public class User {
 
     public void setCreateTime(String createTime) {
         mCreateTime = createTime;
+    }
+
+    public String getStatus() {
+        return mStatus;
+    }
+
+    public void setStatus(String mfriendStatus) {
+        this.mStatus = mfriendStatus;
     }
 }

@@ -45,9 +45,9 @@ public class Constants {
     public final static String FIREBASE_EMAIL = "email";
     public final static String FIREBASE_CREATE_TIME = "createTime";
     public final static String FIREBASE_FRIEND_STATUS = "status";
-    public final static String FIREBASE_FRIEND_SEND = "send";
-    public final static String FIREBASE_FRIEND_RECEIVE = "receive";
-    public final static String FIREBASE_FRIEND_APPROVE = "approve";
+    public final static String FIREBASE_FRIEND_SEND = "1_send";
+    public final static String FIREBASE_FRIEND_RECEIVE = "0_receive";
+    public final static String FIREBASE_FRIEND_APPROVE = "2_approve";
 
     // User Manager
     public final static String USER_DATA = "user_data";

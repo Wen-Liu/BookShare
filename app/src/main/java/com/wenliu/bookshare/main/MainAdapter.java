@@ -79,6 +79,7 @@ public class MainAdapter extends RecyclerView.Adapter {
     }
 
     public class MainViewHolder extends RecyclerView.ViewHolder {
+        //region "BindView"
         @BindView(R.id.ImV_main_book_cover)
         ImageView mImVMainBookCover;
         @BindView(R.id.tv_main_title)
@@ -91,6 +92,7 @@ public class MainAdapter extends RecyclerView.Adapter {
         TextView mTvItemBookBorrowStatus;
         @BindView(R.id.tv_main_book_status)
         TextView mTvItemBookStatus;
+        //endregion
 
         public MainViewHolder(View view) {
             super(view);
@@ -154,7 +156,6 @@ public class MainAdapter extends RecyclerView.Adapter {
             return mTvMainAuthor;
         }
     }
-
 
     private void setBookHaveView(boolean haveBook, TextView tvBookBorrowStatus) {
         if (haveBook) {

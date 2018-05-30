@@ -270,7 +270,8 @@ public class FirebaseApiHelper {
         });
     }
 
-    public void addFriend(User friend, AddFriendCallback callback) {
+    public void sendFriendRequest(User friend, AddFriendCallback callback) {
+        Log.d(Constants.TAG_FIREBASE_API_HELPER, "sendFriendRequest: ");
 
         User user = UserManager.getInstance().getUser();
         user.setCreateTime(String.valueOf(System.currentTimeMillis() / 1000));
@@ -284,14 +285,25 @@ public class FirebaseApiHelper {
         callback.onCompleted();
     }
 
-    public void getMyFriends(final GetFriendsCallback callback) {
+    public void acceptFriendRequest(User friend){
+        String selfId = UserManager.getInstance().getUser().getId();
+        mGetRef.child(Constants.FIREBASE_USERS).child(selfId).child(Constants.FIREBASE_FRIENDS).child(friend.getId()).child(Constants.FIREBASE_FRIEND_STATUS).setValue(Constants.FIREBASE_FRIEND_APPROVE);
+        mGetRef.child(Constants.FIREBASE_USERS).child(friend.getId()).child(Constants.FIREBASE_FRIENDS).child(selfId).child(Constants.FIREBASE_FRIEND_STATUS).setValue(Constants.FIREBASE_FRIEND_APPROVE);
+    }
 
-        Log.d(Constants.TAG_FIREBASE_API_HELPER, "getMyFriends");
+    public void rejectFriendRequest(User friend){
+        String selfId = UserManager.getInstance().getUser().getId();
+        mGetRef.child(Constants.FIREBASE_USERS).child(selfId).child(Constants.FIREBASE_FRIENDS).child(friend.getId()).removeValue();
+        mGetRef.child(Constants.FIREBASE_USERS).child(friend.getId()).child(Constants.FIREBASE_FRIENDS).child(selfId).removeValue();
+    }
+
+    public void getMyFriends(final GetFriendsCallback callback) {
+        Log.d(Constants.TAG_FIREBASE_API_HELPER, "getMyFriends: ");
 
         final Query myBooksQuery = mGetRef.child(Constants.FIREBASE_USERS)
                 .child(UserManager.getInstance().getUserId())
                 .child(Constants.FIREBASE_FRIENDS)
-                .orderByChild(Constants.FIREBASE_CREATE_TIME);
+                .orderByChild(Constants.FIREBASE_FRIEND_STATUS);
 
         myBooksQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

@@ -49,7 +49,6 @@
     <dimen name="detail_title_weight">1</dimen>
     <dimen name="detail_context_weight">3</dimen>
 
-
     <!-- layout dimension related to profile page -->
     <dimen name="profile_info_number_size">28sp</dimen>
     <dimen name="profile_info_title_size">16sp</dimen>
