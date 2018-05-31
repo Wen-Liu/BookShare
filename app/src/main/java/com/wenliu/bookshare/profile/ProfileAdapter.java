@@ -32,15 +32,16 @@ import butterknife.OnClick;
 
 public class ProfileAdapter extends RecyclerView.Adapter {
 
+    private ProfileContract.Presenter mPresenter;
     private Context mContext;
     private ArrayList<User> mFriends = new ArrayList<>();
     private ImageManager mImageManager = new ImageManager(ShareBook.getAppContext());
 
-    public ProfileAdapter(Context context, ArrayList<User> friends) {
+    public ProfileAdapter(Context context, ProfileContract.Presenter presenter, ArrayList<User> friends) {
+        mPresenter = presenter;
         mContext = context;
         mFriends = friends;
 
-        fakeData();
         Log.d(Constants.TAG_PROFILE_ADAPTER, "ProfileAdapter: ");
     }
 
@@ -97,6 +98,8 @@ public class ProfileAdapter extends RecyclerView.Adapter {
         LinearLayout mLlUserInfo;
         @BindView(R.id.ll_add_friend)
         LinearLayout mLlAddFriend;
+        @BindView(R.id.llayout_item_profile)
+        LinearLayout mLlayoutItemProfile;
 
         @BindView(R.id.btn_friend_reject)
         Button mBtnFriendReject;
@@ -107,7 +110,7 @@ public class ProfileAdapter extends RecyclerView.Adapter {
         //endregion
 
 
-        @OnClick({R.id.btn_friend_reject, R.id.btn_friend_accept, R.id.btn_friend_send})
+        @OnClick({R.id.btn_friend_reject, R.id.btn_friend_accept, R.id.btn_friend_send, R.id.llayout_item_profile})
         public void onViewClicked(View view) {
             switch (view.getId()) {
                 case R.id.btn_friend_reject:
@@ -128,6 +131,11 @@ public class ProfileAdapter extends RecyclerView.Adapter {
 
                 case R.id.btn_friend_send:
                     Toast.makeText(ShareBook.getAppContext(), "send " + mFriends.get(getAdapterPosition()).getName(), Toast.LENGTH_SHORT).show();
+
+                    break;
+
+                case R.id.llayout_item_profile:
+                    mPresenter.transToFriendProfile(mFriends.get(getAdapterPosition()));
 
                     break;
             }

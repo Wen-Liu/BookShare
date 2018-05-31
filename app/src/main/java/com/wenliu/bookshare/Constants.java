@@ -10,9 +10,11 @@ public class Constants {
     public final static String TAG_BASE_ACTIVITY = "wen-BaseActivity";
     public final static String TAG_LOGIN_ACTIVITY = "wen-LoginActivity";
     public final static String TAG_SHAREBOOK_ACTIVITY = "wen-ShareBookActivity";
-    public final static String TAG_SHAREBOOK_PRESENTER = "wen-ShareBookActivity";
+    public final static String TAG_SHAREBOOK_PRESENTER = "wen-ShareBookPresenter";
     public final static String TAG_PROFILE_ACTIVITY = "wen-ProfileActivity";
-    public final static String TAG_PROFILE_PRESENTER = "wen-ProfileActivity";
+    public final static String TAG_PROFILE_PRESENTER = "wen-ProfilePresenter";
+    public final static String TAG_FRIEND_PROFILE_ACTIVITY = "wen-FProfileActivity";
+    public final static String TAG_FRIEND_PROFILE_PRESENTER = "wen-FProfilePresenter";
 
     public final static String TAG_MAIN_FRAGMENT = "wen-MainFragment";
     public final static String TAG_MAIN_PRESENTER = "wen-MainPresenter";
@@ -21,6 +23,7 @@ public class Constants {
 
     public final static String TAG_MAIN_ADAPTER = "wen-MainAdapter";
     public final static String TAG_PROFILE_ADAPTER = "wen-ProfileAdapter";
+    public final static String TAG_FRIEND_PROFILE_ADAPTER = "wen-FProfileAdapter";
 
     public final static String TAG_INPUT_ISBN_DIALOG = "wen-InputIsbnDialog";
     public final static String TAG_BOOK_DATA_EDIT_DIALOG = "wen-BookDataEditDialog";

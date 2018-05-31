@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:theme="@style/Widget.AppCompat.Light.ActionBar"
+    tools:context=".friendprofile.FriendProfileActivity">
+
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbarlayout_friend_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collape_toolbar_fprofile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_gradient_toolbar"
+            app:contentScrim="@color/LightBlue_200"
+            app:expandedTitleGravity="center"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:titleTextColor="@color/Brown_600">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingHorizontal="@dimen/profile_info_paddingHorizontal"
+                app:layout_collapseMode="parallax"
+                app:layout_collapseParallaxMultiplier="0.7">
+
+                <ImageView
+                    android:id="@+id/iv_friend_profile_userimage"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="40dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/all_placeholder_avatar" />
+
+                <TextView
+                    android:id="@+id/tv_friend_profile_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/gap_each_line_large"
+                    android:fontFamily="sans-serif"
+                    android:includeFontPadding="false"
+                    android:text=" "
+                    android:textColor="@color/Black"
+                    android:textSize="@dimen/profile_info_number_size"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_friend_profile_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="@dimen/gap_each_line_large"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/Black"
+                    android:textSize="@dimen/profile_info_title_size" />
+
+            </LinearLayout>
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar_friend_profile"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:theme="@style/AppTheme.AppBarOverlay"
+                app:layout_collapseMode="pin"
+                app:navigationIcon="@drawable/ic_navigate_before"
+                app:popupTheme="@style/AppTheme.PopupOverlay"
+                app:title=" "></android.support.v7.widget.Toolbar>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/Recycview_friend_profile"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"></android.support.v7.widget.RecyclerView>
+
+</android.support.design.widget.CoordinatorLayout>

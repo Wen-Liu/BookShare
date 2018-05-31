@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -67,21 +69,6 @@ public class ShareBookActivity extends BaseActivity implements ShareBookContract
         setSupportActionBar(mToolbar);
     }
 
-    /**
-     * @return height of status bar
-     */
-    private int getStatusBarHeight() {
-
-        int result = 0;
-        int resourceId = getResources()
-                .getIdentifier("status_bar_height", "dimen", "android");
-
-        if (resourceId > 0) {
-            result = getResources().getDimensionPixelSize(resourceId);
-            Log.d(Constants.TAG_SHAREBOOK_ACTIVITY, "getStatusBarHeight: " + result);
-        }
-        return result;
-    }
 
     @OnClick(R.id.fab)
     public void onViewClicked() {
@@ -160,22 +147,29 @@ public class ShareBookActivity extends BaseActivity implements ShareBookContract
         mPresenter.transToDetail(bookCustomInfo, imageView);
     }
 
+    @Override
+    public void showEditDialog(BookCustomInfo bookCustomInfo) {
+        mBookDataEditDialog = new BookDataEditDialog(this, this, mPresenter, bookCustomInfo);
+
+        Window win = mBookDataEditDialog.getWindow();
+//        win.getDecorView().setPadding(0, 0, 0, 0);
+        WindowManager.LayoutParams lp = win.getAttributes();
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        win.setAttributes(lp);
+
+
+
+        mBookDataEditDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        mBookDataEditDialog.getWindow().getAttributes().windowAnimations = R.style.Animation_slide_right; //style id
+        mBookDataEditDialog.show();
+    }
+
     private void showInputIsbnDialog() {
         mInputIsbnDialog = new InputIsbnDialog(this, this, mPresenter);
         mInputIsbnDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         mInputIsbnDialog.getWindow().getAttributes().windowAnimations = R.style.Animation_fade; //style id
         mInputIsbnDialog.show();
     }
-
-    @Override
-    public void showEditDialog(BookCustomInfo bookCustomInfo) {
-        mBookDataEditDialog = new BookDataEditDialog(this, this, mPresenter, bookCustomInfo);
-        mBookDataEditDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        mBookDataEditDialog.getWindow().getAttributes().windowAnimations = R.style.Animation_slide_right; //style id
-        mBookDataEditDialog.show();
-    }
-
-
 
     public void setToolbarVisibility(boolean isVisible) {
         Log.d(Constants.TAG_SHAREBOOK_ACTIVITY, "setToolbarVisibility: ");

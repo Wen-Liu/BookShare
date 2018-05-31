@@ -1,10 +1,12 @@
 package com.wenliu.bookshare.object;
 
+import java.io.Serializable;
+
 /**
  * Created by wen on 2018/5/7.
  */
 
-public class User {
+public class User implements Serializable {
 
     private String mName;
     private String mEmail;

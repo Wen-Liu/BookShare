@@ -28,6 +28,8 @@ public interface ProfileContract {
         void isNoFriendData(boolean isNoFriendData);
 
         void isAddDialogShow(boolean isShow);
+
+        void showFriendProfile(User friend);
     }
 
     interface Presenter extends BasePresenter {
@@ -40,6 +42,7 @@ public interface ProfileContract {
 
         void uploadProfileImage(Uri imageUri);
 
+        void transToFriendProfile(User friend);
     }
 
 }

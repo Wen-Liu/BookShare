@@ -22,6 +22,7 @@ import com.wenliu.bookshare.api.callbacks.CheckBookExistCallback;
 import com.wenliu.bookshare.api.callbacks.CheckUserExistCallback;
 import com.wenliu.bookshare.api.callbacks.DeleteBookCallback;
 import com.wenliu.bookshare.api.callbacks.GetBooksCallback;
+import com.wenliu.bookshare.api.callbacks.GetFriendBooksCallback;
 import com.wenliu.bookshare.api.callbacks.GetFriendsCallback;
 import com.wenliu.bookshare.api.callbacks.GetUserInfoCallback;
 import com.wenliu.bookshare.api.callbacks.SignUpCallback;
@@ -206,6 +207,42 @@ public class FirebaseApiHelper {
                 .removeValue();
 
         callback.onCompleted();
+    }
+
+    public void getFriendBooks(String uid, final GetFriendBooksCallback callback) {
+        Log.d(Constants.TAG_FIREBASE_API_HELPER, "getFriendBooks");
+
+        final Query friendBooksQuery = mGetRef.child(Constants.FIREBASE_USERS)
+                .child(uid)
+                .child(Constants.FIREBASE_BOOKS)
+                .orderByChild(Constants.FIREBASE_CREATE_TIME);
+
+        friendBooksQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                ArrayList<BookCustomInfo> mBookCustomInfos = new ArrayList<>();
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        BookCustomInfo bookCustomInfo = snapshot.getValue(BookCustomInfo.class);
+                        mBookCustomInfos.add(bookCustomInfo);
+                    }
+                    Log.d(Constants.TAG_FIREBASE_API_HELPER, "getFriendBooks data exists ");
+                    callback.onCompleted(mBookCustomInfos);
+
+                } else {
+                    Log.d(Constants.TAG_FIREBASE_API_HELPER, "getFriendBooks get nothing ");
+                    callback.noBookData(mBookCustomInfos);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d(Constants.TAG_FIREBASE_API_HELPER, "onCancelled: " + databaseError.getMessage().toString());
+                callback.onError(databaseError.getMessage());
+            }
+        });
     }
 
     public void uploadProfileImage(Uri uri) {

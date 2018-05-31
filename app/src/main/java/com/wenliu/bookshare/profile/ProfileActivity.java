@@ -40,6 +40,7 @@ import com.wenliu.bookshare.R;
 import com.wenliu.bookshare.UserManager;
 import com.wenliu.bookshare.api.callbacks.GetUserInfoCallback;
 import com.wenliu.bookshare.base.BaseActivity;
+import com.wenliu.bookshare.friendprofile.FriendProfileActivity;
 import com.wenliu.bookshare.object.User;
 
 import java.io.File;
@@ -132,8 +133,7 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
     private void init() {
         mPresenter = new ProfilePresenter(this);
         mPresenter.start();
-
-        getMyFriends();
+        mPresenter.getMyFriends();
         setToolbar();
         setRecyclerView();
 
@@ -163,23 +163,9 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
         mToolbar.setNavigationOnClickListener(this);
     }
 
-    /**
-     * @return height of status bar
-     */
-    private int getStatusBarHeight() {
-        int result = 0;
-        int resourceId = getResources()
-                .getIdentifier("status_bar_height", "dimen", "android");
-
-        if (resourceId > 0) {
-            result = getResources().getDimensionPixelSize(resourceId);
-            Log.d(Constants.TAG_PROFILE_ACTIVITY, "getStatusBarHeight: " + result);
-        }
-        return result;
-    }
 
     private void setRecyclerView() {
-        mProfileAdapter = new ProfileAdapter(this, mFriends);
+        mProfileAdapter = new ProfileAdapter(this, mPresenter, mFriends);
         mRvProfile.setLayoutManager(new LinearLayoutManager(this));
 //        mRvProfile.addItemDecoration(new RecyclerView.ItemDecoration() {
 //            @Override
@@ -358,9 +344,6 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
         mPresenter = presenter;
     }
 
-    private void getMyFriends() {
-        mPresenter.getMyFriends();
-    }
 
     @Override
     public void showImageOnView(Bitmap bitmap) {
@@ -449,6 +432,17 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
     public void isAddDialogShow(boolean isShow) {
         isAddDialogShow = isShow;
         showKeybroad(false);
+    }
+
+    @Override
+    public void showFriendProfile(User friend) {
+        Intent intent = new Intent(this, FriendProfileActivity.class);
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(Constants.USER_DATA, friend);
+
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE})

@@ -8,7 +8,6 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-
     <application
         android:name=".ShareBook"
         android:allowBackup="true"
@@ -27,6 +26,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/image_path" />
         </provider>
+
         <activity
             android:name=".LoginActivity"
             android:screenOrientation="portrait">
@@ -47,6 +47,9 @@
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="portrait"
             tools:replace="screenOrientation" />
+        <activity
+            android:name=".friendprofile.FriendProfileActivity"
+            android:screenOrientation="portrait"></activity>
         <activity android:name=".base.BaseActivity" />
     </application>
 

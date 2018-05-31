@@ -11,15 +11,13 @@
         android:id="@+id/appbarlayout_profile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="20dp"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        app:elevation="20dp">
+        android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collape_toolbar_profile"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/shape_gradient_toolbar"
+            android:background="@drawable/shape_gradient_toolbar_circle"
             app:contentScrim="@color/LightBlue_200"
             app:expandedTitleGravity="center"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
@@ -219,8 +217,6 @@
                             android:textColor="@color/Grey_600"
                             android:textSize="@dimen/profile_info_title_size" />
                     </LinearLayout>
-
-
                 </LinearLayout>
 
             </android.support.constraint.ConstraintLayout>
@@ -230,14 +226,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:theme="@style/AppTheme.AppBarOverlay"
-                app:navigationIcon="@drawable/ic_navigate_before"
                 app:layout_collapseMode="pin"
+                app:navigationIcon="@drawable/ic_navigate_before"
                 app:popupTheme="@style/AppTheme.PopupOverlay"
                 app:title=" "></android.support.v7.widget.Toolbar>
 
         </android.support.design.widget.CollapsingToolbarLayout>
-
-
     </android.support.design.widget.AppBarLayout>
 
     <LinearLayout
@@ -265,10 +259,7 @@
         android:id="@+id/rv_profile"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-
-    </android.support.v7.widget.RecyclerView>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"></android.support.v7.widget.RecyclerView>
 
 
     <android.support.design.widget.FloatingActionButton

@@ -184,6 +184,7 @@ public class InputIsbnDialog extends Dialog {
     private void goToEditDialog(Book book) {
         mBookDataEditDialog = new BookDataEditDialog(mContext, mShareBookActivity, mPresenter, book);
         mBookDataEditDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        mBookDataEditDialog.getWindow().getDecorView().setPadding(0, 0, 0, 0);
         mBookDataEditDialog.getWindow().getAttributes().windowAnimations = R.style.Animation_slide_right; //style id
         mBookDataEditDialog.show();
         dismiss();

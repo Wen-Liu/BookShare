@@ -47,6 +47,23 @@ public class BaseActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * @return height of status bar
+     */
+    public int getStatusBarHeight() {
+
+        int result = 0;
+        int resourceId = getResources()
+                .getIdentifier("status_bar_height", "dimen", "android");
+
+        if (resourceId > 0) {
+            result = getResources().getDimensionPixelSize(resourceId);
+            Log.d(Constants.TAG_BASE_ACTIVITY, "getStatusBarHeight: " + result);
+        }
+        return result;
+    }
+
+
     public void showUserInfoLog() {
 
         Log.i(Constants.TAG_BASE_ACTIVITY, "---------------------User Info-------------------------");
@@ -55,6 +72,5 @@ public class BaseActivity extends AppCompatActivity {
         Log.i(Constants.TAG_BASE_ACTIVITY, "User email: " + UserManager.getInstance().getUserEmail());
         Log.i(Constants.TAG_BASE_ACTIVITY, "User image: " + UserManager.getInstance().getUserImage());
         Log.i(Constants.TAG_BASE_ACTIVITY, "-------------------------------------------------------");
-
     }
 }
