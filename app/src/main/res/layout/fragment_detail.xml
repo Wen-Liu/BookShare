@@ -165,7 +165,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="@dimen/detail_context_weight"
                         android:text="林立青"
-                        android:textColor="@color/Black"
+                        android:textColor="@color/Grey_800"
                         android:textSize="@dimen/detail_book_tv_text_size" />
                 </LinearLayout>
 
@@ -193,7 +193,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="@dimen/detail_context_weight"
                         android:text="寶瓶文化"
-                        android:textColor="@color/Black"
+                        android:textColor="@color/Grey_800"
                         android:textSize="@dimen/detail_book_tv_text_size" />
                 </LinearLayout>
 
@@ -221,7 +221,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="@dimen/detail_context_weight"
                         android:text="2017"
-                        android:textColor="@color/Black"
+                        android:textColor="@color/Grey_800"
                         android:textSize="@dimen/detail_book_tv_text_size" />
                 </LinearLayout>
 
@@ -248,7 +248,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="@dimen/detail_context_weight"
                         android:text="中文"
-                        android:textColor="@color/Black"
+                        android:textColor="@color/Grey_800"
                         android:textSize="@dimen/detail_book_tv_text_size" />
                 </LinearLayout>
 
@@ -276,7 +276,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="@dimen/detail_context_weight"
                         android:text=" "
-                        android:textColor="@color/Black"
+                        android:textColor="@color/Grey_800"
                         android:textSize="@dimen/detail_book_tv_text_size" />
                 </LinearLayout>
 
@@ -317,7 +317,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="@dimen/detail_context_weight"
                             android:text=" "
-                            android:textColor="@color/Black"
+                            android:textColor="@color/Grey_800"
                             android:textSize="@dimen/detail_book_tv_text_size" />
                     </LinearLayout>
 
@@ -344,7 +344,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="@dimen/detail_context_weight"
                             android:text=" "
-                            android:textColor="@color/Black"
+                            android:textColor="@color/Grey_800"
                             android:textSize="@dimen/detail_book_tv_text_size" />
                     </LinearLayout>
                 </LinearLayout>

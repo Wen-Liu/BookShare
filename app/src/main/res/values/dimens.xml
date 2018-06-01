@@ -5,9 +5,12 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
 
     <!-- layout dimension related to login -->
-    <dimen name="login_activity_edittext_width">280dp</dimen>
-    <dimen name="login_activity_button_width">120dp</dimen>
-    <dimen name="login_activity_gap">10dp</dimen>
+    <dimen name="login_activity_edittext_width">200dp</dimen>
+    <dimen name="login_activity_button_width">100dp</dimen>
+    <dimen name="login_activity_button_height">30dp</dimen>
+    <dimen name="login_activity_gap">8dp</dimen>
+    <dimen name="login_activity_tv_size">16dp</dimen>
+    <dimen name="login_activity_et_padding_h">6dp</dimen>
 
     <!-- layout dimension related to main fragment -->
     <dimen name="main_book_title_size">18sp</dimen>

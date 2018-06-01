@@ -69,6 +69,9 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     private FirebaseAuth mAuth;
     private View focusView;
     private boolean cancel;
+    private String mEmail;
+    private String mPassword;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +96,6 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
 
         mConstraintLayout.getBackground().setAlpha(230);
         setSignUpVisibility(false);
-
     }
 
 
@@ -103,7 +105,6 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         Log.d(Constants.TAG_LOGIN_ACTIVITY, "onStart");
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-
     }
 
 
@@ -115,25 +116,25 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     private void login() {
         Log.d(Constants.TAG_LOGIN_ACTIVITY, "login");
         // Store values at the time of the login attempt.
-        String email = mEditTextSignInEmail.getText().toString();
-        String password = mEditTextSignInPassword.getText().toString();
+        mEmail = mEditTextSignInEmail.getText().toString();
+        mPassword = mEditTextSignInPassword.getText().toString();
 
         cancel = false;
         focusView = null;
 
         // Check for a valid password, if the user entered one.
-        if (TextUtils.isEmpty(password) || !mPresenter.isPasswordValid(password)) {
+        if (TextUtils.isEmpty(mPassword) || !mPresenter.isPasswordValid(mPassword)) {
             mEditTextSignInPassword.setError(getString(R.string.error_invalid_password));
             focusView = mEditTextSignInPassword;
             cancel = true;
         }
 
         // Check for a valid email address.
-        if (TextUtils.isEmpty(email)) {
+        if (TextUtils.isEmpty(mEmail)) {
             mEditTextSignInEmail.setError(getString(R.string.error_field_required));
             focusView = mEditTextSignInEmail;
             cancel = true;
-        } else if (!mPresenter.isEmailValid(email)) {
+        } else if (!mPresenter.isEmailValid(mEmail)) {
             mEditTextSignInEmail.setError(getString(R.string.error_invalid_email));
             focusView = mEditTextSignInEmail;
             cancel = true;
@@ -147,7 +148,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true, mLinearlayoutSignIn);
-            mPresenter.loginTask(this, mAuth, email, password, new SignInCallback() {
+            mPresenter.loginTask(this, mAuth, mEmail, mPassword, new SignInCallback() {
                 @Override
                 public void onCompleted() {
                     showProgress(false, mLinearlayoutSignIn);
@@ -157,8 +158,10 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
 
                 @Override
                 public void onError(String errorMessage) {
+                    Log.d(Constants.TAG_LOGIN_ACTIVITY, "onError: " + errorMessage);
+
                     showProgress(false, mLinearlayoutSignIn);
-                    mEditTextSignInEmail.setError(errorMessage);
+                    mEditTextSignInEmail.setError(getString(R.string.error_login_fail));
                     focusView = mEditTextSignInEmail;
                     cancel = true;
                 }
@@ -281,6 +284,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
                 break;
 
             case R.id.btn_go_to_register:
+                setSignUpForm();
                 showSignUpForm(true);
                 break;
 
@@ -311,6 +315,18 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     private void showSignUpForm(boolean isShow) {
         setSignInVisibility(isShow ? false : true);
         setSignUpVisibility(isShow ? true : false);
+    }
+
+    private void setSignUpForm() {
+        mEmail = mEditTextSignInEmail.getText().toString();
+        mPassword = mEditTextSignInPassword.getText().toString();
+
+        if (mEmail != null) {
+            mEditTextSignUpEmail.setText(mEmail);
+        }
+        if (mPassword != null) {
+            mEditTextSignUpPassword.setText(mPassword);
+        }
     }
 
     private void transToShareBookActivity() {
