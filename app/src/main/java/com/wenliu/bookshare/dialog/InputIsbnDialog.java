@@ -7,6 +7,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -184,7 +186,13 @@ public class InputIsbnDialog extends Dialog {
     private void goToEditDialog(Book book) {
         mBookDataEditDialog = new BookDataEditDialog(mContext, mShareBookActivity, mPresenter, book);
         mBookDataEditDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        mBookDataEditDialog.getWindow().getDecorView().setPadding(0, 0, 0, 0);
+
+        Window win = mBookDataEditDialog.getWindow();
+//        win.getDecorView().setPadding(0, 0, 0, 0);
+        WindowManager.LayoutParams lp = win.getAttributes();
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        win.setAttributes(lp);
+
         mBookDataEditDialog.getWindow().getAttributes().windowAnimations = R.style.Animation_slide_right; //style id
         mBookDataEditDialog.show();
         dismiss();

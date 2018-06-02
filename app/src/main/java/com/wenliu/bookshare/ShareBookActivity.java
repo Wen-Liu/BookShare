@@ -55,7 +55,7 @@ public class ShareBookActivity extends BaseActivity implements ShareBookContract
         setContentView(R.layout.activity_share_book);
         ButterKnife.bind(this);
 
-        mPresenter = new ShareBookPresenter(this, getFragmentManager());
+        mPresenter = new ShareBookPresenter(this, getSupportFragmentManager());
         mPresenter.start();
         setToolbar();
 
@@ -68,7 +68,6 @@ public class ShareBookActivity extends BaseActivity implements ShareBookContract
         mToolbar.setPadding(0, getStatusBarHeight(), 0, 0);
         setSupportActionBar(mToolbar);
     }
-
 
     @OnClick(R.id.fab)
     public void onViewClicked() {
@@ -156,8 +155,6 @@ public class ShareBookActivity extends BaseActivity implements ShareBookContract
         WindowManager.LayoutParams lp = win.getAttributes();
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
         win.setAttributes(lp);
-
-
 
         mBookDataEditDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         mBookDataEditDialog.getWindow().getAttributes().windowAnimations = R.style.Animation_slide_right; //style id

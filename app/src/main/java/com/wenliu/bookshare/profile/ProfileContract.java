@@ -23,9 +23,9 @@ public interface ProfileContract {
 
         void showAddFriendDialog(boolean showAlert);
 
-        void showFriend(ArrayList<User> friends);
-
-        void isNoFriendData(boolean isNoFriendData);
+//        void showFriend(ArrayList<User> friends);
+//
+//        void isNoFriendData(boolean isNoFriendData);
 
         void isAddDialogShow(boolean isShow);
 
@@ -43,6 +43,8 @@ public interface ProfileContract {
         void uploadProfileImage(Uri imageUri);
 
         void transToFriendProfile(User friend);
+
+        void transToFriend();
     }
 
 }

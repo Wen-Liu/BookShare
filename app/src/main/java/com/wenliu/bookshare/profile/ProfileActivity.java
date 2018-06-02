@@ -61,7 +61,7 @@ import permissions.dispatcher.PermissionRequest;
 import permissions.dispatcher.RuntimePermissions;
 
 @RuntimePermissions
-public class ProfileActivity extends BaseActivity implements ProfileContract.View, View.OnClickListener {
+public class ProfileActivity extends BaseActivity implements ProfileContract.View{
 
     //region "BindView"
     @BindView(R.id.appbarlayout_profile)
@@ -70,8 +70,8 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
     CollapsingToolbarLayout mCollapeToolbarProfile;
     @BindView(R.id.toolbar_profile)
     Toolbar mToolbarProfile;
-    @BindView(R.id.rv_profile)
-    RecyclerView mRvProfile;
+//    @BindView(R.id.rv_profile)
+//    RecyclerView mRvProfile;
     @BindView(R.id.iv_profile_userimage)
     ImageView mIvProfileUserimage;
     @BindView(R.id.iv_profile_change_image)
@@ -96,7 +96,7 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
 
     private ProfileContract.Presenter mPresenter;
     private Toolbar mToolbar;
-    private ProfileAdapter mProfileAdapter;
+//    private ProfileAdapter mProfileAdapter;
     private ImageManager mImageManager;
     private ArrayList<User> mFriends = new ArrayList<>();
     private int[] mBookStatusInfo;
@@ -127,15 +127,14 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
             public void onError(String error) {
             }
         });
-
     }
 
     private void init() {
-        mPresenter = new ProfilePresenter(this);
+        mPresenter = new ProfilePresenter(this, getSupportFragmentManager());
         mPresenter.start();
         mPresenter.getMyFriends();
         setToolbar();
-        setRecyclerView();
+//        setRecyclerView();
 
         Bundle bundle = this.getIntent().getExtras();
         mBookStatusInfo = bundle.getIntArray(Constants.BOOKSTATUS);
@@ -144,7 +143,7 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
         if (UserManager.getInstance().getUserImage() != null) {
             mImageManager.loadCircleImage(UserManager.getInstance().getUserImage(), mIvProfileUserimage);
         }
-//        mTvProfileUserName.setText(UserManager.getInstance().getUserName());
+        mTvProfileUserName.setText(UserManager.getInstance().getUserName());
         mTvProfileUserEmail.setText(UserManager.getInstance().getUserEmail());
         mTvProfileBookBook.setText(String.valueOf(mBookStatusInfo[Constants.MY_BOOK]));
         mTvProfileBookUnread.setText(String.valueOf(mBookStatusInfo[Constants.UNREAD]));
@@ -160,23 +159,22 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
         mToolbar.setPadding(0, getStatusBarHeight(), 0, 0);
         setSupportActionBar(mToolbar);
         mCollapeToolbarProfile.setTitle(UserManager.getInstance().getUserName());
-        mToolbar.setNavigationOnClickListener(this);
     }
 
 
-    private void setRecyclerView() {
-        mProfileAdapter = new ProfileAdapter(this, mPresenter, mFriends);
-        mRvProfile.setLayoutManager(new LinearLayoutManager(this));
-//        mRvProfile.addItemDecoration(new RecyclerView.ItemDecoration() {
-//            @Override
-//            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-//                super.getItemOffsets(outRect, view, parent, state);
-//                int space = ShareBook.getAppContext().getResources().getDimensionPixelSize(R.dimen.gap_recycler_item);
-//                outRect.top = space;
-//            }
-//        });
-        mRvProfile.setAdapter(mProfileAdapter);
-    }
+//    private void setRecyclerView() {
+//        mProfileAdapter = new ProfileAdapter(this, mPresenter, mFriends);
+//        mRvProfile.setLayoutManager(new LinearLayoutManager(this));
+////        mRvProfile.addItemDecoration(new RecyclerView.ItemDecoration() {
+////            @Override
+////            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+////                super.getItemOffsets(outRect, view, parent, state);
+////                int space = ShareBook.getAppContext().getResources().getDimensionPixelSize(R.dimen.gap_recycler_item);
+////                outRect.top = space;
+////            }
+////        });
+//        mRvProfile.setAdapter(mProfileAdapter);
+//    }
 
     @OnClick({R.id.iv_profile_userimage, R.id.iv_profile_change_image, R.id.fab_profile})
     public void onViewClicked(View view) {
@@ -404,17 +402,17 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
 
     }
 
-    @Override
-    public void showFriend(ArrayList<User> friends) {
-        mProfileAdapter.updateData(friends);
-    }
-
-    @Override
-    public void isNoFriendData(boolean isNoFriendData) {
-        Log.d(Constants.TAG_PROFILE_ACTIVITY, "isNoFriendData: ");
-        mLlProfileNoData.setVisibility(isNoFriendData ? View.VISIBLE : View.GONE);
-        mRvProfile.setVisibility(isNoFriendData ? View.GONE : View.VISIBLE);
-    }
+//    @Override
+//    public void showFriend(ArrayList<User> friends) {
+//        mProfileAdapter.updateData(friends);
+//    }
+//
+//    @Override
+//    public void isNoFriendData(boolean isNoFriendData) {
+//        Log.d(Constants.TAG_PROFILE_ACTIVITY, "isNoFriendData: ");
+//        mLlProfileNoData.setVisibility(isNoFriendData ? View.VISIBLE : View.GONE);
+//        mRvProfile.setVisibility(isNoFriendData ? View.GONE : View.VISIBLE);
+//    }
 
 
     private void showKeybroad(boolean show) {
@@ -525,8 +523,5 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
         Toast.makeText(this, "never ask", Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    public void onClick(View v) {
-        onBackPressed();
-    }
+
 }

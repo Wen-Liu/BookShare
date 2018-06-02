@@ -215,7 +215,8 @@ public class FirebaseApiHelper {
         final Query friendBooksQuery = mGetRef.child(Constants.FIREBASE_USERS)
                 .child(uid)
                 .child(Constants.FIREBASE_BOOKS)
-                .orderByChild(Constants.FIREBASE_CREATE_TIME);
+                .orderByChild(Constants.FIREBASE_HAVE_BOOK)
+                .equalTo(true);
 
         friendBooksQuery.addListenerForSingleValueEvent(new ValueEventListener() {
 
@@ -343,7 +344,7 @@ public class FirebaseApiHelper {
                 .child(Constants.FIREBASE_FRIENDS)
                 .orderByChild(Constants.FIREBASE_FRIEND_STATUS);
 
-        myBooksQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+        myBooksQuery.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -369,4 +370,5 @@ public class FirebaseApiHelper {
             }
         });
     }
+
 }

@@ -17,6 +17,8 @@ import com.wenliu.bookshare.ImageManager;
 import com.wenliu.bookshare.R;
 import com.wenliu.bookshare.ShareBook;
 import com.wenliu.bookshare.api.FirebaseApiHelper;
+import com.wenliu.bookshare.friend.FriendContract;
+import com.wenliu.bookshare.friend.FriendPresenter;
 import com.wenliu.bookshare.object.User;
 
 import java.util.ArrayList;
@@ -32,14 +34,12 @@ import butterknife.OnClick;
 
 public class ProfileAdapter extends RecyclerView.Adapter {
 
-    private ProfileContract.Presenter mPresenter;
-    private Context mContext;
+    private FriendContract.Presenter mPresenter;
     private ArrayList<User> mFriends = new ArrayList<>();
     private ImageManager mImageManager = new ImageManager(ShareBook.getAppContext());
 
-    public ProfileAdapter(Context context, ProfileContract.Presenter presenter, ArrayList<User> friends) {
+    public ProfileAdapter(FriendContract.Presenter presenter, ArrayList<User> friends) {
         mPresenter = presenter;
-        mContext = context;
         mFriends = friends;
 
         Log.d(Constants.TAG_PROFILE_ADAPTER, "ProfileAdapter: ");
@@ -109,7 +109,6 @@ public class ProfileAdapter extends RecyclerView.Adapter {
         Button mBtnFriendSend;
         //endregion
 
-
         @OnClick({R.id.btn_friend_reject, R.id.btn_friend_accept, R.id.btn_friend_send, R.id.llayout_item_profile})
         public void onViewClicked(View view) {
             switch (view.getId()) {
@@ -135,7 +134,7 @@ public class ProfileAdapter extends RecyclerView.Adapter {
                     break;
 
                 case R.id.llayout_item_profile:
-                    mPresenter.transToFriendProfile(mFriends.get(getAdapterPosition()));
+//                    mPresenter.transToFriendProfile(mFriends.get(getAdapterPosition()));
 
                     break;
             }

@@ -380,7 +380,7 @@
                     android:layout_height="@dimen/book_dialog_editText_height"
                     android:layout_weight="@dimen/book_dialog_edittext_weight"
                     android:background="@drawable/shape_outline_round_black"
-                    android:inputType="datetime"
+                    android:focusableInTouchMode="false"
                     android:paddingHorizontal="@dimen/book_dialog_paddingHorizontal"
                     android:singleLine="true"
                     android:textColor="@color/Black"

@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,7 +23,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class FriendProfileActivity extends BaseActivity implements FriendProfileContract.View {
+public class FriendProfileActivity extends BaseActivity implements FriendProfileContract.View, View.OnClickListener {
 
     //region "BindView"
     @BindView(R.id.Recycview_friend_profile)
@@ -81,11 +82,10 @@ public class FriendProfileActivity extends BaseActivity implements FriendProfile
         mToolbarFriendProfile = (Toolbar) findViewById(R.id.toolbar_friend_profile);
         mToolbarFriendProfile.setPadding(0, getStatusBarHeight(), 0, 0);
         setSupportActionBar(mToolbarFriendProfile);
+        mToolbarFriendProfile.setNavigationOnClickListener(this);
     }
 
-
     private void setRecyclerView() {
-
         mFriendProfileAdapter = new FriendProfileAdapter(mBookCustomInfos, mPresenter);
         mRecycviewFriendProfile.setLayoutManager(new LinearLayoutManager(this));
         mRecycviewFriendProfile.setAdapter(mFriendProfileAdapter);
@@ -100,5 +100,10 @@ public class FriendProfileActivity extends BaseActivity implements FriendProfile
     public void showFriendBooks(ArrayList<BookCustomInfo> bookCustomInfos) {
         Log.d(Constants.TAG_FRIEND_PROFILE_ACTIVITY, "showFriendBooks: ");
         mFriendProfileAdapter.updateData(bookCustomInfos);
+    }
+
+    @Override
+    public void onClick(View v) {
+        onBackPressed();
     }
 }

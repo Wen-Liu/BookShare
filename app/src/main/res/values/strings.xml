@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Book sleft</string>
+    <string name="app_name">Cloud Bookshelf</string>
     <string name="action_settings">Settings</string>
 
     <!-- Strings related to login -->
@@ -80,6 +80,9 @@
         <item>正在閱讀的書</item>
         <item>已經讀完的書</item>
     </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

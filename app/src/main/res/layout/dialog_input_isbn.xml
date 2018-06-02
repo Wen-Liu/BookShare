@@ -65,7 +65,7 @@
             android:layout_weight="1"
             android:textAllCaps="false"
             android:background="@color/White"
-            android:textColor="@color/Brown_300"
+            android:textColor="@color/LightBlue_200_Dark"
             android:text="@string/action_send"
             android:textSize="18sp" />
 

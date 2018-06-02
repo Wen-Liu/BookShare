@@ -7,9 +7,9 @@
     <gradient
         android:angle="90"
         android:centerX="0.5"
-        android:centerY="0.25"
+        android:centerY="0.2"
         android:endColor="@color/LightBlue_200_light"
-        android:gradientRadius="1000"
+        android:gradientRadius="500"
         android:startColor="@color/LightBlue_200_Dark"
         android:type="radial" />
     <!-- 描邊-->

@@ -1,6 +1,8 @@
 package com.wenliu.bookshare.dialog;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -8,11 +10,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.wenliu.bookshare.Constants;
 import com.wenliu.bookshare.R;
@@ -21,6 +25,8 @@ import com.wenliu.bookshare.ShareBookContract;
 import com.wenliu.bookshare.api.FirebaseApiHelper;
 import com.wenliu.bookshare.object.Book;
 import com.wenliu.bookshare.object.BookCustomInfo;
+
+import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -168,7 +174,7 @@ public class BookDataEditDialog extends Dialog implements CompoundButton.OnCheck
     }
 
 
-    @OnClick({R.id.btn_book_data_send, R.id.radioBtn_read, R.id.radioBtn_reading, R.id.radioBtn_unread})
+    @OnClick({R.id.btn_book_data_send, R.id.radioBtn_read, R.id.radioBtn_reading, R.id.radioBtn_unread, R.id.et_dialog_book_purchase_date})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_book_data_send:
@@ -192,7 +198,33 @@ public class BookDataEditDialog extends Dialog implements CompoundButton.OnCheck
             case R.id.radioBtn_read:
                 mLlayoutDialogReadingPage.setVisibility(View.GONE);
                 break;
+
+            case R.id.et_dialog_book_purchase_date:
+                showDatePickerDialog();
+                break;
         }
+    }
+
+    private void showDatePickerDialog() {
+        Log.d(Constants.TAG_BOOK_DATA_EDIT_DIALOG, "showTimePickerDialog: ");
+
+        final Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+        // Create a new instance of TimePickerDialog and return it
+        DatePickerDialog datePickerDialog = new DatePickerDialog(mShareBookActivity, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                month += 1;
+                mEtDialogBookPurchaseDate.setText(year + "-" + month + "-" + dayOfMonth);
+
+            }
+        }, year, month, day);
+
+        datePickerDialog.getDatePicker().setLayoutMode(1);
+        datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
+        datePickerDialog.show();
     }
 
 
@@ -205,10 +237,7 @@ public class BookDataEditDialog extends Dialog implements CompoundButton.OnCheck
         mBookCustomInfo.setPublisher(mEtDialogBookPublisher.getText().toString());
         mBookCustomInfo.setPublishDate(mEtDialogBookPublishDate.getText().toString());
         mBookCustomInfo.setLanguage(mEtDialogBookLanguage.getText().toString());
-
         mBookCustomInfo.setBookReadStatus(checkBookStatus());
-
-
         mBookCustomInfo.setHaveBook(mCheckBoxHaveBook.isChecked());
 
         if (mCheckBoxHaveBook.isChecked()) {
