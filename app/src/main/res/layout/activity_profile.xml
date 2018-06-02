@@ -8,7 +8,7 @@
     tools:context="com.wenliu.bookshare.profile.ProfileActivity">
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbarlayout_profile"
+        android:id="@+id/appbar_layout_profile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
@@ -47,8 +47,8 @@
                     android:id="@+id/tv_profile_user_email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:includeFontPadding="false"
                     android:layout_marginTop="@dimen/gap_each_line_small"
+                    android:includeFontPadding="false"
                     android:textColor="@color/Black"
                     android:textSize="@dimen/profile_info_title_size" />
 
@@ -204,7 +204,7 @@
                     android:layout_height="wrap_content">
 
                     <ImageView
-                        android:id="@+id/iv_profile_userimage"
+                        android:id="@+id/iv_profile_user_image"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:scaleType="fitCenter"
@@ -221,8 +221,8 @@
                         android:background="@drawable/shape_outline_circle_white"
                         android:padding="3dp"
                         android:src="@drawable/ic_edit"
-                        app:layout_constraintBottom_toBottomOf="@id/iv_profile_userimage"
-                        app:layout_constraintEnd_toEndOf="@id/iv_profile_userimage" />
+                        app:layout_constraintBottom_toBottomOf="@id/iv_profile_user_image"
+                        app:layout_constraintEnd_toEndOf="@id/iv_profile_user_image" />
                 </android.support.constraint.ConstraintLayout>
             </android.support.v7.widget.Toolbar>
 
@@ -231,10 +231,8 @@
                 style="@style/TabLayoutText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
                 android:layout_marginTop="260dp"
                 android:background="@color/White"
-                app:tabMode="scrollable"
                 app:tabTextColor="@color/Grey_400">
 
                 <android.support.design.widget.TabItem
@@ -252,47 +250,13 @@
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
-    <LinearLayout
-        android:id="@+id/ll_profile_no_data"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="300dp"
-        android:layout_weight="1"
-        android:gravity="bottom"
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:visibility="gone">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:fontFamily="sans-serif"
-            android:text="@string/no_friend_data"
-            android:textSize="@dimen/main_book_tv_text_size" />
-    </LinearLayout>
-
-    <!--<android.support.v7.widget.RecyclerView-->
-    <!--android:id="@+id/rv_profile"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"></android.support.v7.widget.RecyclerView>-->
-
-
-    <!--  <android.support.v4.view.ViewPager
-          android:id="@+id/viewpager_profile"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          app:layout_behavior="@string/appbar_scrolling_view_behavior" />-->
-
-
-    <FrameLayout
-        android:id="@+id/frame_container_profile"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager_profile"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"></FrameLayout>
-
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+    </android.support.v4.view.ViewPager>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_profile"
@@ -301,8 +265,7 @@
         android:layout_margin="@dimen/fab_margin"
         android:src="@drawable/ic_person_add"
         app:backgroundTint="@color/Yellow_400"
-        app:layout_anchor="@id/tabs_profile"
-        app:layout_anchorGravity="center_vertical|end" />
+        android:layout_gravity="right|bottom" />
 
 
 </android.support.design.widget.CoordinatorLayout>

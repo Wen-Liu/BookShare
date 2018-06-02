@@ -66,11 +66,13 @@
     <string name="alert_dialog_delete_positive">確定</string>
     <string name="alert_dialog_delete_negative">取消</string>
 
-    <!-- Strings related to  -->
+    <!-- Strings related to profile activity -->
     <string name="profile_book_own">已擁有</string>
     <string name="profile_book_unread">未閱讀</string>
     <string name="profile_book_read">已閱讀</string>
     <string name="profile_book_lent">已借出</string>
+    <string name="profile_tab_layout_friend">好友</string>
+    <string name="profile_tab_layout_lent">書籍借閱狀態</string>
 
     <!-- Strings related to menu -->
     <string-array name="menu_book_filter">
@@ -80,8 +82,5 @@
         <item>正在閱讀的書</item>
         <item>已經讀完的書</item>
     </string-array>
-
-
-
-
+    
 </resources>

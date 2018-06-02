@@ -5,6 +5,17 @@
     android:layout_height="match_parent"
     tools:context=".friend.FriendFragment">
 
+
+    <TextView
+        android:id="@+id/tv_friend_no_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="sans-serif"
+        android:text="@string/no_friend_data"
+        android:textSize="@dimen/main_book_tv_text_size" />
+
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_friend"
         android:layout_width="match_parent"

@@ -39,13 +39,13 @@ public class ProfilePresenter implements ProfileContract.Presenter {
     public ProfilePresenter(ProfileContract.View profileView, FragmentManager fragmentManager) {
         Log.d(Constants.TAG_PROFILE_PRESENTER, "ProfilePresenter: ");
         mProfileView = profileView;
+        mProfileView.setPresenter(this);
+
         mFragmentManager = fragmentManager;
     }
 
     @Override
     public void start() {
-        mProfileView.setPresenter(this);
-        transToFriend();
     }
 
     @Override
@@ -61,82 +61,58 @@ public class ProfilePresenter implements ProfileContract.Presenter {
         mProfileView.showImageOnView(bitmap);
     }
 
-    @Override
-    public void checkUserByEmail(String email) {
-        mFirebaseApiHelper.checkUserByEmail(email, new CheckUserExistCallback() {
-            @Override
-            public void userExist(User user) {
-                mFirebaseApiHelper.sendFriendRequest(user, new AddFriendCallback() {
-                    @Override
-                    public void onCompleted() {
-                        getMyFriends();
-                        mProfileView.isAddDialogShow(false);
-                    }
-                });
-            }
+//    @Override
+//    public void checkUserByEmail(String email) {
+//        mFirebaseApiHelper.checkUserByEmail(email, new CheckUserExistCallback() {
+//            @Override
+//            public void userExist(User user) {
+//                mFirebaseApiHelper.sendFriendRequest(user, new AddFriendCallback() {
+//                    @Override
+//                    public void onCompleted() {
+//                        getMyFriends();
+//                        mProfileView.isAddDialogShow(false);
+//                    }
+//                });
+//            }
+//
+//            @Override
+//            public void notExist() {
+//                mProfileView.showAddFriendDialog(true);
+//            }
+//        });
+//    }
 
-            @Override
-            public void notExist() {
-                mProfileView.showAddFriendDialog(true);
-            }
-        });
-    }
-
-    @Override
-    public void getMyFriends() {
-
-        mProfileView.showProgressDialog(true);
-
-        mFirebaseApiHelper.getMyFriends(new GetFriendsCallback() {
-            @Override
-            public void onCompleted(ArrayList<User> friends) {
-                mFriendFragment.showFriends(friends);
-//                mProfileView.showFriend(friends);
-//                mProfileView.isNoFriendData(false);
-                mProfileView.showProgressDialog(false);
-            }
-
-            @Override
-            public void noFriendData() {
-                Log.d(Constants.TAG_PROFILE_PRESENTER, "noFriendData: ");
-//                mProfileView.isNoFriendData(true);
-                mProfileView.showProgressDialog(false);
-            }
-
-            @Override
-            public void onError(String errorMessage) {
-                mProfileView.showProgressDialog(false);
-            }
-        });
-    }
+//    @Override
+//    public void getMyFriends() {
+//
+//        mProfileView.isShowLoading(true);
+//
+//        mFirebaseApiHelper.getMyFriends(new GetFriendsCallback() {
+//            @Override
+//            public void onCompleted(ArrayList<User> friends) {
+//                mFriendFragment.showFriends(friends);
+////                mProfileView.showFriend(friends);
+////                mProfileView.isNoFriendData(false);
+//                mProfileView.isShowLoading(false);
+//            }
+//
+//            @Override
+//            public void noFriendData() {
+//                Log.d(Constants.TAG_PROFILE_PRESENTER, "noFriendData: ");
+////                mProfileView.isNoFriendData(true);
+//                mProfileView.isShowLoading(false);
+//            }
+//
+//            @Override
+//            public void onError(String errorMessage) {
+//                mProfileView.isShowLoading(false);
+//            }
+//        });
+//    }
 
     @Override
     public void uploadProfileImage(Uri imageUri) {
         mFirebaseApiHelper.uploadProfileImage(imageUri);
-    }
-
-    @Override
-    public void transToFriendProfile(User friend) {
-        mProfileView.showFriendProfile(friend);
-    }
-
-    @Override
-    public void transToFriend() {
-        Log.d(Constants.TAG_PROFILE_PRESENTER, "transToFriend: ");
-
-        FragmentTransaction transaction = mFragmentManager.beginTransaction();
-
-        if (mFriendFragment == null) mFriendFragment = FriendFragment.newInstance();
-        if (!mFriendFragment.isAdded()) {
-            transaction.add(R.id.frame_container_profile, mFriendFragment, FRIEND);
-        } else {
-            transaction.show(mFriendFragment);
-        }
-        transaction.commit();
-
-        if (mFriendPresenter == null) {
-            mFriendPresenter = new FriendPresenter(mFriendFragment);
-        }
     }
 
 

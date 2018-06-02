@@ -19,9 +19,10 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -33,14 +34,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.wenliu.bookshare.Constants;
 import com.wenliu.bookshare.ImageManager;
 import com.wenliu.bookshare.R;
 import com.wenliu.bookshare.UserManager;
 import com.wenliu.bookshare.api.callbacks.GetUserInfoCallback;
 import com.wenliu.bookshare.base.BaseActivity;
+import com.wenliu.bookshare.friend.FriendFragment;
+import com.wenliu.bookshare.friend.FriendPresenter;
 import com.wenliu.bookshare.friendprofile.FriendProfileActivity;
+import com.wenliu.bookshare.lent.LentFragment;
+import com.wenliu.bookshare.lent.LentPresenter;
 import com.wenliu.bookshare.object.User;
 
 import java.io.File;
@@ -61,19 +65,17 @@ import permissions.dispatcher.PermissionRequest;
 import permissions.dispatcher.RuntimePermissions;
 
 @RuntimePermissions
-public class ProfileActivity extends BaseActivity implements ProfileContract.View{
+public class ProfileActivity extends BaseActivity implements ProfileContract.View {
 
     //region "BindView"
-    @BindView(R.id.appbarlayout_profile)
-    AppBarLayout mAppbarlayoutProfile;
+    @BindView(R.id.appbar_layout_profile)
+    AppBarLayout mAppbarLayoutProfile;
     @BindView(R.id.collape_toolbar_profile)
     CollapsingToolbarLayout mCollapeToolbarProfile;
     @BindView(R.id.toolbar_profile)
     Toolbar mToolbarProfile;
-//    @BindView(R.id.rv_profile)
-//    RecyclerView mRvProfile;
-    @BindView(R.id.iv_profile_userimage)
-    ImageView mIvProfileUserimage;
+    @BindView(R.id.iv_profile_user_image)
+    ImageView mIvProfileUserImage;
     @BindView(R.id.iv_profile_change_image)
     ImageView mIvProfileChangeImage;
     @BindView(R.id.tv_profile_user_name)
@@ -90,22 +92,28 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
     TextView mTvProfileBookLent;
     @BindView(R.id.fab_profile)
     FloatingActionButton mFabProfile;
-    @BindView(R.id.ll_profile_no_data)
-    LinearLayout mLlProfileNoData;
+    @BindView(R.id.tabs_profile)
+    TabLayout mTabsProfile;
+    @BindView(R.id.viewpager_profile)
+    ViewPager mViewpagerProfile;
+
     //endregion
 
     private ProfileContract.Presenter mPresenter;
-    private Toolbar mToolbar;
-//    private ProfileAdapter mProfileAdapter;
     private ImageManager mImageManager;
-    private ArrayList<User> mFriends = new ArrayList<>();
     private int[] mBookStatusInfo;
     private Uri mImageUri;
     private Uri mNewPhotoUri;
     private String mCurrentPhotoPath;
-    private MaterialDialog mMaterialDialog;
     private boolean isAddDialogShow = false;
 
+    private ProfileViewPagerAdapter mProfileViewPagerAdapter;
+    private FriendFragment mFriendFragment;
+    private FriendPresenter mFriendPresenter;
+    private LentFragment mLentFragment;
+    private LentPresenter mLentPresenter;
+    private List<Fragment> mFragments;
+    private List<String> mTitles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,28 +128,68 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
                 Log.d(Constants.TAG_PROFILE_ACTIVITY, "getUserInfo onCompleted: ");
                 UserManager.getInstance().storeUserData(user);
                 showUserInfoLog();
-                init();
+                initView();
             }
 
             @Override
             public void onError(String error) {
+                Log.d(Constants.TAG_PROFILE_ACTIVITY, "getUserInfo onError: ");
             }
         });
     }
 
-    private void init() {
+    private void initView() {
         mPresenter = new ProfilePresenter(this, getSupportFragmentManager());
         mPresenter.start();
-        mPresenter.getMyFriends();
-        setToolbar();
-//        setRecyclerView();
 
         Bundle bundle = this.getIntent().getExtras();
         mBookStatusInfo = bundle.getIntArray(Constants.BOOKSTATUS);
-        mImageManager = new ImageManager(this);
 
+        setToolbar();
+        setProfileView();
+        setViewPager();
+    }
+
+    private void setToolbar() {
+        // Set the padding to match the Status Bar height
+        mToolbarProfile.setPadding(0, getStatusBarHeight(), 0, 0);
+        setSupportActionBar(mToolbarProfile);
+        mCollapeToolbarProfile.setTitle(UserManager.getInstance().getUserName());
+    }
+
+    private void setViewPager() {
+
+        if (mFriendFragment == null) mFriendFragment = FriendFragment.newInstance();
+        if (mFriendPresenter == null) {
+            mFriendPresenter = new FriendPresenter(mFriendFragment, this);
+        }
+//        else {
+//            mFriendPresenter.refreshFriendData(mPresenter.getFriendData());
+//        }
+
+        if (mLentFragment == null) mLentFragment = LentFragment.newInstance();
+        if (mLentPresenter == null) {
+            mLentPresenter = new LentPresenter(mLentFragment);
+        }
+
+        mFragments = new ArrayList<>();
+        mFragments.add(mFriendFragment);
+        mFragments.add(mLentFragment);
+
+        mTitles = new ArrayList<>();
+        mTitles.add(getString(R.string.profile_tab_layout_friend));
+        mTitles.add(getString(R.string.profile_tab_layout_lent));
+
+        mProfileViewPagerAdapter = new ProfileViewPagerAdapter(getSupportFragmentManager(), mPresenter, mFragments, mTitles);
+        mViewpagerProfile.setAdapter(mProfileViewPagerAdapter);
+        mTabsProfile.setupWithViewPager(mViewpagerProfile);
+    }
+
+    private void setProfileView(){
+
+        mImageManager = new ImageManager(this);
         if (UserManager.getInstance().getUserImage() != null) {
-            mImageManager.loadCircleImage(UserManager.getInstance().getUserImage(), mIvProfileUserimage);
+            mImageManager.loadCircleImage(UserManager.getInstance().getUserImage(), mIvProfileUserImage);
         }
         mTvProfileUserName.setText(UserManager.getInstance().getUserName());
         mTvProfileUserEmail.setText(UserManager.getInstance().getUserEmail());
@@ -149,40 +197,22 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
         mTvProfileBookUnread.setText(String.valueOf(mBookStatusInfo[Constants.UNREAD]));
         mTvProfileBookRead.setText(String.valueOf(mBookStatusInfo[Constants.READ]));
         mTvProfileBookLent.setText(String.valueOf(mBookStatusInfo[Constants.LENT]));
-        getSupportActionBar().setTitle(UserManager.getInstance().getUserName());
-
+//        getSupportActionBar().setTitle(UserManager.getInstance().getUserName());
     }
 
-    private void setToolbar() {
-        // Set the padding to match the Status Bar height
-        mToolbar = (Toolbar) findViewById(R.id.toolbar_profile);
-        mToolbar.setPadding(0, getStatusBarHeight(), 0, 0);
-        setSupportActionBar(mToolbar);
-        mCollapeToolbarProfile.setTitle(UserManager.getInstance().getUserName());
+    @Override
+    public void setPresenter(ProfileContract.Presenter presenter) {
+        mPresenter = presenter;
     }
 
-
-//    private void setRecyclerView() {
-//        mProfileAdapter = new ProfileAdapter(this, mPresenter, mFriends);
-//        mRvProfile.setLayoutManager(new LinearLayoutManager(this));
-////        mRvProfile.addItemDecoration(new RecyclerView.ItemDecoration() {
-////            @Override
-////            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-////                super.getItemOffsets(outRect, view, parent, state);
-////                int space = ShareBook.getAppContext().getResources().getDimensionPixelSize(R.dimen.gap_recycler_item);
-////                outRect.top = space;
-////            }
-////        });
-//        mRvProfile.setAdapter(mProfileAdapter);
-//    }
-
-    @OnClick({R.id.iv_profile_userimage, R.id.iv_profile_change_image, R.id.fab_profile})
+    @OnClick({R.id.iv_profile_user_image, R.id.iv_profile_change_image, R.id.fab_profile})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.iv_profile_userimage:
+            case R.id.iv_profile_user_image:
             case R.id.iv_profile_change_image:
                 ProfileActivityPermissionsDispatcher.getPhotoFromGalleryWithPermissionCheck(this);
                 break;
+
             case R.id.fab_profile:
                 if (!isAddDialogShow) {
                     isAddDialogShow(true);
@@ -210,14 +240,11 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
                 Log.d(Constants.TAG_PROFILE_ACTIVITY, "onActivityResult: GET_PHOTO_CROP ");
 
                 if (resultCode == RESULT_OK) {
-                    mImageManager.loadCircleImageUri(mImageUri, mIvProfileUserimage);
+                    mImageManager.loadCircleImageUri(mImageUri, mIvProfileUserImage);
                     mPresenter.uploadProfileImage(mImageUri);
                 }
-
                 break;
         }
-
-
     }
 
     protected void doCropPhoto(Uri uri, Uri galleryUri) {
@@ -250,9 +277,48 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
         }
     }
 
+    @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    void getPhotoFromGallery() {
+        Log.d(Constants.TAG_PROFILE_ACTIVITY, "getPhotoFromGallery: ");
 
-    //裁剪圖片的Intent設定
+        //讀取圖片，使用 Intent.ACTION_GET_CONTENT 這個 Action
+        Intent intentPhotoGallery = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        //開啟 Pictures 畫面 Type 設定為 image
+        intentPhotoGallery.setType("image/*");
+
+        if (intentPhotoGallery.resolveActivity(this.getPackageManager()) != null) {
+            File imageFile = null;
+            try {
+                imageFile = createImageFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            if (imageFile != null) {
+                mImageUri = FileProvider.getUriForFile(this, "com.wenliu.bookshare.fileprovider", imageFile); //mImageCameraTempUri
+                intentPhotoGallery.putExtra(MediaStore.EXTRA_OUTPUT, mImageUri);
+                startActivityForResult(intentPhotoGallery, Constants.GET_PHOTO_FROM_GALLERY);
+            }
+        }
+    }
+
+    private File createImageFile() throws IOException {
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = this.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */);
+        // Save a file: path for use with ACTION_VIEW intents
+        mCurrentPhotoPath = image.getAbsolutePath();
+        Log.d(Constants.TAG_PROFILE_ACTIVITY, "mCurrentPhotoPath: " + mCurrentPhotoPath);
+        return image;
+    }
+
     public Intent getCropImageIntent(Uri uri) {
+        //裁剪圖片的Intent設定
         Log.d(Constants.TAG_PROFILE_ACTIVITY, "getCropImageIntent: ");
 
         Intent intent = new Intent("com.android.camera.action.CROP");
@@ -319,12 +385,13 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
 
     @Override
     protected void onDestroy() {
+        Log.d(Constants.TAG_PROFILE_ACTIVITY, "onDestroy: ");
         try {
             //釋放內存
             super.onDestroy();
             //釋放整個介面與圖片
-            mIvProfileUserimage.setImageBitmap(null);
-            mIvProfileUserimage = null;
+            mIvProfileUserImage.setImageBitmap(null);
+            mIvProfileUserImage = null;
         } catch (Exception e) {
             e.printStackTrace();
             Log.e("text", "New_DISS_Main.onDestroy()崩潰=" + e.toString());
@@ -338,33 +405,11 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
     }
 
     @Override
-    public void setPresenter(ProfileContract.Presenter presenter) {
-        mPresenter = presenter;
-    }
-
-
-    @Override
     public void showImageOnView(Bitmap bitmap) {
         Log.d(Constants.TAG_PROFILE_ACTIVITY, "showImageOnView: ");
 
-        mImageManager.loadCircleImageBitmap(bitmap, mIvProfileUserimage);
+        mImageManager.loadCircleImageBitmap(bitmap, mIvProfileUserImage);
 //        mIvProfileUserimage.setImageBitmap(bitmap);
-    }
-
-    @Override
-    public void showProgressDialog(boolean show) {
-        if (show) {
-            if (mMaterialDialog == null) {
-                mMaterialDialog = new MaterialDialog.Builder(this)
-                        .content(R.string.please_wait)
-                        .progress(true, 0)
-                        .show();
-            } else {
-                mMaterialDialog.show();
-            }
-        } else {
-            mMaterialDialog.dismiss();
-        }
     }
 
     @Override
@@ -385,7 +430,7 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
                     public void onClick(DialogInterface dialog, int which) {
 
                         String email = mEtInputEmail.getText().toString();
-                        mPresenter.checkUserByEmail(email);
+                        mFriendPresenter.checkUserByEmail(email);
                         Log.d(Constants.TAG_PROFILE_ACTIVITY, "onClick: " + email);
                     }
                 })
@@ -401,19 +446,6 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
 
 
     }
-
-//    @Override
-//    public void showFriend(ArrayList<User> friends) {
-//        mProfileAdapter.updateData(friends);
-//    }
-//
-//    @Override
-//    public void isNoFriendData(boolean isNoFriendData) {
-//        Log.d(Constants.TAG_PROFILE_ACTIVITY, "isNoFriendData: ");
-//        mLlProfileNoData.setVisibility(isNoFriendData ? View.VISIBLE : View.GONE);
-//        mRvProfile.setVisibility(isNoFriendData ? View.GONE : View.VISIBLE);
-//    }
-
 
     private void showKeybroad(boolean show) {
         Log.d(Constants.TAG_PROFILE_ACTIVITY, "showKeybroad: ");
@@ -441,46 +473,6 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
 
         intent.putExtras(bundle);
         startActivity(intent);
-    }
-
-    @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE})
-    void getPhotoFromGallery() {
-        Log.d(Constants.TAG_PROFILE_ACTIVITY, "getPhotoFromGallery: ");
-
-        //讀取圖片，使用 Intent.ACTION_GET_CONTENT 這個 Action
-        Intent intentPhotoGallery = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-        //開啟 Pictures 畫面 Type 設定為 image
-        intentPhotoGallery.setType("image/*");
-
-        if (intentPhotoGallery.resolveActivity(this.getPackageManager()) != null) {
-            File imageFile = null;
-            try {
-                imageFile = createImageFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            if (imageFile != null) {
-                mImageUri = FileProvider.getUriForFile(this, "com.wenliu.bookshare.fileprovider", imageFile); //mImageCameraTempUri
-                intentPhotoGallery.putExtra(MediaStore.EXTRA_OUTPUT, mImageUri);
-                startActivityForResult(intentPhotoGallery, Constants.GET_PHOTO_FROM_GALLERY);
-            }
-        }
-    }
-
-    private File createImageFile() throws IOException {
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = this.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */);
-        // Save a file: path for use with ACTION_VIEW intents
-        mCurrentPhotoPath = image.getAbsolutePath();
-        Log.d(Constants.TAG_PROFILE_ACTIVITY, "mCurrentPhotoPath: " + mCurrentPhotoPath);
-        return image;
     }
 
     @Override
@@ -522,6 +514,5 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
     void showNeverAsk() {
         Toast.makeText(this, "never ask", Toast.LENGTH_SHORT).show();
     }
-
 
 }

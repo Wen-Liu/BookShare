@@ -23,6 +23,7 @@ import com.wenliu.bookshare.R;
 import com.wenliu.bookshare.ShareBook;
 import com.wenliu.bookshare.ShareBookActivity;
 import com.wenliu.bookshare.api.callbacks.AlertDialogCallback;
+import com.wenliu.bookshare.base.BaseFragment;
 import com.wenliu.bookshare.object.BookCustomInfo;
 
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ import butterknife.Unbinder;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MainFragment extends Fragment implements MainContract.View, AdapterView.OnItemSelectedListener {
+public class MainFragment extends BaseFragment implements MainContract.View, AdapterView.OnItemSelectedListener {
 
     //region "BindView"
     @BindView(R.id.Recycview_main)

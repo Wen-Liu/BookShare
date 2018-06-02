@@ -20,9 +20,13 @@ public class Constants {
     public final static String TAG_MAIN_PRESENTER = "wen-MainPresenter";
     public final static String TAG_DETAIL_FRAGMENT = "wen-DetailFragment";
     public final static String TAG_DETAIL_PRESENTER = "wen-DetailPresenter";
+    public final static String TAG_FRIEND_FRAGMENT = "wen-FriendFragment";
+    public final static String TAG_FRIEND_PRESENTER = "wen-FriendPresenter";
+    public final static String TAG_LENT_FRAGMENT = "wen-LentFragment";
+    public final static String TAG_LENT_PRESENTER = "wen-LentPresenter";
 
     public final static String TAG_MAIN_ADAPTER = "wen-MainAdapter";
-    public final static String TAG_PROFILE_ADAPTER = "wen-ProfileAdapter";
+    public final static String TAG_PROFILE_ADAPTER = "wen-FriendAdapter";
     public final static String TAG_FRIEND_PROFILE_ADAPTER = "wen-FProfileAdapter";
 
     public final static String TAG_INPUT_ISBN_DIALOG = "wen-InputIsbnDialog";

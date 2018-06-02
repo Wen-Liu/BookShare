@@ -10,19 +10,22 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.wenliu.bookshare.Constants;
+import com.wenliu.bookshare.R;
 import com.wenliu.bookshare.UserManager;
 
 public class BaseActivity extends AppCompatActivity {
 
     protected Context mContext;
+    private MaterialDialog mMaterialDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         Log.d(Constants.TAG_BASE_ACTIVITY, "onCreate");
-        this.mContext = this;
+        mContext = this;
         setStatusBar();
     }
 
@@ -61,6 +64,22 @@ public class BaseActivity extends AppCompatActivity {
             Log.d(Constants.TAG_BASE_ACTIVITY, "getStatusBarHeight: " + result);
         }
         return result;
+    }
+
+
+    public void isShowLoading(boolean isShow) {
+        if (isShow) {
+            if (mMaterialDialog == null) {
+                mMaterialDialog = new MaterialDialog.Builder(this)
+                        .content(R.string.please_wait)
+                        .progress(true, 0)
+                        .show();
+            } else {
+                mMaterialDialog.show();
+            }
+        } else {
+            mMaterialDialog.dismiss();
+        }
     }
 
 

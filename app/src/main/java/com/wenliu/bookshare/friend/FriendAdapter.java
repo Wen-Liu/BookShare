@@ -1,4 +1,4 @@
-package com.wenliu.bookshare.profile;
+package com.wenliu.bookshare.friend;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -32,30 +32,28 @@ import butterknife.OnClick;
  * Created by wen on 2018/5/17.
  */
 
-public class ProfileAdapter extends RecyclerView.Adapter {
+public class FriendAdapter extends RecyclerView.Adapter {
 
     private FriendContract.Presenter mPresenter;
     private ArrayList<User> mFriends = new ArrayList<>();
     private ImageManager mImageManager = new ImageManager(ShareBook.getAppContext());
 
-    public ProfileAdapter(FriendContract.Presenter presenter, ArrayList<User> friends) {
+    public FriendAdapter(FriendContract.Presenter presenter, ArrayList<User> friends) {
+        Log.d(Constants.TAG_PROFILE_ADAPTER, "FriendAdapter: ");
         mPresenter = presenter;
         mFriends = friends;
-
-        Log.d(Constants.TAG_PROFILE_ADAPTER, "ProfileAdapter: ");
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Log.d(Constants.TAG_PROFILE_ADAPTER, "onCreateViewHolder: ");
-
+//        Log.d(Constants.TAG_PROFILE_ADAPTER, "onCreateViewHolder: ");
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_profile_linear, parent, false);
         return new ProfileViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        Log.d(Constants.TAG_PROFILE_ADAPTER, "onBindViewHolder: ");
+//        Log.d(Constants.TAG_PROFILE_ADAPTER, "onBindViewHolder: ");
 
         mImageManager.loadCircleImage(mFriends.get(position).getImage(), ((ProfileViewHolder) holder).getIvItemFriendImage());
         ((ProfileViewHolder) holder).getTvItemFriendName().setText(mFriends.get(position).getName());
@@ -134,7 +132,7 @@ public class ProfileAdapter extends RecyclerView.Adapter {
                     break;
 
                 case R.id.llayout_item_profile:
-//                    mPresenter.transToFriendProfile(mFriends.get(getAdapterPosition()));
+                    mPresenter.transToFriendProfile(mFriends.get(getAdapterPosition()));
 
                     break;
             }
@@ -143,7 +141,7 @@ public class ProfileAdapter extends RecyclerView.Adapter {
         public ProfileViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
-            Log.d(Constants.TAG_PROFILE_ADAPTER, "ProfileViewHolder: ");
+//            Log.d(Constants.TAG_PROFILE_ADAPTER, "ProfileViewHolder: ");
         }
 
         public ImageView getIvItemFriendImage() {
@@ -182,7 +180,6 @@ public class ProfileAdapter extends RecyclerView.Adapter {
 
     public void updateData(ArrayList<User> friends) {
         Log.d(Constants.TAG_PROFILE_ADAPTER, "updateData, data count= " + friends.size());
-
         mFriends = new ArrayList<>(friends);
         notifyDataSetChanged();
     }
@@ -206,6 +203,5 @@ public class ProfileAdapter extends RecyclerView.Adapter {
 //        mPhotos.add("https://scontent.ftpe7-4.fna.fbcdn.net/v/t31.0-8/15591479_1190767794352803_8465831974099662491_o.jpg?_nc_fx=ftpe7-2&_nc_cat=0&oh=a49bc5d55e37169d94af759814941a3e&oe=5BBF9D77");
 //        mPhotos.add("https://scontent.ftpe7-4.fna.fbcdn.net/v/t31.0-8/17504932_1708878342462541_5943255062600487605_o.jpg?_nc_fx=ftpe7-2&_nc_cat=0&oh=9040cf73f3c24ed5c4359793c423d182&oe=5B82AD3F");
     }
-
 
 }

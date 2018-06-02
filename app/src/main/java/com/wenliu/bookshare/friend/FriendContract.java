@@ -12,10 +12,18 @@ public interface FriendContract {
 
         void showFriends(ArrayList<User> friends);
 
+        void isShowLoading(boolean isShow);
+
+        void isNoFriendData(boolean isNoFriendData);
+
     }
 
     interface Presenter extends BasePresenter {
+        void  getMyFriends();
 
+        void checkUserByEmail(String email);
+
+        void transToFriendProfile(User friend);
     }
 
 

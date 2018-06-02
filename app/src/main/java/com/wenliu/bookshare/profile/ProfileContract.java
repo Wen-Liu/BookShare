@@ -19,13 +19,9 @@ public interface ProfileContract {
 
         void showImageOnView(Bitmap bitmap);
 
-        void showProgressDialog(boolean show);
-
         void showAddFriendDialog(boolean showAlert);
 
-//        void showFriend(ArrayList<User> friends);
-//
-//        void isNoFriendData(boolean isNoFriendData);
+        void isShowLoading(boolean isShow);
 
         void isAddDialogShow(boolean isShow);
 
@@ -36,15 +32,8 @@ public interface ProfileContract {
 
         void getPhotoUri(Uri uri);
 
-        void checkUserByEmail(String email);
-
-        void getMyFriends();
-
         void uploadProfileImage(Uri imageUri);
 
-        void transToFriendProfile(User friend);
 
-        void transToFriend();
     }
-
 }

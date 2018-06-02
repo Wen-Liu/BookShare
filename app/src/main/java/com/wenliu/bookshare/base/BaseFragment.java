@@ -9,27 +9,29 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.wenliu.bookshare.R;
+
 /**
  * A simple {@link Fragment} subclass.
  */
-public abstract class BaseFragment extends Fragment {
+public class BaseFragment extends Fragment {
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
-        return initView();
-    }
+    private MaterialDialog mMaterialDialog;
 
-    public abstract View initView();
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        initData();
-    }
-
-    public void initData() {
+    public void isShowLoading(boolean isShow) {
+        if (isShow) {
+            if (mMaterialDialog == null) {
+                mMaterialDialog = new MaterialDialog.Builder(this.getContext())
+                        .content(R.string.please_wait)
+                        .progress(true, 0)
+                        .show();
+            } else {
+                mMaterialDialog.show();
+            }
+        } else {
+            mMaterialDialog.dismiss();
+        }
     }
 
 }
