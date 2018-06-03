@@ -7,10 +7,11 @@ import com.wenliu.bookshare.api.FirebaseApiHelper;
 import com.wenliu.bookshare.api.callbacks.GetBooksCallback;
 import com.wenliu.bookshare.api.callbacks.GetFriendBooksCallback;
 import com.wenliu.bookshare.object.BookCustomInfo;
+import com.wenliu.bookshare.object.User;
 
 import java.util.ArrayList;
 
-public class FriendProfilePresenter implements FriendProfileContract.Presenter{
+public class FriendProfilePresenter implements FriendProfileContract.Presenter {
 
     private FriendProfileContract.View mFriendProfileView;
 
@@ -44,5 +45,20 @@ public class FriendProfilePresenter implements FriendProfileContract.Presenter{
 
             }
         });
+    }
+
+    @Override
+    public void openDetailPage(BookCustomInfo bookCustomInfo) {
+
+    }
+
+    @Override
+    public void confirmBorrowRequest(BookCustomInfo bookCustomInfo) {
+        mFriendProfileView.showConfirmDialog(bookCustomInfo);
+    }
+
+    @Override
+    public void sendBorrowRequest(User friend, BookCustomInfo bookCustomInfo) {
+        FirebaseApiHelper.newInstance().borrowBook(friend, bookCustomInfo);
     }
 }

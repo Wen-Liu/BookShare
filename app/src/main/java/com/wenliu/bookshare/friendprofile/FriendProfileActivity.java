@@ -1,5 +1,7 @@
 package com.wenliu.bookshare.friendprofile;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 import com.wenliu.bookshare.Constants;
 import com.wenliu.bookshare.ImageManager;
 import com.wenliu.bookshare.R;
+import com.wenliu.bookshare.api.FirebaseApiHelper;
 import com.wenliu.bookshare.base.BaseActivity;
 import com.wenliu.bookshare.object.BookCustomInfo;
 import com.wenliu.bookshare.object.User;
@@ -100,6 +103,24 @@ public class FriendProfileActivity extends BaseActivity implements FriendProfile
     public void showFriendBooks(ArrayList<BookCustomInfo> bookCustomInfos) {
         Log.d(Constants.TAG_FRIEND_PROFILE_ACTIVITY, "showFriendBooks: ");
         mFriendProfileAdapter.updateData(bookCustomInfos);
+    }
+
+    @Override
+    public void showConfirmDialog(final BookCustomInfo bookCustomInfo) {
+        Log.d(Constants.TAG_FRIEND_PROFILE_ACTIVITY, "showConfirmDialog: ");
+
+        new AlertDialog.Builder(this)
+                .setMessage("確定要向 " + mUser.getName() + " 借 「" + bookCustomInfo.getTitle() + "」 這本書嗎？")
+                .setCancelable(false)
+                .setPositiveButton(getString(R.string.alert_dialog_delete_positive), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mPresenter.sendBorrowRequest(mUser, bookCustomInfo);
+                    }
+                })
+                .setNegativeButton(getString(R.string.alert_dialog_delete_negative), null)
+                .create()
+                .show();
     }
 
     @Override

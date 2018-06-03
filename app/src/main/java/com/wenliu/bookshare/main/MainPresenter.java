@@ -28,6 +28,7 @@ public class MainPresenter implements MainContract.Presenter {
     private static ArrayList<BookCustomInfo> newBookCustomInfos = new ArrayList<>();
 
     public MainPresenter(MainContract.View mainView) {
+        Log.d(Constants.TAG_MAIN_PRESENTER, "constructor: ");
         mMainView = mainView;
         mMainView.setPresenter(this);
     }

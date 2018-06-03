@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -30,7 +31,6 @@ public class FriendProfileAdapter extends RecyclerView.Adapter {
 
     public FriendProfileAdapter(ArrayList<BookCustomInfo> bookCustomInfos, FriendProfileContract.Presenter presenter) {
         Log.d(Constants.TAG_FRIEND_PROFILE_ADAPTER, "FriendProfileAdapter: ");
-
         mPresenter = presenter;
         mBookCustomInfos = new ArrayList<>(bookCustomInfos);
     }
@@ -90,6 +90,8 @@ public class FriendProfileAdapter extends RecyclerView.Adapter {
         TextView mTvFprofileAuthor;
         @BindView(R.id.llayout_item_fprofile)
         LinearLayout mLlayoutItemFprofile;
+        @BindView(R.id.btn_borrow_book)
+        Button mBtnBorrowBook;
         //endregion
 
         public FriendBookViewHolder(View view) {
@@ -97,12 +99,19 @@ public class FriendProfileAdapter extends RecyclerView.Adapter {
             ButterKnife.bind(this, view);
         }
 
-        @OnClick({R.id.llayout_item_fprofile})
+        @OnClick({R.id.llayout_item_fprofile, R.id.btn_borrow_book})
         public void onViewClicked(View view) {
             switch (view.getId()) {
                 case R.id.llayout_item_fprofile:
                     Log.d(Constants.TAG_FRIEND_PROFILE_ADAPTER, "llayout_item_fprofile Clicked position: " + getAdapterPosition());
-//                    mPresenter.openDetail(mBookCustomInfos.get(getAdapterPosition()), mImVMainBookCover);
+//                    mPresenter.openDetailPage(mBookCustomInfos.get(getAdapterPosition()));
+                    break;
+
+                case R.id.btn_borrow_book:
+                    Log.d(Constants.TAG_FRIEND_PROFILE_ADAPTER, "btn_borrow_book Clicked position: " + getAdapterPosition());
+                    mPresenter.confirmBorrowRequest(mBookCustomInfos.get(getAdapterPosition()));
+                    break;
+
             }
         }
 

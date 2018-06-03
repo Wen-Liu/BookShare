@@ -1,6 +1,5 @@
 package com.wenliu.bookshare.friend;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,8 +16,6 @@ import com.wenliu.bookshare.ImageManager;
 import com.wenliu.bookshare.R;
 import com.wenliu.bookshare.ShareBook;
 import com.wenliu.bookshare.api.FirebaseApiHelper;
-import com.wenliu.bookshare.friend.FriendContract;
-import com.wenliu.bookshare.friend.FriendPresenter;
 import com.wenliu.bookshare.object.User;
 
 import java.util.ArrayList;
@@ -39,21 +36,21 @@ public class FriendAdapter extends RecyclerView.Adapter {
     private ImageManager mImageManager = new ImageManager(ShareBook.getAppContext());
 
     public FriendAdapter(FriendContract.Presenter presenter, ArrayList<User> friends) {
-        Log.d(Constants.TAG_PROFILE_ADAPTER, "FriendAdapter: ");
+        Log.d(Constants.TAG_FRIEND_ADAPTER, "FriendAdapter: ");
         mPresenter = presenter;
         mFriends = friends;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-//        Log.d(Constants.TAG_PROFILE_ADAPTER, "onCreateViewHolder: ");
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_profile_linear, parent, false);
+//        Log.d(Constants.TAG_FRIEND_ADAPTER, "onCreateViewHolder: ");
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_friend_linear, parent, false);
         return new ProfileViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-//        Log.d(Constants.TAG_PROFILE_ADAPTER, "onBindViewHolder: ");
+//        Log.d(Constants.TAG_FRIEND_ADAPTER, "onBindViewHolder: ");
 
         mImageManager.loadCircleImage(mFriends.get(position).getImage(), ((ProfileViewHolder) holder).getIvItemFriendImage());
         ((ProfileViewHolder) holder).getTvItemFriendName().setText(mFriends.get(position).getName());
@@ -141,7 +138,7 @@ public class FriendAdapter extends RecyclerView.Adapter {
         public ProfileViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
-//            Log.d(Constants.TAG_PROFILE_ADAPTER, "ProfileViewHolder: ");
+//            Log.d(Constants.TAG_FRIEND_ADAPTER, "ProfileViewHolder: ");
         }
 
         public ImageView getIvItemFriendImage() {
@@ -179,7 +176,7 @@ public class FriendAdapter extends RecyclerView.Adapter {
     }
 
     public void updateData(ArrayList<User> friends) {
-        Log.d(Constants.TAG_PROFILE_ADAPTER, "updateData, data count= " + friends.size());
+        Log.d(Constants.TAG_FRIEND_ADAPTER, "updateData, data count= " + friends.size());
         mFriends = new ArrayList<>(friends);
         notifyDataSetChanged();
     }

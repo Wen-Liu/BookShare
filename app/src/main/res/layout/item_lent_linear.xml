@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/llayout_item_lent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="8dp"
+    android:layout_marginVertical="8dp"
+    android:background="@color/White"
+    android:elevation="4dp"
+    android:orientation="horizontal"
+    android:paddingEnd="8dp"
+    android:paddingVertical="12dp">
+
+    <ImageView
+        android:id="@+id/iv_lent_book_cover"
+        android:layout_width="100dp"
+        android:layout_height="120dp"
+        android:scaleType="fitCenter"
+        app:srcCompat="@android:color/darker_gray" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_weight="1"
+        android:minHeight="120dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_lent_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="message"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/main_book_title_size"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/gap_each_line_small"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/gap_each_text_6"
+                android:text="@string/lent_start_date"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/main_book_subtitle_size" />
+
+            <TextView
+                android:id="@+id/tv_lent_start_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="date"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/main_book_subtitle_size" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/gap_each_line_small"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/gap_each_text_6"
+                android:text="@string/lent_return_date"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/main_book_tv_text_size" />
+
+            <TextView
+                android:id="@+id/tv_lent_return_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="date"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/main_book_subtitle_size" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:layout_marginTop="@dimen/gap_each_line_small"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/gap_each_text_6"
+                android:text="@string/lent_status"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/main_book_tv_text_size" />
+
+            <TextView
+                android:id="@+id/tv_lent_status"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="status"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/main_book_subtitle_size" />
+
+            <Button
+                android:id="@+id/btn_lent_reject"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_margin="4dp"
+                android:background="@drawable/ic_lent_reject" />
+
+            <Button
+                android:id="@+id/btn_lent_accept"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_margin="4dp"
+                android:background="@drawable/ic_lent_accpet" />
+
+            <Button
+                android:id="@+id/btn_lent_send"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_margin="4dp"
+                android:background="@drawable/ic_lent_send" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

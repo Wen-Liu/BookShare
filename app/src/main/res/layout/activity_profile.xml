@@ -255,17 +255,17 @@
         android:id="@+id/viewpager_profile"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-    </android.support.v4.view.ViewPager>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"></android.support.v4.view.ViewPager>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="right|bottom"
         android:layout_margin="@dimen/fab_margin"
         android:src="@drawable/ic_person_add"
         app:backgroundTint="@color/Yellow_400"
-        android:layout_gravity="right|bottom" />
+        app:fabSize="mini" />
 
 
 </android.support.design.widget.CoordinatorLayout>

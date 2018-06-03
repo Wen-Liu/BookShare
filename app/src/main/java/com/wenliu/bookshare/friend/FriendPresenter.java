@@ -26,7 +26,6 @@ public class FriendPresenter implements FriendContract.Presenter {
 
     @Override
     public void start() {
-        mFriendView.setPresenter(this);
     }
 
     @Override
@@ -37,7 +36,6 @@ public class FriendPresenter implements FriendContract.Presenter {
                 mFirebaseApiHelper.sendFriendRequest(user, new AddFriendCallback() {
                     @Override
                     public void onCompleted() {
-                        getMyFriends();
                         mProfileActivity.isAddDialogShow(false);
                     }
                 });
@@ -57,7 +55,7 @@ public class FriendPresenter implements FriendContract.Presenter {
         mFirebaseApiHelper.getMyFriends(new GetFriendsCallback() {
             @Override
             public void onCompleted(ArrayList<User> friends) {
-                Log.d(Constants.TAG_FRIEND_PRESENTER, "onCompleted: ");
+                Log.d(Constants.TAG_FRIEND_PRESENTER, "getMyFriends onCompleted: ");
                 mFriendView.showFriends(friends);
                 mFriendView.isNoFriendData(false);
                 mFriendView.isShowLoading(false);
@@ -65,14 +63,14 @@ public class FriendPresenter implements FriendContract.Presenter {
 
             @Override
             public void noFriendData() {
-                Log.d(Constants.TAG_FRIEND_PRESENTER, "noFriendData: ");
+                Log.d(Constants.TAG_FRIEND_PRESENTER, "getMyFriends noFriendData: ");
                 mFriendView.isNoFriendData(true);
                 mFriendView.isShowLoading(false);
             }
 
             @Override
             public void onError(String errorMessage) {
-                Log.d(Constants.TAG_FRIEND_PRESENTER, "onError: ");
+                Log.d(Constants.TAG_FRIEND_PRESENTER, "getMyFriends onError: ");
                 mFriendView.isShowLoading(false);
             }
         });

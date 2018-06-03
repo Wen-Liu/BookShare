@@ -7,6 +7,7 @@ package com.wenliu.bookshare;
 public class Constants {
 
     // Log
+    public final static String TAG_SHARE_BOOK = "wen-ShareBook";
     public final static String TAG_BASE_ACTIVITY = "wen-BaseActivity";
     public final static String TAG_LOGIN_ACTIVITY = "wen-LoginActivity";
     public final static String TAG_SHAREBOOK_ACTIVITY = "wen-ShareBookActivity";
@@ -15,19 +16,19 @@ public class Constants {
     public final static String TAG_PROFILE_PRESENTER = "wen-ProfilePresenter";
     public final static String TAG_FRIEND_PROFILE_ACTIVITY = "wen-FProfileActivity";
     public final static String TAG_FRIEND_PROFILE_PRESENTER = "wen-FProfilePresenter";
+    public final static String TAG_FRIEND_PROFILE_ADAPTER = "wen-FProfileAdapter";
 
     public final static String TAG_MAIN_FRAGMENT = "wen-MainFragment";
     public final static String TAG_MAIN_PRESENTER = "wen-MainPresenter";
+    public final static String TAG_MAIN_ADAPTER = "wen-MainAdapter";
     public final static String TAG_DETAIL_FRAGMENT = "wen-DetailFragment";
     public final static String TAG_DETAIL_PRESENTER = "wen-DetailPresenter";
     public final static String TAG_FRIEND_FRAGMENT = "wen-FriendFragment";
     public final static String TAG_FRIEND_PRESENTER = "wen-FriendPresenter";
+    public final static String TAG_FRIEND_ADAPTER = "wen-FriendAdapter";
     public final static String TAG_LENT_FRAGMENT = "wen-LentFragment";
     public final static String TAG_LENT_PRESENTER = "wen-LentPresenter";
-
-    public final static String TAG_MAIN_ADAPTER = "wen-MainAdapter";
-    public final static String TAG_PROFILE_ADAPTER = "wen-FriendAdapter";
-    public final static String TAG_FRIEND_PROFILE_ADAPTER = "wen-FProfileAdapter";
+    public final static String TAG_LENT_ADAPTER = "wen-LentAdapter";
 
     public final static String TAG_INPUT_ISBN_DIALOG = "wen-InputIsbnDialog";
     public final static String TAG_BOOK_DATA_EDIT_DIALOG = "wen-BookDataEditDialog";
@@ -47,15 +48,20 @@ public class Constants {
     public final static String FIREBASE_GOOGLE_BOOKS = "GoogleBooks";
     public final static String FIREBASE_USERS = "Users";
     public final static String FIREBASE_BOOKS = "Books";
-    public final static String FIREBASE_FRIENDS = "Friends";
     public final static String FIREBASE_IMAGE = "image";
     public final static String FIREBASE_EMAIL = "email";
     public final static String FIREBASE_CREATE_TIME = "createTime";
     public final static String FIREBASE_HAVE_BOOK = "haveBook";
+    public final static String FIREBASE_FRIENDS = "Friends";
     public final static String FIREBASE_FRIEND_STATUS = "status";
     public final static String FIREBASE_FRIEND_SEND = "1_send";
     public final static String FIREBASE_FRIEND_RECEIVE = "0_receive";
     public final static String FIREBASE_FRIEND_APPROVE = "2_approve";
+    public final static String FIREBASE_LENT = "Lent";
+    public final static String FIREBASE_LENT_STATUS = "lentStatus";
+    public final static String FIREBASE_LENT_SEND = "1_send";
+    public final static String FIREBASE_LENT_RECEIVE = "0_receive";
+    public final static String FIREBASE_LENT_APPROVE = "2_approve";
 
     // User Manager
     public final static String USER_DATA = "user_data";

@@ -74,6 +74,13 @@
     <string name="profile_tab_layout_friend">Friend</string>
     <string name="profile_tab_layout_lent">Lent</string>
 
+
+    <!-- Strings related to lent book -->
+    <string name="lent_start_date">Start Date : </string>
+    <string name="lent_return_date">Due Date : </string>
+    <string name="lent_status">Status : </string>
+
+
     <!-- Strings related to menu -->
     <string-array name="menu_book_filter">
         <item>所有蒐藏</item>
@@ -82,9 +89,6 @@
         <item>正在閱讀的書</item>
         <item>已經讀完的書</item>
     </string-array>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

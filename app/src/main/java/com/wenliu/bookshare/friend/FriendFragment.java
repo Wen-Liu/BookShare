@@ -29,7 +29,6 @@ import butterknife.Unbinder;
  * A simple {@link Fragment} subclass.
  */
 public class FriendFragment extends BaseFragment implements FriendContract.View {
-
     //region "BindView"
     Unbinder unbinder;
     @BindView(R.id.tv_friend_no_data)
@@ -87,7 +86,7 @@ public class FriendFragment extends BaseFragment implements FriendContract.View 
 
     @Override
     public void onDestroyView() {
-        Log.d(Constants.TAG_PROFILE_ACTIVITY, "onDestroyView: ");
+        Log.d(Constants.TAG_FRIEND_FRAGMENT, "onDestroyView: ");
         super.onDestroyView();
         unbinder.unbind();
     }
@@ -99,7 +98,7 @@ public class FriendFragment extends BaseFragment implements FriendContract.View 
 
     @Override
     public void isNoFriendData(boolean isNoFriendData) {
-        Log.d(Constants.TAG_PROFILE_ACTIVITY, "isNoFriendData: ");
+        Log.d(Constants.TAG_FRIEND_FRAGMENT, "isNoFriendData: " + isNoFriendData);
         mTvFriendNoData.setVisibility(isNoFriendData ? View.VISIBLE : View.GONE);
         mRvFriend.setVisibility(isNoFriendData ? View.GONE : View.VISIBLE);
     }

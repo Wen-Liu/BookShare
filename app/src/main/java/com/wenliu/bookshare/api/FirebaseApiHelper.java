@@ -24,11 +24,13 @@ import com.wenliu.bookshare.api.callbacks.DeleteBookCallback;
 import com.wenliu.bookshare.api.callbacks.GetBooksCallback;
 import com.wenliu.bookshare.api.callbacks.GetFriendBooksCallback;
 import com.wenliu.bookshare.api.callbacks.GetFriendsCallback;
+import com.wenliu.bookshare.api.callbacks.GetLendStatusCallback;
 import com.wenliu.bookshare.api.callbacks.GetUserInfoCallback;
 import com.wenliu.bookshare.api.callbacks.SignUpCallback;
 import com.wenliu.bookshare.object.Book;
 import com.wenliu.bookshare.object.BookCustomInfo;
 import com.wenliu.bookshare.object.GoogleBook.Item;
+import com.wenliu.bookshare.object.LentBook;
 import com.wenliu.bookshare.object.User;
 
 import java.io.File;
@@ -40,28 +42,20 @@ import java.util.ArrayList;
 
 public class FirebaseApiHelper {
     // Write a message to the database
-
     private FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference mGetRef = mDatabase.getReference();
     private StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
-
 
     public static FirebaseApiHelper newInstance() {
         return new FirebaseApiHelper();
     }
 
+    //region relate to user data
     public void uploadUser(User user, SignUpCallback callback) {
         Log.d(Constants.TAG_FIREBASE_API_HELPER, "uploadUser");
 
         mGetRef.child(Constants.FIREBASE_USERS).child(user.getId()).setValue(user);
         callback.onCompleted();
-    }
-
-    public void uploadUserImageUrl(String ImageUrl) {
-        Log.d(Constants.TAG_FIREBASE_API_HELPER, "uploadUser");
-
-        mGetRef.child(Constants.FIREBASE_USERS).child(UserManager.getInstance().getUserId())
-                .child(Constants.FIREBASE_IMAGE).setValue(ImageUrl);
     }
 
     public void getUserInfo(String uid, final GetUserInfoCallback callback) {
@@ -90,6 +84,44 @@ public class FirebaseApiHelper {
         });
     }
 
+    public void uploadProfileImage(Uri uri) {
+
+        Uri file = uri;
+        StorageReference riversRef = mStorageRef.child("Profile_images/" + UserManager.getInstance().getUserId() + ".jpg");
+
+        riversRef.putFile(file)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        // Get a URL to the uploaded content
+                        Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                        UserManager.getInstance().setUserImage(downloadUrl.toString());
+                        uploadUserImageUrl(downloadUrl.toString());
+                        Log.d(Constants.TAG_FIREBASE_API_HELPER, "uploadProfileImage + Url " + downloadUrl);
+
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        Log.d(Constants.TAG_FIREBASE_API_HELPER, "uploadProfileImage + onFailure ");
+
+
+                    }
+                });
+
+
+    }
+
+    public void uploadUserImageUrl(String ImageUrl) {
+        Log.d(Constants.TAG_FIREBASE_API_HELPER, "uploadUser");
+
+        mGetRef.child(Constants.FIREBASE_USERS).child(UserManager.getInstance().getUserId())
+                .child(Constants.FIREBASE_IMAGE).setValue(ImageUrl);
+    }
+    //endregion
+
+    //region relate to book
     public void checkBookDataExist(final String isbn, final CheckBookExistCallback callback) {
         Log.d(Constants.TAG_FIREBASE_API_HELPER, "checkBookDataExist");
 
@@ -135,6 +167,55 @@ public class FirebaseApiHelper {
                 .child(Constants.FIREBASE_BOOKS)
                 .child(isbn)
                 .setValue(bookCustomInfo);
+    }
+
+    public void deleteMyBook(String isbn, DeleteBookCallback callback) {
+        Log.d(Constants.TAG_FIREBASE_API_HELPER, "deleteMyBook");
+
+        mGetRef.child(Constants.FIREBASE_USERS)
+                .child(UserManager.getInstance().getUserId())
+                .child(Constants.FIREBASE_BOOKS)
+                .child(isbn)
+                .removeValue();
+
+        callback.onCompleted();
+    }
+
+    public void getFriendBooks(String uid, final GetFriendBooksCallback callback) {
+        Log.d(Constants.TAG_FIREBASE_API_HELPER, "getFriendBooks");
+
+        final Query friendBooksQuery = mGetRef.child(Constants.FIREBASE_USERS)
+                .child(uid)
+                .child(Constants.FIREBASE_BOOKS)
+                .orderByChild(Constants.FIREBASE_HAVE_BOOK)
+                .equalTo(true);
+
+        friendBooksQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                ArrayList<BookCustomInfo> mBookCustomInfos = new ArrayList<>();
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        BookCustomInfo bookCustomInfo = snapshot.getValue(BookCustomInfo.class);
+                        mBookCustomInfos.add(bookCustomInfo);
+                    }
+                    Log.d(Constants.TAG_FIREBASE_API_HELPER, "getFriendBooks data exists ");
+                    callback.onCompleted(mBookCustomInfos);
+
+                } else {
+                    Log.d(Constants.TAG_FIREBASE_API_HELPER, "getFriendBooks get nothing ");
+                    callback.noBookData(mBookCustomInfos);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d(Constants.TAG_FIREBASE_API_HELPER, "onCancelled: " + databaseError.getMessage().toString());
+                callback.onError(databaseError.getMessage());
+            }
+        });
     }
 
     public void getMyBooks(final GetBooksCallback callback) {
@@ -196,45 +277,33 @@ public class FirebaseApiHelper {
             }
         });
     }
+    //endregion
 
-    public void deleteMyBook(String isbn, DeleteBookCallback callback) {
-        Log.d(Constants.TAG_FIREBASE_API_HELPER, "deleteMyBook");
+    //region relate to friend
+    public void getMyFriends(final GetFriendsCallback callback) {
+        Log.d(Constants.TAG_FIREBASE_API_HELPER, "getMyFriends: ");
 
-        mGetRef.child(Constants.FIREBASE_USERS)
+        final Query myFriendQuery = mGetRef.child(Constants.FIREBASE_USERS)
                 .child(UserManager.getInstance().getUserId())
-                .child(Constants.FIREBASE_BOOKS)
-                .child(isbn)
-                .removeValue();
+                .child(Constants.FIREBASE_FRIENDS)
+                .orderByChild(Constants.FIREBASE_FRIEND_STATUS);
 
-        callback.onCompleted();
-    }
-
-    public void getFriendBooks(String uid, final GetFriendBooksCallback callback) {
-        Log.d(Constants.TAG_FIREBASE_API_HELPER, "getFriendBooks");
-
-        final Query friendBooksQuery = mGetRef.child(Constants.FIREBASE_USERS)
-                .child(uid)
-                .child(Constants.FIREBASE_BOOKS)
-                .orderByChild(Constants.FIREBASE_HAVE_BOOK)
-                .equalTo(true);
-
-        friendBooksQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-
+        myFriendQuery.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                ArrayList<BookCustomInfo> mBookCustomInfos = new ArrayList<>();
+                ArrayList<User> friends = new ArrayList<>();
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        BookCustomInfo bookCustomInfo = snapshot.getValue(BookCustomInfo.class);
-                        mBookCustomInfos.add(bookCustomInfo);
+                        User friend = snapshot.getValue(User.class);
+                        friends.add(friend);
                     }
-                    Log.d(Constants.TAG_FIREBASE_API_HELPER, "getFriendBooks data exists ");
-                    callback.onCompleted(mBookCustomInfos);
+                    Log.d(Constants.TAG_FIREBASE_API_HELPER, "getMyFriends data exists ");
+                    callback.onCompleted(friends);
 
                 } else {
-                    Log.d(Constants.TAG_FIREBASE_API_HELPER, "getFriendBooks get nothing ");
-                    callback.noBookData(mBookCustomInfos);
+                    Log.d(Constants.TAG_FIREBASE_API_HELPER, "getMyFriends get nothing ");
+                    callback.noFriendData();
                 }
             }
 
@@ -244,35 +313,6 @@ public class FirebaseApiHelper {
                 callback.onError(databaseError.getMessage());
             }
         });
-    }
-
-    public void uploadProfileImage(Uri uri) {
-
-        Uri file = uri;
-        StorageReference riversRef = mStorageRef.child("Profile_images/" + UserManager.getInstance().getUserId() + ".jpg");
-
-        riversRef.putFile(file)
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        // Get a URL to the uploaded content
-                        Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                        UserManager.getInstance().setUserImage(downloadUrl.toString());
-                        uploadUserImageUrl(downloadUrl.toString());
-                        Log.d(Constants.TAG_FIREBASE_API_HELPER, "uploadProfileImage + Url " + downloadUrl);
-
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        Log.d(Constants.TAG_FIREBASE_API_HELPER, "uploadProfileImage + onFailure ");
-
-
-                    }
-                });
-
-
     }
 
     public void checkUserByEmail(String email, final CheckUserExistCallback callback) {
@@ -335,40 +375,55 @@ public class FirebaseApiHelper {
         mGetRef.child(Constants.FIREBASE_USERS).child(selfId).child(Constants.FIREBASE_FRIENDS).child(friend.getId()).removeValue();
         mGetRef.child(Constants.FIREBASE_USERS).child(friend.getId()).child(Constants.FIREBASE_FRIENDS).child(selfId).removeValue();
     }
+    //endregion
 
-    public void getMyFriends(final GetFriendsCallback callback) {
-        Log.d(Constants.TAG_FIREBASE_API_HELPER, "getMyFriends: ");
+    //region relate to lend book
+    public void borrowBook(User friend, BookCustomInfo bookCustomInfo) {
+        Log.d(Constants.TAG_FIREBASE_API_HELPER, "borrowBook: ");
 
-        final Query myBooksQuery = mGetRef.child(Constants.FIREBASE_USERS)
+        String lentBookKey = friend.getName() + "_" + bookCustomInfo.getTitle() + "_" + UserManager.getInstance().getUserId();
+        LentBook lentBook = new LentBook(friend, bookCustomInfo);
+
+        mGetRef.child(Constants.FIREBASE_USERS).child(UserManager.getInstance().getUserId()).child(Constants.FIREBASE_LENT).child(lentBookKey).setValue(lentBook);
+        mGetRef.child(Constants.FIREBASE_USERS).child(UserManager.getInstance().getUserId()).child(Constants.FIREBASE_LENT).child(lentBookKey).child(Constants.FIREBASE_LENT_STATUS).setValue(Constants.FIREBASE_LENT_SEND);
+
+        mGetRef.child(Constants.FIREBASE_USERS).child(friend.getId()).child(Constants.FIREBASE_LENT).child(lentBookKey).setValue(lentBook);
+        mGetRef.child(Constants.FIREBASE_USERS).child(friend.getId()).child(Constants.FIREBASE_LENT).child(lentBookKey).child(Constants.FIREBASE_LENT_STATUS).setValue(Constants.FIREBASE_LENT_RECEIVE);
+    }
+
+    public void getMyLendStatus(final GetLendStatusCallback callback) {
+        Log.d(Constants.TAG_FIREBASE_API_HELPER, "getMyLendStatus: ");
+
+        final Query myLentQuery = mGetRef.child(Constants.FIREBASE_USERS)
                 .child(UserManager.getInstance().getUserId())
-                .child(Constants.FIREBASE_FRIENDS)
-                .orderByChild(Constants.FIREBASE_FRIEND_STATUS);
+                .child(Constants.FIREBASE_LENT)
+                .orderByChild(Constants.FIREBASE_LENT_STATUS);
 
-        myBooksQuery.addValueEventListener(new ValueEventListener() {
+        myLentQuery.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                ArrayList<User> friends = new ArrayList<>();
+                ArrayList<LentBook> lentBooks = new ArrayList<>();
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        User friend = snapshot.getValue(User.class);
-                        friends.add(friend);
+                        LentBook lentBook = snapshot.getValue(LentBook.class);
+                        lentBooks.add(lentBook);
                     }
-                    Log.d(Constants.TAG_FIREBASE_API_HELPER, "getMyFriends data exists ");
-                    callback.onCompleted(friends);
+                    Log.d(Constants.TAG_FIREBASE_API_HELPER, "getMyLendStatus data exists ");
+                    callback.onCompleted(lentBooks);
 
                 } else {
-                    Log.d(Constants.TAG_FIREBASE_API_HELPER, "getMyFriends get nothing ");
-                    callback.noFriendData();
+                    Log.d(Constants.TAG_FIREBASE_API_HELPER, "getMyLendStatus get nothing ");
+                    callback.noLendData();
                 }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.d(Constants.TAG_FIREBASE_API_HELPER, "onCancelled: " + databaseError.getMessage().toString());
+                Log.d(Constants.TAG_FIREBASE_API_HELPER, "getMyLendStatus onCancelled: " + databaseError.getMessage().toString());
                 callback.onError(databaseError.getMessage());
             }
         });
     }
-
+    //endregion
 }

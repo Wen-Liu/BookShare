@@ -74,6 +74,11 @@
     <string name="profile_tab_layout_friend">好友</string>
     <string name="profile_tab_layout_lent">書籍借閱狀態</string>
 
+    <!-- Strings related to lent book -->
+    <string name="lent_start_date">借閱日 : </string>
+    <string name="lent_return_date">約定歸還日 : </string>
+    <string name="lent_status">狀態 : </string>
+
     <!-- Strings related to menu -->
     <string-array name="menu_book_filter">
         <item>所有蒐藏</item>
@@ -82,5 +87,5 @@
         <item>正在閱讀的書</item>
         <item>已經讀完的書</item>
     </string-array>
-    
+
 </resources>

@@ -30,6 +30,13 @@ public class BookCustomInfo {
     private String mComment;
     private double mBookScore;
 
+    private boolean isLent;
+    private String mLendToName;
+    private String mLendToId;
+    private String mLendStartDay;
+    private String mLendReturnDay;
+
+
     public BookCustomInfo() {
         mTitle = "";
         mSubtitle = "";
@@ -50,6 +57,12 @@ public class BookCustomInfo {
         mReadingPage = -1;
         mComment = "";
         mBookScore = -1;
+
+        isLent = false;
+        mLendToName = "";
+        mLendToId = "";
+        mLendStartDay = "";
+        mLendReturnDay = "";
     }
 
     public BookCustomInfo(Book book) {
@@ -72,6 +85,12 @@ public class BookCustomInfo {
         mReadingPage = -1;
         mComment = "";
         mBookScore = -1;
+
+        isLent = false;
+        mLendToName = "";
+        mLendToId = "";
+        mLendStartDay = "";
+        mLendReturnDay = "";
     }
 
     public String getTitle() {
@@ -216,6 +235,46 @@ public class BookCustomInfo {
 
     public void setReadingPage(int readingPage) {
         mReadingPage = readingPage;
+    }
+
+    public boolean isLent() {
+        return isLent;
+    }
+
+    public void setLent(boolean lent) {
+        isLent = lent;
+    }
+
+    public String getLendToName() {
+        return mLendToName;
+    }
+
+    public void setLendToName(String lendToName) {
+        mLendToName = lendToName;
+    }
+
+    public String getLendToId() {
+        return mLendToId;
+    }
+
+    public void setLendToId(String lendToId) {
+        mLendToId = lendToId;
+    }
+
+    public String getLendStartDay() {
+        return mLendStartDay;
+    }
+
+    public void setLendStartDay(String lendStartDay) {
+        mLendStartDay = lendStartDay;
+    }
+
+    public String getLendReturnDay() {
+        return mLendReturnDay;
+    }
+
+    public void setLendReturnDay(String lendReturnDay) {
+        mLendReturnDay = lendReturnDay;
     }
 
     private int getTime() {

@@ -5,10 +5,19 @@
     android:layout_height="match_parent"
     tools:context=".lent.LentFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/tv_lent_no_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="sans-serif"
+        android:text="@string/no_friend_data"
+        android:textSize="@dimen/main_book_tv_text_size" />
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_lent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
 
 </FrameLayout>
