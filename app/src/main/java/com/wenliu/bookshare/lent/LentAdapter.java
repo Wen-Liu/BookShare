@@ -24,6 +24,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class LentAdapter extends RecyclerView.Adapter {
+
     private LentContract.Presenter mPresenter;
     private ArrayList<LentBook> mLentBooks;
     private ImageManager mImageManager = new ImageManager(ShareBook.getAppContext());
@@ -47,10 +48,31 @@ public class LentAdapter extends RecyclerView.Adapter {
 
         mImageManager.loadUrlImage(mLentBooks.get(position).getBookImage(), ((LentViewHolder) holder).getIvLentBookCover());
 
-        String message = mLentBooks.get(position).getName() + " 借閱 " + mLentBooks.get(position).getTitle();
+        String message = mLentBooks.get(position).getBorrowerName() + " 借閱 " + mLentBooks.get(position).getTitle();
         ((LentViewHolder) holder).getTvLentMessage().setText(message);
         ((LentViewHolder) holder).getTvLentStartDate().setText(mLentBooks.get(position).getLendStartDay());
-        ((LentViewHolder) holder).getTvLentStartDate().setText(mLentBooks.get(position).getLendReturnDay());
+        ((LentViewHolder) holder).getTvLentReturnDate().setText(mLentBooks.get(position).getLendReturnDay());
+
+
+        if (mLentBooks.get(position).getLentStatus().equals(Constants.FIREBASE_LENT_APPROVE)) {
+            ((LentViewHolder) holder).isReceiveRequest(false);
+            ((LentViewHolder) holder).isSendRequest(false);
+            ((LentViewHolder) holder).isShowDate(true);
+            ((LentViewHolder) holder).getTvLentStatus().setText("借閱中");
+
+        } else if (mLentBooks.get(position).getLentStatus().equals(Constants.FIREBASE_LENT_RECEIVE)) {
+            ((LentViewHolder) holder).isReceiveRequest(true);
+            ((LentViewHolder) holder).isSendRequest(false);
+            ((LentViewHolder) holder).isShowDate(false);
+            ((LentViewHolder) holder).getTvLentStatus().setText("請確認是否借閱");
+
+        } else if (mLentBooks.get(position).getLentStatus().equals(Constants.FIREBASE_LENT_SEND)) {
+            ((LentViewHolder) holder).isReceiveRequest(false);
+            ((LentViewHolder) holder).isSendRequest(true);
+            ((LentViewHolder) holder).isShowDate(false);
+            ((LentViewHolder) holder).getTvLentStatus().setText("等待對方確認借閱中");
+        }
+
     }
 
     @Override
@@ -80,6 +102,10 @@ public class LentAdapter extends RecyclerView.Adapter {
         Button mBtnLentSend;
         @BindView(R.id.llayout_item_lent)
         LinearLayout mLlayoutItemLent;
+        @BindView(R.id.llayout_lent_start_date)
+        LinearLayout mLlayoutLentStartDate;
+        @BindView(R.id.llayout_lent_due_date)
+        LinearLayout mLlayoutLentDueDate;
         //endregion
 
         public LentViewHolder(View view) {
@@ -92,15 +118,16 @@ public class LentAdapter extends RecyclerView.Adapter {
             switch (view.getId()) {
                 case R.id.btn_lent_reject:
                     Log.d(Constants.TAG_LENT_ADAPTER, "onViewClicked btn_lent_reject: ");
-                    ShareBook.makeShortToast("btn_lent_reject");
+                    mPresenter.confirmReject(mLentBooks.get(getAdapterPosition()));
                     break;
+
                 case R.id.btn_lent_accept:
                     Log.d(Constants.TAG_LENT_ADAPTER, "onViewClicked btn_lent_accept: ");
-                    ShareBook.makeShortToast("btn_lent_accept");
+                    mPresenter.confirmAccept(mLentBooks.get(getAdapterPosition()));
                     break;
+
                 case R.id.btn_lent_send:
                     Log.d(Constants.TAG_LENT_ADAPTER, "onViewClicked btn_lent_send: ");
-                    ShareBook.makeShortToast("btn_lent_send");
                     break;
             }
         }
@@ -139,6 +166,21 @@ public class LentAdapter extends RecyclerView.Adapter {
 
         public LinearLayout getLlayoutItemLent() {
             return mLlayoutItemLent;
+        }
+
+
+        public void isSendRequest(boolean isSend) {
+            mBtnLentSend.setVisibility(isSend ? View.VISIBLE : View.GONE);
+        }
+
+        public void isReceiveRequest(boolean isReceive) {
+            mBtnLentAccept.setVisibility(isReceive ? View.VISIBLE : View.GONE);
+            mBtnLentReject.setVisibility(isReceive ? View.VISIBLE : View.GONE);
+        }
+
+        public void isShowDate(boolean isShowDate) {
+            mLlayoutLentStartDate.setVisibility(isShowDate ? View.VISIBLE : View.GONE);
+            mLlayoutLentDueDate.setVisibility(isShowDate ? View.VISIBLE : View.GONE);
         }
     }
 

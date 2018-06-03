@@ -425,5 +425,20 @@ public class FirebaseApiHelper {
             }
         });
     }
+
+    public void acceptLendRequest(LentBook lentBook) {
+        String lentBookKey = lentBook.getBorrowerName() + "_" + lentBook.getTitle() + "_" + lentBook.getLenderId();
+
+        mGetRef.child(Constants.FIREBASE_USERS).child(lentBook.getLenderId()).child(Constants.FIREBASE_LENT).child(lentBookKey).setValue(lentBook);
+        mGetRef.child(Constants.FIREBASE_USERS).child(lentBook.getLenderId()).child(Constants.FIREBASE_LENT).child(lentBookKey).setValue(lentBook);
+    }
+
+    public void rejectLendRequest(LentBook lentBook) {
+        String lentBookKey = lentBook.getBorrowerName() + "_" + lentBook.getTitle() + "_" + lentBook.getLenderId();
+
+        Log.d(Constants.TAG_FIREBASE_API_HELPER, "rejectLendRequest: selfId ");
+        mGetRef.child(Constants.FIREBASE_USERS).child(lentBook.getLenderId()).child(Constants.FIREBASE_LENT).child(lentBookKey).removeValue();
+        mGetRef.child(Constants.FIREBASE_USERS).child(lentBook.getLenderId()).child(Constants.FIREBASE_LENT).child(lentBookKey).removeValue();
+    }
     //endregion
 }

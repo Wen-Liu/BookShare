@@ -1,10 +1,16 @@
 package com.wenliu.bookshare.object;
 
+import com.wenliu.bookshare.UserManager;
+
 public class LentBook {
 
-    private String mUserId;
-    private String mName;
-    private String mUserImage;
+    private String mLenderId;
+    private String mLenderName;
+    private String mLenderImage;
+
+    private String mBorrowerId;
+    private String mBorrowerName;
+    private String mBorrowerImage;
 
     private String mTitle;
     private String mIsbn13;
@@ -16,9 +22,12 @@ public class LentBook {
     private String mLendReturnDay;
 
     public LentBook() {
-        mUserId = "";
-        mName = "";
-        mUserImage = "";
+        mLenderId = "";
+        mLenderName = "";
+        mLenderImage = "";
+        mBorrowerId = "";
+        mBorrowerName = "";
+        mBorrowerImage = "";
         mTitle = "";
         mIsbn13 = "";
         mBookImage = "";
@@ -29,9 +38,12 @@ public class LentBook {
     }
 
     public LentBook(User user, BookCustomInfo bookCustomInfo) {
-        mUserId = user.getId();
-        mName = user.getName();
-        mUserImage = user.getImage();
+        mLenderId = UserManager.getInstance().getUserId();
+        mLenderName = UserManager.getInstance().getUserName();
+        mLenderImage = UserManager.getInstance().getUserImage();
+        mBorrowerId = user.getId();
+        mBorrowerName = user.getName();
+        mBorrowerImage = user.getImage();
         mTitle = bookCustomInfo.getTitle();
         mIsbn13 = bookCustomInfo.getIsbn13();
         mBookImage = bookCustomInfo.getImage();
@@ -41,28 +53,52 @@ public class LentBook {
         mLendReturnDay = "";
     }
 
-    public String getUserId() {
-        return mUserId;
+    public String getLenderId() {
+        return mLenderId;
     }
 
-    public void setUserId(String userId) {
-        mUserId = userId;
+    public void setLenderId(String lenderId) {
+        mLenderId = lenderId;
     }
 
-    public String getName() {
-        return mName;
+    public String getLenderName() {
+        return mLenderName;
     }
 
-    public void setName(String name) {
-        mName = name;
+    public void setLenderName(String lenderName) {
+        mLenderName = lenderName;
     }
 
-    public String getUserImage() {
-        return mUserImage;
+    public String getLenderImage() {
+        return mLenderImage;
     }
 
-    public void setUserImage(String userImage) {
-        mUserImage = userImage;
+    public void setLenderImage(String lenderImage) {
+        mLenderImage = lenderImage;
+    }
+
+    public String getBorrowerId() {
+        return mBorrowerId;
+    }
+
+    public void setBorrowerId(String borrowerId) {
+        mBorrowerId = borrowerId;
+    }
+
+    public String getBorrowerName() {
+        return mBorrowerName;
+    }
+
+    public void setBorrowerName(String borrowerName) {
+        mBorrowerName = borrowerName;
+    }
+
+    public String getBorrowerImage() {
+        return mBorrowerImage;
+    }
+
+    public void setBorrowerImage(String borrowerImage) {
+        mBorrowerImage = borrowerImage;
     }
 
     public String getTitle() {

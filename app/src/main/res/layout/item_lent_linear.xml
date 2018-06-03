@@ -37,6 +37,7 @@
             android:textStyle="bold" />
 
         <LinearLayout
+            android:id="@+id/llayout_lent_start_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/gap_each_line_small"
@@ -61,6 +62,7 @@
 
 
         <LinearLayout
+            android:id="@+id/llayout_lent_due_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/gap_each_line_small"
@@ -90,14 +92,6 @@
             android:gravity="top"
             android:layout_marginTop="@dimen/gap_each_line_small"
             android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/gap_each_text_6"
-                android:text="@string/lent_status"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/main_book_tv_text_size" />
 
             <TextView
                 android:id="@+id/tv_lent_status"

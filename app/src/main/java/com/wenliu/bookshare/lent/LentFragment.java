@@ -1,5 +1,8 @@
 package com.wenliu.bookshare.lent;
 
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,6 +13,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.wenliu.bookshare.Constants;
@@ -19,6 +24,7 @@ import com.wenliu.bookshare.base.BaseFragment;
 import com.wenliu.bookshare.object.LentBook;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -97,4 +103,80 @@ public class LentFragment extends BaseFragment implements LentContract.View {
         mTvLentNoData.setVisibility(isNoLentData ? View.VISIBLE : View.GONE);
         mRvLent.setVisibility(isNoLentData ? View.GONE : View.VISIBLE);
     }
+
+    @Override
+    public void showConfirmReject(final LentBook lentBook) {
+        Log.d(Constants.TAG_LENT_FRAGMENT, "showConfirmReject: ");
+
+        new AlertDialog.Builder(getActivity())
+                .setMessage("確定要拒絕 " + lentBook.getBorrowerName() + " 的借閱要求嗎？")
+                .setCancelable(false)
+                .setPositiveButton(getString(R.string.alert_dialog_delete_positive), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mPresenter.sendBorrowReject(lentBook);
+                    }
+                })
+                .setNegativeButton(getString(R.string.alert_dialog_delete_negative), null)
+                .create()
+                .show();
+    }
+
+    @Override
+    public void showConfirmAccept(final LentBook lentBook) {
+        Log.d(Constants.TAG_LENT_FRAGMENT, "showConfirmAccept: ");
+
+        final View returnDateView = View.inflate(getActivity(), R.layout.dialog_lend_accept, null);
+        final EditText mEtReturnDate = ((EditText) returnDateView.findViewById(R.id.et_dialog_borrow_return_date));
+        mEtReturnDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog(mEtReturnDate, lentBook);
+            }
+        });
+
+        new AlertDialog.Builder(getActivity())
+                .setMessage("請確認希望歸還日期")
+                .setView(returnDateView)
+                .setCancelable(false)
+                .setPositiveButton(getString(R.string.alert_dialog_delete_positive), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        lentBook.setLendReturnDay(mEtReturnDate.getText().toString());
+                        lentBook.setLentStatus(Constants.FIREBASE_LENT_APPROVE);
+                        mPresenter.sendBorrowAccept(lentBook);
+                    }
+                })
+                .setNegativeButton(getString(R.string.alert_dialog_delete_negative), null)
+                .create()
+                .show();
+    }
+
+
+    private void showDatePickerDialog(final EditText editText, LentBook lentBook) {
+        Log.d(Constants.TAG_LENT_FRAGMENT, "showDatePickerDialog: ");
+
+        final Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+        // Create a new instance of TimePickerDialog and return it
+        DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                month += 1;
+                // set lend return date
+                editText.setText(year + "-" + month + "-" + dayOfMonth);
+            }
+        }, year, month, day);
+
+        // set lend start date
+        month += 1;
+        lentBook.setLendStartDay(year + "-" + month + "-" + day);
+
+        datePickerDialog.getDatePicker().setLayoutMode(1);
+        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
+        datePickerDialog.show();
+    }
+
 }

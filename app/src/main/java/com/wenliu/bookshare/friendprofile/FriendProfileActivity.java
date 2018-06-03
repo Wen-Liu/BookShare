@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.wenliu.bookshare.Constants;
 import com.wenliu.bookshare.ImageManager;
@@ -116,6 +117,7 @@ public class FriendProfileActivity extends BaseActivity implements FriendProfile
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         mPresenter.sendBorrowRequest(mUser, bookCustomInfo);
+                        Toast.makeText(FriendProfileActivity.this, "已對 " + mUser.getName() + " 提出借書要求，等待回覆中", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .setNegativeButton(getString(R.string.alert_dialog_delete_negative), null)

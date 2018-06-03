@@ -54,4 +54,24 @@ public class LentPresenter implements LentContract.Presenter {
             }
         });
     }
+
+    @Override
+    public void confirmReject(LentBook lentBook) {
+        mLentView.showConfirmReject(lentBook);
+    }
+
+    @Override
+    public void confirmAccept(LentBook lentBook) {
+        mLentView.showConfirmAccept(lentBook);
+    }
+
+    @Override
+    public void sendBorrowAccept(LentBook lentBook) {
+        mFirebaseApiHelper.acceptLendRequest(lentBook);
+    }
+
+    @Override
+    public void sendBorrowReject(LentBook lentBook) {
+        mFirebaseApiHelper.rejectLendRequest(lentBook);
+    }
 }
