@@ -381,7 +381,7 @@ public class FirebaseApiHelper {
     public void borrowBook(User friend, BookCustomInfo bookCustomInfo) {
         Log.d(Constants.TAG_FIREBASE_API_HELPER, "borrowBook: ");
 
-        String lentBookKey = friend.getName() + "_" + bookCustomInfo.getTitle() + "_" + UserManager.getInstance().getUserId();
+        String lentBookKey = friend.getId() + "_" + bookCustomInfo.getIsbn13() + "_" + UserManager.getInstance().getUserId();
         LentBook lentBook = new LentBook(friend, bookCustomInfo);
 
         mGetRef.child(Constants.FIREBASE_USERS).child(UserManager.getInstance().getUserId()).child(Constants.FIREBASE_LENT).child(lentBookKey).setValue(lentBook);
@@ -427,14 +427,14 @@ public class FirebaseApiHelper {
     }
 
     public void acceptLendRequest(LentBook lentBook) {
-        String lentBookKey = lentBook.getBorrowerName() + "_" + lentBook.getTitle() + "_" + lentBook.getLenderId();
+        String lentBookKey = lentBook.getBorrowerId() + "_" + lentBook.getIsbn13() + "_" + lentBook.getLenderId();
 
         mGetRef.child(Constants.FIREBASE_USERS).child(lentBook.getLenderId()).child(Constants.FIREBASE_LENT).child(lentBookKey).setValue(lentBook);
         mGetRef.child(Constants.FIREBASE_USERS).child(lentBook.getLenderId()).child(Constants.FIREBASE_LENT).child(lentBookKey).setValue(lentBook);
     }
 
     public void rejectLendRequest(LentBook lentBook) {
-        String lentBookKey = lentBook.getBorrowerName() + "_" + lentBook.getTitle() + "_" + lentBook.getLenderId();
+        String lentBookKey = lentBook.getBorrowerId() + "_" + lentBook.getIsbn13() + "_" + lentBook.getLenderId();
 
         Log.d(Constants.TAG_FIREBASE_API_HELPER, "rejectLendRequest: selfId ");
         mGetRef.child(Constants.FIREBASE_USERS).child(lentBook.getLenderId()).child(Constants.FIREBASE_LENT).child(lentBookKey).removeValue();

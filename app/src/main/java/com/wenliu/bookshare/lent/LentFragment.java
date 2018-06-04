@@ -175,6 +175,7 @@ public class LentFragment extends BaseFragment implements LentContract.View {
         lentBook.setLendStartDay(year + "-" + month + "-" + day);
 
         datePickerDialog.getDatePicker().setLayoutMode(1);
+        datePickerDialog.setTitle("請確認希望歸還日期");
         datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
         datePickerDialog.show();
     }
