@@ -85,7 +85,7 @@ public class ProfilePresenter implements ProfileContract.Presenter {
 //    @Override
 //    public void getMyFriends() {
 //
-//        mProfileView.isShowLoading(true);
+//        mProfileView.isShowLoadingDialog(true);
 //
 //        mFirebaseApiHelper.getMyFriends(new GetFriendsCallback() {
 //            @Override
@@ -93,19 +93,19 @@ public class ProfilePresenter implements ProfileContract.Presenter {
 //                mFriendFragment.showFriends(friends);
 ////                mProfileView.showFriend(friends);
 ////                mProfileView.isNoFriendData(false);
-//                mProfileView.isShowLoading(false);
+//                mProfileView.isShowLoadingDialog(false);
 //            }
 //
 //            @Override
 //            public void noFriendData() {
 //                Log.d(Constants.TAG_PROFILE_PRESENTER, "noFriendData: ");
 ////                mProfileView.isNoFriendData(true);
-//                mProfileView.isShowLoading(false);
+//                mProfileView.isShowLoadingDialog(false);
 //            }
 //
 //            @Override
 //            public void onError(String errorMessage) {
-//                mProfileView.isShowLoading(false);
+//                mProfileView.isShowLoadingDialog(false);
 //            }
 //        });
 //    }

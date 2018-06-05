@@ -36,6 +36,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     //region "BindView"
     @BindView(R.id.login_progress)
     ProgressBar mProgressView;
+
     @BindView(R.id.linearlayout_sign_in)
     LinearLayout mLinearlayoutSignIn;
     @BindView(R.id.editText_signIn_email)
@@ -65,6 +66,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     ConstraintLayout mConstraintLayout;
     //endregion
 
+
     private LoginContract.Presenter mPresenter;
     private FirebaseAuth mAuth;
     private View focusView;
@@ -77,6 +79,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(Constants.TAG_LOGIN_ACTIVITY, "onCreate");
+
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 

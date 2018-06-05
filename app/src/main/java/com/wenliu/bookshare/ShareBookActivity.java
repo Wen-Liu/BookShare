@@ -16,14 +16,11 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-import com.wenliu.bookshare.api.FirebaseApiHelper;
 import com.wenliu.bookshare.base.BaseActivity;
 import com.wenliu.bookshare.dialog.BookDataEditDialog;
 import com.wenliu.bookshare.dialog.InputIsbnDialog;
-import com.wenliu.bookshare.object.Book;
 import com.wenliu.bookshare.object.BookCustomInfo;
 import com.wenliu.bookshare.profile.ProfileActivity;
 
@@ -95,7 +92,7 @@ public class ShareBookActivity extends BaseActivity implements ShareBookContract
             Intent intent = new Intent(ShareBookActivity.this, ProfileActivity.class);
 
             Bundle bundle = new Bundle();
-            bundle.putIntArray(Constants.BOOKSTATUS, mPresenter.getMyBookStatus());
+            bundle.putIntArray(Constants.BUNDLE_BOOK_STATUS, mPresenter.getMyBookStatus());
 
             intent.putExtras(bundle);
             startActivity(intent);

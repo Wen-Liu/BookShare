@@ -89,10 +89,11 @@
 
             <Button
                 android:id="@+id/btn_borrow_book"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_margin="4dp"
-                android:background="@drawable/ic_library_books" />
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:background="@drawable/shape_outline_round_gray"
+                android:text="借書"
+                android:textColor="@color/Black" />
         </LinearLayout>
 
         <TextView

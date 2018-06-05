@@ -104,11 +104,7 @@ public class DetailFragment extends Fragment implements DetailContract.View {
 
     @Override
     public void setPresenter(DetailContract.Presenter presenter) {
-        if (presenter == null) {
-            ShareBook.makeShortToast("DetailContract.Presenter is null!");
-        } else {
-            mPresenter = presenter;
-        }
+        mPresenter = presenter;
     }
 
     @Override
@@ -237,7 +233,7 @@ public class DetailFragment extends Fragment implements DetailContract.View {
         mPresenter.showFab();
     }
 
-    @OnClick({R.id.btn_detail_edit , R.id.btn_detail_back})
+    @OnClick({R.id.btn_detail_edit, R.id.btn_detail_back})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_detail_edit:

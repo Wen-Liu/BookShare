@@ -103,11 +103,7 @@ public class MainFragment extends BaseFragment implements MainContract.View, Ada
 
     @Override
     public void setPresenter(MainContract.Presenter presenter) {
-        if (presenter == null) {
-            ShareBook.makeShortToast("MainContract.Presenter is null!");
-        } else {
-            mPresenter = presenter;
-        }
+        mPresenter = presenter;
     }
 
     @Override

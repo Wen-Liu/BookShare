@@ -34,6 +34,7 @@ import butterknife.Unbinder;
  * A simple {@link Fragment} subclass.
  */
 public class LentFragment extends BaseFragment implements LentContract.View {
+
     //region "BindView"
     @BindView(R.id.rv_lent)
     RecyclerView mRvLent;
@@ -45,11 +46,9 @@ public class LentFragment extends BaseFragment implements LentContract.View {
     private LentContract.Presenter mPresenter;
     private LentAdapter mLentAdapter;
     private ArrayList<LentBook> mLentBooks = new ArrayList<>();
-
     public LentFragment() {
         // Required empty public constructor
     }
-
     public static LentFragment newInstance() {
         return new LentFragment();
     }

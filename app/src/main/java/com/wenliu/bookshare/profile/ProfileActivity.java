@@ -30,7 +30,6 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -143,7 +142,7 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
         mPresenter.start();
 
         Bundle bundle = this.getIntent().getExtras();
-        mBookStatusInfo = bundle.getIntArray(Constants.BOOKSTATUS);
+        mBookStatusInfo = bundle.getIntArray(Constants.BUNDLE_BOOK_STATUS);
 
         setToolbar();
         setProfileView();
@@ -418,8 +417,6 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
         final View addFriendView = View.inflate(this, R.layout.dialog_add_friend, null);
         final EditText mEtInputEmail = ((EditText) addFriendView.findViewById(R.id.et_dialog_add_friend_email));
         ((TextView) addFriendView.findViewById(R.id.tv_add_friend_alert)).setVisibility(showAlert ? View.VISIBLE : View.GONE);
-//        showKeybroad(true);
-
 
         new AlertDialog.Builder(this)
                 .setTitle(getString(R.string.alert_dialog_add_friend))
@@ -437,14 +434,17 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
                 .setNegativeButton(getString(R.string.alert_dialog_delete_negative), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-//                        showKeybroad(false);
                         isAddDialogShow(false);
                     }
                 })
                 .create()
                 .show();
+    }
 
-
+    @Override
+    public void isAddDialogShow(boolean isShow) {
+        isAddDialogShow = isShow;
+        showKeybroad(false);
     }
 
     private void showKeybroad(boolean show) {
@@ -456,12 +456,6 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
         } else {
             mInputMethodManager.toggleSoftInput(InputMethodManager.HIDE_NOT_ALWAYS, 0);
         }
-    }
-
-    @Override
-    public void isAddDialogShow(boolean isShow) {
-        isAddDialogShow = isShow;
-        showKeybroad(false);
     }
 
     @Override

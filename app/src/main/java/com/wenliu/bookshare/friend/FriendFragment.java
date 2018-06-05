@@ -71,11 +71,7 @@ public class FriendFragment extends BaseFragment implements FriendContract.View 
 
     @Override
     public void setPresenter(FriendContract.Presenter presenter) {
-        if (presenter == null) {
-            ShareBook.makeShortToast("MainContract.Presenter is null!");
-        } else {
-            mPresenter = presenter;
-        }
+        mPresenter = presenter;
     }
 
     private void setRecyclerView() {

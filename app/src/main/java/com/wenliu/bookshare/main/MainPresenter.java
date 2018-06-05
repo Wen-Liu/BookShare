@@ -1,14 +1,9 @@
 package com.wenliu.bookshare.main;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.util.Log;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.wenliu.bookshare.Constants;
-import com.wenliu.bookshare.R;
-import com.wenliu.bookshare.ShareBook;
 import com.wenliu.bookshare.api.FirebaseApiHelper;
 import com.wenliu.bookshare.api.callbacks.AlertDialogCallback;
 import com.wenliu.bookshare.api.callbacks.DeleteBookCallback;
@@ -100,44 +95,44 @@ public class MainPresenter implements MainContract.Presenter {
         newBookCustomInfos.clear();
 
         switch (filter) {
-            case Constants.BOOK_ALL:
-                Log.d(Constants.TAG_MAIN_PRESENTER, "DataFilter: Constants.BOOK_ALL " + Constants.BOOK_ALL);
+            case Constants.FILTER_BOOK_ALL:
+                Log.d(Constants.TAG_MAIN_PRESENTER, "DataFilter: Constants.FILTER_BOOK_ALL " + Constants.FILTER_BOOK_ALL);
                 return bookCustomInfos;
 
-            case Constants.BOOK_OWN:
+            case Constants.FILTER_BOOK_OWN:
                 for (BookCustomInfo bookCustomInfo : bookCustomInfos) {
                     if (bookCustomInfo.isHaveBook()) {
                         newBookCustomInfos.add(bookCustomInfo);
                     }
                 }
-                Log.d(Constants.TAG_MAIN_PRESENTER, "DataFilter: Constants.BOOK_OWN " + Constants.BOOK_OWN + "  " + newBookCustomInfos.size());
+                Log.d(Constants.TAG_MAIN_PRESENTER, "DataFilter: Constants.FILTER_BOOK_OWN " + Constants.FILTER_BOOK_OWN + "  " + newBookCustomInfos.size());
                 return newBookCustomInfos;
 
-            case Constants.BOOK_UNREAD:
+            case Constants.FILTER_BOOK_UNREAD:
                 for (BookCustomInfo bookCustomInfo : bookCustomInfos) {
                     if (bookCustomInfo.getBookReadStatus() == Constants.UNREAD) {
                         newBookCustomInfos.add(bookCustomInfo);
                     }
                 }
-                Log.d(Constants.TAG_MAIN_PRESENTER, "DataFilter: Constants.BOOK_UNREAD " + Constants.BOOK_UNREAD + "  " + newBookCustomInfos.size());
+                Log.d(Constants.TAG_MAIN_PRESENTER, "DataFilter: Constants.FILTER_BOOK_UNREAD " + Constants.FILTER_BOOK_UNREAD + "  " + newBookCustomInfos.size());
                 return newBookCustomInfos;
 
-            case Constants.BOOK_READING:
+            case Constants.FILTER_BOOK_READING:
                 for (BookCustomInfo bookCustomInfo : bookCustomInfos) {
                     if (bookCustomInfo.getBookReadStatus() == Constants.READING) {
                         newBookCustomInfos.add(bookCustomInfo);
                     }
                 }
-                Log.d(Constants.TAG_MAIN_PRESENTER, "DataFilter: Constants.BOOK_READING " + Constants.BOOK_READING + "  " + newBookCustomInfos.size());
+                Log.d(Constants.TAG_MAIN_PRESENTER, "DataFilter: Constants.FILTER_BOOK_READING " + Constants.FILTER_BOOK_READING + "  " + newBookCustomInfos.size());
                 return newBookCustomInfos;
 
-            case Constants.BOOK_READ:
+            case Constants.FILTER_BOOK_READ:
                 for (BookCustomInfo bookCustomInfo : bookCustomInfos) {
                     if (bookCustomInfo.getBookReadStatus() == Constants.READ) {
                         newBookCustomInfos.add(bookCustomInfo);
                     }
                 }
-                Log.d(Constants.TAG_MAIN_PRESENTER, "DataFilter: Constants.BOOK_READ " + Constants.BOOK_READ + "  " + newBookCustomInfos.size());
+                Log.d(Constants.TAG_MAIN_PRESENTER, "DataFilter: Constants.FILTER_BOOK_READ " + Constants.FILTER_BOOK_READ + "  " + newBookCustomInfos.size());
                 return newBookCustomInfos;
 
             default:

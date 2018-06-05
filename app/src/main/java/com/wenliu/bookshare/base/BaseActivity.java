@@ -23,7 +23,6 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         Log.d(Constants.TAG_BASE_ACTIVITY, "onCreate");
         mContext = this;
         setStatusBar();
@@ -31,15 +30,16 @@ public class BaseActivity extends AppCompatActivity {
 
     /**
      * To change status bar to transparent.
+     *
      * @notice this method have to be used before setContentView.
      */
     private void setStatusBar() {
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){//4.4
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) { //4.4
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {//5.0
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) { //5.0
             Window window = getWindow();
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
@@ -56,10 +56,9 @@ public class BaseActivity extends AppCompatActivity {
     public int getStatusBarHeight() {
 
         int result = 0;
-        int resourceId = getResources()
-                .getIdentifier("status_bar_height", "dimen", "android");
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
 
-        if (resourceId > 0) {
+        if (resourceId > 0) { // resourceId > 0 means get resource id, = 0 means not get
             result = getResources().getDimensionPixelSize(resourceId);
             Log.d(Constants.TAG_BASE_ACTIVITY, "getStatusBarHeight: " + result);
         }
@@ -67,8 +66,11 @@ public class BaseActivity extends AppCompatActivity {
     }
 
 
-    public void isShowLoading(boolean isShow) {
-        if (isShow) {
+    public void isShowLoadingDialog(boolean isLoading) {
+        Log.d(Constants.TAG_BASE_ACTIVITY, "isShowLoadingDialog: " + isLoading);
+        Log.d(Constants.TAG_BASE_ACTIVITY, "isShowLoadingDialog: mMaterialDialog == null: " + String.valueOf(mMaterialDialog == null));
+
+        if (isLoading) {
             if (mMaterialDialog == null) {
                 mMaterialDialog = new MaterialDialog.Builder(this)
                         .content(R.string.please_wait)
@@ -82,9 +84,7 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
-
     public void showUserInfoLog() {
-
         Log.i(Constants.TAG_BASE_ACTIVITY, "---------------------User Info-------------------------");
         Log.i(Constants.TAG_BASE_ACTIVITY, "User id: " + UserManager.getInstance().getUserId());
         Log.i(Constants.TAG_BASE_ACTIVITY, "User name: " + UserManager.getInstance().getUserName());

@@ -33,7 +33,6 @@ import com.wenliu.bookshare.object.GoogleBook.Item;
 import com.wenliu.bookshare.object.LentBook;
 import com.wenliu.bookshare.object.User;
 
-import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -54,14 +53,14 @@ public class FirebaseApiHelper {
     public void uploadUser(User user, SignUpCallback callback) {
         Log.d(Constants.TAG_FIREBASE_API_HELPER, "uploadUser");
 
-        mGetRef.child(Constants.FIREBASE_USERS).child(user.getId()).setValue(user);
+        mGetRef.child(Constants.FIREBASE_NODE_USERS).child(user.getId()).setValue(user);
         callback.onCompleted();
     }
 
     public void getUserInfo(String uid, final GetUserInfoCallback callback) {
         Log.d(Constants.TAG_FIREBASE_API_HELPER, "getUserInfo: ");
 
-        Query userInfoQuery = mGetRef.child(Constants.FIREBASE_USERS).child(uid).orderByValue();
+        Query userInfoQuery = mGetRef.child(Constants.FIREBASE_NODE_USERS).child(uid).orderByValue();
         userInfoQuery.addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
@@ -116,8 +115,8 @@ public class FirebaseApiHelper {
     public void uploadUserImageUrl(String ImageUrl) {
         Log.d(Constants.TAG_FIREBASE_API_HELPER, "uploadUser");
 
-        mGetRef.child(Constants.FIREBASE_USERS).child(UserManager.getInstance().getUserId())
-                .child(Constants.FIREBASE_IMAGE).setValue(ImageUrl);
+        mGetRef.child(Constants.FIREBASE_NODE_USERS).child(UserManager.getInstance().getUserId())
+                .child(Constants.FIREBASE_USER_IMAGE).setValue(ImageUrl);
     }
     //endregion
 
@@ -125,7 +124,7 @@ public class FirebaseApiHelper {
     public void checkBookDataExist(final String isbn, final CheckBookExistCallback callback) {
         Log.d(Constants.TAG_FIREBASE_API_HELPER, "checkBookDataExist");
 
-        Query myBooksQuery = mGetRef.child(Constants.FIREBASE_BOOKS).orderByKey().equalTo(isbn);
+        Query myBooksQuery = mGetRef.child(Constants.FIREBASE_NODE_BOOKS).orderByKey().equalTo(isbn);
         myBooksQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -155,16 +154,16 @@ public class FirebaseApiHelper {
         Log.d(Constants.TAG_FIREBASE_API_HELPER, "uploadBook");
 
         // upload to the common book pool
-        mGetRef.child(Constants.FIREBASE_BOOKS).child(isbn).setValue(book);
+        mGetRef.child(Constants.FIREBASE_NODE_BOOKS).child(isbn).setValue(book);
     }
 
     public void uploadMyBook(String isbn, BookCustomInfo bookCustomInfo) {
         Log.d(Constants.TAG_FIREBASE_API_HELPER, "uploadMyBook ");
 
         // upload to user's book data
-        mGetRef.child(Constants.FIREBASE_USERS)
+        mGetRef.child(Constants.FIREBASE_NODE_USERS)
                 .child(UserManager.getInstance().getUserId())
-                .child(Constants.FIREBASE_BOOKS)
+                .child(Constants.FIREBASE_NODE_BOOKS)
                 .child(isbn)
                 .setValue(bookCustomInfo);
     }
@@ -172,9 +171,9 @@ public class FirebaseApiHelper {
     public void deleteMyBook(String isbn, DeleteBookCallback callback) {
         Log.d(Constants.TAG_FIREBASE_API_HELPER, "deleteMyBook");
 
-        mGetRef.child(Constants.FIREBASE_USERS)
+        mGetRef.child(Constants.FIREBASE_NODE_USERS)
                 .child(UserManager.getInstance().getUserId())
-                .child(Constants.FIREBASE_BOOKS)
+                .child(Constants.FIREBASE_NODE_BOOKS)
                 .child(isbn)
                 .removeValue();
 
@@ -184,9 +183,9 @@ public class FirebaseApiHelper {
     public void getFriendBooks(String uid, final GetFriendBooksCallback callback) {
         Log.d(Constants.TAG_FIREBASE_API_HELPER, "getFriendBooks");
 
-        final Query friendBooksQuery = mGetRef.child(Constants.FIREBASE_USERS)
+        final Query friendBooksQuery = mGetRef.child(Constants.FIREBASE_NODE_USERS)
                 .child(uid)
-                .child(Constants.FIREBASE_BOOKS)
+                .child(Constants.FIREBASE_NODE_BOOKS)
                 .orderByChild(Constants.FIREBASE_HAVE_BOOK)
                 .equalTo(true);
 
@@ -222,9 +221,9 @@ public class FirebaseApiHelper {
         Log.d(Constants.TAG_FIREBASE_API_HELPER, "getMyBooks");
         final int[] bookStatusAll = new int[6];
 
-        final Query myBooksQuery = mGetRef.child(Constants.FIREBASE_USERS)
+        final Query myBooksQuery = mGetRef.child(Constants.FIREBASE_NODE_USERS)
                 .child(UserManager.getInstance().getUserId())
-                .child(Constants.FIREBASE_BOOKS)
+                .child(Constants.FIREBASE_NODE_BOOKS)
                 .orderByChild(Constants.FIREBASE_CREATE_TIME);
 
         myBooksQuery.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -283,9 +282,9 @@ public class FirebaseApiHelper {
     public void getMyFriends(final GetFriendsCallback callback) {
         Log.d(Constants.TAG_FIREBASE_API_HELPER, "getMyFriends: ");
 
-        final Query myFriendQuery = mGetRef.child(Constants.FIREBASE_USERS)
+        final Query myFriendQuery = mGetRef.child(Constants.FIREBASE_NODE_USERS)
                 .child(UserManager.getInstance().getUserId())
-                .child(Constants.FIREBASE_FRIENDS)
+                .child(Constants.FIREBASE_NODE_FRIENDS)
                 .orderByChild(Constants.FIREBASE_FRIEND_STATUS);
 
         myFriendQuery.addValueEventListener(new ValueEventListener() {
@@ -318,8 +317,8 @@ public class FirebaseApiHelper {
     public void checkUserByEmail(String email, final CheckUserExistCallback callback) {
         Log.d(Constants.TAG_FIREBASE_API_HELPER, "checkUserByEmail");
 
-        final Query myBooksQuery = mGetRef.child(Constants.FIREBASE_USERS)
-                .orderByChild(Constants.FIREBASE_EMAIL)
+        final Query myBooksQuery = mGetRef.child(Constants.FIREBASE_NODE_USERS)
+                .orderByChild(Constants.FIREBASE_USER_EMAIL)
                 .equalTo(email);
 
         myBooksQuery.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -355,25 +354,25 @@ public class FirebaseApiHelper {
         user.setCreateTime(String.valueOf(System.currentTimeMillis() / 1000));
         friend.setCreateTime(String.valueOf(System.currentTimeMillis() / 1000));
 
-        mGetRef.child(Constants.FIREBASE_USERS).child(user.getId()).child(Constants.FIREBASE_FRIENDS).child(friend.getId()).setValue(friend);
-        mGetRef.child(Constants.FIREBASE_USERS).child(user.getId()).child(Constants.FIREBASE_FRIENDS).child(friend.getId()).child(Constants.FIREBASE_FRIEND_STATUS).setValue(Constants.FIREBASE_FRIEND_SEND);
+        mGetRef.child(Constants.FIREBASE_NODE_USERS).child(user.getId()).child(Constants.FIREBASE_NODE_FRIENDS).child(friend.getId()).setValue(friend);
+        mGetRef.child(Constants.FIREBASE_NODE_USERS).child(user.getId()).child(Constants.FIREBASE_NODE_FRIENDS).child(friend.getId()).child(Constants.FIREBASE_FRIEND_STATUS).setValue(Constants.FIREBASE_FRIEND_SEND);
 
-        mGetRef.child(Constants.FIREBASE_USERS).child(friend.getId()).child(Constants.FIREBASE_FRIENDS).child(user.getId()).setValue(user);
-        mGetRef.child(Constants.FIREBASE_USERS).child(friend.getId()).child(Constants.FIREBASE_FRIENDS).child(user.getId()).child(Constants.FIREBASE_FRIEND_STATUS).setValue(Constants.FIREBASE_FRIEND_RECEIVE);
+        mGetRef.child(Constants.FIREBASE_NODE_USERS).child(friend.getId()).child(Constants.FIREBASE_NODE_FRIENDS).child(user.getId()).setValue(user);
+        mGetRef.child(Constants.FIREBASE_NODE_USERS).child(friend.getId()).child(Constants.FIREBASE_NODE_FRIENDS).child(user.getId()).child(Constants.FIREBASE_FRIEND_STATUS).setValue(Constants.FIREBASE_FRIEND_RECEIVE);
         callback.onCompleted();
     }
 
     public void acceptFriendRequest(User friend) {
         String selfId = UserManager.getInstance().getUser().getId();
-        mGetRef.child(Constants.FIREBASE_USERS).child(selfId).child(Constants.FIREBASE_FRIENDS).child(friend.getId()).child(Constants.FIREBASE_FRIEND_STATUS).setValue(Constants.FIREBASE_FRIEND_APPROVE);
-        mGetRef.child(Constants.FIREBASE_USERS).child(friend.getId()).child(Constants.FIREBASE_FRIENDS).child(selfId).child(Constants.FIREBASE_FRIEND_STATUS).setValue(Constants.FIREBASE_FRIEND_APPROVE);
+        mGetRef.child(Constants.FIREBASE_NODE_USERS).child(selfId).child(Constants.FIREBASE_NODE_FRIENDS).child(friend.getId()).child(Constants.FIREBASE_FRIEND_STATUS).setValue(Constants.FIREBASE_FRIEND_APPROVE);
+        mGetRef.child(Constants.FIREBASE_NODE_USERS).child(friend.getId()).child(Constants.FIREBASE_NODE_FRIENDS).child(selfId).child(Constants.FIREBASE_FRIEND_STATUS).setValue(Constants.FIREBASE_FRIEND_APPROVE);
     }
 
     public void rejectFriendRequest(User friend) {
         String selfId = UserManager.getInstance().getUser().getId();
         Log.d(Constants.TAG_FIREBASE_API_HELPER, "rejectFriendRequest: selfId " + selfId);
-        mGetRef.child(Constants.FIREBASE_USERS).child(selfId).child(Constants.FIREBASE_FRIENDS).child(friend.getId()).removeValue();
-        mGetRef.child(Constants.FIREBASE_USERS).child(friend.getId()).child(Constants.FIREBASE_FRIENDS).child(selfId).removeValue();
+        mGetRef.child(Constants.FIREBASE_NODE_USERS).child(selfId).child(Constants.FIREBASE_NODE_FRIENDS).child(friend.getId()).removeValue();
+        mGetRef.child(Constants.FIREBASE_NODE_USERS).child(friend.getId()).child(Constants.FIREBASE_NODE_FRIENDS).child(selfId).removeValue();
     }
     //endregion
 
@@ -384,19 +383,19 @@ public class FirebaseApiHelper {
         String lentBookKey = friend.getId() + "_" + bookCustomInfo.getIsbn13() + "_" + UserManager.getInstance().getUserId();
         LentBook lentBook = new LentBook(friend, bookCustomInfo);
 
-        mGetRef.child(Constants.FIREBASE_USERS).child(UserManager.getInstance().getUserId()).child(Constants.FIREBASE_LENT).child(lentBookKey).setValue(lentBook);
-        mGetRef.child(Constants.FIREBASE_USERS).child(UserManager.getInstance().getUserId()).child(Constants.FIREBASE_LENT).child(lentBookKey).child(Constants.FIREBASE_LENT_STATUS).setValue(Constants.FIREBASE_LENT_SEND);
+        mGetRef.child(Constants.FIREBASE_NODE_USERS).child(UserManager.getInstance().getUserId()).child(Constants.FIREBASE_NODE_LENT).child(lentBookKey).setValue(lentBook);
+        mGetRef.child(Constants.FIREBASE_NODE_USERS).child(UserManager.getInstance().getUserId()).child(Constants.FIREBASE_NODE_LENT).child(lentBookKey).child(Constants.FIREBASE_LENT_STATUS).setValue(Constants.FIREBASE_LENT_SEND);
 
-        mGetRef.child(Constants.FIREBASE_USERS).child(friend.getId()).child(Constants.FIREBASE_LENT).child(lentBookKey).setValue(lentBook);
-        mGetRef.child(Constants.FIREBASE_USERS).child(friend.getId()).child(Constants.FIREBASE_LENT).child(lentBookKey).child(Constants.FIREBASE_LENT_STATUS).setValue(Constants.FIREBASE_LENT_RECEIVE);
+        mGetRef.child(Constants.FIREBASE_NODE_USERS).child(friend.getId()).child(Constants.FIREBASE_NODE_LENT).child(lentBookKey).setValue(lentBook);
+        mGetRef.child(Constants.FIREBASE_NODE_USERS).child(friend.getId()).child(Constants.FIREBASE_NODE_LENT).child(lentBookKey).child(Constants.FIREBASE_LENT_STATUS).setValue(Constants.FIREBASE_LENT_RECEIVE);
     }
 
     public void getMyLendStatus(final GetLendStatusCallback callback) {
         Log.d(Constants.TAG_FIREBASE_API_HELPER, "getMyLendStatus: ");
 
-        final Query myLentQuery = mGetRef.child(Constants.FIREBASE_USERS)
+        final Query myLentQuery = mGetRef.child(Constants.FIREBASE_NODE_USERS)
                 .child(UserManager.getInstance().getUserId())
-                .child(Constants.FIREBASE_LENT)
+                .child(Constants.FIREBASE_NODE_LENT)
                 .orderByChild(Constants.FIREBASE_LENT_STATUS);
 
         myLentQuery.addValueEventListener(new ValueEventListener() {
@@ -429,16 +428,16 @@ public class FirebaseApiHelper {
     public void acceptLendRequest(LentBook lentBook) {
         String lentBookKey = lentBook.getBorrowerId() + "_" + lentBook.getIsbn13() + "_" + lentBook.getLenderId();
 
-        mGetRef.child(Constants.FIREBASE_USERS).child(lentBook.getLenderId()).child(Constants.FIREBASE_LENT).child(lentBookKey).setValue(lentBook);
-        mGetRef.child(Constants.FIREBASE_USERS).child(lentBook.getLenderId()).child(Constants.FIREBASE_LENT).child(lentBookKey).setValue(lentBook);
+        mGetRef.child(Constants.FIREBASE_NODE_USERS).child(lentBook.getLenderId()).child(Constants.FIREBASE_NODE_LENT).child(lentBookKey).setValue(lentBook);
+        mGetRef.child(Constants.FIREBASE_NODE_USERS).child(lentBook.getLenderId()).child(Constants.FIREBASE_NODE_LENT).child(lentBookKey).setValue(lentBook);
     }
 
     public void rejectLendRequest(LentBook lentBook) {
         String lentBookKey = lentBook.getBorrowerId() + "_" + lentBook.getIsbn13() + "_" + lentBook.getLenderId();
 
         Log.d(Constants.TAG_FIREBASE_API_HELPER, "rejectLendRequest: selfId ");
-        mGetRef.child(Constants.FIREBASE_USERS).child(lentBook.getLenderId()).child(Constants.FIREBASE_LENT).child(lentBookKey).removeValue();
-        mGetRef.child(Constants.FIREBASE_USERS).child(lentBook.getLenderId()).child(Constants.FIREBASE_LENT).child(lentBookKey).removeValue();
+        mGetRef.child(Constants.FIREBASE_NODE_USERS).child(lentBook.getLenderId()).child(Constants.FIREBASE_NODE_LENT).child(lentBookKey).removeValue();
+        mGetRef.child(Constants.FIREBASE_NODE_USERS).child(lentBook.getLenderId()).child(Constants.FIREBASE_NODE_LENT).child(lentBookKey).removeValue();
     }
     //endregion
 }

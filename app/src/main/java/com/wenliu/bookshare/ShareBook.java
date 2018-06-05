@@ -22,9 +22,4 @@ public class ShareBook extends Application {
         return mContext;
     }
 
-    public static void makeShortToast(String toast){
-        Log.d(Constants.TAG_SHARE_BOOK, "makeShortToast: ");
-        Toast.makeText(mContext, toast, Toast.LENGTH_SHORT);
-    }
-
 }

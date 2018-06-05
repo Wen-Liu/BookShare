@@ -27,7 +27,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class FriendProfileActivity extends BaseActivity implements FriendProfileContract.View, View.OnClickListener {
+public class FriendProfileActivity extends BaseActivity implements FriendProfileContract.View {
 
     //region "BindView"
     @BindView(R.id.Recycview_friend_profile)
@@ -86,7 +86,6 @@ public class FriendProfileActivity extends BaseActivity implements FriendProfile
         mToolbarFriendProfile = (Toolbar) findViewById(R.id.toolbar_friend_profile);
         mToolbarFriendProfile.setPadding(0, getStatusBarHeight(), 0, 0);
         setSupportActionBar(mToolbarFriendProfile);
-        mToolbarFriendProfile.setNavigationOnClickListener(this);
     }
 
     private void setRecyclerView() {
@@ -125,8 +124,4 @@ public class FriendProfileActivity extends BaseActivity implements FriendProfile
                 .show();
     }
 
-    @Override
-    public void onClick(View v) {
-        onBackPressed();
-    }
 }
