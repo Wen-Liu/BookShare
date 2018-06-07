@@ -260,13 +260,13 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/llayout_detail_purchase"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="vertical">
 
                 <View
+                    android:id="@+id/divide_line_detail"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_gravity="center"
@@ -274,6 +274,7 @@
                     android:background="@color/Grey_400" />
 
                 <LinearLayout
+                    android:id="@+id/llayout_detail_book_purchase_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/gap_each_line_medium"
@@ -301,6 +302,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/llayout_detail_book_purchase_price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="@dimen/gap_each_line_medium"
@@ -328,6 +330,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/llayout_detail_book_reading_page"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="@dimen/gap_each_line_medium"
@@ -345,7 +348,7 @@
                         android:textSize="@dimen/detail_book_tv_text_size" />
 
                     <TextView
-                        android:id="@+id/tv_detail_book_read_page"
+                        android:id="@+id/tv_detail_book_reading_page"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="@dimen/detail_context_weight"

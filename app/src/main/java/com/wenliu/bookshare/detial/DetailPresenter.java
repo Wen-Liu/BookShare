@@ -14,7 +14,7 @@ import com.wenliu.bookshare.object.BookCustomInfo;
 public class DetailPresenter implements DetailContract.Presenter {
 
     private final DetailContract.View mDetailView;
-    private ShareBookContract.Presenter mPresenter;
+    private ShareBookContract.Presenter mSharebookPresenter;
     private BookCustomInfo mBookCustomInfo;
 
     public DetailPresenter(DetailContract.View detailView, ShareBookPresenter presenter, BookCustomInfo bookCustomInfo) {
@@ -22,7 +22,7 @@ public class DetailPresenter implements DetailContract.Presenter {
 
         mDetailView = detailView;
         mDetailView.setPresenter(this);
-        mPresenter = presenter;
+        mSharebookPresenter = presenter;
         mBookCustomInfo = bookCustomInfo;
     }
 
@@ -33,27 +33,7 @@ public class DetailPresenter implements DetailContract.Presenter {
     }
 
     @Override
-    public void hideToolbar() {
-        mDetailView.setToolbarVisibility(false);
-    }
-
-    @Override
-    public void showToolbar() {
-        mDetailView.setToolbarVisibility(true);
-    }
-
-    @Override
-    public void hideFab() {
-        mDetailView.setFabVisibility(false);
-    }
-
-    @Override
-    public void showFab() {
-        mDetailView.setFabVisibility(true);
-    }
-
-    @Override
     public void showBookDataEditDialog(BookCustomInfo bookCustomInfo) {
-        mPresenter.goToEditDialog(bookCustomInfo);
+        mSharebookPresenter.goToEditDialog(bookCustomInfo);
     }
 }

@@ -50,14 +50,20 @@ public class DetailFragment extends Fragment implements DetailContract.View {
     TextView mTvDetailBookPurchaseDate;
     @BindView(R.id.tv_detail_book_purchase_price)
     TextView mTvDetailBookPurchasePrice;
-    @BindView(R.id.tv_detail_book_read_page)
-    TextView mTvDetailBookReadPage;
+    @BindView(R.id.tv_detail_book_reading_page)
+    TextView mTvDetailBookReadingPage;
     @BindView(R.id.tv_detail_book_status)
     TextView mTvDetailBookStatus;
     @BindView(R.id.tv_detail_book_borrow_status)
     TextView mTvDetailBookBorrowStatus;
-    @BindView(R.id.llayout_detail_purchase)
-    LinearLayout mLlayoutDetailPurchase;
+    @BindView(R.id.divide_line_detail)
+    View mDivideLineDetail;
+    @BindView(R.id.llayout_detail_book_purchase_date)
+    LinearLayout mLlayoutDetailBookPurchaseDate;
+    @BindView(R.id.llayout_detail_book_purchase_price)
+    LinearLayout mLlayoutDetailBookPurchasePrice;
+    @BindView(R.id.llayout_detail_book_reading_page)
+    LinearLayout mLlayoutDetailBookReadingPage;
     @BindView(R.id.btn_detail_edit)
     Button mBtnDetailEdit;
     Unbinder unbinder;
@@ -96,6 +102,28 @@ public class DetailFragment extends Fragment implements DetailContract.View {
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        setToolbarVisibility(true);
+        setFabVisibility(true);
+    }
+
+    @OnClick({R.id.btn_detail_edit})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.btn_detail_edit:
+                mPresenter.showBookDataEditDialog(mBookCustomInfo);
+                break;
+        }
+    }
+
+    @Override
     public void setPresenter(DetailContract.Presenter presenter) {
         mPresenter = presenter;
     }
@@ -103,14 +131,13 @@ public class DetailFragment extends Fragment implements DetailContract.View {
     @Override
     public void showBook(BookCustomInfo bookCustomInfo) {
         Log.d(Constants.TAG_DETAIL_FRAGMENT, "showBook: ");
-
         mBookCustomInfo = bookCustomInfo;
 
         mImageManager.loadImageUrl(bookCustomInfo.getImage(), mIvDetailBookCover);
         setTextView(mBookCustomInfo);
         setBookBorrowView(mBookCustomInfo.isHaveBook());
         setBookStatusView(mBookCustomInfo.getBookReadStatus());
-        setBookPurchaseView(mBookCustomInfo);
+        setBookCustomInfoView(mBookCustomInfo);
     }
 
     private void setTextView(BookCustomInfo bookCustomInfo) {
@@ -149,9 +176,6 @@ public class DetailFragment extends Fragment implements DetailContract.View {
 
         mTvDetailBookIsbn.setText(mBookCustomInfo.getIsbn13());
 
-        if (bookCustomInfo.getReadingPage() != -1) {
-            mTvDetailBookReadPage.setText(String.valueOf(bookCustomInfo.getReadingPage()));
-        }
     }
 
     private void setBookBorrowView(boolean haveBook) {
@@ -195,51 +219,45 @@ public class DetailFragment extends Fragment implements DetailContract.View {
 
     }
 
-    private void setBookPurchaseView(BookCustomInfo bookCustomInfo) {
+    private void setBookCustomInfoView(BookCustomInfo bookCustomInfo) {
 
-        mLlayoutDetailPurchase.setVisibility(bookCustomInfo.isHaveBook() ? View.VISIBLE : View.GONE);
+        if (!bookCustomInfo.isHaveBook() && bookCustomInfo.getBookReadStatus() != Constants.READING) {
+            mDivideLineDetail.setVisibility(View.GONE);
+        }
+
+        mLlayoutDetailBookPurchaseDate.setVisibility(bookCustomInfo.isHaveBook() ? View.VISIBLE : View.GONE);
+        mLlayoutDetailBookPurchasePrice.setVisibility(bookCustomInfo.isHaveBook() ? View.VISIBLE : View.GONE);
 
         if (bookCustomInfo.isHaveBook()) {
-            if (bookCustomInfo.getPurchaseDate() != null) {
+            if (bookCustomInfo.getPurchaseDate() != null && bookCustomInfo.getPurchaseDate().length() > 0) {
                 mTvDetailBookPurchaseDate.setText(bookCustomInfo.getPurchaseDate());
+            } else {
+                mLlayoutDetailBookPurchaseDate.setVisibility(View.GONE);
             }
-            if (bookCustomInfo.getPurchasePrice() != null) {
+
+            if (bookCustomInfo.getPurchasePrice() != null && bookCustomInfo.getPurchasePrice().length() > 0) {
                 mTvDetailBookPurchasePrice.setText(bookCustomInfo.getPurchasePrice());
+            } else {
+                mLlayoutDetailBookPurchasePrice.setVisibility(View.GONE);
             }
+        }
+
+        if (bookCustomInfo.getBookReadStatus() == Constants.READING) {
+            if (bookCustomInfo.getReadingPage() != -1) {
+                mTvDetailBookReadingPage.setText(String.valueOf(bookCustomInfo.getReadingPage()));
+            }
+        } else {
+            mLlayoutDetailBookReadingPage.setVisibility(View.GONE);
         }
     }
 
-    @Override
-    public void setToolbarVisibility(boolean visible) {
+    private void setToolbarVisibility(boolean visible) {
         ((ShareBookActivity) getActivity()).setToolbarVisibility(visible);
     }
 
-    @Override
-    public void setFabVisibility(boolean visible) {
+    private void setFabVisibility(boolean visible) {
         ((ShareBookActivity) getActivity()).setFabVisibility(visible);
     }
 
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mPresenter.showToolbar();
-        mPresenter.showFab();
-    }
-
-    @OnClick({R.id.btn_detail_edit})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.btn_detail_edit:
-                mPresenter.showBookDataEditDialog(mBookCustomInfo);
-                break;
-        }
-    }
 
 }
