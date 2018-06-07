@@ -2,7 +2,6 @@ package com.wenliu.bookshare.detial;
 
 import com.wenliu.bookshare.base.BasePresenter;
 import com.wenliu.bookshare.base.BaseView;
-import com.wenliu.bookshare.object.Book;
 import com.wenliu.bookshare.object.BookCustomInfo;
 
 /**

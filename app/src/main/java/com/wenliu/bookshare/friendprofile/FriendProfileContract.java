@@ -1,6 +1,5 @@
 package com.wenliu.bookshare.friendprofile;
 
-import com.wenliu.bookshare.api.callbacks.GetFriendBooksCallback;
 import com.wenliu.bookshare.base.BasePresenter;
 import com.wenliu.bookshare.base.BaseView;
 import com.wenliu.bookshare.object.BookCustomInfo;

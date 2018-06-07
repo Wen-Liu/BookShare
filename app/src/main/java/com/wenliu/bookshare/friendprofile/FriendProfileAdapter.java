@@ -45,7 +45,7 @@ public class FriendProfileAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
-        mImageManager.loadUrlImage(mBookCustomInfos.get(position).getImage(), ((FriendBookViewHolder) holder).getIvFprofileBookCover());
+        mImageManager.loadImageUrl(mBookCustomInfos.get(position).getImage(), ((FriendBookViewHolder) holder).getIvFprofileBookCover());
         ((FriendBookViewHolder) holder).getTvFprofileTitle().setText(mBookCustomInfos.get(position).getTitle());
 
         if (mBookCustomInfos.get(position).getSubtitle().length() > 0) {

@@ -57,6 +57,10 @@ public class UserManager {
         return mUserData.getString(Constants.USER_IMAGE, null);
     }
 
+    public void setUserImage(String userImage) {
+        mUserData.edit().putString(Constants.USER_IMAGE, userImage).commit();
+    }
+
     public User getUser() {
         return mUser;
     }
@@ -65,19 +69,13 @@ public class UserManager {
         UserManager.mUser = user;
     }
 
-    public void setUserImage(String userImage) {
-        mUserData.edit()
-                .putString(Constants.USER_IMAGE, userImage)
-                .commit();
-    }
-
     public boolean isLoginStatus() {
-        Log.d(Constants.WEN_USER_MANAGER, "isLoginStatus(): " + ((getUserId() == null) ? false : true));
+        Log.d(Constants.TAG_USER_MANAGER, "isLoginStatus(): " + ((getUserId() == null) ? false : true));
         return (getUserId() == null) ? false : true;
     }
 
     public void signUpByEmail(final LoginActivity activity, final FirebaseAuth auth, String email, String password, final String name, final SignUpCallback callback) {
-        Log.d(Constants.WEN_USER_MANAGER, "signUpByEmail ");
+        Log.d(Constants.TAG_USER_MANAGER, "signUpByEmail ");
 
         auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
@@ -85,7 +83,7 @@ public class UserManager {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Log.d(Constants.WEN_USER_MANAGER, "createUserWithEmail success!");
+                            Log.d(Constants.TAG_USER_MANAGER, "createUserWithEmail success!");
 
                             FirebaseUser firebaseUser = auth.getCurrentUser();
 
@@ -105,7 +103,7 @@ public class UserManager {
 
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.e(Constants.WEN_USER_MANAGER, "createUserWithEmail fail! Error message: " + task.getException().getLocalizedMessage());
+                            Log.e(Constants.TAG_USER_MANAGER, "createUserWithEmail fail! Error message: " + task.getException().getLocalizedMessage());
                             callback.onError(task.getException().getLocalizedMessage());
                         }
                     }
@@ -120,7 +118,7 @@ public class UserManager {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Log.d(Constants.WEN_USER_MANAGER, "signInWithEmailAndPassword success!");
+                            Log.d(Constants.TAG_USER_MANAGER, "signInWithEmailAndPassword success!");
                             FirebaseUser firebaseUser = auth.getCurrentUser();
 
                             mUserData.edit()
@@ -131,7 +129,7 @@ public class UserManager {
                             getUserInfo(new GetUserInfoCallback() {
                                 @Override
                                 public void onCompleted(User user) {
-                                    Log.d(Constants.WEN_USER_MANAGER, "GetUserInfoCallback onCompleted: ");
+                                    Log.d(Constants.TAG_USER_MANAGER, "GetUserInfoCallback onCompleted: ");
                                     storeUserData(user);
                                     callback.onCompleted();
                                 }
@@ -144,7 +142,7 @@ public class UserManager {
 
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.e(Constants.WEN_USER_MANAGER, "signInWithEmailAndPassword fail! Error message: " + task.getException().getLocalizedMessage());
+                            Log.e(Constants.TAG_USER_MANAGER, "signInWithEmailAndPassword fail! Error message: " + task.getException().getLocalizedMessage());
                             callback.onError(task.getException().getLocalizedMessage());
                         }
                     }
@@ -152,13 +150,13 @@ public class UserManager {
     }
 
     public void getUserInfo(GetUserInfoCallback callback) {
-        Log.d(Constants.WEN_USER_MANAGER, "getUserInfo: ");
+        Log.d(Constants.TAG_USER_MANAGER, "getUserInfo: ");
 
         new FirebaseApiHelper().getUserInfo(getUserId(), callback);
     }
 
     public void storeUserData(User user) {
-        Log.i(Constants.WEN_USER_MANAGER, "storeUserData: ");
+        Log.i(Constants.TAG_USER_MANAGER, "storeUserData: ");
         mUserData.edit()
                 .putString(Constants.USER_ID, user.getId())
                 .putString(Constants.USER_NAME, user.getName())

@@ -8,7 +8,7 @@
     tools:context="com.wenliu.bookshare.LoginActivity">
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/constraint_layout"
+        android:id="@+id/clayout_login"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/library_1021724_640"
@@ -18,7 +18,7 @@
 
         <!-- Login progress -->
         <ProgressBar
-            android:id="@+id/login_progress"
+            android:id="@+id/progress_login"
             style="?android:attr/progressBarStyleLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
 
 
         <LinearLayout
-            android:id="@+id/linearlayout_sign_in"
+            android:id="@+id/llayout_login_sign_in"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="180dp"
@@ -55,14 +55,13 @@
                     android:backgroundTint="@color/LightBlue_200_Dark" />
 
                 <EditText
-                    android:id="@+id/editText_signIn_email"
+                    android:id="@+id/et_login_sign_in_email"
                     android:layout_width="@dimen/login_activity_edittext_width"
                     android:layout_height="wrap_content"
                     android:background="@null"
                     android:hint="@string/prompt_email"
                     android:imeOptions="actionNext"
                     android:inputType="textEmailAddress"
-                    android:maxLines="1"
                     android:paddingHorizontal="@dimen/login_activity_et_padding_h"
                     android:singleLine="true"
                     android:textColor="@color/Brown_300_dark"
@@ -88,12 +87,12 @@
                     android:backgroundTint="@color/LightBlue_200_Dark" />
 
                 <EditText
-                    android:id="@+id/editText_signIn_password"
+                    android:id="@+id/et_login_sign_in_password"
                     android:layout_width="@dimen/login_activity_edittext_width"
                     android:layout_height="wrap_content"
                     android:background="@null"
                     android:hint="@string/prompt_password"
-                    android:imeActionId="6"
+                    android:imeOptions="actionDone"
                     android:inputType="textPassword"
                     android:paddingHorizontal="@dimen/login_activity_et_padding_h"
                     android:singleLine="true"
@@ -111,7 +110,7 @@
                 android:padding="6dp">
 
                 <Button
-                    android:id="@+id/btn_go_to_register"
+                    android:id="@+id/btn_login_to_register"
                     android:layout_width="@dimen/login_activity_button_width"
                     android:layout_height="@dimen/login_activity_button_height"
                     android:layout_marginEnd="20dp"
@@ -124,7 +123,7 @@
 
 
                 <Button
-                    android:id="@+id/btn_signIn_email"
+                    android:id="@+id/btn_login_sign_in_email"
                     android:layout_width="@dimen/login_activity_button_width"
                     android:layout_height="@dimen/login_activity_button_height"
                     android:background="@drawable/shape_btn_round_lightblue"
@@ -138,7 +137,7 @@
         </LinearLayout>
 
         <include
-            layout="@layout/sign_up"
+            layout="@layout/llayout_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="180dp"

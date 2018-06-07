@@ -4,23 +4,16 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 
 import com.wenliu.bookshare.Constants;
-import com.wenliu.bookshare.R;
 import com.wenliu.bookshare.ShareBook;
 import com.wenliu.bookshare.api.FirebaseApiHelper;
-import com.wenliu.bookshare.api.callbacks.AddFriendCallback;
-import com.wenliu.bookshare.api.callbacks.CheckUserExistCallback;
-import com.wenliu.bookshare.api.callbacks.GetFriendsCallback;
 import com.wenliu.bookshare.friend.FriendFragment;
 import com.wenliu.bookshare.friend.FriendPresenter;
-import com.wenliu.bookshare.object.User;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.ArrayList;
 
 /**
  * Created by wen on 2018/5/17.
@@ -28,7 +21,7 @@ import java.util.ArrayList;
 
 public class ProfilePresenter implements ProfileContract.Presenter {
 
-    private FirebaseApiHelper mFirebaseApiHelper = FirebaseApiHelper.newInstance();
+    private FirebaseApiHelper mFirebaseApiHelper = FirebaseApiHelper.getInstance();
     private ProfileContract.View mProfileView;
     private FragmentManager mFragmentManager;
     private FriendFragment mFriendFragment;
@@ -61,54 +54,6 @@ public class ProfilePresenter implements ProfileContract.Presenter {
         mProfileView.showImageOnView(bitmap);
     }
 
-//    @Override
-//    public void checkUserByEmail(String email) {
-//        mFirebaseApiHelper.checkUserByEmail(email, new CheckUserExistCallback() {
-//            @Override
-//            public void userExist(User user) {
-//                mFirebaseApiHelper.sendFriendRequest(user, new AddFriendCallback() {
-//                    @Override
-//                    public void onCompleted() {
-//                        getMyFriends();
-//                        mProfileView.isAddDialogShow(false);
-//                    }
-//                });
-//            }
-//
-//            @Override
-//            public void notExist() {
-//                mProfileView.showAddFriendDialog(true);
-//            }
-//        });
-//    }
-
-//    @Override
-//    public void getMyFriends() {
-//
-//        mProfileView.isShowLoadingDialog(true);
-//
-//        mFirebaseApiHelper.getMyFriends(new GetFriendsCallback() {
-//            @Override
-//            public void onCompleted(ArrayList<User> friends) {
-//                mFriendFragment.showFriends(friends);
-////                mProfileView.showFriend(friends);
-////                mProfileView.isNoFriendData(false);
-//                mProfileView.isShowLoadingDialog(false);
-//            }
-//
-//            @Override
-//            public void noFriendData() {
-//                Log.d(Constants.TAG_PROFILE_PRESENTER, "noFriendData: ");
-////                mProfileView.isNoFriendData(true);
-//                mProfileView.isShowLoadingDialog(false);
-//            }
-//
-//            @Override
-//            public void onError(String errorMessage) {
-//                mProfileView.isShowLoadingDialog(false);
-//            }
-//        });
-//    }
 
     @Override
     public void uploadProfileImage(Uri imageUri) {

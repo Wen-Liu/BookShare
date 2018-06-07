@@ -2,7 +2,6 @@ package com.wenliu.bookshare.lent;
 
 import com.wenliu.bookshare.base.BasePresenter;
 import com.wenliu.bookshare.base.BaseView;
-import com.wenliu.bookshare.object.BookCustomInfo;
 import com.wenliu.bookshare.object.LentBook;
 
 import java.util.ArrayList;

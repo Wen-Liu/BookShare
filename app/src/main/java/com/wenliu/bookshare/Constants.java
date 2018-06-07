@@ -43,7 +43,7 @@ public class Constants {
     public static final String TAG_FIREBASE_API_HELPER = "wen-FirebaseApiHelper";
     public static final String TAG_GOOGLE_API_HELPER = "wen-GoogleApiHelper";
 
-    public static final String WEN_USER_MANAGER = "wen-UserManager";
+    public static final String TAG_USER_MANAGER = "wen-UserManager";
     public static final String TAG_SHARE_BOOK_CLIENT = "wen-ShareBookClient";
     public static final String TAG_SHARE_BOOK_PARSER = "wen-ShareBookParser";
 

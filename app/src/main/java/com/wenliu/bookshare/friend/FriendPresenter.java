@@ -13,7 +13,7 @@ import com.wenliu.bookshare.profile.ProfileActivity;
 import java.util.ArrayList;
 
 public class FriendPresenter implements FriendContract.Presenter {
-    private FirebaseApiHelper mFirebaseApiHelper = FirebaseApiHelper.newInstance();
+    private FirebaseApiHelper mFirebaseApiHelper = FirebaseApiHelper.getInstance();
     private FriendContract.View mFriendView;
     private ProfileActivity mProfileActivity;
 

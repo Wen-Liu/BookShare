@@ -110,7 +110,7 @@ public class FriendAdapter extends RecyclerView.Adapter {
                 case R.id.btn_friend_reject:
                     Toast.makeText(ShareBook.getAppContext(), "reject " + mFriends.get(getAdapterPosition()).getName(), Toast.LENGTH_SHORT).show();
 
-                    FirebaseApiHelper.newInstance().rejectFriendRequest(mFriends.get(getAdapterPosition()));
+                    FirebaseApiHelper.getInstance().rejectFriendRequest(mFriends.get(getAdapterPosition()));
                     mFriends.remove(getAdapterPosition());
                     notifyDataSetChanged();
                     break;
@@ -118,7 +118,7 @@ public class FriendAdapter extends RecyclerView.Adapter {
                 case R.id.btn_friend_accept:
                     Toast.makeText(ShareBook.getAppContext(), "accept " + mFriends.get(getAdapterPosition()).getName(), Toast.LENGTH_SHORT).show();
 
-                    FirebaseApiHelper.newInstance().acceptFriendRequest(mFriends.get(getAdapterPosition()));
+                    FirebaseApiHelper.getInstance().acceptFriendRequest(mFriends.get(getAdapterPosition()));
                     mFriends.get(getAdapterPosition()).setStatus(Constants.FIREBASE_FRIEND_APPROVE);
                     notifyDataSetChanged();
                     break;

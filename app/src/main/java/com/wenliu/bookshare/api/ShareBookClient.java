@@ -5,7 +5,6 @@ import android.util.Log;
 import com.wenliu.bookshare.Constants;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;

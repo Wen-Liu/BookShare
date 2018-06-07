@@ -1,10 +1,5 @@
 package com.wenliu.bookshare.object;
 
-import android.util.Log;
-
-import com.wenliu.bookshare.Constants;
-import com.wenliu.bookshare.ShareBook;
-
 import java.util.ArrayList;
 import java.util.List;
 

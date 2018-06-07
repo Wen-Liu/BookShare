@@ -46,7 +46,7 @@ public class LentAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
-        mImageManager.loadUrlImage(mLentBooks.get(position).getBookImage(), ((LentViewHolder) holder).getIvLentBookCover());
+        mImageManager.loadImageUrl(mLentBooks.get(position).getBookImage(), ((LentViewHolder) holder).getIvLentBookCover());
 
         String message = mLentBooks.get(position).getBorrowerName() + " 借閱 " + mLentBooks.get(position).getTitle();
         ((LentViewHolder) holder).getTvLentMessage().setText(message);

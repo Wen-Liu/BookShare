@@ -14,18 +14,18 @@
         android:orientation="vertical">
 
         <android.support.design.widget.AppBarLayout
-            android:id="@+id/appbarlayout"
+            android:id="@+id/appbar_sharebook"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <android.support.constraint.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:theme="@style/AppTheme.AppBarOverlay">
+            <!--<android.support.constraint.ConstraintLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:theme="@style/AppTheme.AppBarOverlay">-->
 
                 <android.support.v7.widget.Toolbar
-                    android:id="@+id/toolbar"
+                    android:id="@+id/toolbar_sharebook"
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
                     android:background="@drawable/shape_gradient_toolbar"
@@ -33,21 +33,18 @@
                     app:popupTheme="@style/AppTheme.PopupOverlay"
                     app:titleTextColor="@color/Brown_600" />
 
-            </android.support.constraint.ConstraintLayout>
-
+            <!--</android.support.constraint.ConstraintLayout>-->
         </android.support.design.widget.AppBarLayout>
 
-        <!--<include layout="@layout/content_main" />-->
-
         <FrameLayout
-            android:id="@+id/frame_container"
+            android:id="@+id/frame_container_sharebook"
             android:layout_width="match_parent"
             android:layout_height="match_parent"></FrameLayout>
 
     </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/fab_sharebook"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right|bottom"

@@ -4,7 +4,6 @@ import android.util.Log;
 
 import com.wenliu.bookshare.Constants;
 import com.wenliu.bookshare.api.FirebaseApiHelper;
-import com.wenliu.bookshare.api.callbacks.GetBooksCallback;
 import com.wenliu.bookshare.api.callbacks.GetFriendBooksCallback;
 import com.wenliu.bookshare.object.BookCustomInfo;
 import com.wenliu.bookshare.object.User;
@@ -29,7 +28,7 @@ public class FriendProfilePresenter implements FriendProfileContract.Presenter {
     public void getFriendBooks(String uid) {
         Log.d(Constants.TAG_FRIEND_PROFILE_PRESENTER, "getFriendBooks: ");
 
-        FirebaseApiHelper.newInstance().getFriendBooks(uid, new GetFriendBooksCallback() {
+        FirebaseApiHelper.getInstance().getFriendBooks(uid, new GetFriendBooksCallback() {
             @Override
             public void onCompleted(ArrayList<BookCustomInfo> bookCustomInfos) {
                 mFriendProfileView.showFriendBooks(bookCustomInfos);
@@ -59,6 +58,6 @@ public class FriendProfilePresenter implements FriendProfileContract.Presenter {
 
     @Override
     public void sendBorrowRequest(User friend, BookCustomInfo bookCustomInfo) {
-        FirebaseApiHelper.newInstance().borrowBook(friend, bookCustomInfo);
+        FirebaseApiHelper.getInstance().borrowBook(friend, bookCustomInfo);
     }
 }

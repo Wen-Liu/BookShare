@@ -1,10 +1,14 @@
 package com.wenliu.bookshare;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 import com.wenliu.bookshare.detial.DetailFragment;
 import com.wenliu.bookshare.detial.DetailPresenter;
 import com.wenliu.bookshare.main.MainFragment;
@@ -16,9 +20,8 @@ import com.wenliu.bookshare.object.BookCustomInfo;
  */
 
 public class ShareBookPresenter implements ShareBookContract.Presenter {
-
     private final ShareBookContract.View mShareBookView;
-    private FragmentManager mFragmentManager;
+    private final FragmentManager mFragmentManager;
     private MainFragment mMainFragment;
     private MainPresenter mMainPresenter;
     private DetailFragment mDetailFragment;
@@ -38,69 +41,22 @@ public class ShareBookPresenter implements ShareBookContract.Presenter {
     }
 
     @Override
-    public void transToMain() {
-        Log.d(Constants.TAG_SHAREBOOK_PRESENTER, "transToMain: ");
+    public void result(int requestCode, int resultCode, Intent intent) {
 
-        FragmentTransaction transaction = mFragmentManager.beginTransaction();
+        IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
+        if (scanningResult != null) {
+            if (scanningResult.getContents() != null) {
+                String scanContent = scanningResult.getContents();
+                if (!scanContent.equals("")) {
+                    String scanResult = scanContent.toString();
+                    Log.d(Constants.TAG_SHAREBOOK_PRESENTER, "掃描內容: " + scanResult);
 
-        if (mMainFragment == null) mMainFragment = MainFragment.newInstance();
-        if (!mMainFragment.isAdded()) {
-            transaction.add(R.id.frame_container, mMainFragment, MAIN);
+                    checkIsbnValid(isIsbnValid(scanResult), scanResult);
+                }
+            }
         } else {
-            transaction.show(mMainFragment);
+            Toast.makeText(ShareBook.getAppContext(), "發生錯誤", Toast.LENGTH_SHORT).show();
         }
-        transaction.commit();
-
-        if (mMainPresenter == null) {
-            mMainPresenter = new MainPresenter(mMainFragment);
-        }
-
-    }
-
-    @Override
-    public void transToDetail(BookCustomInfo bookCustomInfo, ImageView imageView) {
-        Log.d(Constants.TAG_SHAREBOOK_PRESENTER, "transToDetail: ");
-
-        FragmentTransaction transaction = mFragmentManager.beginTransaction();
-
-        if (mMainFragment != null && !mMainFragment.isHidden()) {
-            transaction.hide(mMainFragment);
-            transaction.addToBackStack(MAIN);
-        }
-
-        if (mDetailFragment== null) {
-            mDetailFragment = DetailFragment.newInstance();
-            Log.d(Constants.TAG_SHAREBOOK_PRESENTER, "transToDetail newInstance: ");
-        }
-
-        transaction.add(R.id.frame_container, mDetailFragment, DETAIL);
-        transaction.addSharedElement(imageView, ShareBook.getAppContext().getString(R.string.transitionName_detail));
-        transaction.commit();
-
-        mDetailPresenter = new DetailPresenter(mDetailFragment,this, bookCustomInfo);
-    }
-
-    @Override
-    public void refreshMainFragment() {
-        mMainPresenter.loadBooks();
-    }
-
-    @Override
-    public void refreshDetailFragment(BookCustomInfo bookCustomInfo) {
-        if(mDetailFragment!= null && mDetailFragment.isVisible()) {
-            mDetailFragment.showBook(bookCustomInfo);
-        }
-    }
-
-
-    @Override
-    public int[] getMyBookStatus() {
-        return mMainFragment.getMyBookStatus();
-    }
-
-    @Override
-    public void goToEditDialog(BookCustomInfo bookCustomInfo) {
-            mShareBookView.showEditDialog(bookCustomInfo);
     }
 
     @Override
@@ -117,6 +73,68 @@ public class ShareBookPresenter implements ShareBookContract.Presenter {
         }
     }
 
+    @Override
+    public void transToMain() {
+        Log.d(Constants.TAG_SHAREBOOK_PRESENTER, "transToMain: ");
+
+        FragmentTransaction transaction = mFragmentManager.beginTransaction();
+
+        if (mMainFragment == null) mMainFragment = MainFragment.newInstance();
+        if (!mMainFragment.isAdded()) {
+            transaction.add(R.id.frame_container_sharebook, mMainFragment, MAIN);
+        } else {
+            transaction.show(mMainFragment);
+        }
+        transaction.commit();
+
+        if (mMainPresenter == null) {
+            mMainPresenter = new MainPresenter(mMainFragment);
+        }
+    }
+
+    @Override
+    public void transToDetail(BookCustomInfo bookCustomInfo) {
+        Log.d(Constants.TAG_SHAREBOOK_PRESENTER, "transToDetail: ");
+
+        FragmentTransaction transaction = mFragmentManager.beginTransaction();
+
+        if (mMainFragment != null && !mMainFragment.isHidden()) {
+            transaction.hide(mMainFragment);
+            transaction.addToBackStack(MAIN);
+        }
+
+        if (mDetailFragment == null) {
+            mDetailFragment = DetailFragment.newInstance();
+            Log.d(Constants.TAG_SHAREBOOK_PRESENTER, "transToDetail newInstance: ");
+        }
+
+        transaction.add(R.id.frame_container_sharebook, mDetailFragment, DETAIL);
+        transaction.commit();
+
+        mDetailPresenter = new DetailPresenter(mDetailFragment, this, bookCustomInfo);
+    }
+
+    @Override
+    public void refreshMainFragment() {
+        mMainPresenter.loadBooks();
+    }
+
+    @Override
+    public void refreshDetailFragment(BookCustomInfo bookCustomInfo) {
+        if (mDetailFragment != null && mDetailFragment.isVisible()) {
+            mDetailFragment.showBook(bookCustomInfo);
+        }
+    }
+
+    @Override
+    public int[] getMyBookStatus() {
+        return mMainFragment.getMyBookStatus();
+    }
+
+    @Override
+    public void goToEditDialog(BookCustomInfo bookCustomInfo) {
+        mShareBookView.showEditDialog(bookCustomInfo);
+    }
 
 
 }

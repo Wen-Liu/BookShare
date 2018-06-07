@@ -48,8 +48,8 @@ public class ShareBookParser {
         googleBookData = gson.fromJson(jsonString, Item.class);
         book = parseBook(googleBookData);
 
-        FirebaseApiHelper.newInstance().uploadGoogleBook(googleBookData.getVolumeInfo().getIndustryIdentifiers().get(1).getIdentifier(), googleBookData);
-        FirebaseApiHelper.newInstance().uploadBook(book.getIsbn13(), book);
+        FirebaseApiHelper.getInstance().uploadGoogleBook(googleBookData.getVolumeInfo().getIndustryIdentifiers().get(1).getIdentifier(), googleBookData);
+        FirebaseApiHelper.getInstance().uploadBook(book.getIsbn13(), book);
 
         Log.d(Constants.TAG_SHARE_BOOK_PARSER, "parseBookData");
 

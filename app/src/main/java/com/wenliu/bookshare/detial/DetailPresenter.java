@@ -5,9 +5,7 @@ import android.util.Log;
 import com.wenliu.bookshare.Constants;
 import com.wenliu.bookshare.ShareBookContract;
 import com.wenliu.bookshare.ShareBookPresenter;
-import com.wenliu.bookshare.object.Book;
 import com.wenliu.bookshare.object.BookCustomInfo;
-import com.wenliu.bookshare.object.GoogleBook.MyBook;
 
 /**
  * Created by wen on 2018/5/14.

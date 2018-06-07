@@ -7,8 +7,6 @@ import com.wenliu.bookshare.base.BasePresenter;
 import com.wenliu.bookshare.base.BaseView;
 import com.wenliu.bookshare.object.User;
 
-import java.util.ArrayList;
-
 /**
  * Created by wen on 2018/5/17.
  */
@@ -21,7 +19,7 @@ public interface ProfileContract {
 
         void showAddFriendDialog(boolean showAlert);
 
-        void isShowLoading(boolean isShow);
+        void isShowLoadingDialog(boolean isLoading);
 
         void isAddDialogShow(boolean isShow);
 

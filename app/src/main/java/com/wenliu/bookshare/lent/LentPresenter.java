@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class LentPresenter implements LentContract.Presenter {
 
     private LentContract.View mLentView;
-    private FirebaseApiHelper mFirebaseApiHelper = FirebaseApiHelper.newInstance();
+    private FirebaseApiHelper mFirebaseApiHelper = FirebaseApiHelper.getInstance();
 
 
     public LentPresenter(LentContract.View lentView) {

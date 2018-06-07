@@ -5,10 +5,10 @@ import android.widget.ImageView;
 
 import com.wenliu.bookshare.Constants;
 import com.wenliu.bookshare.api.FirebaseApiHelper;
+import com.wenliu.bookshare.api.GetBooksTask;
 import com.wenliu.bookshare.api.callbacks.AlertDialogCallback;
 import com.wenliu.bookshare.api.callbacks.DeleteBookCallback;
 import com.wenliu.bookshare.api.callbacks.GetBooksCallback;
-import com.wenliu.bookshare.api.GetBooksTask;
 import com.wenliu.bookshare.object.BookCustomInfo;
 
 import java.util.ArrayList;
@@ -79,9 +79,9 @@ public class MainPresenter implements MainContract.Presenter {
     }
 
     @Override
-    public void openDetail(BookCustomInfo bookCustomInfo, ImageView imageView) {
+    public void openDetail(BookCustomInfo bookCustomInfo) {
         Log.d(Constants.TAG_MAIN_PRESENTER, "openDetail: ");
-        mMainView.showDetailUi(bookCustomInfo, imageView);
+        mMainView.showDetailUi(bookCustomInfo);
     }
 
     @Override
@@ -144,7 +144,7 @@ public class MainPresenter implements MainContract.Presenter {
     @Override
     public void deleteBook(String isbn, DeleteBookCallback callback) {
         Log.d(Constants.TAG_MAIN_PRESENTER, "deleteBook: ");
-        FirebaseApiHelper.newInstance().deleteMyBook(isbn, callback);
+        FirebaseApiHelper.getInstance().deleteMyBook(isbn, callback);
     }
 
     public void setLoading(boolean loading) {

@@ -2,8 +2,6 @@ package com.wenliu.bookshare;
 
 import android.app.Application;
 import android.content.Context;
-import android.util.Log;
-import android.widget.Toast;
 
 /**
  * Created by wen on 2018/5/4.

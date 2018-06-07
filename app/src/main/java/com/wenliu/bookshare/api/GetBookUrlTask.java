@@ -10,8 +10,6 @@ import com.wenliu.bookshare.api.callbacks.GetBookUrlCallback;
 
 import java.io.IOException;
 
-import static android.support.v4.util.Preconditions.checkNotNull;
-
 /**
  * Created by wen on 2018/5/1.
  */

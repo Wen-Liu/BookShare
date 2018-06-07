@@ -6,9 +6,7 @@ import com.wenliu.bookshare.api.callbacks.AlertDialogCallback;
 import com.wenliu.bookshare.api.callbacks.DeleteBookCallback;
 import com.wenliu.bookshare.base.BasePresenter;
 import com.wenliu.bookshare.base.BaseView;
-import com.wenliu.bookshare.object.Book;
 import com.wenliu.bookshare.object.BookCustomInfo;
-import com.wenliu.bookshare.object.GoogleBook.MyBook;
 
 import java.util.ArrayList;
 
@@ -22,7 +20,7 @@ public interface MainContract {
 
         void showBooks(ArrayList<BookCustomInfo> bookCustomInfos);
 
-        void showDetailUi(BookCustomInfo bookCustomInfo, ImageView imageView);
+        void showDetailUi(BookCustomInfo bookCustomInfo);
 
         void showMyBookStatus(int[] bookStatusAll);
 
@@ -39,7 +37,7 @@ public interface MainContract {
 
         void deleteBook(String isbn, DeleteBookCallback callback);
 
-        void openDetail(BookCustomInfo bookCustomInfo, ImageView imageView);
+        void openDetail(BookCustomInfo bookCustomInfo);
 
         void showAlertDialog(String title, AlertDialogCallback callback);
 

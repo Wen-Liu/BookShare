@@ -239,7 +239,7 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
                 Log.d(Constants.TAG_PROFILE_ACTIVITY, "onActivityResult: GET_PHOTO_CROP ");
 
                 if (resultCode == RESULT_OK) {
-                    mImageManager.loadCircleImageUri(mImageUri, mIvProfileUserImage);
+                    mImageManager.loadCircleImage(mImageUri, mIvProfileUserImage);
                     mPresenter.uploadProfileImage(mImageUri);
                 }
                 break;
@@ -407,7 +407,7 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
     public void showImageOnView(Bitmap bitmap) {
         Log.d(Constants.TAG_PROFILE_ACTIVITY, "showImageOnView: ");
 
-        mImageManager.loadCircleImageBitmap(bitmap, mIvProfileUserImage);
+        mImageManager.loadCircleImage(bitmap, mIvProfileUserImage);
 //        mIvProfileUserimage.setImageBitmap(bitmap);
     }
 
@@ -440,6 +440,8 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
                 .create()
                 .show();
     }
+
+
 
     @Override
     public void isAddDialogShow(boolean isShow) {

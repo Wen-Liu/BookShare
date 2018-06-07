@@ -30,15 +30,18 @@ import butterknife.OnClick;
 
 
 public class ShareBookActivity extends BaseActivity implements ShareBookContract.View {
-
-    @BindView(R.id.fab)
-    FloatingActionButton mFab;
+    //region "BindView"
+    @BindView(R.id.appbar_sharebook)
+    AppBarLayout mAppbarSharebook;
+    @BindView(R.id.fab_sharebook)
+    FloatingActionButton mFabSharebook;
+    @BindView(R.id.toolbar_sharebook)
+    Toolbar mToolbarSharebook;
+    //endregion
 
     private ShareBookContract.Presenter mPresenter;
     private InputIsbnDialog mInputIsbnDialog;
     private BookDataEditDialog mBookDataEditDialog;
-    private Toolbar mToolbar;
-    private AppBarLayout mAppBarLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,29 +51,19 @@ public class ShareBookActivity extends BaseActivity implements ShareBookContract
     }
 
     private void init() {
-        Log.d(Constants.TAG_SHAREBOOK_ACTIVITY, "ShareBookActivity.init");
+        Log.d(Constants.TAG_SHAREBOOK_ACTIVITY, "ShareBookActivity.init: ");
         setContentView(R.layout.activity_share_book);
         ButterKnife.bind(this);
 
         mPresenter = new ShareBookPresenter(this, getSupportFragmentManager());
         mPresenter.start();
         setToolbar();
-
     }
 
     private void setToolbar() {
-        mAppBarLayout = (AppBarLayout) findViewById(R.id.appbarlayout);
         // Set the padding to match the Status Bar height
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        mToolbar.setPadding(0, getStatusBarHeight(), 0, 0);
-        setSupportActionBar(mToolbar);
-    }
-
-    @OnClick(R.id.fab)
-    public void onViewClicked() {
-//        Snackbar.make(mFab, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                .setAction("Action", null).show();
-        showInputIsbnDialog();
+        mToolbarSharebook.setPadding(0, getStatusBarHeight(), 0, 0);
+        setSupportActionBar(mToolbarSharebook);
     }
 
     @Override
@@ -81,47 +74,32 @@ public class ShareBookActivity extends BaseActivity implements ShareBookContract
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_to_profile) {
-            Intent intent = new Intent(ShareBookActivity.this, ProfileActivity.class);
-
-            Bundle bundle = new Bundle();
-            bundle.putIntArray(Constants.BUNDLE_BOOK_STATUS, mPresenter.getMyBookStatus());
-
-            intent.putExtras(bundle);
-            startActivity(intent);
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        // Handle action bar item clicks here. The action bar will automatically handle clicks on
+        // the Home/Up button, so long as you specify a parent activity in AndroidManifest.xml.
+        if (menuItem.getItemId() == R.id.action_to_profile) {
+            startProfileActivity();
             return true;
         }
 
-        return super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(menuItem);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        Log.d(Constants.TAG_SHAREBOOK_ACTIVITY, "onActivityResult");
-
-        IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
-        if (scanningResult != null) {
-            if (scanningResult.getContents() != null) {
-                String scanContent = scanningResult.getContents();
-                if (!scanContent.equals("")) {
-                    String scanResult = scanContent.toString();
-//                    Toast.makeText(getApplicationContext(), "掃描內容: " + scanResult, Toast.LENGTH_LONG).show();
-                    Log.d(Constants.TAG_SHAREBOOK_ACTIVITY, "掃描內容: " + scanResult);
-                    mPresenter.checkIsbnValid(mPresenter.isIsbnValid(scanResult), scanResult);
-                }
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, intent);
-            Toast.makeText(getApplicationContext(), "發生錯誤", Toast.LENGTH_LONG).show();
-        }
+        super.onActivityResult(requestCode, resultCode, intent);
+        Log.d(Constants.TAG_SHAREBOOK_ACTIVITY, "onActivityResult: ");
+        mPresenter.result(requestCode, resultCode, intent);
     }
+
+    @OnClick(R.id.fab_sharebook)
+    public void onViewClicked() {
+//        Snackbar.make(mFab, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                .setAction("Action", null).show();
+        showInputIsbnDialog();
+    }
+
+    //region "Contract"
 
     @Override
     public void setPresenter(ShareBookContract.Presenter presenter) {
@@ -139,8 +117,8 @@ public class ShareBookActivity extends BaseActivity implements ShareBookContract
     }
 
     @Override
-    public void transToDetail(BookCustomInfo bookCustomInfo, ImageView imageView) {
-        mPresenter.transToDetail(bookCustomInfo, imageView);
+    public void transToDetail(BookCustomInfo bookCustomInfo) {
+        mPresenter.transToDetail(bookCustomInfo);
     }
 
     @Override
@@ -158,6 +136,16 @@ public class ShareBookActivity extends BaseActivity implements ShareBookContract
         mBookDataEditDialog.show();
     }
 
+    //endregion
+
+    private void startProfileActivity() {
+        Intent intent = new Intent(ShareBookActivity.this, ProfileActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putIntArray(Constants.BUNDLE_BOOK_STATUS, mPresenter.getMyBookStatus());
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
     private void showInputIsbnDialog() {
         mInputIsbnDialog = new InputIsbnDialog(this, this, mPresenter);
         mInputIsbnDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -167,15 +155,15 @@ public class ShareBookActivity extends BaseActivity implements ShareBookContract
 
     public void setToolbarVisibility(boolean isVisible) {
         Log.d(Constants.TAG_SHAREBOOK_ACTIVITY, "setToolbarVisibility: ");
-        if (mToolbar != null) {
-            mToolbar.setVisibility((isVisible) ? View.VISIBLE : View.GONE);
+        if (mToolbarSharebook != null) {
+            mToolbarSharebook.setVisibility((isVisible) ? View.VISIBLE : View.GONE);
         }
     }
 
     public void setFabVisibility(boolean isVisible) {
         Log.d(Constants.TAG_SHAREBOOK_ACTIVITY, "setFabVisibility: ");
-        if (mFab != null) {
-            mFab.setVisibility((isVisible) ? View.VISIBLE : View.GONE);
+        if (mFabSharebook != null) {
+            mFabSharebook.setVisibility((isVisible) ? View.VISIBLE : View.GONE);
         }
     }
 

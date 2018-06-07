@@ -2,7 +2,6 @@ package com.wenliu.bookshare.dialog;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.app.TimePickerDialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -14,9 +13,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
-import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
 import com.wenliu.bookshare.Constants;
 import com.wenliu.bookshare.R;
@@ -181,7 +178,7 @@ public class BookDataEditDialog extends Dialog implements CompoundButton.OnCheck
                 Log.d(Constants.TAG_BOOK_DATA_EDIT_DIALOG, "click btn_book_data_send: ");
 
                 storeData();
-                FirebaseApiHelper.newInstance().uploadMyBook(mBookCustomInfo.getIsbn13(), mBookCustomInfo);
+                FirebaseApiHelper.getInstance().uploadMyBook(mBookCustomInfo.getIsbn13(), mBookCustomInfo);
                 mPresenter.refreshMainFragment();
                 mPresenter.refreshDetailFragment(mBookCustomInfo);
                 dismiss();

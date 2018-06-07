@@ -51,7 +51,7 @@ public class MainAdapter extends RecyclerView.Adapter {
         setBookHaveView(mBookCustomInfos.get(position).isHaveBook(), ((MainViewHolder) holder).getTvItemBookBorrowStatus());
         setBookStatusView(mBookCustomInfos.get(position).getBookReadStatus(), holder);
 
-        mImageManager.loadUrlImage(mBookCustomInfos.get(position).getImage(), ((MainViewHolder) holder).getImVMainBookCover());
+        mImageManager.loadImageUrl(mBookCustomInfos.get(position).getImage(), ((MainViewHolder) holder).getImVMainBookCover());
         ((MainViewHolder) holder).getTvMainTitle().setText(mBookCustomInfos.get(position).getTitle());
 
         if (mBookCustomInfos.get(position).getSubtitle().length() > 0) {
@@ -105,7 +105,7 @@ public class MainAdapter extends RecyclerView.Adapter {
             switch (view.getId()) {
                 case R.id.llayout_item_main:
                     Log.d(Constants.TAG_MAIN_ADAPTER, "llayout_item_main Clicked position: " + getAdapterPosition());
-                    mPresenter.openDetail(mBookCustomInfos.get(getAdapterPosition()), mImVMainBookCover);
+                    mPresenter.openDetail(mBookCustomInfos.get(getAdapterPosition()));
                     break;
                 case R.id.btn_main_delete:
                     Log.d(Constants.TAG_MAIN_ADAPTER, "btn_main_delete Clicked position: " + getAdapterPosition());

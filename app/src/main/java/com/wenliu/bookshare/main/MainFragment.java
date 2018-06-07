@@ -122,8 +122,8 @@ public class MainFragment extends BaseFragment implements MainContract.View, Ada
     }
 
     @Override
-    public void showDetailUi(BookCustomInfo bookCustomInfo, ImageView imageView) {
-        ((ShareBookActivity) getActivity()).transToDetail(bookCustomInfo, imageView);
+    public void showDetailUi(BookCustomInfo bookCustomInfo) {
+        ((ShareBookActivity) getActivity()).transToDetail(bookCustomInfo);
     }
 
     @Override

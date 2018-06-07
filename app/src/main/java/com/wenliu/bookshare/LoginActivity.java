@@ -17,12 +17,9 @@ import android.widget.ProgressBar;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.wenliu.bookshare.api.FirebaseApiHelper;
-import com.wenliu.bookshare.api.callbacks.GetUserInfoCallback;
 import com.wenliu.bookshare.api.callbacks.SignInCallback;
 import com.wenliu.bookshare.api.callbacks.SignUpCallback;
 import com.wenliu.bookshare.base.BaseActivity;
-import com.wenliu.bookshare.object.User;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,55 +31,54 @@ import butterknife.OnClick;
 public class LoginActivity extends BaseActivity implements LoginContract.View {
 
     //region "BindView"
-    @BindView(R.id.login_progress)
+    @BindView(R.id.progress_login)
     ProgressBar mProgressView;
 
-    @BindView(R.id.linearlayout_sign_in)
+    @BindView(R.id.llayout_login_sign_in)
     LinearLayout mLinearlayoutSignIn;
-    @BindView(R.id.editText_signIn_email)
+    @BindView(R.id.et_login_sign_in_email)
     EditText mEditTextSignInEmail;
-    @BindView(R.id.editText_signIn_password)
+    @BindView(R.id.et_login_sign_in_password)
     EditText mEditTextSignInPassword;
-    @BindView(R.id.btn_signIn_email)
+    @BindView(R.id.btn_login_sign_in_email)
     Button mEmailSignInButton;
 
     @BindView(R.id.linearlayout_sign_up)
     LinearLayout mLinearlayoutSignUp;
-    @BindView(R.id.editText_signUp_name)
+    @BindView(R.id.et_login_signUp_name)
     EditText mEditTextSignUpName;
-    @BindView(R.id.editText_signUp_email)
+    @BindView(R.id.et_login_sign_up_email)
     EditText mEditTextSignUpEmail;
-    @BindView(R.id.editText_signUp_password)
+    @BindView(R.id.et_login_sign_up_password)
     EditText mEditTextSignUpPassword;
-    @BindView(R.id.editText_signUp_password_confirm)
+    @BindView(R.id.et_login_sign_up_password_confirm)
     EditText mEditTextSignUpPasswordConfirm;
-    @BindView(R.id.btn_register_email)
+    @BindView(R.id.btn_login_register_email)
     Button mBtnSignUpEmail;
-    @BindView(R.id.btn_go_to_register)
+    @BindView(R.id.btn_login_to_register)
     Button mBtnRegister;
-    @BindView(R.id.btn_register_cancel)
+    @BindView(R.id.btn_login_register_cancel)
     Button mBtnRegisterCancel;
-    @BindView(R.id.constraint_layout)
+    @BindView(R.id.clayout_login)
     ConstraintLayout mConstraintLayout;
     //endregion
-
-
     private LoginContract.Presenter mPresenter;
     private FirebaseAuth mAuth;
-    private View focusView;
-    private boolean cancel;
+    private View mFocusView;
     private String mEmail;
     private String mPassword;
+    private boolean isProcessCancel = false;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(Constants.TAG_LOGIN_ACTIVITY, "onCreate");
+        Log.d(Constants.TAG_LOGIN_ACTIVITY, "onCreate: ");
 
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
+        // check the user's login status. If true, pass the login page.
         if (UserManager.getInstance().isLoginStatus()) {
             showUserInfoLog();
             transToShareBookActivity();
@@ -91,11 +87,10 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         }
     }
 
-
     private void init() {
-        mAuth = FirebaseAuth.getInstance();
         mPresenter = new LoginPresenter(this);
         mPresenter.start();
+        mAuth = FirebaseAuth.getInstance();
 
         mConstraintLayout.getBackground().setAlpha(230);
         setSignUpVisibility(false);
@@ -105,7 +100,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     @Override
     protected void onStart() {
         super.onStart();
-        Log.d(Constants.TAG_LOGIN_ACTIVITY, "onStart");
+        Log.d(Constants.TAG_LOGIN_ACTIVITY, "onStart: ");
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
     }
@@ -117,36 +112,35 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
      * errors are presented and no actual login attempt is made.
      */
     private void login() {
-        Log.d(Constants.TAG_LOGIN_ACTIVITY, "login");
+        Log.d(Constants.TAG_LOGIN_ACTIVITY, "login: ");
+
         // Store values at the time of the login attempt.
         mEmail = mEditTextSignInEmail.getText().toString();
         mPassword = mEditTextSignInPassword.getText().toString();
+        mFocusView = null;
 
-        cancel = false;
-        focusView = null;
-
-        // Check for a valid password, if the user entered one.
+        // Check for a valid password
         if (TextUtils.isEmpty(mPassword) || !mPresenter.isPasswordValid(mPassword)) {
             mEditTextSignInPassword.setError(getString(R.string.error_invalid_password));
-            focusView = mEditTextSignInPassword;
-            cancel = true;
+            mFocusView = mEditTextSignInPassword;
+            isProcessCancel = true;
         }
 
         // Check for a valid email address.
         if (TextUtils.isEmpty(mEmail)) {
             mEditTextSignInEmail.setError(getString(R.string.error_field_required));
-            focusView = mEditTextSignInEmail;
-            cancel = true;
+            mFocusView = mEditTextSignInEmail;
+            isProcessCancel = true;
         } else if (!mPresenter.isEmailValid(mEmail)) {
             mEditTextSignInEmail.setError(getString(R.string.error_invalid_email));
-            focusView = mEditTextSignInEmail;
-            cancel = true;
+            mFocusView = mEditTextSignInEmail;
+            isProcessCancel = true;
         }
 
-        if (cancel) {
+        if (isProcessCancel) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
-            focusView.requestFocus();
+            mFocusView.requestFocus();
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
@@ -165,8 +159,8 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
 
                     showProgress(false, mLinearlayoutSignIn);
                     mEditTextSignInEmail.setError(getString(R.string.error_login_fail));
-                    focusView = mEditTextSignInEmail;
-                    cancel = true;
+                    mFocusView = mEditTextSignInEmail;
+                    isProcessCancel = true;
                 }
             });
         }
@@ -181,43 +175,43 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         String password = mEditTextSignUpPassword.getText().toString();
         String passwordConfirm = mEditTextSignUpPasswordConfirm.getText().toString();
 
-        cancel = false;
-        focusView = null;
+        isProcessCancel = false;
+        mFocusView = null;
 
         if (TextUtils.isEmpty(name)) {
             mEditTextSignUpName.setError(getString(R.string.error_field_required));
-            focusView = mEditTextSignUpName;
-            cancel = true;
+            mFocusView = mEditTextSignUpName;
+            isProcessCancel = true;
         }
 
         // Check for a valid password, if the user entered one.
         if (TextUtils.isEmpty(password) || !mPresenter.isPasswordValid(password)) {
             mEditTextSignUpPassword.setError(getString(R.string.error_invalid_password));
-            focusView = mEditTextSignUpPassword;
-            cancel = true;
+            mFocusView = mEditTextSignUpPassword;
+            isProcessCancel = true;
         }
 
         if (TextUtils.isEmpty(passwordConfirm) || !passwordConfirm.equals(password)) {
             mEditTextSignUpPasswordConfirm.setError(getString(R.string.error_incorrect_password_confirm));
-            focusView = mEditTextSignUpPasswordConfirm;
-            cancel = true;
+            mFocusView = mEditTextSignUpPasswordConfirm;
+            isProcessCancel = true;
         }
 
         // Check for a valid email address.
         if (TextUtils.isEmpty(email)) {
             mEditTextSignUpEmail.setError(getString(R.string.error_field_required));
-            focusView = mEditTextSignUpEmail;
-            cancel = true;
+            mFocusView = mEditTextSignUpEmail;
+            isProcessCancel = true;
         } else if (!mPresenter.isEmailValid(email)) {
             mEditTextSignUpEmail.setError(getString(R.string.error_invalid_email));
-            focusView = mEditTextSignUpEmail;
-            cancel = true;
+            mFocusView = mEditTextSignUpEmail;
+            isProcessCancel = true;
         }
 
-        if (cancel) {
+        if (isProcessCancel) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
-            focusView.requestFocus();
+            mFocusView.requestFocus();
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
@@ -234,8 +228,8 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
                 public void onError(String errorMessage) {
                     showProgress(false, mLinearlayoutSignUp);
                     mEditTextSignUpEmail.setError(errorMessage);
-                    focusView = mEditTextSignUpEmail;
-                    cancel = true;
+                    mFocusView = mEditTextSignUpEmail;
+                    isProcessCancel = true;
                 }
             });
         }
@@ -279,23 +273,23 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     }
 
 
-    @OnClick({R.id.btn_signIn_email, R.id.btn_register_email, R.id.btn_register_cancel, R.id.btn_go_to_register})
+    @OnClick({R.id.btn_login_sign_in_email, R.id.btn_login_register_email, R.id.btn_login_register_cancel, R.id.btn_login_to_register})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.btn_signIn_email:
+            case R.id.btn_login_sign_in_email:
                 login();
                 break;
 
-            case R.id.btn_go_to_register:
+            case R.id.btn_login_to_register:
                 setSignUpForm();
                 showSignUpForm(true);
                 break;
 
-            case R.id.btn_register_email:
+            case R.id.btn_login_register_email:
                 register();
                 break;
 
-            case R.id.btn_register_cancel:
+            case R.id.btn_login_register_cancel:
                 showSignUpForm(false);
                 break;
         }

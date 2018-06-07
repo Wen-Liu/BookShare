@@ -24,12 +24,12 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     @Override
     public boolean isEmailValid(String email) {
-        return email.contains("@");
+        return email.contains("@") && email.length() > 8;
     }
 
     @Override
     public boolean isPasswordValid(String password) {
-        return password.length() > 5;
+        return password.length() >= 6;
     }
 
     @Override

@@ -41,12 +41,14 @@ import java.util.ArrayList;
 
 public class FirebaseApiHelper {
     // Write a message to the database
+
+    private static final FirebaseApiHelper instance = new FirebaseApiHelper();
     private FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference mGetRef = mDatabase.getReference();
     private StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
 
-    public static FirebaseApiHelper newInstance() {
-        return new FirebaseApiHelper();
+    public static FirebaseApiHelper getInstance() {
+        return instance;
     }
 
     //region relate to user data

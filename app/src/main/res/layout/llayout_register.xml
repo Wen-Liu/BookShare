@@ -24,7 +24,7 @@
             android:backgroundTint="@color/LightBlue_200_Dark" />
 
         <EditText
-            android:id="@+id/editText_signUp_name"
+            android:id="@+id/et_login_signUp_name"
             android:layout_width="@dimen/login_activity_edittext_width"
             android:layout_height="wrap_content"
             android:background="@null"
@@ -56,7 +56,7 @@
             android:backgroundTint="@color/LightBlue_200_Dark" />
 
         <EditText
-            android:id="@+id/editText_signUp_email"
+            android:id="@+id/et_login_sign_up_email"
             android:layout_width="@dimen/login_activity_edittext_width"
             android:layout_height="wrap_content"
             android:background="@null"
@@ -89,12 +89,12 @@
             android:backgroundTint="@color/LightBlue_200_Dark" />
 
         <EditText
-            android:id="@+id/editText_signUp_password"
+            android:id="@+id/et_login_sign_up_password"
             android:layout_width="@dimen/login_activity_edittext_width"
             android:layout_height="wrap_content"
             android:background="@null"
             android:hint="@string/prompt_password"
-            android:imeActionId="6"
+            android:imeOptions="actionNext"
             android:inputType="textPassword"
             android:paddingHorizontal="@dimen/login_activity_et_padding_h"
             android:singleLine="true"
@@ -121,12 +121,12 @@
             android:backgroundTint="@color/LightBlue_200_Dark" />
 
         <EditText
-            android:id="@+id/editText_signUp_password_confirm"
+            android:id="@+id/et_login_sign_up_password_confirm"
             android:layout_width="@dimen/login_activity_edittext_width"
             android:layout_height="wrap_content"
             android:background="@null"
             android:hint="@string/prompt_password_confirm"
-            android:imeActionId="6"
+            android:imeOptions="actionDone"
             android:inputType="textPassword"
             android:paddingHorizontal="@dimen/login_activity_et_padding_h"
             android:singleLine="true"
@@ -143,7 +143,7 @@
         android:padding="6dp">
 
         <Button
-            android:id="@+id/btn_register_cancel"
+            android:id="@+id/btn_login_register_cancel"
             android:layout_width="@dimen/login_activity_button_width"
             android:layout_height="@dimen/login_activity_button_height"
             android:layout_marginEnd="20dp"
@@ -155,7 +155,7 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/btn_register_email"
+            android:id="@+id/btn_login_register_email"
             android:layout_width="@dimen/login_activity_button_width"
             android:layout_height="@dimen/login_activity_button_height"
             android:background="@drawable/shape_btn_round_lightblue"
