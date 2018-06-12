@@ -12,14 +12,10 @@ public interface DetailContract {
 
     interface View extends BaseView<Presenter> {
         void showBook(BookCustomInfo bookCustomInfo);
-
-
     }
 
     interface Presenter extends BasePresenter {
-
         void showBookDataEditDialog(BookCustomInfo bookCustomInfo);
+        void setBookData(BookCustomInfo bookCustomInfo);
     }
-
-
 }

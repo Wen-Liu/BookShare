@@ -30,13 +30,14 @@ import butterknife.OnClick;
 
 public class MainAdapter extends RecyclerView.Adapter {
     private MainContract.Presenter mPresenter;
-    private ArrayList<BookCustomInfo> mBookCustomInfos = new ArrayList<>();
-    private ImageManager mImageManager = new ImageManager(ShareBook.getAppContext());
+    private ArrayList<BookCustomInfo> mBookCustomInfos;
+    private ImageManager mImageManager;
 
     public MainAdapter(ArrayList<BookCustomInfo> bookCustomInfos, MainContract.Presenter presenter) {
         Log.d(Constants.TAG_MAIN_ADAPTER, "MainAdapter: ");
-//        mBookCustomInfos = bookCustomInfos;
+        mBookCustomInfos = new ArrayList<>(bookCustomInfos);
         mPresenter = presenter;
+        mImageManager = new ImageManager(ShareBook.getAppContext());
     }
 
     @Override
@@ -80,8 +81,8 @@ public class MainAdapter extends RecyclerView.Adapter {
 
     public class MainViewHolder extends RecyclerView.ViewHolder {
         //region "BindView"
-        @BindView(R.id.ImV_main_book_cover)
-        ImageView mImVMainBookCover;
+        @BindView(R.id.iv_main_book_cover)
+        ImageView mIvMainBookCover;
         @BindView(R.id.tv_main_title)
         TextView mTvMainTitle;
         @BindView(R.id.tv_main_subtitle)
@@ -97,7 +98,6 @@ public class MainAdapter extends RecyclerView.Adapter {
         public MainViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
-//            Log.d(Constants.TAG_MAIN_ADAPTER, "MainViewHolder");
         }
 
         @OnClick({R.id.llayout_item_main, R.id.btn_main_delete})
@@ -107,6 +107,7 @@ public class MainAdapter extends RecyclerView.Adapter {
                     Log.d(Constants.TAG_MAIN_ADAPTER, "llayout_item_main Clicked position: " + getAdapterPosition());
                     mPresenter.openDetail(mBookCustomInfos.get(getAdapterPosition()));
                     break;
+
                 case R.id.btn_main_delete:
                     Log.d(Constants.TAG_MAIN_ADAPTER, "btn_main_delete Clicked position: " + getAdapterPosition());
 
@@ -141,7 +142,7 @@ public class MainAdapter extends RecyclerView.Adapter {
         }
 
         public ImageView getImVMainBookCover() {
-            return mImVMainBookCover;
+            return mIvMainBookCover;
         }
 
         public TextView getTvMainTitle() {

@@ -100,7 +100,6 @@ public class ShareBookActivity extends BaseActivity implements ShareBookContract
     }
 
     //region "Contract"
-
     @Override
     public void setPresenter(ShareBookContract.Presenter presenter) {
         mPresenter = presenter;

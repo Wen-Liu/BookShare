@@ -41,7 +41,6 @@ import java.util.ArrayList;
 
 public class FirebaseApiHelper {
     // Write a message to the database
-
     private static final FirebaseApiHelper instance = new FirebaseApiHelper();
     private FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference mGetRef = mDatabase.getReference();

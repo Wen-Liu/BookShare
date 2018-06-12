@@ -34,6 +34,13 @@ public class DetailPresenter implements DetailContract.Presenter {
 
     @Override
     public void showBookDataEditDialog(BookCustomInfo bookCustomInfo) {
+        Log.d(Constants.TAG_DETAIL_PRESENTER, "showBookDataEditDialog: ");
         mSharebookPresenter.goToEditDialog(bookCustomInfo);
+    }
+
+    @Override
+    public void setBookData(BookCustomInfo bookCustomInfo) {
+        Log.d(Constants.TAG_DETAIL_PRESENTER, "setBookData: ");
+        mBookCustomInfo = bookCustomInfo;
     }
 }

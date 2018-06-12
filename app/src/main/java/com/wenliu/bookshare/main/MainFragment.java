@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
@@ -37,22 +36,21 @@ import butterknife.Unbinder;
  * A simple {@link Fragment} subclass.
  */
 public class MainFragment extends BaseFragment implements MainContract.View, AdapterView.OnItemSelectedListener {
-
     //region "BindView"
-    @BindView(R.id.Recycview_main)
+    @BindView(R.id.RecyclerView_main)
     RecyclerView mRecycviewMain;
     Unbinder unbinder;
     @BindView(R.id.spinner_main_filter)
     Spinner mSpinnerMainFilter;
     @BindView(R.id.btn_main_filter)
     Button mBtnMainFilter;
-    @BindView(R.id.ll_main_no_data)
+    @BindView(R.id.llyaout_main_no_data)
     LinearLayout mLlMainNoData;
     //endregion
 
     private MainContract.Presenter mPresenter;
-    private MainAdapter mMainAdapter;
     private int[] mBookStatusInfo;
+    private MainAdapter mMainAdapter;
     private MaterialDialog mMaterialDialog;
     private ArrayList<BookCustomInfo> mBookCustomInfos = new ArrayList<>();
     private ArrayList<BookCustomInfo> mBookCustomInfosAll = new ArrayList<>();
@@ -68,7 +66,7 @@ public class MainFragment extends BaseFragment implements MainContract.View, Ada
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(Constants.TAG_MAIN_FRAGMENT, "onCreate");
+        Log.d(Constants.TAG_MAIN_FRAGMENT, "onCreate: ");
         mMainAdapter = new MainAdapter(mBookCustomInfos, mPresenter);
     }
 
@@ -99,6 +97,18 @@ public class MainFragment extends BaseFragment implements MainContract.View, Ada
         super.onViewCreated(view, savedInstanceState);
         mPresenter.start();
         mSpinnerMainFilter.setOnItemSelectedListener(this);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.d(Constants.TAG_MAIN_FRAGMENT, "onDestroyView");
+        unbinder.unbind();
+    }
+
+    @OnClick(R.id.btn_main_filter)
+    public void onViewClicked() {
+        mSpinnerMainFilter.performClick();
     }
 
     @Override
@@ -176,18 +186,6 @@ public class MainFragment extends BaseFragment implements MainContract.View, Ada
 
     public int[] getMyBookStatus() {
         return mBookStatusInfo;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        Log.d(Constants.TAG_MAIN_FRAGMENT, "onDestroyView");
-        unbinder.unbind();
-    }
-
-    @OnClick(R.id.btn_main_filter)
-    public void onViewClicked() {
-        mSpinnerMainFilter.performClick();
     }
 
     @Override

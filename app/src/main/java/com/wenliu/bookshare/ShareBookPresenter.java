@@ -111,7 +111,11 @@ public class ShareBookPresenter implements ShareBookContract.Presenter {
         transaction.add(R.id.frame_container_sharebook, mDetailFragment, DETAIL);
         transaction.commit();
 
-        mDetailPresenter = new DetailPresenter(mDetailFragment, this, bookCustomInfo);
+        if (mDetailPresenter == null) {
+            mDetailPresenter = new DetailPresenter(mDetailFragment, this, bookCustomInfo);
+        } else {
+            mDetailPresenter.setBookData(bookCustomInfo);
+        }
     }
 
     @Override

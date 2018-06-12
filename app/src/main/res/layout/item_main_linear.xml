@@ -13,11 +13,10 @@
     android:paddingVertical="12dp">
 
     <ImageView
-        android:id="@+id/ImV_main_book_cover"
+        android:id="@+id/iv_main_book_cover"
         android:layout_width="100dp"
         android:layout_height="120dp"
         android:scaleType="fitCenter"
-        android:transitionName="@string/transitionName_detail"
         app:srcCompat="@android:color/darker_gray" />
 
     <LinearLayout
@@ -111,7 +110,6 @@
         <!--android:numStars="5"-->
         <!--android:rating="3.5"-->
         <!--android:stepSize="0.5" />-->
-
 
     </LinearLayout>
 </LinearLayout>

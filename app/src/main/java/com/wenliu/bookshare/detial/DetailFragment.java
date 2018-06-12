@@ -98,18 +98,21 @@ public class DetailFragment extends Fragment implements DetailContract.View {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Log.d(Constants.TAG_DETAIL_FRAGMENT, "onViewCreated: ");
         mPresenter.start();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        Log.d(Constants.TAG_DETAIL_FRAGMENT, "onDestroyView: ");
         unbinder.unbind();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        Log.d(Constants.TAG_DETAIL_FRAGMENT, "onDestroy: ");
         setToolbarVisibility(true);
         setFabVisibility(true);
     }
@@ -123,6 +126,7 @@ public class DetailFragment extends Fragment implements DetailContract.View {
         }
     }
 
+    //region "Contract"
     @Override
     public void setPresenter(DetailContract.Presenter presenter) {
         mPresenter = presenter;
@@ -139,6 +143,7 @@ public class DetailFragment extends Fragment implements DetailContract.View {
         setBookStatusView(mBookCustomInfo.getBookReadStatus());
         setBookCustomInfoView(mBookCustomInfo);
     }
+    //endregion
 
     private void setTextView(BookCustomInfo bookCustomInfo) {
         mTvDetailBookSubtitle.setVisibility(View.GONE);
@@ -258,6 +263,5 @@ public class DetailFragment extends Fragment implements DetailContract.View {
     private void setFabVisibility(boolean visible) {
         ((ShareBookActivity) getActivity()).setFabVisibility(visible);
     }
-
 
 }
