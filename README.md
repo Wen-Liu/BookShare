@@ -29,7 +29,7 @@
 * Glide
 
 # Screenshot
-<img src="https://github.com/Wen-Liu/BookShare/raw/master/Screenshot/2018-06-04%2016.16.09.jpg" width="270" > <img src="https://github.com/Wen-Liu/BookShare/raw/master/Screenshot/2018-06-04%2016.16.15.jpg" width="270" > <img src="https://github.com/Wen-Liu/BookShare/raw/master/Screenshot/2018-06-04%2016.16.19.jpg" width="270" ><img src="https://github.com/Wen-Liu/BookShare/raw/master/Screenshot/2018-06-04%2016.16.24.jpg" width="270" > <img src="https://github.com/Wen-Liu/BookShare/raw/master/Screenshot/2018-06-04%2016.16.28.jpg" width="270" > 
+<img src="" width="200" >
 
 
 # Requirement
