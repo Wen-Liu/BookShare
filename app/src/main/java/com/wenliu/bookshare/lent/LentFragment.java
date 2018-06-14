@@ -108,7 +108,7 @@ public class LentFragment extends BaseFragment implements LentContract.View {
         Log.d(Constants.TAG_LENT_FRAGMENT, "showConfirmReject: ");
 
         new AlertDialog.Builder(getActivity())
-                .setMessage("確定要拒絕 " + lentBook.getBorrowerName() + " 的借閱要求嗎？")
+                .setMessage("確定要拒絕 " + lentBook.getLenderName() + " 的借閱要求嗎？")
                 .setCancelable(false)
                 .setPositiveButton(getString(R.string.alert_dialog_delete_positive), new DialogInterface.OnClickListener() {
                     @Override

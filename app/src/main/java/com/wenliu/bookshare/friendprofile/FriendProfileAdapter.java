@@ -78,10 +78,6 @@ public class FriendProfileAdapter extends RecyclerView.Adapter {
         //region "BindView"
         @BindView(R.id.iv_fprofile_book_cover)
         ImageView mIvFprofileBookCover;
-        @BindView(R.id.tv_fprofile_book_status)
-        TextView mTvFprofileBookStatus;
-        @BindView(R.id.tv_fprofile_book_borrow_status)
-        TextView mTvFprofileBookBorrowStatus;
         @BindView(R.id.tv_fprofile_title)
         TextView mTvFprofileTitle;
         @BindView(R.id.tv_fprofile_subtitle)
@@ -99,7 +95,7 @@ public class FriendProfileAdapter extends RecyclerView.Adapter {
             ButterKnife.bind(this, view);
         }
 
-        @OnClick({R.id.llayout_item_fprofile, R.id.btn_borrow_book})
+        @OnClick({R.id.llayout_item_fprofile, R.id.btn_borrow_book, R.id.btn_return_book})
         public void onViewClicked(View view) {
             switch (view.getId()) {
                 case R.id.llayout_item_fprofile:
@@ -112,6 +108,11 @@ public class FriendProfileAdapter extends RecyclerView.Adapter {
                     mPresenter.confirmBorrowRequest(mBookCustomInfos.get(getAdapterPosition()));
                     break;
 
+                case R.id.btn_return_book:
+                    break;
+
+                default:
+                    break;
             }
         }
 
@@ -119,13 +120,13 @@ public class FriendProfileAdapter extends RecyclerView.Adapter {
             return mIvFprofileBookCover;
         }
 
-        public TextView getTvFprofileBookStatus() {
-            return mTvFprofileBookStatus;
-        }
-
-        public TextView getTvFprofileBookBorrowStatus() {
-            return mTvFprofileBookBorrowStatus;
-        }
+//        public TextView getTvFprofileBookStatus() {
+//            return mTvFprofileBookStatus;
+//        }
+//
+//        public TextView getTvFprofileBookBorrowStatus() {
+//            return mTvFprofileBookBorrowStatus;
+//        }
 
         public TextView getTvFprofileTitle() {
             return mTvFprofileTitle;

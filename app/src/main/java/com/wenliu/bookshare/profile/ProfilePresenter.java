@@ -63,15 +63,15 @@ public class ProfilePresenter implements ProfileContract.Presenter {
         intentPhotoGallery.setType("image/*");
 
         if (intentPhotoGallery.resolveActivity(mProfileActivity.getPackageManager()) != null) {
-            File imageFile = null;
+            File newImageFile = null;
             try {
-                imageFile = createImageFile();
+                newImageFile = createImageFile();
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
-            if (imageFile != null) {
-                mImageUri = FileProvider.getUriForFile(mProfileActivity, "com.wenliu.bookshare.fileprovider", imageFile); //mImageCameraTempUri
+            if (newImageFile != null) {
+                mImageUri = FileProvider.getUriForFile(mProfileActivity, "com.wenliu.bookshare.fileprovider", newImageFile); //mImageCameraTempUri
                 intentPhotoGallery.putExtra(MediaStore.EXTRA_OUTPUT, mImageUri);
                 mProfileActivity.startActivityForResult(intentPhotoGallery, Constants.GET_PHOTO_FROM_GALLERY);
             }
@@ -100,8 +100,8 @@ public class ProfilePresenter implements ProfileContract.Presenter {
             case Constants.GET_PHOTO_FROM_GALLERY:  //取得圖片後進行裁剪
                 Log.d(Constants.TAG_PROFILE_PRESENTER, "result: GET_PHOTO_FROM_GALLERY: ");
                 String path = getRealPathFromURI(intent.getData());
-                File imageFile = new File(path);
-                doCropPhoto(mImageUri, FileProvider.getUriForFile(mProfileActivity, "com.wenliu.bookshare.fileprovider", imageFile));
+                File myGalleryFile = new File(path);
+                doCropPhoto(mImageUri, FileProvider.getUriForFile(mProfileActivity, "com.wenliu.bookshare.fileprovider", myGalleryFile));
                 break;
 
             case Constants.GET_PHOTO_CROP:  //裁剪完的圖片更新到ImageView
@@ -165,19 +165,22 @@ public class ProfilePresenter implements ProfileContract.Presenter {
 
     private void doCropPhoto(Uri uri, Uri myGalleryUri) {
         Log.d(Constants.TAG_PROFILE_PRESENTER, "doCropPhoto: ");
+        Log.d(Constants.TAG_PROFILE_PRESENTER, "getPhotoFromGallery: mImageUri " + mImageUri);
+        Log.d(Constants.TAG_PROFILE_PRESENTER, "getPhotoFromGallery: myGalleryUri " + myGalleryUri);
+
 
         try {
-            Intent intent = new Intent("com.android.camera.action.CROP");
-            intent.setDataAndType(myGalleryUri, "image/*");
-            intent.putExtra("crop", "true");// crop=true 有這句才能叫出裁剪頁面.
-            intent.putExtra("scale", true); //讓裁剪框支援縮放
-            intent.putExtra("aspectX", 1);// 这兩項為裁剪框的比例.
-            intent.putExtra("aspectY", 1);// x:y=1:1
-            intent.putExtra("outputX", 200);//回傳照片比例X
-            intent.putExtra("outputY", 200);//回傳照片比例Y
-            intent.putExtra("return-data", false);
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-
+//            Intent intent = new Intent("com.android.camera.action.CROP");
+//            intent.setDataAndType(myGalleryUri, "image/*");
+//            intent.putExtra("crop", "true");// crop=true 有這句才能叫出裁剪頁面.
+//            intent.putExtra("scale", true); //讓裁剪框支援縮放
+//            intent.putExtra("aspectX", 1);// 这兩項為裁剪框的比例.
+//            intent.putExtra("aspectY", 1);// x:y=1:1
+//            intent.putExtra("outputX", 200);//回傳照片比例X
+//            intent.putExtra("outputY", 200);//回傳照片比例Y
+//            intent.putExtra("return-data", false);
+//            intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+            Intent intent = getCropImageIntent(uri, myGalleryUri);
             List<ResolveInfo> resInfoList = mProfileActivity.getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
             for (ResolveInfo resolveInfo : resInfoList) {
                 String packageName = resolveInfo.activityInfo.packageName;
@@ -198,7 +201,7 @@ public class ProfilePresenter implements ProfileContract.Presenter {
         Log.d(Constants.TAG_PROFILE_PRESENTER, "getCropImageIntent: ");
 
         Intent intent = new Intent("com.android.camera.action.CROP");
-        intent.setDataAndType(uri, "image/*");
+        intent.setDataAndType(myGalleryUri, "image/*");
         intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
         intent.putExtra("crop", "true");// crop=true 有這句才能叫出裁剪頁面.
         intent.putExtra("scale", true); //讓裁剪框支援縮放

@@ -15,6 +15,7 @@ import com.wenliu.bookshare.Constants;
 import com.wenliu.bookshare.ImageManager;
 import com.wenliu.bookshare.R;
 import com.wenliu.bookshare.ShareBook;
+import com.wenliu.bookshare.UserManager;
 import com.wenliu.bookshare.object.LentBook;
 
 import java.util.ArrayList;
@@ -48,7 +49,13 @@ public class LentAdapter extends RecyclerView.Adapter {
 
         mImageManager.loadImageUrl(mLentBooks.get(position).getBookImage(), ((LentViewHolder) holder).getIvLentBookCover());
 
-        String message = mLentBooks.get(position).getBorrowerName() + " 借閱 " + mLentBooks.get(position).getTitle();
+        String message = "";
+        if (mLentBooks.get(position).getBorrowerId().equals(UserManager.getInstance().getUserId())) {
+            message = mLentBooks.get(position).getLenderName() + " 向你借閱 " + mLentBooks.get(position).getTitle();
+        } else {
+            message = "你向 " + mLentBooks.get(position).getBorrowerName() + " 借閱 " + mLentBooks.get(position).getTitle();
+        }
+
         ((LentViewHolder) holder).getTvLentMessage().setText(message);
         ((LentViewHolder) holder).getTvLentStartDate().setText(mLentBooks.get(position).getLendStartDay());
         ((LentViewHolder) holder).getTvLentReturnDate().setText(mLentBooks.get(position).getLendReturnDay());
