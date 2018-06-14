@@ -86,17 +86,15 @@ public class FirebaseApiHelper {
 
     public void uploadProfileImage(Uri uri) {
 
-        Uri file = uri;
         StorageReference riversRef = mStorageRef.child("Profile_images/" + UserManager.getInstance().getUserId() + ".jpg");
 
-        riversRef.putFile(file)
+        riversRef.putFile(uri)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         // Get a URL to the uploaded content
                         Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                        UserManager.getInstance().setUserImage(downloadUrl.toString());
-                        uploadUserImageUrl(downloadUrl.toString());
+                        setUserImageUrl(downloadUrl.toString());
                         Log.d(Constants.TAG_FIREBASE_API_HELPER, "uploadProfileImage + Url " + downloadUrl);
 
                     }
@@ -106,18 +104,17 @@ public class FirebaseApiHelper {
                     public void onFailure(@NonNull Exception exception) {
                         Log.d(Constants.TAG_FIREBASE_API_HELPER, "uploadProfileImage + onFailure ");
 
-
                     }
                 });
-
-
     }
 
-    public void uploadUserImageUrl(String ImageUrl) {
-        Log.d(Constants.TAG_FIREBASE_API_HELPER, "uploadUser");
+    private void setUserImageUrl(String userImageUrl) {
+        Log.d(Constants.TAG_FIREBASE_API_HELPER, "setUserImageUrl: " + userImageUrl);
 
         mGetRef.child(Constants.FIREBASE_NODE_USERS).child(UserManager.getInstance().getUserId())
-                .child(Constants.FIREBASE_USER_IMAGE).setValue(ImageUrl);
+                .child(Constants.FIREBASE_USER_IMAGE).setValue(userImageUrl);
+
+        UserManager.getInstance().setUserImage(userImageUrl);
     }
     //endregion
 

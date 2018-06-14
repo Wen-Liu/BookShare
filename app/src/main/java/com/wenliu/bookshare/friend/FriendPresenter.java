@@ -78,6 +78,6 @@ public class FriendPresenter implements FriendContract.Presenter {
 
     @Override
     public void transToFriendProfile(User friend) {
-        mProfileActivity.showFriendProfile(friend);
+        mProfileActivity.showFriendProfileActivity(friend);
     }
 }

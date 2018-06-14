@@ -141,6 +141,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
             mFocusView.requestFocus();
+
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.

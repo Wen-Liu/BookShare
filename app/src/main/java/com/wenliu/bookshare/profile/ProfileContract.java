@@ -1,5 +1,6 @@
 package com.wenliu.bookshare.profile;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 
@@ -23,15 +24,16 @@ public interface ProfileContract {
 
         void isAddDialogShow(boolean isShow);
 
-        void showFriendProfile(User friend);
+        void showFriendProfileActivity(User friend);
+
+        void setUserImage(Uri userImageUri);
     }
 
     interface Presenter extends BasePresenter {
+        void result(int requestCode, int resultCode, Intent intent);
 
         void getPhotoUri(Uri uri);
 
-        void uploadProfileImage(Uri imageUri);
-
-
+        void getPhotoFromGallery();
     }
 }
