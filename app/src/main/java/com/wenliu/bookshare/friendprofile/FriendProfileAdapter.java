@@ -95,7 +95,7 @@ public class FriendProfileAdapter extends RecyclerView.Adapter {
             ButterKnife.bind(this, view);
         }
 
-        @OnClick({R.id.llayout_item_fprofile, R.id.btn_borrow_book, R.id.btn_return_book})
+        @OnClick({R.id.llayout_item_fprofile, R.id.btn_borrow_book})
         public void onViewClicked(View view) {
             switch (view.getId()) {
                 case R.id.llayout_item_fprofile:
@@ -108,8 +108,6 @@ public class FriendProfileAdapter extends RecyclerView.Adapter {
                     mPresenter.confirmBorrowRequest(mBookCustomInfos.get(getAdapterPosition()));
                     break;
 
-                case R.id.btn_return_book:
-                    break;
 
                 default:
                     break;

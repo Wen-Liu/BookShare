@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.daimajia.swipe.SwipeLayout;
 import com.wenliu.bookshare.Constants;
 import com.wenliu.bookshare.ImageManager;
 import com.wenliu.bookshare.R;
@@ -25,7 +26,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class LentAdapter extends RecyclerView.Adapter {
-
     private LentContract.Presenter mPresenter;
     private ArrayList<LentBook> mLentBooks;
     private ImageManager mImageManager = new ImageManager(ShareBook.getAppContext());
@@ -45,15 +45,15 @@ public class LentAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
 
         mImageManager.loadImageUrl(mLentBooks.get(position).getBookImage(), ((LentViewHolder) holder).getIvLentBookCover());
 
         String message = "";
-        if (mLentBooks.get(position).getBorrowerId().equals(UserManager.getInstance().getUserId())) {
-            message = mLentBooks.get(position).getLenderName() + " 向你借閱 " + mLentBooks.get(position).getTitle();
+        if (mLentBooks.get(position).getLenderId().equals(UserManager.getInstance().getUserId())) {
+            message = mLentBooks.get(position).getBorrowerName() + " 向你借閱 " + mLentBooks.get(position).getTitle();
         } else {
-            message = "你向 " + mLentBooks.get(position).getBorrowerName() + " 借閱 " + mLentBooks.get(position).getTitle();
+            message = "你向 " + mLentBooks.get(position).getLenderName() + " 借閱 " + mLentBooks.get(position).getTitle();
         }
 
         ((LentViewHolder) holder).getTvLentMessage().setText(message);
@@ -78,6 +78,19 @@ public class LentAdapter extends RecyclerView.Adapter {
             ((LentViewHolder) holder).isSendRequest(true);
             ((LentViewHolder) holder).isShowDate(false);
             ((LentViewHolder) holder).getTvLentStatus().setText("等待對方確認借閱中");
+        }
+
+//        Log.d(Constants.TAG_LENT_ADAPTER, "mLentBooks.get(position).getLentStatus(): " + mLentBooks.get(position).getLentStatus());
+//        Log.d(Constants.TAG_LENT_ADAPTER, "mLentBooks.get(position).getBorrowerId(): " + mLentBooks.get(position).getBorrowerId());
+//        Log.d(Constants.TAG_LENT_ADAPTER, "UserManager.getInstance().getUserId(): " + UserManager.getInstance().getUserId());
+
+        if (mLentBooks.get(position).getLentStatus().equals(Constants.FIREBASE_LENT_APPROVE)
+                && mLentBooks.get(position).getLenderId().equals(UserManager.getInstance().getUserId())) {
+            Log.d(Constants.TAG_LENT_ADAPTER, "swipe true: position " + position);
+            ((LentViewHolder) holder).getSwipelayoutItemLent().setSwipeEnabled(true);
+        } else {
+            Log.d(Constants.TAG_LENT_ADAPTER, "swipe false: postion " +position );
+            ((LentViewHolder) holder).getSwipelayoutItemLent().setSwipeEnabled(false);
         }
 
     }
@@ -107,12 +120,12 @@ public class LentAdapter extends RecyclerView.Adapter {
         Button mBtnLentAccept;
         @BindView(R.id.btn_lent_send)
         Button mBtnLentSend;
-        @BindView(R.id.llayout_item_lent)
-        LinearLayout mLlayoutItemLent;
         @BindView(R.id.llayout_lent_start_date)
         LinearLayout mLlayoutLentStartDate;
         @BindView(R.id.llayout_lent_due_date)
         LinearLayout mLlayoutLentDueDate;
+        @BindView(R.id.Swipelayout_item_lent)
+        SwipeLayout mSwipelayoutItemLent;
         //endregion
 
         public LentViewHolder(View view) {
@@ -120,7 +133,7 @@ public class LentAdapter extends RecyclerView.Adapter {
             ButterKnife.bind(this, view);
         }
 
-        @OnClick({R.id.btn_lent_reject, R.id.btn_lent_accept, R.id.btn_lent_send})
+        @OnClick({R.id.btn_lent_reject, R.id.btn_lent_accept, R.id.btn_lent_send, R.id.llayout_return_book})
         public void onViewClicked(View view) {
             switch (view.getId()) {
                 case R.id.btn_lent_reject:
@@ -136,7 +149,15 @@ public class LentAdapter extends RecyclerView.Adapter {
                 case R.id.btn_lent_send:
                     Log.d(Constants.TAG_LENT_ADAPTER, "onViewClicked btn_lent_send: ");
                     break;
+
+                case R.id.llayout_return_book:
+                    mPresenter.confirmReturnBook(mLentBooks.get(getAdapterPosition()));
+                    break;
             }
+        }
+
+        public SwipeLayout getSwipelayoutItemLent() {
+            return mSwipelayoutItemLent;
         }
 
         public ImageView getIvLentBookCover() {
@@ -169,10 +190,6 @@ public class LentAdapter extends RecyclerView.Adapter {
 
         public Button getBtnLentSend() {
             return mBtnLentSend;
-        }
-
-        public LinearLayout getLlayoutItemLent() {
-            return mLlayoutItemLent;
         }
 
 

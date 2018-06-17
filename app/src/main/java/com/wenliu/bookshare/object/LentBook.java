@@ -38,12 +38,12 @@ public class LentBook {
     }
 
     public LentBook(User user, BookCustomInfo bookCustomInfo) {
-        mLenderId = UserManager.getInstance().getUserId();
-        mLenderName = UserManager.getInstance().getUserName();
-        mLenderImage = UserManager.getInstance().getUserImage();
-        mBorrowerId = user.getId();
-        mBorrowerName = user.getName();
-        mBorrowerImage = user.getImage();
+        mLenderId = user.getId();
+        mLenderName = user.getName();
+        mLenderImage = user.getImage();
+        mBorrowerId = UserManager.getInstance().getUserId();
+        mBorrowerName = UserManager.getInstance().getUserName();
+        mBorrowerImage = UserManager.getInstance().getUserImage();
         mTitle = bookCustomInfo.getTitle();
         mIsbn13 = bookCustomInfo.getIsbn13();
         mBookImage = bookCustomInfo.getImage();

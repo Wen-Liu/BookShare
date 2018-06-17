@@ -19,14 +19,18 @@ public interface LentContract {
         void showConfirmReject(LentBook lentBook);
 
         void showConfirmAccept(LentBook lentBook);
+
+        void showConfirmReturnBook(LentBook lentBook);
     }
 
     interface Presenter extends BasePresenter {
-        void  getMyLentData();
+        void getMyLentData();
 
         void confirmReject(LentBook lentBook);
 
         void confirmAccept(LentBook lentBook);
+
+        void confirmReturnBook(LentBook lentBook);
 
         void sendBorrowAccept(LentBook lentBook);
 

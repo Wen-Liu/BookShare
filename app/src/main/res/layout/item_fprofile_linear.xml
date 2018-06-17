@@ -74,13 +74,4 @@
         android:text="借書"
         android:textColor="@color/Black" />
 
-    <Button
-        android:id="@+id/btn_return_book"
-        android:layout_width="50dp"
-        android:layout_height="30dp"
-        android:background="@drawable/shape_outline_round_gray"
-        android:layout_marginEnd="1dp"
-        android:text="還書"
-        android:textColor="@color/Black"
-        android:visibility="gone" />
 </LinearLayout>

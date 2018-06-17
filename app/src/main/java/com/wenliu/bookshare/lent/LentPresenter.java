@@ -66,6 +66,11 @@ public class LentPresenter implements LentContract.Presenter {
     }
 
     @Override
+    public void confirmReturnBook(LentBook lentBook) {
+        mLentView.showConfirmReturnBook(lentBook);
+    }
+
+    @Override
     public void sendBorrowAccept(LentBook lentBook) {
         mFirebaseApiHelper.acceptLendRequest(lentBook);
     }

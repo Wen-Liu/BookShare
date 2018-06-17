@@ -13,13 +13,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.wenliu.bookshare.Constants;
 import com.wenliu.bookshare.R;
 import com.wenliu.bookshare.ShareBook;
+import com.wenliu.bookshare.api.FirebaseApiHelper;
 import com.wenliu.bookshare.base.BaseFragment;
 import com.wenliu.bookshare.object.LentBook;
 
@@ -46,9 +49,11 @@ public class LentFragment extends BaseFragment implements LentContract.View {
     private LentContract.Presenter mPresenter;
     private LentAdapter mLentAdapter;
     private ArrayList<LentBook> mLentBooks = new ArrayList<>();
+
     public LentFragment() {
         // Required empty public constructor
     }
+
     public static LentFragment newInstance() {
         return new LentFragment();
     }
@@ -127,6 +132,7 @@ public class LentFragment extends BaseFragment implements LentContract.View {
 
         final View returnDateView = View.inflate(getActivity(), R.layout.dialog_lend_accept, null);
         final EditText mEtReturnDate = ((EditText) returnDateView.findViewById(R.id.et_dialog_borrow_return_date));
+        final TextView mtvReturnDate = ((TextView) returnDateView.findViewById(R.id.tv_dialog_set_return_time));
         mEtReturnDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -134,21 +140,55 @@ public class LentFragment extends BaseFragment implements LentContract.View {
             }
         });
 
-        new AlertDialog.Builder(getActivity())
+        final AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
                 .setMessage("請確認希望歸還日期")
                 .setView(returnDateView)
+                .setCancelable(false)
+                .setPositiveButton(getString(R.string.alert_dialog_delete_positive), null)
+                .setNegativeButton(getString(R.string.alert_dialog_delete_negative), null)
+                .create();
+
+        alertDialog.show();
+
+        Button btnPositive = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+        btnPositive.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(Constants.TAG_LENT_FRAGMENT, "onClick: " + mEtReturnDate.getText().toString());
+                if (mEtReturnDate.getText().toString().length() > 5) {
+                    Log.d(Constants.TAG_LENT_FRAGMENT, "onClick: length > 5");
+
+                    lentBook.setLendReturnDay(mEtReturnDate.getText().toString());
+                    lentBook.setLentStatus(Constants.FIREBASE_LENT_APPROVE);
+                    mPresenter.sendBorrowAccept(lentBook);
+                    alertDialog.dismiss();
+                } else {
+                    Log.d(Constants.TAG_LENT_FRAGMENT, "onClick: else");
+                    mtvReturnDate.setVisibility(View.VISIBLE);
+                }
+
+            }
+        });
+
+    }
+
+    @Override
+    public void showConfirmReturnBook(final LentBook lentBook) {
+        Log.d(Constants.TAG_LENT_FRAGMENT, "showConfirmReturnBook: ");
+
+        new AlertDialog.Builder(getActivity())
+                .setMessage("確認 " + lentBook.getBorrowerName() + " 是否已歸還 " + lentBook.getTitle() + "?")
                 .setCancelable(false)
                 .setPositiveButton(getString(R.string.alert_dialog_delete_positive), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        lentBook.setLendReturnDay(mEtReturnDate.getText().toString());
-                        lentBook.setLentStatus(Constants.FIREBASE_LENT_APPROVE);
-                        mPresenter.sendBorrowAccept(lentBook);
+                        FirebaseApiHelper.getInstance().confirmBookReturn(lentBook);
                     }
                 })
                 .setNegativeButton(getString(R.string.alert_dialog_delete_negative), null)
                 .create()
                 .show();
+
     }
 
 
