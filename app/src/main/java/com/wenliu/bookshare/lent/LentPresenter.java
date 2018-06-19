@@ -24,7 +24,7 @@ public class LentPresenter implements LentContract.Presenter {
 
     @Override
     public void start() {
-
+        getMyLentData();
     }
 
     @Override

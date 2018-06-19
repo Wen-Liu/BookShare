@@ -1,5 +1,6 @@
 package com.wenliu.bookshare.lent;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -26,13 +27,15 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class LentAdapter extends RecyclerView.Adapter {
+    private Context mContext;
     private LentContract.Presenter mPresenter;
     private ArrayList<LentBook> mLentBooks;
     private ImageManager mImageManager = new ImageManager(ShareBook.getAppContext());
 
 
-    public LentAdapter(LentContract.Presenter presenter, ArrayList<LentBook> lentBooks) {
+    public LentAdapter(Context context, LentContract.Presenter presenter, ArrayList<LentBook> lentBooks) {
         Log.d(Constants.TAG_LENT_ADAPTER, "LentAdapter: ");
+        mContext = context;
         mPresenter = presenter;
         mLentBooks = lentBooks;
     }
@@ -51,9 +54,9 @@ public class LentAdapter extends RecyclerView.Adapter {
 
         String message = "";
         if (mLentBooks.get(position).getLenderId().equals(UserManager.getInstance().getUserId())) {
-            message = mLentBooks.get(position).getBorrowerName() + " 向你借閱 " + mLentBooks.get(position).getTitle();
+            message = mLentBooks.get(position).getBorrowerName() + mContext.getResources().getString(R.string.lent_want_to_borrow) + mLentBooks.get(position).getTitle(); //TODO
         } else {
-            message = "你向 " + mLentBooks.get(position).getLenderName() + " 借閱 " + mLentBooks.get(position).getTitle();
+            message = mContext.getResources().getString(R.string.lent_borrow_from) + mLentBooks.get(position).getLenderName() + mContext.getResources().getString(R.string.lent_borrow_from_2) + mLentBooks.get(position).getTitle();
         }
 
         ((LentViewHolder) holder).getTvLentMessage().setText(message);
@@ -65,19 +68,19 @@ public class LentAdapter extends RecyclerView.Adapter {
             ((LentViewHolder) holder).isReceiveRequest(false);
             ((LentViewHolder) holder).isSendRequest(false);
             ((LentViewHolder) holder).isShowDate(true);
-            ((LentViewHolder) holder).getTvLentStatus().setText("借閱中");
+            ((LentViewHolder) holder).getTvLentStatus().setText(mContext.getResources().getString(R.string.lent_status_approve));
 
         } else if (mLentBooks.get(position).getLentStatus().equals(Constants.FIREBASE_LENT_RECEIVE)) {
             ((LentViewHolder) holder).isReceiveRequest(true);
             ((LentViewHolder) holder).isSendRequest(false);
             ((LentViewHolder) holder).isShowDate(false);
-            ((LentViewHolder) holder).getTvLentStatus().setText("請確認是否借閱");
+            ((LentViewHolder) holder).getTvLentStatus().setText(mContext.getResources().getString(R.string.lent_status_receive));
 
         } else if (mLentBooks.get(position).getLentStatus().equals(Constants.FIREBASE_LENT_SEND)) {
             ((LentViewHolder) holder).isReceiveRequest(false);
             ((LentViewHolder) holder).isSendRequest(true);
             ((LentViewHolder) holder).isShowDate(false);
-            ((LentViewHolder) holder).getTvLentStatus().setText("等待對方確認借閱中");
+            ((LentViewHolder) holder).getTvLentStatus().setText(mContext.getResources().getString(R.string.lent_status_send));
         }
 
 //        Log.d(Constants.TAG_LENT_ADAPTER, "mLentBooks.get(position).getLentStatus(): " + mLentBooks.get(position).getLentStatus());

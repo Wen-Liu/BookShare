@@ -75,7 +75,7 @@ public class FriendFragment extends BaseFragment implements FriendContract.View 
     }
 
     private void setRecyclerView() {
-        mFriendAdapter = new FriendAdapter(mPresenter, mFriends);
+        mFriendAdapter = new FriendAdapter(getContext(),mPresenter, mFriends);
         mRvFriend.setLayoutManager(new LinearLayoutManager(ShareBook.getAppContext()));
         mRvFriend.setAdapter(mFriendAdapter);
     }
@@ -96,7 +96,7 @@ public class FriendFragment extends BaseFragment implements FriendContract.View 
     public void isNoFriendData(boolean isNoFriendData) {
         Log.d(Constants.TAG_FRIEND_FRAGMENT, "isNoFriendData: " + isNoFriendData);
         mTvFriendNoData.setVisibility(isNoFriendData ? View.VISIBLE : View.GONE);
-        mRvFriend.setVisibility(isNoFriendData ? View.GONE : View.VISIBLE);
+        mRvFriend.setVisibility(isNoFriendData ? View.INVISIBLE : View.VISIBLE);
     }
 
 }

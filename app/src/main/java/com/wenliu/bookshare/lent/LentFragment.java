@@ -71,7 +71,7 @@ public class LentFragment extends BaseFragment implements LentContract.View {
     }
 
     private void setRecyclerView() {
-        mLentAdapter = new LentAdapter(mPresenter, mLentBooks);
+        mLentAdapter = new LentAdapter(getContext(), mPresenter, mLentBooks);
         mRvLent.setLayoutManager(new LinearLayoutManager(ShareBook.getAppContext()));
         mRvLent.setAdapter(mLentAdapter);
     }
@@ -81,7 +81,6 @@ public class LentFragment extends BaseFragment implements LentContract.View {
         super.onViewCreated(view, savedInstanceState);
         Log.d(Constants.TAG_LENT_FRAGMENT, "onViewCreated: ");
         mPresenter.start();
-        mPresenter.getMyLentData();
     }
 
     @Override
@@ -105,7 +104,7 @@ public class LentFragment extends BaseFragment implements LentContract.View {
     public void isNoLentData(boolean isNoLentData) {
         Log.d(Constants.TAG_LENT_FRAGMENT, "onDestroyView: " + isNoLentData);
         mTvLentNoData.setVisibility(isNoLentData ? View.VISIBLE : View.GONE);
-        mRvLent.setVisibility(isNoLentData ? View.GONE : View.VISIBLE);
+        mRvLent.setVisibility(isNoLentData ? View.INVISIBLE : View.VISIBLE);
     }
 
     @Override
@@ -113,7 +112,9 @@ public class LentFragment extends BaseFragment implements LentContract.View {
         Log.d(Constants.TAG_LENT_FRAGMENT, "showConfirmReject: ");
 
         new AlertDialog.Builder(getActivity())
-                .setMessage("確定要拒絕 " + lentBook.getLenderName() + " 的借閱要求嗎？")
+                .setMessage(getResources().getString(R.string.lent_confirm_reject)
+                        + lentBook.getLenderName()
+                        + getResources().getString(R.string.lent_confirm_reject_2))
                 .setCancelable(false)
                 .setPositiveButton(getString(R.string.alert_dialog_delete_positive), new DialogInterface.OnClickListener() {
                     @Override
@@ -141,7 +142,7 @@ public class LentFragment extends BaseFragment implements LentContract.View {
         });
 
         final AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
-                .setMessage("請確認希望歸還日期")
+                .setMessage(getResources().getString(R.string.lent_confirm_accept))
                 .setView(returnDateView)
                 .setCancelable(false)
                 .setPositiveButton(getString(R.string.alert_dialog_delete_positive), null)
@@ -177,7 +178,11 @@ public class LentFragment extends BaseFragment implements LentContract.View {
         Log.d(Constants.TAG_LENT_FRAGMENT, "showConfirmReturnBook: ");
 
         new AlertDialog.Builder(getActivity())
-                .setMessage("確認 " + lentBook.getBorrowerName() + " 是否已歸還 " + lentBook.getTitle() + "?")
+                .setMessage(getResources().getString(R.string.lent_confirm_return_book)
+                        + lentBook.getBorrowerName()
+                        + getResources().getString(R.string.lent_confirm_return_book_2)
+                        + lentBook.getTitle() + "?")
+
                 .setCancelable(false)
                 .setPositiveButton(getString(R.string.alert_dialog_delete_positive), new DialogInterface.OnClickListener() {
                     @Override
@@ -214,7 +219,7 @@ public class LentFragment extends BaseFragment implements LentContract.View {
         lentBook.setLendStartDay(year + "-" + month + "-" + day);
 
         datePickerDialog.getDatePicker().setLayoutMode(1);
-        datePickerDialog.setTitle("請確認希望歸還日期");
+        datePickerDialog.setTitle(getResources().getString(R.string.lent_confirm_accept));
         datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
         datePickerDialog.show();
     }

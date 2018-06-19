@@ -24,6 +24,8 @@
     </string>
     <string name="no_friend_data">"Start adding your friends by clicking the button!"
     </string>
+    <string name="no_lent_data">"Borrow book from your friend through friend profile!"
+    </string>
 
     <!-- Strings related to ISBN / google API -->
     <string name="scan_a_barcode">Please scan a ISBN barcode</string>
@@ -60,11 +62,11 @@
     <string name="book_status_lend_out">Not own</string>
 
     <!-- Strings related to alert dialog -->
-    <string name="alert_dialog_delete_confirm">確定要刪除 \t </string>
-    <string name="alert_dialog_delete_confirm_2"> \t 這本書嗎？</string>
-    <string name="alert_dialog_add_friend">請輸入欲加入的好友 Email : </string>
-    <string name="alert_dialog_delete_positive">確定</string>
-    <string name="alert_dialog_delete_negative">取消</string>
+    <string name="alert_dialog_delete_confirm">Are you sure to delete the book \t </string>
+    <string name="alert_dialog_delete_confirm_2">？</string>
+    <string name="alert_dialog_add_friend">Please enter your friend email : </string>
+    <string name="alert_dialog_delete_positive">OK</string>
+    <string name="alert_dialog_delete_negative">Cancel</string>
 
     <!-- Strings related to profile activity -->
     <string name="profile_book_own">Own Book</string>
@@ -79,15 +81,32 @@
     <string name="lent_start_date">Start Date : </string>
     <string name="lent_return_date">Due Date : </string>
     <string name="lent_status">Status : </string>
+    <string name="lent_confirm_accept">Please confirm the desired return date. </string>
+    <string name="lent_confirm_reject">Are you sure to reject the borrowing request from \p </string>
+    <string name="lent_confirm_reject_2">\p ？</string>
+    <string name="lent_confirm_return_book">Please confirm \t</string>
+    <string name="lent_confirm_return_book_2">\t is return the book \t </string>
+    <string name="lent_status_approve">Already borrowed </string>
+    <string name="lent_status_receive">Do you want to lend him the book?</string>
+    <string name="lent_status_send">Waiting for approval</string>
+    <string name="lent_want_to_borrow">\p want to borrow \p</string>
+    <string name="lent_borrow_from">You want to borrow from \p</string>
+    <string name="lent_borrow_from_2">\p the book \p</string>
+
+
+    <!-- Strings related to Friend -->
+    <string name="friend_send_request">waiting for accepting.</string>
+    <string name="friend_receive_request">want to add you as a friend.</string>
+    <string name="friend_no_user">Can not find this user or add yourself</string>
 
 
     <!-- Strings related to menu -->
     <string-array name="menu_book_filter">
-        <item>所有蒐藏</item>
-        <item>我擁有的書</item>
-        <item>尚未閱讀的書</item>
-        <item>正在閱讀的書</item>
-        <item>已經讀完的書</item>
+        <item>All Books</item>
+        <item>Books I own</item>
+        <item>Books unread</item>
+        <item>Books in Reading</item>
+        <item>Books read</item>
     </string-array>
 
 

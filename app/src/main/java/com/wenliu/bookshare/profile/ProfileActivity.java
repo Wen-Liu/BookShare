@@ -258,7 +258,13 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
                     public void onClick(DialogInterface dialog, int which) {
 
                         String email = mEtInputEmail.getText().toString();
-                        mFriendPresenter.checkUserByEmail(email);
+
+                        if(email!=null && email.length()>=5){
+                            mFriendPresenter.checkUserByEmail(email);
+                        } else {
+                            showAddFriendDialog(true);
+                        }
+
                         Log.d(Constants.TAG_PROFILE_ACTIVITY, "onClick: " + email);
                     }
                 })

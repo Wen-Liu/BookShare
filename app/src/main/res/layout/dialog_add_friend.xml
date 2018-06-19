@@ -26,7 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/gap_front_space_medium"
-        android:text="查無此用戶，請重新確認！"
+        android:text="@string/friend_no_user"
         android:textColor="@color/Red_400"
         android:visibility="gone" />
 

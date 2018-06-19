@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:fontFamily="sans-serif"
+        android:layout_marginBottom="70dp"
         android:text="@string/no_friend_data"
         android:textSize="@dimen/main_book_tv_text_size" />
 

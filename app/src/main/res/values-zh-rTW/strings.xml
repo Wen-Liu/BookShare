@@ -22,8 +22,8 @@
     <string name="error_login_fail">此信箱尚未註冊，請先進行註冊</string>
     <string name="error_field_required">此欄不可空白</string>
     <string name="no_book_data">"目前沒有書籍蒐藏，按下 '+' 按鈕來加入你的書吧！"</string>
-    <string name="no_friend_data">"按下按鈕來加入你的好友！"
-    </string>
+    <string name="no_friend_data">"按下按鈕來加入你的好友！"</string>
+    <string name="no_lent_data">"從好友簡介頁面跟好友借書吧！"</string>
 
     <!-- Strings related to ISBN / google API -->
     <string name="scan_a_barcode">請將鏡頭對準書本後的 ISBN 條碼進行掃描</string>
@@ -78,6 +78,22 @@
     <string name="lent_start_date">借閱日 : </string>
     <string name="lent_return_date">約定歸還日 : </string>
     <string name="lent_status">狀態 : </string>
+    <string name="lent_confirm_accept">請確認希望歸還日期 </string>
+    <string name="lent_confirm_reject">確定要拒絕 \p </string>
+    <string name="lent_confirm_reject_2">\p 的借閱要求嗎？</string>
+    <string name="lent_confirm_return_book">確認 \t</string>
+    <string name="lent_confirm_return_book_2">\t 是否已歸還 \t </string>
+    <string name="lent_status_approve">借閱中</string>
+    <string name="lent_status_receive">請確認是否借閱</string>
+    <string name="lent_status_send">等待對方確認借閱中</string>
+    <string name="lent_want_to_borrow">\p 向你借閱 \p</string>
+    <string name="lent_borrow_from">你向 \p</string>
+    <string name="lent_borrow_from_2">\p 借閱 \p</string>
+
+    <!-- Strings related to Friend -->
+    <string name="friend_send_request">等待對方接受好友邀請中</string>
+    <string name="friend_receive_request">想加入你為好友</string>
+    <string name="friend_no_user">查無此用戶，請重新確認！</string>
 
     <!-- Strings related to menu -->
     <string-array name="menu_book_filter">

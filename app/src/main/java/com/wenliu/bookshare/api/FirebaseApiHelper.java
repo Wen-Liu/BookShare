@@ -327,7 +327,12 @@ public class FirebaseApiHelper {
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         User user = snapshot.getValue(User.class);
-                        callback.userExist(user);
+
+                        if (user.getId().equals(UserManager.getInstance().getUserId())) {
+                            callback.notExist();
+                        } else {
+                            callback.userExist(user);
+                        }
                     }
                     Log.d(Constants.TAG_FIREBASE_API_HELPER, "checkUserByEmail data exists ");
 
@@ -439,7 +444,7 @@ public class FirebaseApiHelper {
         mGetRef.child(Constants.FIREBASE_NODE_USERS).child(lentBook.getBorrowerId()).child(Constants.FIREBASE_NODE_LENT).child(lentBookKey).removeValue();
     }
 
-    public void confirmBookReturn(LentBook lentBook){
+    public void confirmBookReturn(LentBook lentBook) {
         String lentBookKey = lentBook.getLenderId() + "_" + lentBook.getIsbn13() + "_" + lentBook.getBorrowerId();
 
         Log.d(Constants.TAG_FIREBASE_API_HELPER, "rejectLendRequest: selfId ");
