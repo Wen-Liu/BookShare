@@ -108,7 +108,10 @@ public class ShareBookPresenter implements ShareBookContract.Presenter {
             Log.d(Constants.TAG_SHAREBOOK_PRESENTER, "transToDetail newInstance: ");
         }
 
-        transaction.add(R.id.frame_container_sharebook, mDetailFragment, DETAIL);
+        if (!mDetailFragment.isAdded()) {
+            Log.d(Constants.TAG_SHAREBOOK_PRESENTER, "transToDetail Add: ");
+            transaction.add(R.id.frame_container_sharebook, mDetailFragment, DETAIL);
+        }
         transaction.commit();
 
         if (mDetailPresenter == null) {
