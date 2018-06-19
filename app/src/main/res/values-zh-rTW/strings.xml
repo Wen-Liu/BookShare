@@ -79,16 +79,16 @@
     <string name="lent_return_date">約定歸還日 : </string>
     <string name="lent_status">狀態 : </string>
     <string name="lent_confirm_accept">請確認希望歸還日期 </string>
-    <string name="lent_confirm_reject">確定要拒絕 \p </string>
-    <string name="lent_confirm_reject_2">\p 的借閱要求嗎？</string>
+    <string name="lent_confirm_reject">確定要拒絕 \</string>
+    <string name="lent_confirm_reject_2">\ 的借閱要求嗎？</string>
     <string name="lent_confirm_return_book">確認 \t</string>
     <string name="lent_confirm_return_book_2">\t 是否已歸還 \t </string>
     <string name="lent_status_approve">借閱中</string>
     <string name="lent_status_receive">請確認是否借閱</string>
     <string name="lent_status_send">等待對方確認借閱中</string>
-    <string name="lent_want_to_borrow">\p 向你借閱 \p</string>
-    <string name="lent_borrow_from">你向 \p</string>
-    <string name="lent_borrow_from_2">\p 借閱 \p</string>
+    <string name="lent_want_to_borrow">\ 向你借閱 \</string>
+    <string name="lent_borrow_from">你向 \</string>
+    <string name="lent_borrow_from_2">\ 借閱 \</string>
 
     <!-- Strings related to Friend -->
     <string name="friend_send_request">等待對方接受好友邀請中</string>
