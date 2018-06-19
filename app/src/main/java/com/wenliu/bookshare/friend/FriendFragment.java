@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.wenliu.bookshare.Constants;
 import com.wenliu.bookshare.R;
 import com.wenliu.bookshare.ShareBook;
+import com.wenliu.bookshare.api.FirebaseApiHelper;
 import com.wenliu.bookshare.base.BaseFragment;
 import com.wenliu.bookshare.object.User;
 
@@ -84,6 +85,7 @@ public class FriendFragment extends BaseFragment implements FriendContract.View 
     public void onDestroyView() {
         Log.d(Constants.TAG_FRIEND_FRAGMENT, "onDestroyView: ");
         super.onDestroyView();
+        FirebaseApiHelper.getInstance().removeGetMyFriendsListener();
         unbinder.unbind();
     }
 

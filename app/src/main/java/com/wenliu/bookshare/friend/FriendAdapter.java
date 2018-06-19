@@ -1,6 +1,7 @@
 package com.wenliu.bookshare.friend;
 
 import android.content.Context;
+import android.provider.SyncStateContract;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -132,8 +133,9 @@ public class FriendAdapter extends RecyclerView.Adapter {
                     break;
 
                 case R.id.llayout_item_profile:
-                    mPresenter.transToFriendProfile(mFriends.get(getAdapterPosition()));
-
+                    if (mFriends.get(getAdapterPosition()).getStatus().equals(Constants.FIREBASE_FRIEND_APPROVE)) {
+                        mPresenter.transToFriendProfile(mFriends.get(getAdapterPosition()));
+                    }
                     break;
             }
         }

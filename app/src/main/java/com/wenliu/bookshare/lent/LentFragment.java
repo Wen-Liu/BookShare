@@ -92,6 +92,7 @@ public class LentFragment extends BaseFragment implements LentContract.View {
     public void onDestroyView() {
         Log.d(Constants.TAG_LENT_FRAGMENT, "onDestroyView: ");
         super.onDestroyView();
+        FirebaseApiHelper.getInstance().removeGetMyLendStatusListener();
         unbinder.unbind();
     }
 

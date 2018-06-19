@@ -45,6 +45,8 @@ public class FirebaseApiHelper {
     private FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference mGetRef = mDatabase.getReference();
     private StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
+    private ValueEventListener mFriendListener;
+    private ValueEventListener mLendListener;
 
     public static FirebaseApiHelper getInstance() {
         return instance;
@@ -285,7 +287,7 @@ public class FirebaseApiHelper {
                 .child(Constants.FIREBASE_NODE_FRIENDS)
                 .orderByChild(Constants.FIREBASE_FRIEND_STATUS);
 
-        myFriendQuery.addValueEventListener(new ValueEventListener() {
+        mFriendListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -309,7 +311,17 @@ public class FirebaseApiHelper {
                 Log.d(Constants.TAG_FIREBASE_API_HELPER, "onCancelled: " + databaseError.getMessage().toString());
                 callback.onError(databaseError.getMessage());
             }
-        });
+        };
+
+        myFriendQuery.addValueEventListener(mFriendListener);
+    }
+
+    public void removeGetMyFriendsListener() {
+
+        mGetRef.child(Constants.FIREBASE_NODE_USERS)
+                .child(UserManager.getInstance().getUserId())
+                .child(Constants.FIREBASE_NODE_FRIENDS)
+                .removeEventListener(mFriendListener);
     }
 
     public void checkUserByEmail(String email, final CheckUserExistCallback callback) {
@@ -401,7 +413,7 @@ public class FirebaseApiHelper {
                 .child(Constants.FIREBASE_NODE_LENT)
                 .orderByChild(Constants.FIREBASE_LENT_STATUS);
 
-        myLentQuery.addValueEventListener(new ValueEventListener() {
+        mLendListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -425,7 +437,16 @@ public class FirebaseApiHelper {
                 Log.d(Constants.TAG_FIREBASE_API_HELPER, "getMyLendStatus onCancelled: " + databaseError.getMessage().toString());
                 callback.onError(databaseError.getMessage());
             }
-        });
+        };
+
+        myLentQuery.addValueEventListener(mLendListener);
+    }
+
+    public void removeGetMyLendStatusListener(){
+        mGetRef.child(Constants.FIREBASE_NODE_USERS)
+                .child(UserManager.getInstance().getUserId())
+                .child(Constants.FIREBASE_NODE_LENT)
+                .removeEventListener(mLendListener);
     }
 
     public void acceptLendRequest(LentBook lentBook) {
