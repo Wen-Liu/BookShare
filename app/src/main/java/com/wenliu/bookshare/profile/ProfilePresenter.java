@@ -12,15 +12,12 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.content.FileProvider;
 import android.util.Log;
 
 import com.wenliu.bookshare.Constants;
 import com.wenliu.bookshare.ShareBook;
 import com.wenliu.bookshare.api.FirebaseApiHelper;
-import com.wenliu.bookshare.friend.FriendFragment;
-import com.wenliu.bookshare.friend.FriendPresenter;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -109,6 +106,9 @@ public class ProfilePresenter implements ProfileContract.Presenter {
 
                 mProfileView.setUserImage(mImageUri);
                 uploadProfileImage(mImageUri);
+                break;
+
+            default:
                 break;
         }
     }
@@ -203,12 +203,12 @@ public class ProfilePresenter implements ProfileContract.Presenter {
         Intent intent = new Intent("com.android.camera.action.CROP");
         intent.setDataAndType(myGalleryUri, "image/*");
         intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        intent.putExtra("crop", "true");// crop=true 有這句才能叫出裁剪頁面.
+        intent.putExtra("crop", "true"); // crop=true 有這句才能叫出裁剪頁面.
         intent.putExtra("scale", true); //讓裁剪框支援縮放
-        intent.putExtra("aspectX", 1);// 这兩項為裁剪框的比例.
-        intent.putExtra("aspectY", 1);// x:y=1:1
-        intent.putExtra("outputX", 200);//回傳照片比例X
-        intent.putExtra("outputY", 200);//回傳照片比例Y
+        intent.putExtra("aspectX", 1); // 这兩項為裁剪框的比例.
+        intent.putExtra("aspectY", 1); // x:y=1:1
+        intent.putExtra("outputX", 200); //回傳照片比例X
+        intent.putExtra("outputY", 200); //回傳照片比例Y
         intent.putExtra("return-data", false);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
         return intent;

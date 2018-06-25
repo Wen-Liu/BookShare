@@ -89,7 +89,7 @@ public class InputIsbnDialog extends Dialog {
 
                 // check isbn is valid or not first
                 if (mPresenter.isIsbnValid(mIsbn)) {
-                    String bookCoverUrl = GetBookCoverUrl.GetUrl(mIsbn);
+                    String bookCoverUrl = GetBookCoverUrl.getUrl(mIsbn);
 
                     // if isbn is valid, then check the book data of isbn exist or not
                     new FirebaseApiHelper().checkBookDataExist(mIsbn, new CheckBookExistCallback() {
@@ -109,6 +109,9 @@ public class InputIsbnDialog extends Dialog {
                     setEditTextError(mShareBookActivity.getString(R.string.error_invalid_isbn));
                 }
 
+                break;
+
+            default:
                 break;
         }
     }

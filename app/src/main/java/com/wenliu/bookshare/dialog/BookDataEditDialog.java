@@ -199,6 +199,9 @@ public class BookDataEditDialog extends Dialog implements CompoundButton.OnCheck
             case R.id.et_dialog_book_purchase_date:
                 showDatePickerDialog();
                 break;
+
+            default:
+                break;
         }
     }
 

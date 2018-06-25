@@ -10,7 +10,7 @@ public class GetBookCoverUrl {
 
     private static final String BASE_URL = "http://api.findbook.tw/book/cover/";
 
-    public static String GetUrl(String isbn) {
+    public static String getUrl(String isbn) {
         return BASE_URL + isbn + ".jpg";
     }
 }

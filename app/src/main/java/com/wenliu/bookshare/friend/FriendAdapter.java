@@ -1,7 +1,6 @@
 package com.wenliu.bookshare.friend;
 
 import android.content.Context;
-import android.provider.SyncStateContract;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -129,13 +128,15 @@ public class FriendAdapter extends RecyclerView.Adapter {
 
                 case R.id.btn_friend_send:
                     Toast.makeText(ShareBook.getAppContext(), "send " + mFriends.get(getAdapterPosition()).getName(), Toast.LENGTH_SHORT).show();
-
                     break;
 
                 case R.id.llayout_item_profile:
                     if (mFriends.get(getAdapterPosition()).getStatus().equals(Constants.FIREBASE_FRIEND_APPROVE)) {
                         mPresenter.transToFriendProfile(mFriends.get(getAdapterPosition()));
                     }
+                    break;
+
+                default:
                     break;
             }
         }

@@ -6,9 +6,9 @@ import java.util.ArrayList;
 
 public interface GetLendStatusCallback {
 
-    public void onCompleted(ArrayList<LentBook> lentBooks);
+    void onCompleted(ArrayList<LentBook> lentBooks);
 
-    public void noLendData();
+    void noLendData();
 
-    public void onError(String errorMessage);
+    void onError(String errorMessage);
 }

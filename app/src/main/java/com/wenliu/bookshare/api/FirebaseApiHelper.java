@@ -252,6 +252,9 @@ public class FirebaseApiHelper {
                             case Constants.BORROW:
                                 bookStatusAll[Constants.BORROW] += 1;
                                 break;
+
+                            default:
+                                break;
                         }
 
                         if (bookCustomInfo.isHaveBook()) {
@@ -442,7 +445,7 @@ public class FirebaseApiHelper {
         myLentQuery.addValueEventListener(mLendListener);
     }
 
-    public void removeGetMyLendStatusListener(){
+    public void removeGetMyLendStatusListener() {
         mGetRef.child(Constants.FIREBASE_NODE_USERS)
                 .child(UserManager.getInstance().getUserId())
                 .child(Constants.FIREBASE_NODE_LENT)

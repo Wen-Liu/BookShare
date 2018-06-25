@@ -6,7 +6,7 @@ import android.support.annotation.NonNull;
 
 import com.wenliu.bookshare.R;
 
-public class ProgressBarDialog extends Dialog{
+public class ProgressBarDialog extends Dialog {
 
     public ProgressBarDialog(@NonNull Context context) {
         super(context);

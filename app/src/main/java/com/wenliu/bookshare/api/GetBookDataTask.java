@@ -41,7 +41,7 @@ public class GetBookDataTask extends AsyncTask<Void, String, Book> {
     protected void onPostExecute(Book book) {
         super.onPostExecute(book);
 
-        if(book !=null){
+        if (book != null) {
             Log.d(Constants.TAG_GET_BOOK_DATA_TASK, "onPostExecute");
             mCallback.onCompleted(book);
 

@@ -22,7 +22,7 @@ import com.wenliu.bookshare.object.User;
 
 public class UserManager {
 
-    private static final UserManager instance = new UserManager();
+    private static UserManager instance = new UserManager();
     private static User mUser;
     private static String mUserId;
     private static String mUserEmail;
@@ -30,7 +30,7 @@ public class UserManager {
     private static String mUserImage;
     private static String mFbToken;
 
-    SharedPreferences mUserData = ShareBook.getAppContext().getSharedPreferences(Constants.USER_DATA, Context.MODE_PRIVATE);
+    private SharedPreferences mUserData = ShareBook.getAppContext().getSharedPreferences(Constants.USER_DATA, Context.MODE_PRIVATE);
 
     // private constructor，這樣其他物件就沒辦法直接用new來取得新的實體
     private UserManager() {

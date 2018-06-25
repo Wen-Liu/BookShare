@@ -25,7 +25,7 @@ public interface LoginContract {
 
         void loginTask(LoginActivity activity, FirebaseAuth auth, String email, String password, SignInCallback callback);
 
-        void register(LoginActivity activity, FirebaseAuth auth, String email, String password,String name, SignUpCallback callback);
+        void register(LoginActivity activity, FirebaseAuth auth, String email, String password, String name, SignUpCallback callback);
 
     }
 

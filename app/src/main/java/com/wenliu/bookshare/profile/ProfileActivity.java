@@ -186,7 +186,7 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
         Log.d(Constants.TAG_PROFILE_ACTIVITY, "onActivityResult: ");
 
         if (resultCode == RESULT_OK) {
-            mPresenter.result(requestCode,resultCode,data);
+            mPresenter.result(requestCode, resultCode, data);
         }
     }
 
@@ -225,6 +225,9 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
                     showAddFriendDialog(false);
                 }
                 break;
+
+            default:
+                break;
         }
     }
 
@@ -259,7 +262,7 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
 
                         String email = mEtInputEmail.getText().toString();
 
-                        if(email!=null && email.length()>=5){
+                        if (email != null && email.length() >= 5) {
                             mFriendPresenter.checkUserByEmail(email);
                         } else {
                             showAddFriendDialog(true);

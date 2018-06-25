@@ -5,6 +5,8 @@ package com.wenliu.bookshare.api.callbacks;
  */
 
 public interface SignInCallback {
-    public void onCompleted();
-    public void onError(String errorMessage);
+
+    void onCompleted();
+
+    void onError(String errorMessage);
 }

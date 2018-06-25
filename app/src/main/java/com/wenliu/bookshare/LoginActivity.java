@@ -293,6 +293,9 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
             case R.id.btn_login_register_cancel:
                 showSignUpForm(false);
                 break;
+
+            default:
+                break;
         }
     }
 

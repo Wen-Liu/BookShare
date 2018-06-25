@@ -1,7 +1,5 @@
 package com.wenliu.bookshare.main;
 
-import android.widget.ImageView;
-
 import com.wenliu.bookshare.api.callbacks.AlertDialogCallback;
 import com.wenliu.bookshare.api.callbacks.DeleteBookCallback;
 import com.wenliu.bookshare.base.BasePresenter;
@@ -41,8 +39,7 @@ public interface MainContract {
 
         void showAlertDialog(String title, AlertDialogCallback callback);
 
-        ArrayList<BookCustomInfo> DataFilter(ArrayList<BookCustomInfo> bookCustomInfos, int filter);
+        ArrayList<BookCustomInfo> dataFilter(ArrayList<BookCustomInfo> bookCustomInfos, int filter);
     }
-
 
 }

@@ -70,7 +70,7 @@ public class ShareBookParser {
         oBook.setPublisher(item.getVolumeInfo().getPublisher());
         oBook.setPublishDate(item.getVolumeInfo().getPublishedDate());
         oBook.setLanguage(checkLanguage(item.getVolumeInfo().getLanguage()));
-        oBook.setImage(GetBookCoverUrl.GetUrl(item.getVolumeInfo().getIndustryIdentifiers().get(1).getIdentifier()));
+        oBook.setImage(GetBookCoverUrl.getUrl(item.getVolumeInfo().getIndustryIdentifiers().get(1).getIdentifier()));
 
         return oBook;
     }

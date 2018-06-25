@@ -17,7 +17,7 @@ public class FriendPresenter implements FriendContract.Presenter {
     private FriendContract.View mFriendView;
     private ProfileActivity mProfileActivity;
 
-    public FriendPresenter(FriendContract.View friendView ,ProfileActivity profileActivity ) {
+    public FriendPresenter(FriendContract.View friendView, ProfileActivity profileActivity) {
         Log.d(Constants.TAG_FRIEND_PRESENTER, "FriendPresenter: ");
         mFriendView = friendView;
         mFriendView.setPresenter(this);

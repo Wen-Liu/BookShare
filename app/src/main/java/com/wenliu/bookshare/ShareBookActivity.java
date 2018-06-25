@@ -13,11 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageView;
-import android.widget.Toast;
-
-import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
 import com.wenliu.bookshare.base.BaseActivity;
 import com.wenliu.bookshare.dialog.BookDataEditDialog;
 import com.wenliu.bookshare.dialog.InputIsbnDialog;

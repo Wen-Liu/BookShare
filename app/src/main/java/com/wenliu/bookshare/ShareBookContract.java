@@ -1,8 +1,6 @@
 package com.wenliu.bookshare;
 
 import android.content.Intent;
-import android.widget.ImageView;
-
 import com.wenliu.bookshare.base.BasePresenter;
 import com.wenliu.bookshare.base.BaseView;
 import com.wenliu.bookshare.object.BookCustomInfo;

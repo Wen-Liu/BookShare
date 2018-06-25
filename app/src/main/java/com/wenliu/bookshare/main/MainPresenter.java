@@ -1,8 +1,6 @@
 package com.wenliu.bookshare.main;
 
 import android.util.Log;
-import android.widget.ImageView;
-
 import com.wenliu.bookshare.Constants;
 import com.wenliu.bookshare.api.FirebaseApiHelper;
 import com.wenliu.bookshare.api.GetBooksTask;
@@ -90,7 +88,7 @@ public class MainPresenter implements MainContract.Presenter {
     }
 
     @Override
-    public ArrayList<BookCustomInfo> DataFilter(ArrayList<BookCustomInfo> bookCustomInfos, int filter) {
+    public ArrayList<BookCustomInfo> dataFilter(ArrayList<BookCustomInfo> bookCustomInfos, int filter) {
         Log.d(Constants.TAG_MAIN_PRESENTER, "DataFilter: ");
         newBookCustomInfos.clear();
 

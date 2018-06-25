@@ -7,6 +7,8 @@ import com.wenliu.bookshare.object.User;
  */
 
 public interface GetUserInfoCallback {
-    public void onCompleted(User user);
-    public void onError(String error);
+
+    void onCompleted(User user);
+
+    void onError(String error);
 }

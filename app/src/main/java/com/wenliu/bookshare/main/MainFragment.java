@@ -191,7 +191,7 @@ public class MainFragment extends BaseFragment implements MainContract.View, Ada
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         Log.d(Constants.TAG_MAIN_FRAGMENT, "onItemSelected: ");
-        ArrayList<BookCustomInfo> test = mPresenter.DataFilter(mBookCustomInfosAll, position);
+        ArrayList<BookCustomInfo> test = mPresenter.dataFilter(mBookCustomInfosAll, position);
         mMainAdapter.updateData(test);
     }
 

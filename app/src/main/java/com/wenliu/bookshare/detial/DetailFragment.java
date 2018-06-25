@@ -123,6 +123,9 @@ public class DetailFragment extends Fragment implements DetailContract.View {
             case R.id.btn_detail_edit:
                 mPresenter.showBookDataEditDialog(mBookCustomInfo);
                 break;
+
+            default:
+                break;
         }
     }
 
@@ -207,15 +210,20 @@ public class DetailFragment extends Fragment implements DetailContract.View {
                 statusBackgroundColor = R.drawable.shape_book_status_yellow;
                 statusTextColor = R.color.Yellow_600;
                 break;
+
             case Constants.READ:
                 statusString = getString(R.string.book_status_read);
                 statusBackgroundColor = R.drawable.shape_book_status_green;
                 statusTextColor = R.color.Green_600;
                 break;
+
             case Constants.UNREAD:
                 statusString = getString(R.string.book_status_unread);
                 statusBackgroundColor = R.drawable.shape_book_status_red;
                 statusTextColor = R.color.Red_600;
+                break;
+
+            default:
                 break;
         }
         mTvDetailBookStatus.setText(statusString);
