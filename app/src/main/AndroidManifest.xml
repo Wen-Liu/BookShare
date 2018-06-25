@@ -49,8 +49,30 @@
             tools:replace="screenOrientation" />
         <activity
             android:name=".friendprofile.FriendProfileActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity android:name=".base.BaseActivity" />
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_sharebook_1" />
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/LightBlue_200_Dark" />
+
+        <!--<service android:name=".MyFirebaseInstanceIDService">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="com.google.firebase.INSTANCE_ID_EVENT" />-->
+            <!--</intent-filter>-->
+        <!--</service>-->
+        <!--<service-->
+            <!--android:name=".MyFirebaseMessagingService"-->
+            <!--android:enabled="true"-->
+            <!--android:exported="true">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="com.google.firebase.MESSAGING_EVENT" />-->
+            <!--</intent-filter>-->
+        <!--</service>-->
     </application>
 
 </manifest>

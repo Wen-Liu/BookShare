@@ -64,7 +64,7 @@ public class ProfilePresenter implements ProfileContract.Presenter {
 
         if (intentPhotoGallery.resolveActivity(mProfileActivity.getPackageManager()) != null) {
             File newImageFile = null;
-            try {
+            try { // 開一個空的檔案，準備拿來放選擇的照片
                 newImageFile = createImageFile();
             } catch (Exception e) {
                 e.printStackTrace();

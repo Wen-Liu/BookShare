@@ -6,9 +6,9 @@ import java.util.ArrayList;
 
 public interface GetFriendBooksCallback {
 
-    public void onCompleted(ArrayList<BookCustomInfo> bookCustomInfos);
+    void onCompleted(ArrayList<BookCustomInfo> bookCustomInfos);
 
-    public void noBookData(ArrayList<BookCustomInfo> bookCustomInfos);
+    void noBookData(ArrayList<BookCustomInfo> bookCustomInfos);
 
-    public void onError(String errorMessage);
+    void onError(String errorMessage);
 }

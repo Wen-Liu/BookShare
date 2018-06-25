@@ -7,6 +7,8 @@ import com.wenliu.bookshare.object.Book;
  */
 
 public interface GetBookDataCallback {
-    public void onCompleted(Book book);
-    public void onError(String errorMessage);
+
+    void onCompleted(Book book);
+
+    void onError(String errorMessage);
 }

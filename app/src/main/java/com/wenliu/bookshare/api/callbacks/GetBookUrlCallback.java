@@ -5,6 +5,8 @@ package com.wenliu.bookshare.api.callbacks;
  */
 
 public interface GetBookUrlCallback {
-    public void onCompleted(String bookid);
-    public void onError(String errorMessage);
+
+    void onCompleted(String bookid);
+
+    void onError(String errorMessage);
 }

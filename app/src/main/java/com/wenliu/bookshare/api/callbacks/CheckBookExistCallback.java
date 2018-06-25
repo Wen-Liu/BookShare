@@ -7,6 +7,8 @@ import com.wenliu.bookshare.object.Book;
  */
 
 public interface CheckBookExistCallback {
-    public void onCompleted(Book book);
-    public void onError();
+
+    void onCompleted(Book book);
+
+    void onError();
 }

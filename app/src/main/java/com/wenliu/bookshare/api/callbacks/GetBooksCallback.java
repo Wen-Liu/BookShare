@@ -9,9 +9,10 @@ import java.util.ArrayList;
  */
 
 public interface GetBooksCallback {
-    public void onCompleted(ArrayList<BookCustomInfo> bookCustomInfos, int[] bookStatusInfo);
 
-    public void noBookData(ArrayList<BookCustomInfo> bookCustomInfos, int[] bookStatusInfo);
+    void onCompleted(ArrayList<BookCustomInfo> bookCustomInfos, int[] bookStatusInfo);
 
-    public void onError(String errorMessage, int[] bookStatusInfo);
+    void noBookData(ArrayList<BookCustomInfo> bookCustomInfos, int[] bookStatusInfo);
+
+    void onError(String errorMessage, int[] bookStatusInfo);
 }

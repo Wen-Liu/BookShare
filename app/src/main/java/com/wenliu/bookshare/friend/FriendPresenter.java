@@ -26,6 +26,7 @@ public class FriendPresenter implements FriendContract.Presenter {
 
     @Override
     public void start() {
+        getMyFriends();
     }
 
     @Override

@@ -103,7 +103,7 @@ public class LentFragment extends BaseFragment implements LentContract.View {
 
     @Override
     public void isNoLentData(boolean isNoLentData) {
-        Log.d(Constants.TAG_LENT_FRAGMENT, "onDestroyView: " + isNoLentData);
+        Log.d(Constants.TAG_LENT_FRAGMENT, "isNoLentData: " + isNoLentData);
 
         if (mTvLentNoData != null) {
             mTvLentNoData.setVisibility(isNoLentData ? View.VISIBLE : View.GONE);

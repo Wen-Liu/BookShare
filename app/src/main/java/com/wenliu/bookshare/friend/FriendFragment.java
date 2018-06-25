@@ -67,7 +67,6 @@ public class FriendFragment extends BaseFragment implements FriendContract.View 
         super.onViewCreated(view, savedInstanceState);
         Log.d(Constants.TAG_FRIEND_FRAGMENT, "onViewCreated: ");
         mPresenter.start();
-        mPresenter.getMyFriends();
     }
 
     @Override

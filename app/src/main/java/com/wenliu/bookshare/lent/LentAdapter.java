@@ -92,7 +92,7 @@ public class LentAdapter extends RecyclerView.Adapter {
             Log.d(Constants.TAG_LENT_ADAPTER, "swipe true: position " + position);
             ((LentViewHolder) holder).getSwipelayoutItemLent().setSwipeEnabled(true);
         } else {
-            Log.d(Constants.TAG_LENT_ADAPTER, "swipe false: postion " +position );
+            Log.d(Constants.TAG_LENT_ADAPTER, "swipe false: postion " + position);
             ((LentViewHolder) holder).getSwipelayoutItemLent().setSwipeEnabled(false);
         }
 
@@ -155,6 +155,9 @@ public class LentAdapter extends RecyclerView.Adapter {
 
                 case R.id.llayout_return_book:
                     mPresenter.confirmReturnBook(mLentBooks.get(getAdapterPosition()));
+                    break;
+
+                default:
                     break;
             }
         }

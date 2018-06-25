@@ -80,16 +80,18 @@ public class ShareBookPresenter implements ShareBookContract.Presenter {
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
 
         if (mMainFragment == null) mMainFragment = MainFragment.newInstance();
+
+        if (mMainPresenter == null) {
+            mMainPresenter = new MainPresenter(mMainFragment);
+        }
+
         if (!mMainFragment.isAdded()) {
             transaction.add(R.id.frame_container_sharebook, mMainFragment, MAIN);
         } else {
             transaction.show(mMainFragment);
         }
-        transaction.commit();
 
-        if (mMainPresenter == null) {
-            mMainPresenter = new MainPresenter(mMainFragment);
-        }
+        transaction.commit();
     }
 
     @Override
@@ -108,17 +110,18 @@ public class ShareBookPresenter implements ShareBookContract.Presenter {
             Log.d(Constants.TAG_SHAREBOOK_PRESENTER, "transToDetail newInstance: ");
         }
 
-        if (!mDetailFragment.isAdded()) {
-            Log.d(Constants.TAG_SHAREBOOK_PRESENTER, "transToDetail Add: ");
-            transaction.add(R.id.frame_container_sharebook, mDetailFragment, DETAIL);
-        }
-        transaction.commit();
-
         if (mDetailPresenter == null) {
             mDetailPresenter = new DetailPresenter(mDetailFragment, this, bookCustomInfo);
         } else {
             mDetailPresenter.setBookData(bookCustomInfo);
         }
+
+        if (!mDetailFragment.isAdded()) {
+            Log.d(Constants.TAG_SHAREBOOK_PRESENTER, "transToDetail Add: ");
+            transaction.add(R.id.frame_container_sharebook, mDetailFragment, DETAIL);
+        }
+
+        transaction.commit();
     }
 
     @Override
