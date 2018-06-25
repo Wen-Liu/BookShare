@@ -12,6 +12,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.daimajia.swipe.SwipeLayout;
 import com.wenliu.bookshare.Constants;
 import com.wenliu.bookshare.ImageManager;
@@ -19,12 +22,8 @@ import com.wenliu.bookshare.R;
 import com.wenliu.bookshare.ShareBook;
 import com.wenliu.bookshare.UserManager;
 import com.wenliu.bookshare.object.LentBook;
-
 import java.util.ArrayList;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class LentAdapter extends RecyclerView.Adapter {
     private Context mContext;
@@ -82,10 +81,6 @@ public class LentAdapter extends RecyclerView.Adapter {
             ((LentViewHolder) holder).isShowDate(false);
             ((LentViewHolder) holder).getTvLentStatus().setText(mContext.getResources().getString(R.string.lent_status_send));
         }
-
-//        Log.d(Constants.TAG_LENT_ADAPTER, "mLentBooks.get(position).getLentStatus(): " + mLentBooks.get(position).getLentStatus());
-//        Log.d(Constants.TAG_LENT_ADAPTER, "mLentBooks.get(position).getBorrowerId(): " + mLentBooks.get(position).getBorrowerId());
-//        Log.d(Constants.TAG_LENT_ADAPTER, "UserManager.getInstance().getUserId(): " + UserManager.getInstance().getUserId());
 
         if (mLentBooks.get(position).getLentStatus().equals(Constants.FIREBASE_LENT_APPROVE)
                 && mLentBooks.get(position).getLenderId().equals(UserManager.getInstance().getUserId())) {

@@ -1,4 +1,4 @@
-package com.wenliu.bookshare.object.GoogleBook;
+package com.wenliu.bookshare.object.googlebook;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

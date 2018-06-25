@@ -29,7 +29,7 @@ import com.wenliu.bookshare.api.callbacks.GetUserInfoCallback;
 import com.wenliu.bookshare.api.callbacks.SignUpCallback;
 import com.wenliu.bookshare.object.Book;
 import com.wenliu.bookshare.object.BookCustomInfo;
-import com.wenliu.bookshare.object.GoogleBook.Item;
+import com.wenliu.bookshare.object.googlebook.Item;
 import com.wenliu.bookshare.object.LentBook;
 import com.wenliu.bookshare.object.User;
 
@@ -194,18 +194,18 @@ public class FirebaseApiHelper {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                ArrayList<BookCustomInfo> mBookCustomInfos = new ArrayList<>();
+                ArrayList<BookCustomInfo> bookCustomInfos = new ArrayList<>();
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         BookCustomInfo bookCustomInfo = snapshot.getValue(BookCustomInfo.class);
-                        mBookCustomInfos.add(bookCustomInfo);
+                        bookCustomInfos.add(bookCustomInfo);
                     }
                     Log.d(Constants.TAG_FIREBASE_API_HELPER, "getFriendBooks data exists ");
-                    callback.onCompleted(mBookCustomInfos);
+                    callback.onCompleted(bookCustomInfos);
 
                 } else {
                     Log.d(Constants.TAG_FIREBASE_API_HELPER, "getFriendBooks get nothing ");
-                    callback.noBookData(mBookCustomInfos);
+                    callback.noBookData(bookCustomInfos);
                 }
             }
 
@@ -231,7 +231,7 @@ public class FirebaseApiHelper {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                ArrayList<BookCustomInfo> mBookCustomInfos = new ArrayList<>();
+                ArrayList<BookCustomInfo> bookCustomInfos = new ArrayList<>();
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         BookCustomInfo bookCustomInfo = snapshot.getValue(BookCustomInfo.class);
@@ -261,14 +261,14 @@ public class FirebaseApiHelper {
                             bookStatusAll[Constants.MY_BOOK] += 1;
                         }
 
-                        mBookCustomInfos.add(bookCustomInfo);
+                        bookCustomInfos.add(bookCustomInfo);
                     }
                     Log.d(Constants.TAG_FIREBASE_API_HELPER, "getMyBooks data exists ");
-                    callback.onCompleted(mBookCustomInfos, bookStatusAll);
+                    callback.onCompleted(bookCustomInfos, bookStatusAll);
 
                 } else {
                     Log.d(Constants.TAG_FIREBASE_API_HELPER, "getMyBooks get nothing ");
-                    callback.noBookData(mBookCustomInfos, bookStatusAll);
+                    callback.noBookData(bookCustomInfos, bookStatusAll);
                 }
             }
 
@@ -338,7 +338,7 @@ public class FirebaseApiHelper {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                ArrayList<BookCustomInfo> mBookCustomInfos = new ArrayList<>();
+                ArrayList<BookCustomInfo> bookCustomInfos = new ArrayList<>();
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         User user = snapshot.getValue(User.class);

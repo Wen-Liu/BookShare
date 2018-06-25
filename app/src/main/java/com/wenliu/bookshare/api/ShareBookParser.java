@@ -6,7 +6,7 @@ import com.google.gson.Gson;
 import com.wenliu.bookshare.Constants;
 import com.wenliu.bookshare.UserManager;
 import com.wenliu.bookshare.object.Book;
-import com.wenliu.bookshare.object.GoogleBook.Item;
+import com.wenliu.bookshare.object.googlebook.Item;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -58,21 +58,21 @@ public class ShareBookParser {
 
 
     public static Book parseBook(Item item) {
-        Book oBook = new Book();
+        Book book = new Book();
 
-        oBook.setBookSource("google");
-        oBook.setCreateByUid(UserManager.getInstance().getUserId());
-        oBook.setTitle(item.getVolumeInfo().getTitle());
-        oBook.setSubtitle(item.getVolumeInfo().getSubtitle());
-        oBook.setAuthor(item.getVolumeInfo().getAuthors());
-        oBook.setIsbn10(item.getVolumeInfo().getIndustryIdentifiers().get(0).getIdentifier());
-        oBook.setIsbn13(item.getVolumeInfo().getIndustryIdentifiers().get(1).getIdentifier());
-        oBook.setPublisher(item.getVolumeInfo().getPublisher());
-        oBook.setPublishDate(item.getVolumeInfo().getPublishedDate());
-        oBook.setLanguage(checkLanguage(item.getVolumeInfo().getLanguage()));
-        oBook.setImage(GetBookCoverUrl.getUrl(item.getVolumeInfo().getIndustryIdentifiers().get(1).getIdentifier()));
+        book.setBookSource("google");
+        book.setCreateByUid(UserManager.getInstance().getUserId());
+        book.setTitle(item.getVolumeInfo().getTitle());
+        book.setSubtitle(item.getVolumeInfo().getSubtitle());
+        book.setAuthor(item.getVolumeInfo().getAuthors());
+        book.setIsbn10(item.getVolumeInfo().getIndustryIdentifiers().get(0).getIdentifier());
+        book.setIsbn13(item.getVolumeInfo().getIndustryIdentifiers().get(1).getIdentifier());
+        book.setPublisher(item.getVolumeInfo().getPublisher());
+        book.setPublishDate(item.getVolumeInfo().getPublishedDate());
+        book.setLanguage(checkLanguage(item.getVolumeInfo().getLanguage()));
+        book.setImage(GetBookCoverUrl.getUrl(item.getVolumeInfo().getIndustryIdentifiers().get(1).getIdentifier()));
 
-        return oBook;
+        return book;
     }
 
     public static String checkLanguage(String language) {

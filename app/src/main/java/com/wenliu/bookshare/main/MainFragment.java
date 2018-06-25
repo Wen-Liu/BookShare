@@ -16,6 +16,10 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.wenliu.bookshare.Constants;
 import com.wenliu.bookshare.R;
@@ -27,10 +31,6 @@ import com.wenliu.bookshare.object.BookCustomInfo;
 
 import java.util.ArrayList;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
 
 /**
  * A simple {@link Fragment} subclass.

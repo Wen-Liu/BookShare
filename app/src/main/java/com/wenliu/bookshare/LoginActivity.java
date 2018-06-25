@@ -15,15 +15,15 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.wenliu.bookshare.api.callbacks.SignInCallback;
 import com.wenliu.bookshare.api.callbacks.SignUpCallback;
 import com.wenliu.bookshare.base.BaseActivity;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * A login screen that offers login via email/password.

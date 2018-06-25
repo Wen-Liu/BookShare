@@ -1,6 +1,5 @@
 package com.wenliu.bookshare.lent;
 
-
 import android.util.Log;
 
 import com.wenliu.bookshare.Constants;

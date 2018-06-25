@@ -13,15 +13,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.wenliu.bookshare.base.BaseActivity;
 import com.wenliu.bookshare.dialog.BookDataEditDialog;
 import com.wenliu.bookshare.dialog.InputIsbnDialog;
 import com.wenliu.bookshare.object.BookCustomInfo;
 import com.wenliu.bookshare.profile.ProfileActivity;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 
 public class ShareBookActivity extends BaseActivity implements ShareBookContract.View {
@@ -89,8 +89,8 @@ public class ShareBookActivity extends BaseActivity implements ShareBookContract
 
     @OnClick(R.id.fab_sharebook)
     public void onViewClicked() {
-//        Snackbar.make(mFab, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                .setAction("Action", null).show();
+        //        Snackbar.make(mFab, "Replace with your own action", Snackbar.LENGTH_LONG)
+        //      .setAction("Action", null).show();
         showInputIsbnDialog();
     }
 
@@ -120,7 +120,7 @@ public class ShareBookActivity extends BaseActivity implements ShareBookContract
         mBookDataEditDialog = new BookDataEditDialog(this, this, mPresenter, bookCustomInfo);
 
         Window win = mBookDataEditDialog.getWindow();
-//        win.getDecorView().setPadding(0, 0, 0, 0);
+        //        win.getDecorView().setPadding(0, 0, 0, 0);
         WindowManager.LayoutParams lp = win.getAttributes();
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
         win.setAttributes(lp);

@@ -46,7 +46,7 @@ public class ShareBookPresenter implements ShareBookContract.Presenter {
         if (scanningResult != null) {
             if (scanningResult.getContents() != null) {
                 String scanContent = scanningResult.getContents();
-                if (!scanContent.equals("")) {
+                if (!"".equals(scanContent)) {
                     String scanResult = scanContent.toString();
                     Log.d(Constants.TAG_SHAREBOOK_PRESENTER, "掃描內容: " + scanResult);
 

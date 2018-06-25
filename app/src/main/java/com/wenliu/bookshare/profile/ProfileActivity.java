@@ -24,6 +24,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.wenliu.bookshare.Constants;
 import com.wenliu.bookshare.ImageManager;
 import com.wenliu.bookshare.R;
@@ -40,9 +43,6 @@ import com.wenliu.bookshare.object.User;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.OnNeverAskAgain;
 import permissions.dispatcher.OnPermissionDenied;
@@ -242,7 +242,6 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Vie
         Log.d(Constants.TAG_PROFILE_ACTIVITY, "showImageOnView: ");
 
         mImageManager.loadCircleImage(bitmap, mIvProfileUserImage);
-//        mIvProfileUserimage.setImageBitmap(bitmap);
     }
 
     @Override

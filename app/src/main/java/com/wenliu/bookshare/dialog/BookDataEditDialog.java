@@ -15,6 +15,9 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.wenliu.bookshare.Constants;
 import com.wenliu.bookshare.R;
 import com.wenliu.bookshare.ShareBookActivity;
@@ -22,12 +25,8 @@ import com.wenliu.bookshare.ShareBookContract;
 import com.wenliu.bookshare.api.FirebaseApiHelper;
 import com.wenliu.bookshare.object.Book;
 import com.wenliu.bookshare.object.BookCustomInfo;
-
 import java.util.Calendar;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * Created by wen on 2018/5/10.
@@ -245,7 +244,7 @@ public class BookDataEditDialog extends Dialog implements CompoundButton.OnCheck
             mBookCustomInfo.setPurchasePrice(mEtDialogBookPurchasePrice.getText().toString());
         }
 
-        if (mBookCustomInfo.getCreateTime() == "") {
+        if ("".equals(mBookCustomInfo.getCreateTime())) {
             mBookCustomInfo.setCreateTime(String.valueOf(System.currentTimeMillis() / 1000));
         } else {
             mBookCustomInfo.setUpdateTime(String.valueOf(System.currentTimeMillis() / 1000));

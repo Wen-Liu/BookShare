@@ -96,7 +96,7 @@ public class ProfilePresenter implements ProfileContract.Presenter {
         switch (requestCode) {
             case Constants.GET_PHOTO_FROM_GALLERY:  //取得圖片後進行裁剪
                 Log.d(Constants.TAG_PROFILE_PRESENTER, "result: GET_PHOTO_FROM_GALLERY: ");
-                String path = getRealPathFromURI(intent.getData());
+                String path = getRealPathFromUri(intent.getData());
                 File myGalleryFile = new File(path);
                 doCropPhoto(mImageUri, FileProvider.getUriForFile(mProfileActivity, "com.wenliu.bookshare.fileprovider", myGalleryFile));
                 break;
@@ -113,8 +113,8 @@ public class ProfilePresenter implements ProfileContract.Presenter {
         }
     }
 
-    private String getRealPathFromURI(Uri uri) {
-        Log.d(Constants.TAG_PROFILE_PRESENTER, "getRealPathFromURI: ");
+    private String getRealPathFromUri(Uri uri) {
+        Log.d(Constants.TAG_PROFILE_PRESENTER, "getRealPathFromUri: ");
 
         final String docId = DocumentsContract.getDocumentId(uri);
         final String[] split = docId.split(":");
@@ -170,16 +170,6 @@ public class ProfilePresenter implements ProfileContract.Presenter {
 
 
         try {
-//            Intent intent = new Intent("com.android.camera.action.CROP");
-//            intent.setDataAndType(myGalleryUri, "image/*");
-//            intent.putExtra("crop", "true");// crop=true 有這句才能叫出裁剪頁面.
-//            intent.putExtra("scale", true); //讓裁剪框支援縮放
-//            intent.putExtra("aspectX", 1);// 这兩項為裁剪框的比例.
-//            intent.putExtra("aspectY", 1);// x:y=1:1
-//            intent.putExtra("outputX", 200);//回傳照片比例X
-//            intent.putExtra("outputY", 200);//回傳照片比例Y
-//            intent.putExtra("return-data", false);
-//            intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
             Intent intent = getCropImageIntent(uri, myGalleryUri);
             List<ResolveInfo> resInfoList = mProfileActivity.getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
             for (ResolveInfo resolveInfo : resInfoList) {

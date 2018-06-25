@@ -17,7 +17,7 @@ import com.wenliu.bookshare.UserManager;
 
 public class BaseActivity extends AppCompatActivity {
 
-    protected Context mContext;
+    private Context mContext;
     private MaterialDialog mMaterialDialog;
 
     @Override

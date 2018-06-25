@@ -13,6 +13,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 import com.wenliu.bookshare.Constants;
 import com.wenliu.bookshare.ImageManager;
 import com.wenliu.bookshare.R;
@@ -20,10 +24,6 @@ import com.wenliu.bookshare.ShareBook;
 import com.wenliu.bookshare.ShareBookActivity;
 import com.wenliu.bookshare.object.BookCustomInfo;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
 
 /**
  * A simple {@link Fragment} subclass.

@@ -11,6 +11,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.wenliu.bookshare.Constants;
 import com.wenliu.bookshare.ImageManager;
 import com.wenliu.bookshare.R;
@@ -20,9 +23,6 @@ import com.wenliu.bookshare.object.BookCustomInfo;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class FriendProfileAdapter extends RecyclerView.Adapter {
     private FriendProfileContract.Presenter mPresenter;

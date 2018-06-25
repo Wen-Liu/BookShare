@@ -1,6 +1,5 @@
 package com.wenliu.bookshare.base;
 
-
 import android.support.v4.app.Fragment;
 
 import com.afollestad.materialdialogs.MaterialDialog;

@@ -18,6 +18,9 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import com.wenliu.bookshare.Constants;
 import com.wenliu.bookshare.R;
 import com.wenliu.bookshare.ShareBook;
@@ -28,9 +31,6 @@ import com.wenliu.bookshare.object.LentBook;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * A simple {@link Fragment} subclass.

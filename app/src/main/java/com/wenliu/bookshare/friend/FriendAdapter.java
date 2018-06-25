@@ -12,6 +12,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 import com.wenliu.bookshare.Constants;
 import com.wenliu.bookshare.ImageManager;
 import com.wenliu.bookshare.R;
@@ -20,10 +24,6 @@ import com.wenliu.bookshare.api.FirebaseApiHelper;
 import com.wenliu.bookshare.object.User;
 
 import java.util.ArrayList;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 
 /**
@@ -46,14 +46,12 @@ public class FriendAdapter extends RecyclerView.Adapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-//        Log.d(Constants.TAG_FRIEND_ADAPTER, "onCreateViewHolder: ");
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_friend_linear, parent, false);
         return new ProfileViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-//        Log.d(Constants.TAG_FRIEND_ADAPTER, "onBindViewHolder: ");
 
         mImageManager.loadCircleImage(mFriends.get(position).getImage(), ((ProfileViewHolder) holder).getIvItemFriendImage());
         ((ProfileViewHolder) holder).getTvItemFriendName().setText(mFriends.get(position).getName());
@@ -144,7 +142,6 @@ public class FriendAdapter extends RecyclerView.Adapter {
         public ProfileViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
-//            Log.d(Constants.TAG_FRIEND_ADAPTER, "ProfileViewHolder: ");
         }
 
         public ImageView getIvItemFriendImage() {

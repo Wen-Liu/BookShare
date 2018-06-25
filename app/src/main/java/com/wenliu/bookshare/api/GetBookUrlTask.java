@@ -56,7 +56,7 @@ public class GetBookUrlTask extends AsyncTask<Void, String, String> {
             Log.d(Constants.TAG_GET_BOOK_URL_TASK, "onPostExecute");
             mCallback.onCompleted(bookUrl);
 
-        } else if (!mErrorMessage.equals("")) {
+        } else if (!"".equals(mErrorMessage)) {
             Log.d(Constants.TAG_GET_BOOK_URL_TASK, "onPostExecute onError");
             mCallback.onError(mErrorMessage);
 

@@ -45,7 +45,7 @@ public class GetBookDataTask extends AsyncTask<Void, String, Book> {
             Log.d(Constants.TAG_GET_BOOK_DATA_TASK, "onPostExecute");
             mCallback.onCompleted(book);
 
-        } else if (!mErrorMessage.equals("")) {
+        } else if (!"".equals(mErrorMessage)) {
             mCallback.onError(mErrorMessage);
 
         } else {

@@ -1,4 +1,4 @@
-package com.wenliu.bookshare.object.GoogleBook;
+package com.wenliu.bookshare.object.googlebook;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by wen on 2018/5/2.
  */
-public class Epub {
+public class Pdf {
 
     @SerializedName("isAvailable")
     @Expose

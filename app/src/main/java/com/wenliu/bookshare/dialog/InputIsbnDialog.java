@@ -13,6 +13,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.wenliu.bookshare.Constants;
@@ -28,10 +31,6 @@ import com.wenliu.bookshare.api.callbacks.CheckBookExistCallback;
 import com.wenliu.bookshare.api.callbacks.GetBookDataCallback;
 import com.wenliu.bookshare.api.callbacks.GetBookUrlCallback;
 import com.wenliu.bookshare.object.Book;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * Created by wen on 2018/5/9.
@@ -50,7 +49,7 @@ public class InputIsbnDialog extends Dialog {
 
     private Context mContext;
     private ShareBookContract.Presenter mPresenter;
-    private IntentIntegrator scanIntegrator;
+    private IntentIntegrator mScanIntegrator;
     private ShareBookActivity mShareBookActivity;
     private BookDataEditDialog mBookDataEditDialog;
     private MaterialDialog mMaterialDialog;
@@ -73,11 +72,11 @@ public class InputIsbnDialog extends Dialog {
         switch (view.getId()) {
             case R.id.imageView_scanner:
                 setRequestFocusNull();
-                scanIntegrator = new IntentIntegrator(mShareBookActivity);
-                scanIntegrator.setPrompt(ShareBook.getAppContext().getString(R.string.scan_a_barcode));
-                scanIntegrator.setTimeout(300000);
-                scanIntegrator.setOrientationLocked(false);
-                scanIntegrator.initiateScan();
+                mScanIntegrator = new IntentIntegrator(mShareBookActivity);
+                mScanIntegrator.setPrompt(ShareBook.getAppContext().getString(R.string.scan_a_barcode));
+                mScanIntegrator.setTimeout(300000);
+                mScanIntegrator.setOrientationLocked(false);
+                mScanIntegrator.initiateScan();
                 Log.d(Constants.TAG_INPUT_ISBN_DIALOG, "open scanner");
                 break;
 
@@ -191,7 +190,7 @@ public class InputIsbnDialog extends Dialog {
         mBookDataEditDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         Window win = mBookDataEditDialog.getWindow();
-//        win.getDecorView().setPadding(0, 0, 0, 0);
+        //        win.getDecorView().setPadding(0, 0, 0, 0);
         WindowManager.LayoutParams lp = win.getAttributes();
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
         win.setAttributes(lp);
